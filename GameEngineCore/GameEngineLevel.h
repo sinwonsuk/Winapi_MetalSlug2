@@ -6,7 +6,7 @@ class GameEngineLevel
 public:
 	// constrcuter destructer
 	GameEngineLevel();
-	~GameEngineLevel();
+	virtual ~GameEngineLevel() = 0;
 
 	// delete Function
 	GameEngineLevel(const GameEngineLevel& _Other) = delete;

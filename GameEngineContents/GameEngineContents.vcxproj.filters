@@ -2,8 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="HPlayer.h" />
+    <ClInclude Include="MetalSlugGameCore.h" />
+    <ClInclude Include="TitleLevel.h" />
+    <ClInclude Include="PlayLevel.h" />
+    <ClInclude Include="CharacterSelect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HPlayer.cpp" />
+    <ClCompile Include="MetalSlugGameCore.cpp" />
+    <ClCompile Include="TitleLevel.cpp" />
+    <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="CharacterSelect.cpp" />
   </ItemGroup>
 </Project>

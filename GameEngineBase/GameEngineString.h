@@ -4,9 +4,6 @@
 class GameEngineString
 {
 public:
-	// constrcuter destructer
-	GameEngineString();
-	~GameEngineString();
 
 	// delete Function
 	GameEngineString(const GameEngineString& _Other) = delete;
@@ -17,6 +14,9 @@ public:
 protected:
 
 private:
+	// constrcuter destructer
+	GameEngineString();
+	~GameEngineString();
 
 };
 

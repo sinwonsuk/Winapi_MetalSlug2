@@ -3,9 +3,11 @@
   <ItemGroup>
     <ClInclude Include="GameEngineLevel.h" />
     <ClInclude Include="GameEngineActor.h" />
+    <ClInclude Include="GameEngineCore.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineLevel.cpp" />
     <ClCompile Include="GameEngineActor.cpp" />
+    <ClCompile Include="GameEngineCore.cpp" />
   </ItemGroup>
 </Project>

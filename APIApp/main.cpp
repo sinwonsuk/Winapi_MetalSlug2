@@ -1,11 +1,11 @@
-#include <GameEngineDebug.h>
+#include <Windows.h>
+#include <GameEngineContents/MetalSlugGameCore.h>
 
-int main() 
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPWSTR    lpCmdLine,
+	_In_ int       nCmdShow)
 {
-	// GameEngineDebug::LeckCheck();
-	GameEngineDebug::LeckCheck();
-
-	//LeckCheck();
-
+	MetalSlugGameCore::GetInst().CoreStart(hInstance);
 	return 1;
 }
