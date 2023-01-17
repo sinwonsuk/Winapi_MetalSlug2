@@ -6,6 +6,9 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "TitleBack.h"
 
+
+
+
 TitleLevel::TitleLevel() 
 {
 }
@@ -25,8 +28,19 @@ void TitleLevel::Loading()
 
 	// 이미지 로드
 	{
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("TitleBack.BMP"));
+		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("BackGround.BMP"));
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("BackGroundWrite.BMP"));
+			Image->Cut(1, 2);
+		}
+
 	}
+
+
 
 	if (false == GameEngineInput::IsKey("LevelChange"))
 	{

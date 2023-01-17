@@ -59,7 +59,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StudyGameCore.cpp">
+    <ClCompile Include="MetalSlugCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>

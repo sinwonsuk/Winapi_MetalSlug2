@@ -18,36 +18,7 @@ Player::~Player()
 
 void Player::Start()
 {
-	MainPlayer = this;
-
-	SetMove(GameEngineWindow::GetScreenSize().half());
-
-
-	if (false == GameEngineInput::IsKey("LeftMove"))
-	{
-		GameEngineInput::CreateKey("LeftMove", 'A');
-		GameEngineInput::CreateKey("RightMove", 'D');
-		GameEngineInput::CreateKey("DownMove", 'S');
-		GameEngineInput::CreateKey("UpMove", 'W');
-	}
-
-	{
-		AnimationRender = CreateRender(BubbleRenderOrder::BackGround);
-		AnimationRender->SetScale({ 256, 256 });
-		AnimationRender->SetTransColor(RGB(0, 0, 255));
-
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "Right_Player.bmp", .Start = 0, .End = 2, .InterTime = 0.3f});
-		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "Right_Player.bmp", .Start = 3, .End = 7 });
-
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "Left_Player.bmp", .Start = 0, .End = 2, .InterTime = 0.3f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "Left_Player.bmp", .Start = 3, .End = 7 });
-	}
-
-
-	ChangeState(PlayerState::IDLE);
-	// Render->SetPosition({0.0f, -100.0f});
-
-	// CreateRender("PlayerCharacter.Bmp");
+	
 
 }
 

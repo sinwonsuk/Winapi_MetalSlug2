@@ -17,7 +17,10 @@ public:
 
 protected:
 	void Start() override;
-
+	
 private:
+	
+	void Update(float _DeltaTime);
+	GameEngineRender* AnimationRender = nullptr;
 };
 

@@ -22,17 +22,7 @@ void PlayLevel::Loading()
 	Dir.Move("Image");
 	Dir.Move("Play");
 
-	// 이미지 로드
-	{
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Right_Player.BMP"));
-			Image->Cut(5, 17);
-		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Left_Player.BMP"));
-			Image->Cut(5, 17);
-		}
-	}
+	
 
 	// 액터 생성
 	CreateActor<Player>();
