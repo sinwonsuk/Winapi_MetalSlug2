@@ -1,8 +1,16 @@
 #pragma once
+#include <list>
+#include <map>
 
 // 설명 :
+class GameEngineCore;
+class GameEngineActor;
+class GameEngineRender;
 class GameEngineLevel
 {
+	friend GameEngineCore;
+	friend GameEngineRender;
+
 public:
 	// constrcuter destructer
 	GameEngineLevel();
@@ -14,9 +22,56 @@ public:
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
+	/// <summary>
+	/// 액터를 만드는 함수
+	/// </summary>
+	/// <typeparam name="ActorType"> GameEngineActor를 상속받은 클래스 타입 </typeparam>
+	/// <param name="_Order"> Actor의 업데이트 순서 숫자가 작을수록 먼저 업데이트 됩니다. </param>
+	template<typename ActorType>
+	void CreateActor(int _Order = 0)
+	{
+		//if (Actors.end() == Actors.find(_Order))
+		//{
+		//	Actors.insert(std::make_pair(_Order, std::list<GameEngineActor*>()));
+		//}
+
+		GameEngineActor* Actor = new ActorType();
+
+		ActorStart(Actor, _Order);
+
+		// 맵의 새로운 문법
+		Actors[_Order].push_back(Actor);
+	}
+
 protected:
+	virtual void Loading() = 0;
+	virtual void Update(float _DeltaTime) = 0;
+	// 내가 이제 다른 레벨로 교체된다.
+	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel) = 0;
+	// 내가 이제 새로운 눈에 보이는 레벨이 될거다.
+	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) = 0;
 
 private:
+	// 컨텐츠를 알아서도 안되지만
+	//std::list<Player*> Actors;
+	//std::list<Monster*> Actors;
+	//std::list<Background*> Actors;
+
+	// 하나의 자료형으로 모든 화면내에 등장하는 것들을 표현할수 있게 됩니다.
+	// 
+	std::map<int, std::list<GameEngineActor*>> Actors;
+
+	void ActorsUpdate(float _DeltaTime);
+	void ActorsRender(float _DeltaTime);
+
+
+	void ActorStart(GameEngineActor* _Actor, int _Order);
+
+
+	std::map<int, std::list<GameEngineRender*>> Renders;
+
+	void PushRender(GameEngineRender* _Render);
+
 
 };
 

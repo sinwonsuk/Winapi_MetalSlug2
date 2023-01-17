@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CharacterSelect.h" />
-    <ClInclude Include="HPlayer.h">
+    <ClInclude Include="Monster.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -28,7 +31,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MetalSlugGameCore.h">
+    <ClInclude Include="StudyGameCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleBack.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -36,18 +43,27 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsEnums.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CharacterSelect.cpp" />
-    <ClCompile Include="HPlayer.cpp">
+    <ClCompile Include="Monster.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="MetalSlugGameCore.cpp">
+    <ClCompile Include="StudyGameCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleBack.cpp">
       <SubType>
       </SubType>
     </ClCompile>

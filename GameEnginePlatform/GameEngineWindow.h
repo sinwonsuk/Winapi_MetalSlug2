@@ -8,8 +8,11 @@
 // 그 숫자를 핸들이라고 합니다.
 
 // 설명 :
+class GameEngineImage;
 class GameEngineWindow
 {
+	static LRESULT CALLBACK MessageFunction(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
+
 public:
 	// 윈도우를 만들어 주는 기능입니다.
 	static void WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos);
@@ -17,16 +20,33 @@ public:
 	static void SettingWindowSize(float4 _Size);
 	static void SettingWindowPos(float4 _Pos);
 
+	static float4 GetScreenSize()
+	{
+		return ScreenSize;
+	}
+
 	static HWND GetHWnd() 
 	{
 		return HWnd;
 	}
 
-	static HDC GetDrawHdc() 
+	static HDC GetWindowBackBufferHdc()
 	{
-		return DrawHdc;
+		return WindowBackBufferHdc;
 	}
-	// 윈도우에 그림을 그릴수 있는 권한.
+
+	static GameEngineImage* GetDoubleBufferImage()
+	{
+		return DoubleBufferImage;
+	}
+
+	static void AppOff()
+	{
+		IsWindowUpdate = false;
+	}
+
+	static void DoubleBufferClear();
+	static void DoubleBufferRender();
 
 	// 오직 나는 외부에서 오는게 실행시켜주기만 하면 되게 만드는것.
 	// 그러면 다른 클래스나 컨텐츠와의 관련을 맺지 않고 오로지 시키는 일을 하는 클래스가 되는것
@@ -34,6 +54,7 @@ public:
 	// void(*Start)(), void(*Loop)(), void(*End)() 외부에서 함수포인터를 맡기는 방식.
 	// => 컨텐츠와 기능을 분리하기 위해서
 	static int WindowLoop(void(*Start)(), void(*Loop)(), void(*End)());
+
 
 	GameEngineWindow();
 	~GameEngineWindow();
@@ -51,6 +72,9 @@ private:
 	static float4 ScreenSize;
 	static float4 WindowPos;
 	static HWND HWnd;
-	static HDC DrawHdc; // 윈도우에 그림을 그릴수 있는 권한.
+	static HDC WindowBackBufferHdc; // 윈도우에 그림을 그릴수 있는 권한.
+	static GameEngineImage* BackBufferImage;
+	static GameEngineImage* DoubleBufferImage;
+	static bool IsWindowUpdate;
 };
 

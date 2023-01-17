@@ -1,17 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="HPlayer.h" />
-    <ClInclude Include="MetalSlugGameCore.h" />
-    <ClInclude Include="TitleLevel.h" />
-    <ClInclude Include="PlayLevel.h" />
-    <ClInclude Include="CharacterSelect.h" />
+    <ClInclude Include="StudyGameCore.h" />
+    <ClInclude Include="ContentsEnums.h" />
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBack.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HPlayer.cpp" />
-    <ClCompile Include="MetalSlugGameCore.cpp" />
-    <ClCompile Include="TitleLevel.cpp" />
-    <ClCompile Include="PlayLevel.cpp" />
-    <ClCompile Include="CharacterSelect.cpp" />
+    <ClCompile Include="StudyGameCore.cpp" />
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevel.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBack.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Play">
+      <UniqueIdentifier>{dbe06dfd-001e-4f83-800b-981e80d33e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Title">
+      <UniqueIdentifier>{e319163e-7f2f-4f80-b187-882031d15de9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

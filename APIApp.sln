@@ -44,6 +44,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{163A362F-2A8E-454E-940F-0326B62F2AC5}"
 	ProjectSection(SolutionItems) = preProject
 		프로젝트 구성 구조.txt = 프로젝트 구성 구조.txt
+		게임프레임워크.txt = 게임프레임워크.txt
 	EndProjectSection
 EndProject
 Global
