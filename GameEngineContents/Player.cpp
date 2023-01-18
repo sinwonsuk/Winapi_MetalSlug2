@@ -18,7 +18,55 @@ Player::~Player()
 
 void Player::Start()
 {
-	
+	SetMove(GameEngineWindow::GetScreenSize().half());
+
+
+	if (false == GameEngineInput::IsKey("LeftMove"))
+	{
+		GameEngineInput::CreateKey("LeftMove", 'A');
+		GameEngineInput::CreateKey("RightMove", 'D');
+		GameEngineInput::CreateKey("DownMove", 'S');
+		GameEngineInput::CreateKey("UpMove", 'W');
+	}
+
+	{
+		//body
+		RightSetBody({ 0,0 });
+		AnimationBodyRender = CreateRender(1);
+		AnimationBodyRender->SetScale({ 200, 200 });
+		AnimationBodyRender->SetPosition({ body });
+
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "IdlePlayer.bmp", .Start = 0, .End = 3, .InterTime = 0.2f });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightBodyMove1.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
+
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftIdlePlayer.bmp", .Start = 0, .End = 3, .InterTime = 0.3f });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftBodyMove.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
+
+	}
+
+
+	{
+		//reg
+		AnimationRegRender = CreateRender(0);
+		AnimationRegRender->SetScale({ 200, 200 });
+		AnimationRegRender->SetPosition({ Reg });
+
+		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightReg1.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
+		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightReg1.bmp", .Start = 4, .End = 15, .InterTime = 0.05f });
+
+		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftReg.bmp", .Start = 0, .End = 0, .InterTime = 0.1f });
+		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftReg.bmp", .Start = 4, .End = 15, .InterTime = 0.05f });
+		
+	}
+
+
+
+
+
+
+
+
+	ChangeState(PlayerState::IDLE);
 
 }
 
@@ -32,10 +80,14 @@ void Player::DirCheck()
 {
 	if (GameEngineInput::IsPress("LeftMove"))
 	{
+		LeftSetBody({ 0,0 });
+		AnimationRegRender->SetPosition({ Reg });
 		DirString = "Left_";
 	}
 	else if(GameEngineInput::IsPress("RightMove"))
 	{
+		RightSetBody({ 0,0 });
+		AnimationRegRender->SetPosition({ Reg});
 		DirString = "Right_";
 	}
 

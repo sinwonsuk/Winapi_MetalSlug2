@@ -22,6 +22,20 @@ public:
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
+	void RightSetBody(float4 body)
+	{
+		this->body = body;
+		this->Reg.x = body.x -11;
+		this->Reg.y = body.y - 45;
+	}
+	void LeftSetBody(float4 body)
+	{
+		this->body = body;
+		this->Reg.x = body.x + 11;
+		this->Reg.y = body.y - 45;
+	}
+
+
 
 protected:
 	void Start() override;
@@ -37,8 +51,8 @@ private:
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 
-	GameEngineRender* AnimationRender = nullptr;
-
+	GameEngineRender* AnimationBodyRender = nullptr;
+	GameEngineRender* AnimationRegRender = nullptr;
 
 	void DirCheck();
 
@@ -54,6 +68,7 @@ private:
 	void MoveStart();
 	void MoveUpdate(float _Time);
 	void MoveEnd();
-
+	float4 body = { 0,0 };
+	float4 Reg = { 0,0 };
 };
 

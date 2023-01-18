@@ -60,12 +60,14 @@ void Player::UpdateState(float _Time)
 // FSM 내가 어떤일을 할때 이동하면서 가만히 있을수 없다.
 void Player::IdleStart() 
 {
-	AnimationRender->ChangeAnimation(DirString + "Idle");
+	AnimationBodyRender->ChangeAnimation(DirString + "Idle");
+	AnimationRegRender->ChangeAnimation(DirString + "Idle");
 }
 void Player::IdleUpdate(float _Time) 
 {
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove"))
 	{
+
 		ChangeState(PlayerState::MOVE);
 		return; // 보통 스테이트를 체인지하면 아래 코드를 실행되면 
 	}
@@ -75,8 +77,9 @@ void Player::IdleEnd() {
 }
 
 void Player::MoveStart() 
-{
-	AnimationRender->ChangeAnimation(DirString + "Move");
+{	
+	AnimationBodyRender->ChangeAnimation(DirString + "Move");
+	AnimationRegRender->ChangeAnimation(DirString + "Move");
 }
 void Player::MoveUpdate(float _Time) 
 {
