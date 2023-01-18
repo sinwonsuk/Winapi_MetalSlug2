@@ -53,5 +53,5 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() + 5
 		);
 
-	// µð¹ö±ë¿ë.
+	
 }

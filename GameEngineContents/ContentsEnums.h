@@ -1,6 +1,6 @@
 #pragma once
 
-enum class BubbleRenderOrder
+enum class MetalSlugOrder
 {
 	BackGround,
 	Map,
