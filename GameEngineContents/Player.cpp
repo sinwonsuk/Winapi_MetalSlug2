@@ -31,9 +31,9 @@ void Player::Start()
 
 	{
 		//body
-		RightSetBody({ 0,0 });
+		//RightSetBody({ 0,0 });
 		AnimationBodyRender = CreateRender(1);
-		AnimationBodyRender->SetScale({ 200, 200 });
+		AnimationBodyRender->SetScale({ 120, 120 });
 		AnimationBodyRender->SetPosition({ body });
 
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "IdlePlayer.bmp", .Start = 0, .End = 3, .InterTime = 0.2f });
@@ -48,14 +48,14 @@ void Player::Start()
 	{
 		//reg
 		AnimationRegRender = CreateRender(0);
-		AnimationRegRender->SetScale({ 200, 200 });
+		AnimationRegRender->SetScale({ 120, 120 });
 		AnimationRegRender->SetPosition({ Reg });
 
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
-		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightReg.bmp", .Start = 3, .End = 15, .InterTime = 0.1f });
+		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightReg.bmp", .Start = 3, .End = 15, .InterTime = 0.05f });
 
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
-		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftReg.bmp", .Start = 3, .End = 15, .InterTime = 0.1f });
+		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftReg.bmp", .Start = 3, .End = 15, .InterTime = 0.05f });
 		
 	}
 
@@ -72,30 +72,43 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime) 
 {
-	DirCheck();
 	UpdateState(_DeltaTime);
 }
 
-void Player::DirCheck()
+void Player::DirCheck(const std::string_view& _AnimationName)
 {
+	
+
+	std::string PrevDirString = DirString;
+
+	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
+	AnimationRegRender->ChangeAnimation(DirString + _AnimationName.data());
+
 	if (GameEngineInput::IsPress("LeftMove"))
 	{
-		LeftSetBody({ 0,0 });
-		AnimationRegRender->SetPosition({ Reg });
+		/*LeftSetBody({ 0,0 });
+		AnimationRegRender->SetPosition({ Reg });*/
 		DirString = "Left_";
 	}
-	else if(GameEngineInput::IsPress("RightMove"))
+	else if (GameEngineInput::IsPress("RightMove"))
 	{
-		RightSetBody({ 0,0 });
-		AnimationRegRender->SetPosition({ Reg});
+		/*RightSetBody({ 0,0 });
+		AnimationRegRender->SetPosition({ Reg });*/
 		DirString = "Right_";
 	}
+
+	if (PrevDirString != DirString)
+	{
+		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
+		AnimationRegRender->ChangeAnimation(DirString + _AnimationName.data());
+	}
+
 
 }
 
 void Player::Render(float _DeltaTime)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos();
 
 	Rectangle(DoubleDC, 
@@ -103,7 +116,7 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-		);
+		);*/
 
 	
 }

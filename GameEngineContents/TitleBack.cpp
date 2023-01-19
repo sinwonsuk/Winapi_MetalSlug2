@@ -28,14 +28,15 @@ void TitleBack::Start()
 	{
 		AnimationRender = CreateRender(1);
 		AnimationRender->SetScale({ 416, 32 });
-		AnimationRender->SetPosition(float4(600, 780));		
+		AnimationRender->SetPosition(float4(480, 720));		
 		AnimationRender->CreateAnimation({ .AnimationName = "BackGroungWrite",  .ImageName = "BackGroundWrite.bmp", .Start = 0, .End = 1, .InterTime = 1.0f });		
 	}
-	
+
+	AnimationRender->ChangeAnimation("BackGroungWrite");
 }
 
 void TitleBack::Update(float _DeltaTime)
 {
-	AnimationRender->ChangeAnimation("BackGroungWrite");
+	
 
 }

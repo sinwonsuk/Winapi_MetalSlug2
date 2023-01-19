@@ -54,7 +54,7 @@ private:
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
 
-	void DirCheck();
+	void DirCheck(const std::string_view& _AnimationName);
 
 	// State
 	void ChangeState(PlayerState _State);
