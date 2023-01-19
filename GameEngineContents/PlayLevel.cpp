@@ -25,7 +25,7 @@ void PlayLevel::Loading()
 	{
 
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightBodyMove1.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightBodyMove.BMP"));
 			Image->Cut(5, 3);
 		}
 		{
@@ -33,7 +33,7 @@ void PlayLevel::Loading()
 			Image->Cut(5, 1);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightReg1.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightReg.BMP"));
 			Image->Cut(5, 4);
 		}
 
