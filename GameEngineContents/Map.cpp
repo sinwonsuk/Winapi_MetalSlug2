@@ -19,12 +19,12 @@ void Map::Start()
 		AnimationRender->SetScale({ 2400,859 });
 		AnimationRender->SetImage("Stage0.Bmp");
 	}
-		{
+		/*{
 		GameEngineRender* AnimationRender = CreateRender(0);
 
 		AnimationRender->SetPosition({ 1200,430 });
 		AnimationRender->SetScale({ 2400,859 });
 		AnimationRender->SetImage("Stage02.Bmp");
-	     }
+	     }*/
 
 }
