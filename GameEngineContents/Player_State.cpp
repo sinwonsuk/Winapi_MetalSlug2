@@ -95,12 +95,12 @@ void Player::MoveUpdate(float _Time)
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
-		SetMove(float4::Left * MoveSpeed * _Time);
+		MoveDir += float4::Left * MoveSpeed;
 	}
 
 	if (true == GameEngineInput::IsPress("RightMove"))
 	{
-		SetMove(float4::Right * MoveSpeed * _Time);
+		MoveDir += float4::Right * MoveSpeed;
 	}
 }
 void Player::MoveEnd() {

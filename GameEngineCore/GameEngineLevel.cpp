@@ -36,7 +36,7 @@ void GameEngineLevel::ActorStart(GameEngineActor* _Actor, int _Order)
 		return;
 	}
 
-	_Actor->Level = this;
+	_Actor->SetOwner(this);
 	_Actor->SetOrder(_Order);
 	_Actor->Start();
 }

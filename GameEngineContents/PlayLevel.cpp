@@ -1,9 +1,12 @@
-#include "PlayLevel.h"
-#include "Player.h"
 
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+
+
+#include "PlayLevel.h"
+#include "Player.h"
+#include "Map.h"
 
 PlayLevel::PlayLevel() 
 {
@@ -43,7 +46,7 @@ void PlayLevel::Loading()
 		}
 
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftIdlePlayer.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftIdlePlayer3.BMP"));
 			Image->Cut(5, 1);
 		}
 
@@ -53,14 +56,21 @@ void PlayLevel::Loading()
 			Image->Cut(5, 4);
 		}
 		
-		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Stage0.BMP"));
+			GameEngineImage* ColImage = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Stage02.BMP"));
+		}
 
 
 	}
 
 	// 액터 생성
-	CreateActor<Player>();
-
+	{
+		CreateActor<Player>();
+	}
+	{
+		CreateActor<Map>();
+	}
 	if (false == GameEngineInput::IsKey("PlayerOff"))
 	{
 		GameEngineInput::CreateKey("PlayerOff", 'R');

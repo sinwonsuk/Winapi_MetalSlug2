@@ -25,7 +25,7 @@ public:
 	void RightSetBody(float4 body)
 	{
 		this->body = body;
-		this->Reg.x = body.x -11;
+		this->Reg.x = body.x - 11;
 		this->Reg.y = body.y - 45;
 	}
 	void LeftSetBody(float4 body)
@@ -46,10 +46,11 @@ protected:
 private:
 	float AccTime = 0.0f;
 	int StartFrame = 0;
-	float MoveSpeed = 100.0f;
+	float MoveSpeed = 1000.0f;
 
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
+	float4 MoveDir = float4::Zero;
 
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
@@ -59,7 +60,7 @@ private:
 	// State
 	void ChangeState(PlayerState _State);
 	void UpdateState(float _Time);
-
+	void Movecalculation(float _DeltaTime);
 	// FSM 내가 어떤일을 할때 이동하면서 가만히 있을수 없다.
 	void IdleStart();
 	void IdleUpdate(float _Time);
