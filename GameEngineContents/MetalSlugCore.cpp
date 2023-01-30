@@ -18,7 +18,7 @@ MetalSlugCore::~MetalSlugCore()
 void MetalSlugCore::Start()
 {
 	
-	GameEngineWindow::SettingWindowSize({960.0f, 840.0f});
+	GameEngineWindow::SettingWindowSize({960.0f, 800.0f});
 
 	new int();
 

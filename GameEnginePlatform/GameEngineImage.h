@@ -130,6 +130,11 @@ public:
 	// 디폴트 인자는 선언에서만 가능합니다.
 	void TransCopy(const GameEngineImage* _OtherImage, int _CutIndex, float4 _CopyCenterPos, float4 _CopySize, int _Color = RGB(255, 0, 255));
 
+
+	DWORD GetPixelColor(float4 _Pos, DWORD _OutColor);
+
+	DWORD GetPixelColor(int _X, int _Y, DWORD _OutColor);
+
 protected:
 
 private:

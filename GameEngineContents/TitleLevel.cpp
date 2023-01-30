@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+
 #include "TitleBack.h"
 
 
@@ -44,7 +45,9 @@ void TitleLevel::Loading()
 
 	if (false == GameEngineInput::IsKey("LevelChange"))
 	{
-		GameEngineInput::CreateKey("LevelChange", 'P');
+		GameEngineInput::IsAnyKey();
+		
+		
 	}
 
 	CreateActor<TitleBack>();
