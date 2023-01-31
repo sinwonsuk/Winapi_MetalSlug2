@@ -83,6 +83,27 @@ public:
 		return x == 0.0f && y == 0.0f && z == 0.0f;
 	}
 
+	static float4 Lerp(const float4& Start, const float4& End, float Ratio)
+	{
+		// 1.5 + 0.5 * 2.5;
+		return Start * (1.0f - Ratio) + (End * Ratio);
+	}
+
+	static float4 LerpClamp(const float4& Start, const float4& End, float Ratio)
+	{
+		if (0 >= Ratio)
+		{
+			Ratio = 0.0f;
+		}
+
+		if (1.0f <= Ratio)
+		{
+			Ratio = 1.0f;
+		}
+
+		return Lerp(Start, End, Ratio);
+	}
+
 	float4 operator *(const float _Value) const
 	{
 		float4 Return;
@@ -91,6 +112,7 @@ public:
 		Return.z = z * _Value;
 		return Return;
 	}
+
 
 
 	float4 operator +(const float4 _Value) const
@@ -124,7 +146,16 @@ public:
 		return *this;
 	}
 
-	float4& operator *(const float4& _Other)
+	float4& operator *=(const float& _Value)
+	{
+		x *= _Value;
+		y *= _Value;
+		z *= _Value;
+		return *this;
+	}
+
+
+	float4& operator *=(const float4& _Other)
 	{
 		x *= _Other.x;
 		y *= _Other.y;
@@ -139,4 +170,5 @@ public:
 		z -= _Other.z;
 		return *this;
 	}
+
 };

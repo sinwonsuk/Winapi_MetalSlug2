@@ -82,8 +82,8 @@ void Player::Start()
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Attack",  .ImageName = "LeftAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
 
 		// UpAttack
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Up_Attack",  .ImageName = "RightUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.1f , .Loop = false });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Up_Attack",  .ImageName = "LeftUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 1.0f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Up_Attack",  .ImageName = "RightUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Up_Attack",  .ImageName = "LeftUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
 	}
 
 
@@ -97,6 +97,7 @@ void Player::Start()
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "LeftReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
 		
+
 		//Move Reg
 	
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightReg.bmp", .Start = 3, .End = 15, .InterTime = 0.05f });
@@ -145,7 +146,7 @@ void Player::Movecalculation(float _DeltaTime)
 {
 	
 	 
-		//MoveDir = float4::Down * 300.0f * _DeltaTime;
+		
 
 
 	if (a == true)
@@ -213,7 +214,7 @@ void Player::Movecalculation(float _DeltaTime)
 		a = false;	
 		
 	}
-	//float4 ab = MoveDir * _DeltaTime;
+	
 
 	if (false == Check)
 	{
@@ -244,116 +245,6 @@ void Player::Movecalculation(float _DeltaTime)
 		}
 	}
 
-
-	// 일단 되긴하는데 시간 남아돌면 바꾸기 
-	
-	// jump
-	if (StateValue == PlayerState::IDLE)
-	{
-		if (true == GameEngineInput::IsDown("JumpMove"))
-		{
-			ChangeState(PlayerState::JUMPUP);
-			MoveDir += float4::Up * 650;
-			test = true;
-		}
-	
-	}
-	if (true == GameEngineInput::IsPress("RightMove") || true == GameEngineInput::IsPress("LeftMove"))
-	{
-		if (true == GameEngineInput::IsDown("JumpMove"))
-		{
-			ChangeState(PlayerState::JUMPMOVEUP);
-
-			MoveDir += float4::Up * 650;
-			test = true;
-		}
-	}
-	
-	if (StateValue == PlayerState::JUMPMOVEUP )
-	{
-		if (true == GameEngineInput::IsDown("DownMove"))
-		{
-			ChangeState(PlayerState::DOWN);
-		}
-	}
-	
-	if (StateValue == PlayerState::JUMPUP)
-	{
-		if (true == GameEngineInput::IsDown("DownMove"))
-		{
-			ChangeState(PlayerState::IDLEDOWN);
-		}
-	}
-	
-	if (StateValue == PlayerState::JUMPMOVEUP)
-	{
-		if (MoveDir.y > 300)
-		{
-			ChangeState(PlayerState::JUMPMOVEDOWN);
-		}
-	}
-
-	if (StateValue == PlayerState::JUMPUP)
-	{
-		if (MoveDir.y > 0)
-		{
-			ChangeState(PlayerState::JUMPDOWN);
-		}
-	}
-	// attack
-
-	if (StateValue == PlayerState::IDLEATTACK)
-
-	{
-		if (true == GameEngineInput::IsDown("Attack"))
-		{
-			TimeCheck = 0;
-			ChangeState(PlayerState::IDLE);
-		}
-		
-
-
-	}
-	if (StateValue == PlayerState::JUMPUPATTACK )
-	{
-		if (true == GameEngineInput::IsDown("Attack"))
-		{	
-			ChangeState(PlayerState::JUMPUP);
-		}
-		
-
-	}
-	if ( StateValue == PlayerState::JUMPDOWNATTACK)
-	{
-	
-		if (true == GameEngineInput::IsDown("Attack"))
-		{
-			ChangeState(PlayerState::JUMPDOWN);
-		}
-
-	}
-	if (StateValue == PlayerState::JUMPMOVEUPATTACK)
-	{
-		if (true == GameEngineInput::IsDown("Attack"))
-		{
-			ChangeState(PlayerState::JUMPMOVEUP);
-		}
-	}
-
-	if ( StateValue == PlayerState::JUMPMOVEDOWNATTACK)
-	{
-		if (true == GameEngineInput::IsDown("Attack"))
-		{
-			ChangeState(PlayerState::JUMPMOVEDOWN);
-		}
-	}
-	if (StateValue == PlayerState::UPATTACK)
-	{
-		if (true == GameEngineInput::IsDown("Attack"))
-		{
-			ChangeState(PlayerState::UP);
-		}
-	}
 
 
 	if (CameraCheck == true && PosCheck.x < GetPos().ix())
@@ -415,10 +306,10 @@ void Player::Update(float _DeltaTime)
 		return; 
 	}
 
-	//UpdateState(_DeltaTime);
+	
 	Movecalculation(_DeltaTime);
 	UpdateState(_DeltaTime);
-	//UpdateState(_DeltaTime);
+	
 	
 	
 }
@@ -484,8 +375,15 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 {
 	std::string PrevDirString = DirString;
 
+	
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
+
+	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK ||  StateValue == PlayerState::UPATTACK && AnimationBodyRender->GetFrame() > 1)
+	{
+		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(),true);
+	}
+
 
 	if (GameEngineInput::IsPress("LeftMove"))
 	{
@@ -595,6 +493,11 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 		AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 	}
+	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::UPATTACK && AnimationBodyRender->GetFrame() > 1)
+	{
+		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
+	}
+
 
 }
 // 1 body 2 reg 
@@ -605,6 +508,13 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
+
+	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK || 
+		StateValue == PlayerState::JUMPMOVEDOWNATTACK||StateValue == PlayerState::JUMPUPATTACK
+		&& AnimationBodyRender->GetFrame() > 1)
+	{
+		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
+	}
 
 
 	if (DirString == "Left_")
@@ -723,6 +633,12 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 		AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
+	}
+	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK ||
+		StateValue == PlayerState::JUMPMOVEDOWNATTACK || StateValue == PlayerState::JUMPUPATTACK
+		&& AnimationBodyRender->GetFrame() > 1)
+	{
+		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
 	}
 
 }

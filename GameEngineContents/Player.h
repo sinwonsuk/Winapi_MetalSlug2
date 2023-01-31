@@ -22,6 +22,9 @@ enum class PlayerState
 	JUMPMOVEUPATTACK,
 	UPRIGHTATTACK,
 	UPATTACK,
+	UPMOVEATTACK,
+	UPJUMPATTACK,
+	UPJUMPMOVEATTACK
 };
 
 // Ό³Έν :
@@ -71,7 +74,7 @@ private:
 	float4 CameraDir = float4::Zero;
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
-	GameEngineRender* AnimationJumpRender = nullptr;
+	
 
 	void DirCheck(const std::string_view& _AnimationName);
 	void DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
@@ -90,10 +93,14 @@ private:
 	void UpStart();
 	void UpMoveStart();
 	void UpAttackStart(); 
+	void UpMoveAttackStart();
+	void UpJumpAttackStart();
+	void UpJumpMoveAttackStart();
 
 	void UpUpdate(float _Time);
 	void UpMoveUpdate(float _Time);
-
+	void UpMoveAttackUpdate(float _Time);
+	void UpJumpUpdate(float _Time);
 	
 	
 	void JumpUpStart();
@@ -122,7 +129,7 @@ private:
 	void AttackIdleUpdate(float _Time);
 	void AttackMoveUpdate(float _Time);
 	void AttackJumpUpdate(float _Time);
-
+	void AttackJumpMoveUpdate(float _Time);
 
 	float TimeCheck = 0;
 	bool test = false;
