@@ -379,7 +379,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 
-	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK ||  StateValue == PlayerState::UPATTACK && AnimationBodyRender->GetFrame() > 1)
+	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || 
+		StateValue == PlayerState::UPATTACK   || StateValue == PlayerState::UPMOVEATTACK && AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(),true);
 	}
@@ -441,7 +442,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			DirString = "Right_";
 		}
 	}
-	if (StateValue == PlayerState::UPATTACK)
+	if (StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK)
 	{
 		if (DirString == "Left_")
 		{
@@ -493,7 +494,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 		AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 	}
-	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::UPATTACK && AnimationBodyRender->GetFrame() > 1)
+	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK ||
+		StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK && AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
 	}
@@ -510,7 +512,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 
 	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK || 
-		StateValue == PlayerState::JUMPMOVEDOWNATTACK||StateValue == PlayerState::JUMPUPATTACK
+		StateValue == PlayerState::JUMPMOVEDOWNATTACK||StateValue == PlayerState::JUMPUPATTACK ||
+		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
+		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK
 		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
@@ -549,7 +553,20 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
-
+			else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
+			{
+				LeftSetBody({ 0,0 });
+				AnimationBodyRender->SetPosition({ body.x + 10,body.y - 135 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
+			{
+				LeftSetBody({ 0,0 });
+				AnimationBodyRender->SetPosition({ body.x + 20 ,body.y - 150 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
 
 			else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 			{
@@ -566,7 +583,6 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				AnimationBodyRender->SetPosition({ body.x-20  ,body.y - 25 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
-
 			}
 
 		}
@@ -594,18 +610,31 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			
 		}
 
-
-		
-
 			if (GameEngineInput::IsPress("Attack"))
 			{
-				if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK)
+				if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK )
 				{
 					RightSetBody({ 0,0 });
 					AnimationBodyRender->SetPosition({ body.x + 38, body.y - 5 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
 				}
+				else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
+				{
+					RightSetBody({ 0,0 });
+					AnimationBodyRender->SetPosition({ body.x - 10,body.y - 135 });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+				}
+				else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
+				{
+					RightSetBody({ 0,0 });
+					AnimationBodyRender->SetPosition({ body.x-20 ,body.y - 150 });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+				}
+
+
 				else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 				{
 					RightSetBody({ 0,0 });
@@ -622,6 +651,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					DirString = "Right_";
 
 				}
+
+
+
 			}
 		
 	}
@@ -635,7 +667,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 		AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 	}
 	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK ||
-		StateValue == PlayerState::JUMPMOVEDOWNATTACK || StateValue == PlayerState::JUMPUPATTACK
+		StateValue == PlayerState::JUMPMOVEDOWNATTACK || StateValue == PlayerState::JUMPUPATTACK ||
+		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
+		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK
 		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);

@@ -24,7 +24,9 @@ enum class PlayerState
 	UPATTACK,
 	UPMOVEATTACK,
 	UPJUMPATTACK,
-	UPJUMPMOVEATTACK
+	UPJUMPDOWNATTACK,
+	UPJUMPMOVEATTACK,
+	UPJUMPMOVEDOWNATTACK
 };
 
 // Ό³Έν :
@@ -95,12 +97,14 @@ private:
 	void UpAttackStart(); 
 	void UpMoveAttackStart();
 	void UpJumpAttackStart();
+	void UpJumpDownAttackStart(); 
 	void UpJumpMoveAttackStart();
+	void UpJumpMoveDownAttackStart(); 
 
 	void UpUpdate(float _Time);
 	void UpMoveUpdate(float _Time);
 	void UpMoveAttackUpdate(float _Time);
-	void UpJumpUpdate(float _Time);
+	void UpAttackJumpMoveUpdate(float _Time);
 	
 	
 	void JumpUpStart();
@@ -130,6 +134,8 @@ private:
 	void AttackMoveUpdate(float _Time);
 	void AttackJumpUpdate(float _Time);
 	void AttackJumpMoveUpdate(float _Time);
+	 
+
 
 	float TimeCheck = 0;
 	bool test = false;
