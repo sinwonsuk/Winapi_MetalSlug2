@@ -1,7 +1,7 @@
 #pragma once
 #include <GameEnginePlatform/GameEngineImage.h>
-#include "GameEngineObject.h"
 #include <map>
+#include "GameEngineComponent.h"
 // 랜더링에 관련된 기능을 모두 집약한다.
 
 class FrameAnimationParameter
@@ -22,7 +22,7 @@ public:
 // 설명 :
 class GameEngineActor;
 class GameEngineLevel;
-class GameEngineRender : public GameEngineObject
+class GameEngineRender : public GameEngineComponent
 {
 	friend GameEngineActor;
 	friend GameEngineLevel;
@@ -40,21 +40,6 @@ public:
 
 	void SetImage(const std::string_view& _ImageName);
 
-	inline void SetPosition(float4 _Position)
-	{
-		Position = _Position;
-	}
-
-	inline void SetMove(float4 _Position)
-	{
-		Position += _Position;
-	}
-
-	inline void SetScale(float4 _Scale)
-	{
-		Scale = _Scale;
-	}
-
 	void SetScaleToImage();
 
 	void SetFrame(int _Frame);
@@ -64,31 +49,14 @@ public:
 		return Image;
 	}
 
-	inline int GetOrder() 
-	{
-		return Order;
-	}
-
 	inline int GetFrame()
 	{
 		return Frame;
 	}
 
-	GameEngineActor* GetActor();
-
 	void SetTransColor(int _Color) 
 	{
 		TransColor = _Color;
-	}
-
-	inline float4 GetPosition()
-	{
-		return Position;
-	}
-
-	inline float4 GetScale()
-	{
-		return Scale;
 	}
 
 	inline void EffectCameraOff()
@@ -100,21 +68,17 @@ public:
 	void CreateAnimation(const FrameAnimationParameter& _Paramter);
 	void ChangeAnimation(const std::string_view& _AnimationName, bool _ForceChange = false);
 
+	void SetOrder(int _Order) override;
+
 protected:
 
-
 private:
-	int Order = 0;
-	float4 Position = float4::Zero;
-	float4 Scale = float4::Zero;
 	GameEngineImage* Image = nullptr;
 	bool IsEffectCamera = true;
 
 	int TransColor = RGB(255, 0, 255);
 
 	int Frame = 0;
-
-	void SetOrder(int _Order);
 
 	void Render(float _DeltaTime);
 

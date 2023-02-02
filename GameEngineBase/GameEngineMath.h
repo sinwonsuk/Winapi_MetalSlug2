@@ -1,5 +1,9 @@
 #pragma once
 
+#include <math.h>
+#include <cmath>
+#include <string>
+
 
 // final 더이상 상속내릴지 못한다.
 // 상속도 못하고 만들지도 못하게 만든 상태로
@@ -73,6 +77,27 @@ public:
 		return static_cast<int>(w * 0.5f);
 	}
 
+
+	float hx() const
+	{
+		return x * 0.5f;
+	}
+
+	float hy() const
+	{
+		return y * 0.5f;
+	}
+
+	float hz() const
+	{
+		return z * 0.5f;
+	}
+
+	float hw() const
+	{
+		return w * 0.5f;
+	}
+
 	float4 half() const
 	{
 		return {x * 0.5f,y * 0.5f,z * 0.5f,w};
@@ -81,6 +106,22 @@ public:
 	bool IsZero() const
 	{
 		return x == 0.0f && y == 0.0f && z == 0.0f;
+	}
+
+	float Size() const
+	{
+		return sqrtf(x * x + y * y);
+	}
+
+	// 2, 0
+	// 0, 2
+	void Normalize() 
+	{
+		float SizeValue = Size();
+		x /= SizeValue;
+		y /= SizeValue;
+		z /= SizeValue;
+		
 	}
 
 	static float4 Lerp(const float4& Start, const float4& End, float Ratio)
@@ -133,6 +174,16 @@ public:
 		return Return;
 	}
 
+
+	float4 operator /(const float4 _Value) const
+	{
+		float4 Return;
+		Return.x = x / _Value.x;
+		Return.y = y / _Value.y;
+		Return.z = z / _Value.z;
+		return Return;
+	}
+
 	float4 operator -() const
 	{
 		return {-x, -y, -z, 1.0f};
@@ -169,6 +220,23 @@ public:
 		y -= _Other.y;
 		z -= _Other.z;
 		return *this;
+	}
+
+	float4& operator /=(const float4& _Other)
+	{
+		x /= _Other.x;
+		y /= _Other.y;
+		z /= _Other.z;
+		return *this;
+	}
+
+	std::string ToString() 
+	{
+		char ArrReturn[256];
+
+		sprintf_s(ArrReturn, "x: %f, y: %f, z: %f, w: %f", x, y, z, w);
+
+		return std::string(ArrReturn);
 	}
 
 };

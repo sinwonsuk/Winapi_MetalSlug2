@@ -55,6 +55,7 @@ public:
 	// => 컨텐츠와 기능을 분리하기 위해서
 	static int WindowLoop(void(*Start)(), void(*Loop)(), void(*End)());
 
+	static float4 GetMousePosition();
 
 	GameEngineWindow();
 	~GameEngineWindow();
@@ -64,6 +65,8 @@ public:
 	GameEngineWindow(GameEngineWindow&& _Other) noexcept = delete;
 	GameEngineWindow& operator=(const GameEngineWindow& _Other) = delete;
 	GameEngineWindow& operator=(GameEngineWindow&& _Other) noexcept = delete;
+
+	
 
 protected:
 

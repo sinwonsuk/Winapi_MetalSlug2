@@ -155,6 +155,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineCore.h">
       <SubType>
       </SubType>
@@ -175,6 +183,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -14,6 +14,7 @@
 // 설명 :
 class GameEngineLevel;
 class GameEngineRender;
+class GameEngineCollision;
 class GameEngineActor : public GameEngineObject
 {
 	friend GameEngineLevel;
@@ -65,6 +66,14 @@ public:
 	GameEngineRender* CreateRender(const std::string_view& _Image, int _Order = 0);
 	GameEngineRender* CreateRender(int _Order = 0);
 
+	template<typename EnumType>
+	GameEngineCollision* CreateCollision(EnumType _GroupIndex)
+	{
+		return CreateCollision(static_cast<int>(_GroupIndex));
+	}
+
+	GameEngineCollision* CreateCollision(int _GroupIndex = 0);
+
 protected:
 	// 안구현할수도 있다.
 	// ex) 나무는 Update를 안구현할수도 있다.
@@ -88,15 +97,11 @@ protected:
 	}
 
 private:
-	int Order;
 	float LiveTime = 0.0;
 	float4 Pos = {0.0f, 0.0f};
 	std::list<GameEngineRender*> RenderList;
+	std::list<GameEngineCollision*> CollisionList;
 
-
-	void SetOrder(int _Order)
-	{
-		Order = _Order;
-	}
+	void Release();
 };
 
