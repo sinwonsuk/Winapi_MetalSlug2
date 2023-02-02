@@ -347,10 +347,14 @@ void Player::AttackIdleUpdate(float _Time)
 		return;
 	}
 
+	if (true == GameEngineInput::IsPress("UpMove") && true == GameEngineInput::IsDown("Attack"))
+	{	
+		ChangeState(PlayerState::UPATTACK);
+		return;
+	}
 
 	if (true == GameEngineInput::IsDown("Attack"))
-	{
-		TimeCheck = 0;
+	{	
 		ChangeState(PlayerState::IDLEATTACK);
 		return;
 	}
@@ -691,9 +695,14 @@ void Player::UpAttackJumpMoveUpdate(float _Time)
 
 	if (MoveDir.y < 300)
 	{
+		/*if (true == GameEngineInput::IsPress("RightMove") || true == GameEngineInput::IsPress("LeftMove") && true == GameEngineInput::IsDown("Attack"))
+		{
+			ChangeState(PlayerState::JUMPMOVEUPATTACK);
+			return; 
+		}*/
 
 
-		if (true == GameEngineInput::IsDown("Attack"))
+		 if (true == GameEngineInput::IsDown("Attack"))
 		{
 			ChangeState(PlayerState::UPJUMPMOVEATTACK);
 			return;
@@ -701,19 +710,20 @@ void Player::UpAttackJumpMoveUpdate(float _Time)
 	}
 	if (MoveDir.y > 300)
 	{
+		/*if (true == GameEngineInput::IsPress("LeftMove") && true == GameEngineInput::IsDown("Attack"))
+		{
+			ChangeState(PlayerState::JUMPMOVEDOWNATTACK);
+			return;
+		}*/
 
-		if (true == GameEngineInput::IsDown("Attack"))
+		 if (true == GameEngineInput::IsDown("Attack"))
 		{
 			ChangeState(PlayerState::UPJUMPMOVEDOWNATTACK);
 			return;
 		}
 	}
 	
-	if (MoveDir.y > 300)
-	{
-		ChangeState(PlayerState::UPJUMPMOVEDOWNATTACK);
-		return;
-	}
+	
 
 
 	

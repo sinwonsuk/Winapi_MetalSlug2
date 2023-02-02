@@ -159,21 +159,21 @@ void PlayLevel::Update(float _DeltaTime)
 
 	float CameraMoveSpeed = 400.0f;
 
-	if (GameEngineInput::IsPress("CameraLeftMove"))
-	{
-		SetCameraMove(float4::Left * _DeltaTime * CameraMoveSpeed);
-	}
-	if (GameEngineInput::IsPress("CameraRightMove"))
-	{
-		SetCameraMove(float4::Right * _DeltaTime * CameraMoveSpeed);
-	}
-	if (GameEngineInput::IsPress("CameraDownMove"))
-	{
-		SetCameraMove(float4::Down * _DeltaTime * CameraMoveSpeed);
-	}
-	if (GameEngineInput::IsPress("CameraUpMove"))
-	{
-		SetCameraMove(float4::Up * _DeltaTime * CameraMoveSpeed);
-	}
+	//if (GameEngineInput::IsPress("CameraLeftMove"))
+	//{
+	//	SetCameraMove(float4::Left * _DeltaTime * CameraMoveSpeed);
+	//}
+	//if (GameEngineInput::IsPress("CameraRightMove"))
+	//{
+	//	SetCameraMove(float4::Right * _DeltaTime * CameraMoveSpeed);
+	//}
+	//if (GameEngineInput::IsPress("CameraDownMove"))
+	//{
+	//	SetCameraMove(float4::Down * _DeltaTime * CameraMoveSpeed);
+	//}
+	//if (GameEngineInput::IsPress("CameraUpMove"))
+	//{
+	//	SetCameraMove(float4::Up * _DeltaTime * CameraMoveSpeed);
+	//}
 }
 

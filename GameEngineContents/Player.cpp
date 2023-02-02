@@ -25,13 +25,13 @@ void Player::Start()
 	
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
-		GameEngineInput::CreateKey("LeftMove", 'A');
-		GameEngineInput::CreateKey("RightMove", 'D');
-		GameEngineInput::CreateKey("DownMove", 'S');
-		GameEngineInput::CreateKey("UpMove", 'W');
+		GameEngineInput::CreateKey("LeftMove", VK_LEFT);
+		GameEngineInput::CreateKey("RightMove", VK_RIGHT);
+		GameEngineInput::CreateKey("DownMove", VK_DOWN);
+		GameEngineInput::CreateKey("UpMove", VK_UP);
 		GameEngineInput::CreateKey("Freemove", '1');
-		GameEngineInput::CreateKey("Jumpmove", 'J');
-		GameEngineInput::CreateKey("Attack", 'K');
+		GameEngineInput::CreateKey("Jumpmove", 'S');
+		GameEngineInput::CreateKey("Attack", 'A');
 	}
 
 	{
@@ -455,7 +455,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		if (DirString == "Right_")
 		{
 			RightSetBody({ 0,0 });
-			AnimationBodyRender->SetPosition({ body.x-10,body.y -120});
+			AnimationBodyRender->SetPosition({ body.x-5,body.y -120});
 			AnimationRegRender->SetPosition({ Reg });
 			DirString = "Right_";
 		}
@@ -533,7 +533,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				DirString = "Left_";
 			}
 
-			else if (StateValue == PlayerState::JUMPMOVEUP )
+			else if (StateValue == PlayerState::JUMPMOVEUP || StateValue == PlayerState::JUMPMOVEDOWN)
 			{
 				RightSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x  ,body.y - 32 });
@@ -599,7 +599,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				DirString = "Right_";
 			}
 
-			else if (StateValue == PlayerState::JUMPMOVEUP)
+			else if (StateValue == PlayerState::JUMPMOVEUP || StateValue == PlayerState::JUMPMOVEDOWN)
 			{
 				RightSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x-25 ,body.y -32 });
