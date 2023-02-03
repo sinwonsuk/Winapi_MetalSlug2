@@ -151,7 +151,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 	if (a == true)
 	{		
-		MoveDir += float4::Down * 1500.0f * _DeltaTime;
+		MoveDir += float4::Down * 1200.0f * _DeltaTime;
 	}
 	if (a == false)
 	{
@@ -679,7 +679,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 void Player::Render(float _DeltaTime)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos();
 
 	Rectangle(DoubleDC, 
@@ -687,7 +687,7 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-		);
+		);*/
 
 	
 }
