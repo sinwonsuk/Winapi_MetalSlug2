@@ -21,6 +21,8 @@
     <ClInclude Include="Map.h">
       <Filter>Play</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterSelect.h" />
+    <ClInclude Include="SelectLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MetalSlugCore.cpp" />
@@ -45,6 +47,8 @@
     <ClCompile Include="Map.cpp">
       <Filter>Play</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterSelect.cpp" />
+    <ClCompile Include="SelectLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">

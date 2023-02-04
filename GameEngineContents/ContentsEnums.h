@@ -6,3 +6,14 @@ enum class MetalSlugOrder
 	Map,
 	Player,
 };
+
+enum class MetalSlugSelect
+{
+	BackGround,		
+	Select,
+	Door,
+	FinishDoor,
+	FrontBackGround,
+	YellowRedP1,
+	
+};

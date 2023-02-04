@@ -47,8 +47,8 @@ void Player::Start()
 
 		// Move Body
 		
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightBodyMove.bmp", .Start = 0, .End = 11, .InterTime = 0.05f });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftBodyMove.bmp", .Start = 0, .End = 11, .InterTime = 0.05f });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "RightBodyMove.bmp", .Start = 2, .End = 11, .InterTime = 0.07f });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "LeftBodyMove.bmp", .Start = 2, .End = 11, .InterTime = 0.07f });
 		
 		//JumpIdleBody
 

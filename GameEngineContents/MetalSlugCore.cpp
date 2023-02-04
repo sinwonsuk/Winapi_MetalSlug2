@@ -3,7 +3,7 @@
 
 #include "PlayLevel.h"
 #include "TitleLevel.h"
-
+#include "SelectLevel.h"
 
 MetalSlugCore MetalSlugCore::Core;
 
@@ -23,8 +23,8 @@ void MetalSlugCore::Start()
 	new int();
 
 	CreateLevel<TitleLevel>("TitleLevel");
+	CreateLevel<SelectLevel>("SelectLevel");
 	CreateLevel<PlayLevel>("PlayLevel");
-	
 	ChangeLevel("TitleLevel");
 
 	

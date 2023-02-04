@@ -229,7 +229,7 @@ public:
 		z /= _Other.z;
 		return *this;
 	}
-
+	
 	std::string ToString() 
 	{
 		char ArrReturn[256];
