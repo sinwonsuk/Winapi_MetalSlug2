@@ -38,9 +38,9 @@ private:
 	GameEngineRender* FinishDoor = nullptr;
 
 
-	float Time = 0;
-	float Time1 = 0;
-	float Time2 = 0;
+	float P1Time = 0;
+	float ChoiceTime = 0;
+	float FinishTime = 0;
 	bool P1Check = false; 
 	bool DoorCheck = false;
 	bool EnterCheck = false; 

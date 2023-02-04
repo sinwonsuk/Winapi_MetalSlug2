@@ -130,10 +130,10 @@ void CharacterSelect::Update(float _DeltaTime)
 {
 	if (P1Check == false)
 	{
-		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		P1Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	}
 
-	if (Time > 0.5 && DoorCheck == false)
+	if (P1Time > 0.5 && DoorCheck == false)
 	{
 
 		Door1->SetMove({ 0,-2.4 });
@@ -144,13 +144,13 @@ void CharacterSelect::Update(float _DeltaTime)
 	}
 	
 		
-	if (Time > 1.6)
+	if (P1Time > 1.6)
 	{
 		if (Door1->GetPosition().y < 25)
 		{
 			AnimationRender->SetPosition({ 155,200 });
 			P1Check = true;
-			Time = 0;
+			P1Time = 0;
 		}
 		DoorCheck = true;	
 	}
@@ -237,8 +237,8 @@ void CharacterSelect::Update(float _DeltaTime)
 
 	if (EnterCheck == true)
 	{
-		Time1 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-		if (Time1 > 0.4)
+		ChoiceTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		if (ChoiceTime > 0.4)
 		{
 			FinishDoor->SetMove({ 0,3 });
 		}
@@ -247,10 +247,10 @@ void CharacterSelect::Update(float _DeltaTime)
 
 	if (FinishDoor->GetPosition().y > 480)
 	{
-		Time2 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		FinishTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
      	EnterCheck = false;
 
-		if (Time2 > 2.0)
+		if (FinishTime > 2.0)
 		{
         	GameEngineCore::GetInst()->ChangeLevel("PlayLevel");
 		}
