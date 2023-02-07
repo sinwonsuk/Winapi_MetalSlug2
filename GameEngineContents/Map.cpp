@@ -1,7 +1,8 @@
 #include "Map.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineRender.h>
-
+#include "Player.h"
+#include <GameEngineCore/GameEngineLevel.h>
 Map::Map()
 {
 }
@@ -13,8 +14,8 @@ Map::~Map()
 
 void Map::Start()
 {
-
-
+	
+	
 	/*{
 		GameEngineRender* AnimationRender = CreateRender(0);
 		AnimationRender->SetImage("BackGround1.Bmp");
@@ -42,4 +43,9 @@ void Map::Start()
 		AnimationRender->SetImage("Stage02.Bmp");
 	     }*/
 
+}
+
+void Map::Update(float _DeltaTime)
+{
+	
 }

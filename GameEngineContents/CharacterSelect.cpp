@@ -155,7 +155,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		DoorCheck = true;	
 	}
 
-	if (true == GameEngineInput::IsDown("SelectLeft") )
+	if (true == GameEngineInput::IsDown("SelectLeft") && DoorCheck == true)
 	{
 		
 		if (Fio->GetPosition().x != 0)
@@ -192,7 +192,7 @@ void CharacterSelect::Update(float _DeltaTime)
 
 
 	}
-	if (true == GameEngineInput::IsDown("SelectRight"))
+	if (true == GameEngineInput::IsDown("SelectRight") && DoorCheck == true )
 	{
 		if (Marco->GetPosition().x != 0)
 		{
@@ -227,7 +227,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		}
 
 	}
-	if (true == GameEngineInput::IsDown("SelectChoice") && Eri->GetPosition().y != 0)
+	if (true == GameEngineInput::IsDown("SelectChoice") && Eri->GetPosition().y != 0 && DoorCheck == true )
 	{
 		
 		Eri->SetPosition({ 0,0 });

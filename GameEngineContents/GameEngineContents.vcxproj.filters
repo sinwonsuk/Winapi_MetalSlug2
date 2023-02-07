@@ -23,6 +23,7 @@
     </ClInclude>
     <ClInclude Include="CharacterSelect.h" />
     <ClInclude Include="SelectLevel.h" />
+    <ClInclude Include="InterFace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MetalSlugCore.cpp" />
@@ -49,6 +50,7 @@
     </ClCompile>
     <ClCompile Include="CharacterSelect.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
+    <ClCompile Include="InterFace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">

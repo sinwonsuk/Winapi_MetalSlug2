@@ -7,7 +7,7 @@
 #include "PlayLevel.h"
 #include "Player.h"
 #include "Map.h"
-
+#include "InterFace.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -123,6 +123,23 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftUpAttack.BMP"));
 			Image->Cut(5, 2);
 		}
+	
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullets.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Score.BMP"));
+		}	
+	
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightThrow.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftThrow.BMP"));
+			Image->Cut(5, 2);
+		}
+
 	}
 
 	// 액터 생성
@@ -131,8 +148,15 @@ void PlayLevel::Loading()
 	}
 
 	{
-		CreateActor<Map>();
+		Map* Actor = CreateActor<Map>();
 	}
+	{
+		InterFace* Actor = CreateActor<InterFace>();
+	}
+
+
+
+
 
 	if (false == GameEngineInput::IsKey("PlayerOff"))
 	{

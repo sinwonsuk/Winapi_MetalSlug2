@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterSelect.h" />
+    <ClInclude Include="InterFace.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monster.h">
       <SubType>
@@ -50,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CharacterSelect.cpp" />
+    <ClCompile Include="InterFace.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Monster.cpp">
       <SubType>

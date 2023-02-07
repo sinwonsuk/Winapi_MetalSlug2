@@ -32,6 +32,7 @@ void Player::Start()
 		GameEngineInput::CreateKey("Freemove", '1');
 		GameEngineInput::CreateKey("Jumpmove", 'S');
 		GameEngineInput::CreateKey("Attack", 'A');
+		GameEngineInput::CreateKey("Throw", 'D');
 	}
 
 	{
@@ -84,6 +85,9 @@ void Player::Start()
 		// UpAttack
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Up_Attack",  .ImageName = "RightUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Up_Attack",  .ImageName = "LeftUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
+
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Throw",  .ImageName = "RightThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.05f , .Loop = true });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Throw",  .ImageName = "LeftThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.05f , .Loop = true });
 	}
 
 
@@ -244,16 +248,15 @@ void Player::Movecalculation(float _DeltaTime)
 			break;
 		}
 	}
-
+	test23 = false;
 
 
 	if (CameraCheck == true && PosCheck.x < GetPos().ix())
-	{
+	{		
+		test23 = true;
 		GetLevel()->SetCameraMove(CameraDir);
 	}
 
-	
-	
 	SetMove(MoveDir * _DeltaTime);
 }
 

@@ -26,7 +26,9 @@ enum class PlayerState
 	UPJUMPATTACK,
 	UPJUMPDOWNATTACK,
 	UPJUMPMOVEATTACK,
-	UPJUMPMOVEDOWNATTACK
+	UPJUMPMOVEDOWNATTACK,
+	THROW,
+	THROWMOVE
 };
 
 // Ό³Έν :
@@ -55,17 +57,21 @@ public:
 		this->body.x = reg.x - 11;
 		this->body.y = reg.y - 35;
 	}
+	float4 GetCameraDir()
+	{
+		return CameraDir; 
+	}
 
-
-
+	bool test23 = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void Render(float _Time) override;
-
+	
 
 private:
 	bool a = true;
+	
 	float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 300.0f;
@@ -135,7 +141,11 @@ private:
 	void AttackJumpUpdate(float _Time);
 	void AttackJumpMoveUpdate(float _Time);
 	 
+	void ThrowStart();
+	void ThrowMoveStart();
 
+	void ThrowUpdate(float _Time);
+	void ThrowMoveUpdate(float _Time);
 
 	float TimeCheck = 0;
 	bool test = false;
