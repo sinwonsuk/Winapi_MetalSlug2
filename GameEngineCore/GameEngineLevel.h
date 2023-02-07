@@ -160,12 +160,14 @@ private:
 
 	void ActorsUpdate(float _DeltaTime);
 	void ActorsRender(float _DeltaTime);
+	void ActorLevelChangeEnd(GameEngineLevel* _NextLevel);
+	void ActorLevelChangeStart(GameEngineLevel* _PrevLevel);
 
 
 	void ActorStart(GameEngineActor* _Actor, int _Order);
 
 	std::map<int, std::list<GameEngineRender*>> Renders;
-	void PushRender(GameEngineRender* _Render);
+	void PushRender(GameEngineRender* _Render, int _ChangeOrder);
 
 	std::map<int, std::list<GameEngineCollision*>> Collisions;
 	void PushCollision(GameEngineCollision* _Collision);
