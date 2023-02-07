@@ -16,6 +16,22 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	float TimeCheck = 0;
+	bool Time = false;
 	float4 CamerPos = float4::Zero;
+	GameEngineRender* M = nullptr;
+	GameEngineRender* I = nullptr;
+	GameEngineRender* S = nullptr;
+	GameEngineRender* S1 = nullptr;
+	GameEngineRender* I1 = nullptr;
+	GameEngineRender* O = nullptr;
+	GameEngineRender* N = nullptr;
+	GameEngineRender* S2 = nullptr;
+	GameEngineRender* T = nullptr;
+	GameEngineRender* A = nullptr;
+	GameEngineRender* R = nullptr;
+	GameEngineRender* T1 = nullptr;
+	GameEngineRender* Sign = nullptr;
+
 };
 

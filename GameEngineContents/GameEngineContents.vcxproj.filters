@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="StudyGameCore.h" />
     <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="TitleLevel.h">
       <Filter>Title</Filter>
@@ -21,12 +20,18 @@
     <ClInclude Include="Map.h">
       <Filter>Play</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterSelect.h" />
-    <ClInclude Include="SelectLevel.h" />
-    <ClInclude Include="InterFace.h" />
+    <ClInclude Include="CharacterSelect.h">
+      <Filter>CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectLevel.h">
+      <Filter>CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="StudyGameCore.h" />
+    <ClInclude Include="InterFace.h">
+      <Filter>Play\InterFace</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MetalSlugCore.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Title</Filter>
     </ClCompile>
@@ -48,9 +53,16 @@
     <ClCompile Include="Map.cpp">
       <Filter>Play</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterSelect.cpp" />
-    <ClCompile Include="SelectLevel.cpp" />
-    <ClCompile Include="InterFace.cpp" />
+    <ClCompile Include="CharacterSelect.cpp">
+      <Filter>CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectLevel.cpp">
+      <Filter>CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="MetalSlugCore.cpp" />
+    <ClCompile Include="InterFace.cpp">
+      <Filter>Play\InterFace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">
@@ -58,6 +70,12 @@
     </Filter>
     <Filter Include="Title">
       <UniqueIdentifier>{e319163e-7f2f-4f80-b187-882031d15de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CharacterSelect">
+      <UniqueIdentifier>{7bfef9f0-83a1-4597-aa88-03286ad3e5ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\InterFace">
+      <UniqueIdentifier>{605be437-9172-4c4e-960b-7b3544cb305f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

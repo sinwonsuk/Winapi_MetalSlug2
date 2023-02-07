@@ -27,6 +27,22 @@ void PlayLevel::Loading()
 
 	{
 
+		// 맵 
+		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map12.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map11.BMP"));
+		}
+	
+		//캐릭터 모션 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightJumpReg.BMP"));
+			Image->Cut(5, 3);
+		}
+
+
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightBodyMove.BMP"));
 			Image->Cut(5, 3);
@@ -55,20 +71,6 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftReg.BMP"));
 			Image->Cut(5, 4);
 		}
-		
-		
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map12.BMP"));
-		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map11.BMP"));
-		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightJumpReg.BMP"));
-			Image->Cut(5, 3);
-		}
-
-		
 
 		{
 			GameEngineImage * Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightIdleJumpBody.BMP"));
@@ -123,14 +125,6 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftUpAttack.BMP"));
 			Image->Cut(5, 2);
 		}
-	
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullets.BMP"));
-		}
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Score.BMP"));
-		}	
-	
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightThrow.BMP"));
 			Image->Cut(5, 2);
@@ -139,6 +133,52 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftThrow.BMP"));
 			Image->Cut(5, 2);
 		}
+
+
+	     //인터페이스 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullets.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Score.BMP"));
+		}		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PressStart.BMP"));
+			Image->Cut(2, 1);
+		}
+
+
+		// 글자 
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("M.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("I.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("S.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("O.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("N.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("T.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("A.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("R.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("!.BMP"));
+		}
+
+
 
 	}
 
