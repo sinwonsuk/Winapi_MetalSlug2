@@ -32,6 +32,7 @@ void Player::Start()
 		GameEngineInput::CreateKey("Freemove", '1');
 		GameEngineInput::CreateKey("Jumpmove", 'S');
 		GameEngineInput::CreateKey("Attack", 'A');
+		GameEngineInput::CreateKey("Throw", 'D');
 	}
 
 	{
@@ -84,6 +85,9 @@ void Player::Start()
 		// UpAttack
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Up_Attack",  .ImageName = "RightUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Up_Attack",  .ImageName = "LeftUpAttack.bmp", .Start = 0, .End = 9, .InterTime = 0.05f , .Loop = false });
+
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_Throw",  .ImageName = "RightThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.05f , .Loop = true });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_Throw",  .ImageName = "LeftThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.05f , .Loop = true });
 	}
 
 
@@ -121,6 +125,10 @@ void Player::Start()
 
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Move_Down_Jump_Reg",    .ImageName = "RightJumpReg.bmp", .Start = 9, .End = 11, .InterTime = 0.12f,.Loop = false });
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Move_Down_Jump_Reg",    .ImageName = "LeftJumpReg.bmp" ,.Start = 9, .End = 11, .InterTime = 0.12f,.Loop = false });
+
+
+
+
 
 		// Up Idle Reg
 		//AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle_Up_Reg",  .ImageName = "RightReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
@@ -514,7 +522,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK || 
 		StateValue == PlayerState::JUMPMOVEDOWNATTACK||StateValue == PlayerState::JUMPUPATTACK ||
 		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
-		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK
+		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK ||
+		StateValue == PlayerState:: THROW
 		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
@@ -669,7 +678,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK ||
 		StateValue == PlayerState::JUMPMOVEDOWNATTACK || StateValue == PlayerState::JUMPUPATTACK ||
 		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
-		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK
+		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK ||
+		StateValue == PlayerState::THROW
 		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);

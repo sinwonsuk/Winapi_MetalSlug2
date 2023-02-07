@@ -86,6 +86,12 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::UPJUMPMOVEDOWNATTACK:
 		UpJumpMoveDownAttackStart();
 		break;
+	case PlayerState::THROW:
+		ThrowStart();
+		break;
+	case PlayerState::THROWMOVE:
+		ThrowMoveStart();
+		break;
 	default:
 		break;
 	}
@@ -175,8 +181,12 @@ void Player::UpdateState(float _Time)
 		case PlayerState::UPJUMPMOVEDOWNATTACK:
 			UpAttackJumpMoveUpdate(_Time);
 			break;
-
-
+		case PlayerState::THROW:
+			ThrowUpdate(_Time);
+			break;
+		case PlayerState::THROWMOVE:
+			ThrowMoveUpdate(_Time);
+			break;
 		default:
 			break;
 		}
@@ -222,6 +232,11 @@ void Player::IdleUpdate(float _Time)
 		ChangeState(PlayerState::JUMPUP);
 		MoveDir += float4::Up * 650;
 		test = true;
+	}
+	else if(true == GameEngineInput::IsPress("Throw"))
+	{
+		ChangeState(PlayerState::THROW);
+		return;
 	}
 	
 }
@@ -333,8 +348,15 @@ void Player::AttackJumpMoveDownStart()
 	JumpDirCheck("Attack", "Move_Down_Jump_Reg");
 }
 
+void Player::ThrowStart()
+{
+	DirCheck("Throw", "Idle");
+}
 
-
+void Player::ThrowMoveStart()
+{
+	DirCheck("Throw", "Move");
+}
 
 void Player::AttackIdleUpdate(float _Time)
 {
@@ -374,6 +396,71 @@ void Player::AttackIdleUpdate(float _Time)
 		CameraDir = float4::Right * MoveSpeed * _Time;
 	}
 }
+void Player::ThrowUpdate(float _Time)
+{
+	if (AnimationBodyRender->IsAnimationEnd() == true)
+	{
+		ChangeState(PlayerState::IDLE);
+		return;
+	}
+
+	if (true == GameEngineInput::IsPress("Throw"))
+	{
+		ChangeState(PlayerState::THROW);
+		return; 
+	}
+}
+
+void Player::ThrowMoveUpdate(float _Time)
+{
+	CameraDir = { 0,0 };
+
+	if (AnimationBodyRender->IsAnimationEnd() == true)
+	{
+		ChangeState(PlayerState::MOVE);
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
+	{
+		ChangeState(PlayerState::IDLE);
+		return;
+	}
+	if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
+	{
+		ChangeState(PlayerState::IDLE);
+		return;
+	}
+
+
+	if (true == GameEngineInput::IsDown("Throw"))
+	{
+		ChangeState(PlayerState::THROWMOVE);
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown("Throw"))
+	{
+		ChangeState(PlayerState::THROWMOVE);
+		return;
+	}
+
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		MoveDir += float4::Left * MoveSpeed;
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		MoveDir += float4::Right * MoveSpeed;
+		CameraDir = float4::Right * MoveSpeed * _Time;
+	}
+
+}
+
+
+
+
 
 void Player::AttackMoveUpdate(float _Time)
 {
@@ -913,7 +1000,11 @@ void Player::MoveUpdate(float _Time)
 		ChangeState(PlayerState::IDLE);
 		return;
 	}
-
+	else if (true == GameEngineInput::IsPress("Throw"))
+	{
+		ChangeState(PlayerState::THROWMOVE);
+		return;
+	}
 	else if (true == GameEngineInput::IsPress("UpMove"))
 	{
 		ChangeState(PlayerState::UP);
