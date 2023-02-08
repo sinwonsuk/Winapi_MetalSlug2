@@ -31,10 +31,18 @@ void InterFace::Start()
 		AnimationRender->EffectCameraOff();
 
 	}
+	{
+		GameEngineRender* AnimationRender = CreateRender(2);
+		AnimationRender->SetImage("00.Bmp");
+		AnimationRender->SetPosition({ 470,45 });
+		AnimationRender->SetScale({ 99,66 });
+		AnimationRender->EffectCameraOff();
+
+	}
 
 	{
 		GameEngineRender* AnimationRender = CreateRender(2);
-		AnimationRender->SetPosition({ 800,45 });
+		AnimationRender->SetPosition({ 750,45 });
 		AnimationRender->SetScale({ 320,67 });
 		AnimationRender->CreateAnimation({ .AnimationName = "PressGame",  .ImageName = "PressStart.bmp", .Start = 0, .End = 1, .InterTime = 1.0f });
 		AnimationRender->EffectCameraOff();
@@ -44,49 +52,49 @@ void InterFace::Start()
 	{
 		M = CreateRender(2);
 		M->SetImage("M.Bmp");
-		//M->SetPosition({ 220,290 });
+		M->SetPosition({ -600,0});
 		M->SetScale({ 96,96 });
 		M->EffectCameraOff();
 	}
 	{
 		I = CreateRender(2);
 		I->SetImage("I.Bmp");
-		//I->SetPosition({ 300,290 });
+		I->SetPosition({ -600,0});
 		I->SetScale({ 48,96 });
 		I->EffectCameraOff();
 	}
 	{
 		S = CreateRender(2);
 		S->SetImage("S.Bmp");
-		//S->SetPosition({ 370,290 });
+		S->SetPosition({ -600,0 });
 		S->SetScale({ 96,96 });
 		S->EffectCameraOff();
 	}
 	{
 		S1 = CreateRender(2);
 		S1->SetImage("S.Bmp");
-		//S1->SetPosition({ 460,290 });
+		S1->SetPosition({ -600,0 });
 		S1->SetScale({ 96,96 });
 		S1->EffectCameraOff();
 	}
 	{
 		I1 = CreateRender(2);
 		I1->SetImage("I.Bmp");
-		//I1->SetPosition({ 530,290 });
+		I1->SetPosition({ -600,0 });
 		I1->SetScale({ 48,96 });
 		I1->EffectCameraOff();
 	}
 	{
 		O = CreateRender(2);
 		O->SetImage("O.Bmp");
-		//O->SetPosition({ 600,290 });
+		O->SetPosition({ -600,0 });
 		O->SetScale({ 96,96 });
 		O->EffectCameraOff();
 	}
 	{
 		N = CreateRender(2);
 		N->SetImage("N.Bmp");
-		//N->SetPosition({ 680,290 });
+		N->SetPosition({ -600,0 });
 		N->SetScale({ 96,96 });
 		N->EffectCameraOff();
 	}
@@ -94,41 +102,41 @@ void InterFace::Start()
 	{
 		S2 = CreateRender(2);
 		S2->SetImage("S.Bmp");
-		//S2->SetPosition({ 250,390 });
+		S2->SetPosition({ -600,0 });
 		S2->SetScale({ 96,96 });
 		S2->EffectCameraOff();
 	}
 	{
 		T = CreateRender(2);
 		T->SetImage("T.Bmp");
-		//T->SetPosition({ 330,390 });
+		T->SetPosition({ -600,0 });
 		T->SetScale({ 96,96 });
 		T->EffectCameraOff();
 	}
 	{
 		A = CreateRender(2);
 		A->SetImage("A.Bmp");
-		//A->SetPosition({ 410,390 });
+		A->SetPosition({ -600,0 });
 		A->SetScale({ 96,96 });
 		A->EffectCameraOff();
 	}
 	{
 		R = CreateRender(2);
 		R->SetImage("R.Bmp");
-		//R->SetPosition({ 500,390 });
+		R->SetPosition({ -600,0 });
 		R->SetScale({ 96,96 });
 		R->EffectCameraOff();
 	}
 	{
 		T1 = CreateRender(2);
 		T1->SetImage("T.Bmp");
-		//T1->SetPosition({ 580,390 });
+		T1->SetPosition({ -600,0 });
 		T1->SetScale({ 96,96 });
 		T1->EffectCameraOff();
 	} {
 		Sign = CreateRender(2);
 		Sign->SetImage("!.Bmp");
-		//Sign->SetPosition({ 660,390 });
+		Sign->SetPosition({ -600,0 });
 		Sign->SetScale({ 96,96 });
 		Sign->EffectCameraOff();
 	}
@@ -195,19 +203,19 @@ void InterFace::Update(float _DeltaTime)
 		}
 		if (TimeCheck > 2.8)
 		{			
-			M->SetPosition({ -30,0 });
-			I->SetPosition({ -30,0 });
-			S->SetPosition({ -30,0 });
-			S1->SetPosition({ -30,0 });
-			I1->SetPosition({ -30,0 });
-			O->SetPosition({ -30,0 });
-			N->SetPosition({ -30,0 });
-			S2->SetPosition({ -30,0 });
-			T->SetPosition({ -30,0 });
-			A->SetPosition({ -30,0 });
-			R->SetPosition({ -30,0 });
-			T1->SetPosition({ -30,0 });
-			Sign->SetPosition({ -30,0 });
+			M->SetPosition({ -60,0 });
+			I->SetPosition({ -60,0 });
+			S->SetPosition({ -60,0 });
+			S1->SetPosition({ -60,0 });
+			I1->SetPosition({ -60,0 });
+			O->SetPosition({ -60,0 });
+			N->SetPosition({ -60,0 });
+			S2->SetPosition({ -60,0 });
+			T->SetPosition({ -60,0 });
+			A->SetPosition({ -60,0 });
+			R->SetPosition({ -60,0 });
+			T1->SetPosition({ -60,0 });
+			Sign->SetPosition({ -60,0 });
 		}
 		if (TimeCheck > 3.2)
 		{
@@ -228,19 +236,19 @@ void InterFace::Update(float _DeltaTime)
 
 		if (TimeCheck > 3.6)
 		{
-			M->SetPosition({ -30,0 });
-			I->SetPosition({ -30,0 });
-			S->SetPosition({ -30,0 });
-			S1->SetPosition({ -30,0 });
-			I1->SetPosition({ -30,0 });
-			O->SetPosition({ -30,0 });
-			N->SetPosition({ -30,0 });
-			S2->SetPosition({ -30,0 });
-			T->SetPosition({ -30,0 });
-			A->SetPosition({ -30,0 });
-			R->SetPosition({ -30,0 });
-			T1->SetPosition({ -30,0 });
-			Sign->SetPosition({ -30,0 });
+			M->SetPosition({ -60,0 });
+			I->SetPosition({ -60,0 });
+			S->SetPosition({ -60,0 });
+			S1->SetPosition({ -60,0 });
+			I1->SetPosition({ -60,0 });
+			O->SetPosition({ -60,0 });
+			N->SetPosition({ -60,0 });
+			S2->SetPosition({ -60,0 });
+			T->SetPosition({ -60,0 });
+			A->SetPosition({ -60,0 });
+			R->SetPosition({ -60,0 });
+			T1->SetPosition({ -60,0 });
+			Sign->SetPosition({ -60,0 });
 		}
 		if (TimeCheck > 4.0)
 		{
@@ -260,19 +268,19 @@ void InterFace::Update(float _DeltaTime)
 		}
 		if (TimeCheck > 4.4)
 		{
-			M->SetPosition({ -30,0 });
-			I->SetPosition({ -30,0 });
-			S->SetPosition({ -30,0 });
-			S1->SetPosition({ -30,0 });
-			I1->SetPosition({ -30,0 });
-			O->SetPosition({ -30,0 });
-			N->SetPosition({ -30,0 });
-			S2->SetPosition({ -30,0 });
-			T->SetPosition({ -30,0 });
-			A->SetPosition({ -30,0 });
-			R->SetPosition({ -30,0 });
-			T1->SetPosition({ -30,0 });
-			Sign->SetPosition({ -30,0 });
+			M->SetPosition({ -60,0 });
+			I->SetPosition({ -60,0 });
+			S->SetPosition({ -60,0 });
+			S1->SetPosition({ -60,0 });
+			I1->SetPosition({ -60,0 });
+			O->SetPosition({ -60,0 });
+			N->SetPosition({ -60,0 });
+			S2->SetPosition({ -60,0 });
+			T->SetPosition({ -60,0 });
+			A->SetPosition({ -60,0 });
+			R->SetPosition({ -60,0 });
+			T1->SetPosition({ -60,0 });
+			Sign->SetPosition({ -60,0 });
 			Time = true;
 		}
 		

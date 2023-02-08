@@ -146,7 +146,9 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PressStart.BMP"));
 			Image->Cut(2, 1);
 		}
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("00.BMP"));
+		}
 
 		// ±ÛÀÚ 
 
@@ -177,6 +179,7 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("!.BMP"));
 		}
+		
 
 
 
