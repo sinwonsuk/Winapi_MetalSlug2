@@ -306,8 +306,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 	for (int i = 0; i < Bullets.size(); i++)
 	{
-		Bullets[d]->SetMove({ MoveDir1 * _DeltaTime });
-		//MoveDir1 = { 0,0 };
+		Bullets[d]->SetMove({ MoveDir1 * _DeltaTime });		
 	}
 	SetMove(MoveDir * _DeltaTime);
 }
