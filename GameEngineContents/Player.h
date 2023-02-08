@@ -157,7 +157,8 @@ private:
 	
 	bool CameraCheck = false;
 	float4 PosCheck = { 0,0 }; 
-
+	//std::vector<Bullets*> bullets;
+	//std::vector<GameEngineActor*> Bullet;
 	
 };
 

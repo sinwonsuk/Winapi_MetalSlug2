@@ -163,16 +163,54 @@ void Player::Start()
 void Player::Movecalculation(float _DeltaTime)
 {
 	
-	std::vector<GameEngineActor*> Bullets = GetLevel()->GetActors(MetalSlugOrder::Bullet);
+	//std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
+	//
+	//std::vector<Bullets*> bullets;
+	////Bullets* b = dynamic_cast<Bullets*>(Bullet[d]);
+	//for (size_t i = 0; i < Bullet.size(); i++)
+	//{
+	//	Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
+	//	bullets.push_back(bullet);
+	//}
 
-	if (true == GameEngineInput::IsDown("Attack"))
-	{
-		
-		GameEngineActor* Bulllet = Bullets[d];	
-		
-		MoveDir1 += float4::Right * 2;
-		d++;
-	}
+
+
+	//if (true == GameEngineInput::IsPress("LeftMove"))
+	//{
+	//	
+	//		bullets[d]->Dir = bullets[d]->Direction::Left;
+	//	
+
+	//}
+	//if (true == GameEngineInput::IsPress("RightMove"))
+	//{
+	//	
+	//		bullets[d]->Dir = bullets[d]->Direction::Right;
+	//	
+	//}
+
+	//if (true == GameEngineInput::IsDown("Attack"))
+	//{					
+	//	bullets[d]->test = true;
+	//	
+
+	//	if (bullets[d]->Dir == bullets[d]->Direction::Right)
+	//	{
+	//		for (size_t i = static_cast<size_t>(0) + d; i < 100; i++)
+	//		{
+	//			bullets[i]->Dir = bullets[i]->Direction::Right;
+	//		}
+	//	}
+	//	else if (bullets[d]->Dir == bullets[d]->Direction::Left)
+	//	{
+	//		for (size_t i = static_cast<size_t>(0) + d; i < 100; i++)
+	//		{
+	//			bullets[i]->Dir = bullets[i]->Direction::Left;
+	//		}
+	//	}
+	//	d++;
+
+	//}
 		
 	
 
@@ -304,10 +342,10 @@ void Player::Movecalculation(float _DeltaTime)
 	}
 	//Bullets[d]->SetMove({MoveDir1 * _DeltaTime});
 
-	for (int i = 0; i < Bullets.size(); i++)
+	/*for (int i = 0; i < Bullets.size(); i++)
 	{
 		Bullets[d]->SetMove({ MoveDir1 * _DeltaTime });		
-	}
+	}*/
 	SetMove(MoveDir * _DeltaTime);
 }
 
@@ -429,6 +467,17 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 {
 	std::string PrevDirString = DirString;
 
+	std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
+
+	std::vector<Bullets*> bullets;
+	//Bullets* b = dynamic_cast<Bullets*>(Bullet[d]);
+	for (size_t i = 0; i < Bullet.size(); i++)
+	{
+		Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
+		bullets.push_back(bullet);
+	}
+
+
 	
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
@@ -443,7 +492,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	if (GameEngineInput::IsPress("LeftMove"))
 	{
 		LeftSetBody({ 0,0 });
-
+		bullets[d]->Dir = bullets[d]->Direction::Left;
 		AnimationBodyRender->SetPosition({ body });
 		AnimationRegRender->SetPosition({ Reg });
 		DirString = "Left_";
@@ -452,7 +501,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	else if (GameEngineInput::IsPress("RightMove"))
 	{
 		RightSetBody({ 0,0 });
-
+		bullets[d]->Dir = bullets[d]->Direction::Right;
 		AnimationBodyRender->SetPosition({ body });
 		AnimationRegRender->SetPosition({ Reg });
 		DirString = "Right_";
@@ -537,6 +586,25 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	    
 	    	}
 	    }
+
+		bullets[d]->test = true;
+
+
+		if (bullets[d]->Dir == bullets[d]->Direction::Right)
+		{
+			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+			{
+				bullets[i]->Dir = bullets[i]->Direction::Right;
+			}
+		}
+		else if (bullets[d]->Dir == bullets[d]->Direction::Left)
+		{
+			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+			{
+				bullets[i]->Dir = bullets[i]->Direction::Left;
+			}
+		}
+		d++;
 		
 	}
 
@@ -565,6 +633,19 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 
+	std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
+
+	std::vector<Bullets*> bullets;
+	//Bullets* b = dynamic_cast<Bullets*>(Bullet[d]);
+	for (size_t i = 0; i < Bullet.size(); i++)
+	{
+		Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
+		bullets.push_back(bullet);
+	}
+
+
+
+
 	if (StateValue == PlayerState::JUMPDOWNATTACK || StateValue == PlayerState::JUMPMOVEUPATTACK || 
 		StateValue == PlayerState::JUMPMOVEDOWNATTACK||StateValue == PlayerState::JUMPUPATTACK ||
 		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
@@ -578,6 +659,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 	if (DirString == "Left_")
 	{
+		bullets[d]->Dir = bullets[d]->Direction::Left;
+
 		if (GameEngineInput::IsPress("JumpMove"))
 		{
 			if (StateValue == PlayerState::JUMPUP || StateValue == PlayerState::JUMPDOWN)
@@ -640,10 +723,37 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				DirString = "Left_";
 			}
 
+			if (true == GameEngineInput::IsDown("Attack"))
+			{
+				bullets[d]->test = true;
+
+
+				if (bullets[d]->Dir == bullets[d]->Direction::Right)
+				{
+					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+					{
+						bullets[i]->Dir = bullets[i]->Direction::Right;
+					}
+				}
+				else if (bullets[d]->Dir == bullets[d]->Direction::Left)
+				{
+					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+					{
+						bullets[i]->Dir = bullets[i]->Direction::Left;
+					}
+				}
+				d++;
+
+			}
+
+
+
+
 		}
 	}
 	if (DirString == "Right_")
 	{
+		bullets[d]->Dir = bullets[d]->Direction::Right;
 		if (GameEngineInput::IsDown("JumpMove"))
 		{
 			if (StateValue == PlayerState::JUMPUP || StateValue == PlayerState::JUMPDOWN)
@@ -707,7 +817,29 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 				}
 
+				if (true == GameEngineInput::IsDown("Attack"))
+				{
+					bullets[d]->test = true;
 
+
+					if (bullets[d]->Dir == bullets[d]->Direction::Right)
+					{
+						for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+						{
+							bullets[i]->Dir = bullets[i]->Direction::Right;
+						}
+					}
+					else if (bullets[d]->Dir == bullets[d]->Direction::Left)
+					{
+						for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+						{
+							bullets[i]->Dir = bullets[i]->Direction::Left;
+						}
+					}
+					d++;
+
+				}
+				
 
 			}
 		

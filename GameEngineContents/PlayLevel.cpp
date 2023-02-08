@@ -206,6 +206,7 @@ void PlayLevel::Loading()
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
 		Actor->SetMove({ 100,500 });
+		
 	}
 
 
