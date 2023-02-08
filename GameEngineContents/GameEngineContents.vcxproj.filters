@@ -30,6 +30,7 @@
     <ClInclude Include="InterFace.h">
       <Filter>Play\InterFace</Filter>
     </ClInclude>
+    <ClInclude Include="Bullets.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -63,6 +64,7 @@
     <ClCompile Include="InterFace.cpp">
       <Filter>Play\InterFace</Filter>
     </ClCompile>
+    <ClCompile Include="Bullets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">

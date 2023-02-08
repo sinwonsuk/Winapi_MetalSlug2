@@ -2,12 +2,13 @@
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineInput.h>
-
+#include "ContentsEnums.h"
 
 #include "PlayLevel.h"
 #include "Player.h"
 #include "Map.h"
 #include "InterFace.h"
+#include "Bullets.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -180,14 +181,16 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("!.BMP"));
 		}
 		
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullet.BMP"));
+		}
 
 
 	}
 
 	// 액터 생성
 	{
-		CreateActor<Player>();
+		Player* Actor = CreateActor<Player>();
 	}
 
 	{
@@ -197,8 +200,13 @@ void PlayLevel::Loading()
 		InterFace* Actor = CreateActor<InterFace>();
 	}
 
+	
 
-
+	for (size_t i = 0; i < 100; i++)
+	{
+		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
+		Actor->SetMove({ 100,500 });
+	}
 
 
 	if (false == GameEngineInput::IsKey("PlayerOff"))

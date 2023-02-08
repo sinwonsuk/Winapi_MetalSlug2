@@ -3,8 +3,10 @@
 enum class MetalSlugOrder
 {
 	BackGround,
-	Map,
-	Player,
+	Map,	
+	PlayerReg, 
+	PlayerBody,
+	Bullet,
 };
 
 enum class MetalSlugSelect

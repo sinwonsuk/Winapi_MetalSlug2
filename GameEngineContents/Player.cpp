@@ -3,8 +3,11 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineRender.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
+
+#include "Bullets.h"
 #include "ContentsEnums.h"
 
 Player* Player::MainPlayer;
@@ -38,7 +41,7 @@ void Player::Start()
 	{
 		//body
 		RightSetBody({ 0,0 });
-		AnimationBodyRender = CreateRender(3);
+		AnimationBodyRender = CreateRender(MetalSlugOrder::PlayerBody);
 		AnimationBodyRender->SetScale({ 200,200 });
 		AnimationBodyRender->SetPosition({body });
 
@@ -93,7 +96,7 @@ void Player::Start()
 
 	{
 		//reg
-		AnimationRegRender = CreateRender(2);
+		AnimationRegRender = CreateRender(MetalSlugOrder::PlayerReg);
 		AnimationRegRender->SetScale({ 200, 200 });
 		AnimationRegRender->SetPosition({ Reg });
 		//Idle Reg
@@ -134,7 +137,7 @@ void Player::Start()
 		//AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle_Up_Reg",  .ImageName = "RightReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
 		//AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Up_Move",  .ImageName = "RightReg.bmp", .Start = 3, .End = 15, .InterTime = 0.05f });
 
-
+		
 	}
 
 	
@@ -142,6 +145,13 @@ void Player::Start()
 
 
 	ChangeState(PlayerState::IDLE);
+
+	{
+		BodyCollision = CreateCollision(MetalSlugOrder::PlayerReg);
+		BodyCollision->SetScale({ 100, 100 });
+		BodyCollision->SetPosition({ 0,-100 });
+
+	}
 
 }
 
@@ -153,9 +163,28 @@ void Player::Start()
 void Player::Movecalculation(float _DeltaTime)
 {
 	
-	 
-		
+	std::vector<GameEngineActor*> Bullets = GetLevel()->GetActors(MetalSlugOrder::Bullet);
 
+	if (true == GameEngineInput::IsDown("Attack"))
+	{
+		
+		GameEngineActor* Bulllet = Bullets[d];	
+		
+		MoveDir1 += float4::Right * 2;
+		d++;
+	}
+		
+	
+
+
+
+	/*if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(BubbleCollisionOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, Collision))
+	{
+		for (size_t i = 0; i < Collision.size(); i++)
+		{
+			GameEngineActor* ColActor = Collision[i]->GetActor();
+			ColActor->Death();
+		}*/
 
 	if (a == true)
 	{		
@@ -165,8 +194,9 @@ void Player::Movecalculation(float _DeltaTime)
 	{
 		MoveDir += float4::Down * 4000.0f * _DeltaTime;
 	}
-
 	
+	
+	//Actors.size(); 
 	
 
 	if (300.0f <= abs(MoveDir.x))
@@ -178,6 +208,18 @@ void Player::Movecalculation(float _DeltaTime)
 		else 
 		{
 			MoveDir.x = 300.0f;
+		}
+	}
+
+	if (300.0f <= abs(MoveDir1.x))
+	{
+		if (0 > MoveDir1.x)
+		{
+			MoveDir1.x = -300.0f;
+		}
+		else
+		{
+			MoveDir1.x = 300.0f;
 		}
 	}
 
@@ -207,7 +249,7 @@ void Player::Movecalculation(float _DeltaTime)
 	}
 	
 	
-	
+  //  std::vector<GameEngineActor>() = 
 
 	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)))
 	{
@@ -260,7 +302,13 @@ void Player::Movecalculation(float _DeltaTime)
 		test23 = true;
 		GetLevel()->SetCameraMove(CameraDir);
 	}
+	//Bullets[d]->SetMove({MoveDir1 * _DeltaTime});
 
+	for (int i = 0; i < Bullets.size(); i++)
+	{
+		Bullets[d]->SetMove({ MoveDir1 * _DeltaTime });
+		//MoveDir1 = { 0,0 };
+	}
 	SetMove(MoveDir * _DeltaTime);
 }
 
@@ -688,15 +736,16 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 void Player::Render(float _DeltaTime)
 {
-	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-	float4 ActorPos = GetPos();
+	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 
-	Rectangle(DoubleDC, 
+	Rectangle(DoubleDC,
 		ActorPos.ix() - 5,
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-		);*/
+	);
+
 
 	std::string MouseText = "MousePosition : ";
 	MouseText += GetLevel()->GetMousePos().ToString();
@@ -706,5 +755,5 @@ void Player::Render(float _DeltaTime)
 
 	GameEngineLevel::DebugTextPush(MouseText);
 	GameEngineLevel::DebugTextPush(CameraMouseText);
-
+	BodyCollision->DebugRender();
 }

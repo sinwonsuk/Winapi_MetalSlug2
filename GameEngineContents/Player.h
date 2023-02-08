@@ -1,6 +1,5 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
 enum class PlayerState
 {
 	IDLE,
@@ -79,10 +78,12 @@ private:
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;
+	float4 MoveDir1 = float4::Zero;
 	float4 CameraDir = float4::Zero;
+	int d = 0;
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
-	
+	GameEngineCollision* BodyCollision = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);
 	void DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
@@ -157,5 +158,6 @@ private:
 	bool CameraCheck = false;
 	float4 PosCheck = { 0,0 }; 
 
+	
 };
 
