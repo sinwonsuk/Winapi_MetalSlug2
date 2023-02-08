@@ -19,3 +19,12 @@ enum class MetalSlugSelect
 	YellowRedP1,
 	
 };
+
+enum class Direction
+{
+	IDLE,
+	Left,
+	Right,
+	Up,
+	Down
+};

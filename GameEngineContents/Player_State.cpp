@@ -392,6 +392,12 @@ void Player::AttackIdleUpdate(float _Time)
 		MoveDir += float4::Left * MoveSpeed;
 
 	}
+	else if (true == GameEngineInput::IsDown("JumpMove"))
+	{
+		ChangeState(PlayerState::JUMPUP);
+		MoveDir += float4::Up * 650;
+		test = true;
+	}
 
 	else if (true == GameEngineInput::IsPress("RightMove"))
 	{
@@ -1013,7 +1019,7 @@ void Player::MoveUpdate(float _Time)
 		return;
 	}
 	
-	else if (true == GameEngineInput::IsPress("Attack"))
+	else if (true == GameEngineInput::IsDown("Attack"))
 	{
 		ChangeState(PlayerState::MOVEATTACK);
 		return;

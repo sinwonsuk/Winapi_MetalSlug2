@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "InterFace.h"
 #include "Bullets.h"
+
 PlayLevel::PlayLevel() 
 {
 }
@@ -205,7 +206,7 @@ void PlayLevel::Loading()
 	for (size_t i = 0; i < 100; i++)
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
-		Actor->SetMove({ 100,500 });
+		//Actor->SetMove({ 100,500 });
 		
 	}
 

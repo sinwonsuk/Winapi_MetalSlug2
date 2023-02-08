@@ -477,6 +477,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
 
 	std::vector<Bullets*> bullets;
+	bullets.reserve(Bullet.size());
 	//Bullets* b = dynamic_cast<Bullets*>(Bullet[d]);
 	for (size_t i = 0; i < Bullet.size(); i++)
 	{
@@ -560,7 +561,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		if (DirString == "Left_")
 		{
 			LeftSetBody({ 0,0 });
-
+			bullets[d]->Dir = Direction::Up;
+			
 			AnimationBodyRender->SetPosition({ body.x+10,body.y-120 });
 			AnimationRegRender->SetPosition({ Reg });
 			DirString = "Left_";
@@ -568,6 +570,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		if (DirString == "Right_")
 		{
 			RightSetBody({ 0,0 });
+			bullets[d]->Dir = Direction::Up;
+		
 			AnimationBodyRender->SetPosition({ body.x-5,body.y -120});
 			AnimationRegRender->SetPosition({ Reg });
 			DirString = "Right_";
@@ -581,7 +585,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	    	if (DirString == "Left_")
 	    	{
 	    		LeftSetBody({ 0,0 });
-				bullets[d]->Dir = bullets[d]->Direction::Left;
+				bullets[d]->Dir = Direction::Left;
+			
 	    		AnimationBodyRender->SetPosition({ body.x - 38 , body.y + 7 });
 	    		AnimationRegRender->SetPosition({ Reg });
 	    		DirString = "Left_";
@@ -589,7 +594,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	    	else if (DirString == "Right_")
 	    	{
 	    		RightSetBody({ 0,0 });
-				bullets[d]->Dir = bullets[d]->Direction::Right;
+				bullets[d]->Dir = Direction::Right;
+				
 	    		AnimationBodyRender->SetPosition({ body.x + 40, body.y + 7 });
 	    		AnimationRegRender->SetPosition({ Reg });
 	    		DirString = "Right_";
@@ -599,35 +605,32 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 		bullets[d]->test = true;
 
-
-		if (bullets[d]->Dir == bullets[d]->Direction::Right)
+		
+		if (bullets[d]->Dir == Direction::Right)
 		{
 			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 			{
-				bullets[i]->Dir = bullets[i]->Direction::Right;
+				bullets[i]->Dir = Direction::Right;
 			}
 		}
-		else if (bullets[d]->Dir == bullets[d]->Direction::Left)
+		else if (bullets[d]->Dir ==Direction::Left)
 		{
 			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 			{
-				bullets[i]->Dir = bullets[i]->Direction::Left;
+				bullets[i]->Dir = Direction::Left;
 			}
 		}
-		else if (bullets[d]->Dir == bullets[d]->Direction::Up)
+		else if (bullets[d]->Dir == Direction::Up)
 		{
 			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 			{
-				bullets[i]->Dir = bullets[i]->Direction::Up;
+				bullets[i]->Dir = Direction::Up;
 			}
 		}
-
+	
 		d++;
 		
 	}
-
-		
-
 
 	if (PrevDirString != DirString)
 	{
@@ -652,7 +655,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 
 	std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
-
+	
 	std::vector<Bullets*> bullets;
 	for (size_t i = 0; i < Bullet.size(); i++)
 	{
@@ -676,7 +679,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 	if (DirString == "Left_")
 	{
-		bullets[d]->Dir = bullets[d]->Direction::Left;
+		bullets[d]->Dir = Direction::Left;
 
 		if (GameEngineInput::IsPress("JumpMove"))
 		{
@@ -696,14 +699,17 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				DirString = "Left_";
 
 			}
-			
+
 		}
 
 		if (GameEngineInput::IsPress("Attack"))
 		{
 			if (StateValue == PlayerState::JUMPUPATTACK)
 			{
+				
 				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Left;
+			
 				AnimationBodyRender->SetPosition({ body.x - 38, body.y - 10 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
@@ -711,6 +717,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Up;
+			
 				AnimationBodyRender->SetPosition({ body.x + 10,body.y - 135 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
@@ -718,6 +726,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Up;
+			
 				AnimationBodyRender->SetPosition({ body.x + 20 ,body.y - 150 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
@@ -726,6 +736,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 			{
 				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Left;
+			
 				AnimationBodyRender->SetPosition({ body.x - 20  ,body.y - 25 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
@@ -735,42 +747,50 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::JUMPMOVEDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
-				AnimationBodyRender->SetPosition({ body.x-20  ,body.y - 25 });
+				bullets[d]->Dir = Direction::Left;
+			
+				AnimationBodyRender->SetPosition({ body.x - 20  ,body.y - 25 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
 
-			if (true == GameEngineInput::IsDown("Attack"))
+
+			bullets[d]->test = true;
+
+
+			if (bullets[d]->Dir == Direction::Right)
 			{
-				bullets[d]->test = true;
-
-
-				/*if (bullets[d]->Dir == bullets[d]->Direction::Right)
+				for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 				{
-					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-					{
-						bullets[i]->Dir = bullets[i]->Direction::Right;
-					}
+					bullets[i]->Dir = Direction::Right;
 				}
-				else if (bullets[d]->Dir == bullets[d]->Direction::Left)
+			}
+			else if (bullets[d]->Dir == Direction::Left)
+			{
+				for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 				{
-					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-					{
-						bullets[i]->Dir = bullets[i]->Direction::Left;
-					}
-				}*/
-				d++;
-
+					bullets[i]->Dir = Direction::Left;
+				}
+			}
+			else if (bullets[d]->Dir == Direction::Up)
+			{
+				for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+				{
+					bullets[i]->Dir = Direction::Up;
+				}
 			}
 
-
+			d++;
 
 
 		}
+
+
+	
 	}
 	if (DirString == "Right_")
 	{
-		bullets[d]->Dir = bullets[d]->Direction::Right;
+		bullets[d]->Dir = Direction::Right;
 		if (GameEngineInput::IsDown("JumpMove"))
 		{
 			if (StateValue == PlayerState::JUMPUP || StateValue == PlayerState::JUMPDOWN)
@@ -797,13 +817,20 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK )
 				{
 					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Right;
 					AnimationBodyRender->SetPosition({ body.x + 38, body.y - 5 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
 				}
+			
+
+
+
+
 				else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Up;
 					AnimationBodyRender->SetPosition({ body.x - 10,body.y - 135 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -811,6 +838,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Up;
 					AnimationBodyRender->SetPosition({ body.x-20 ,body.y - 150 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -820,42 +848,48 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 				{
 					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Right;
 					AnimationBodyRender->SetPosition({ body.x + 30 ,body.y - 30 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
-
+					
 				}
 				else if (StateValue == PlayerState::JUMPMOVEDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Right;
 					AnimationBodyRender->SetPosition({ body.x + 30 ,body.y -25 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
 
 				}
 
-				if (true == GameEngineInput::IsDown("Attack"))
+				bullets[d]->test = true;
+
+
+				if (bullets[d]->Dir == Direction::Right)
 				{
-					bullets[d]->test = true;
-
-
-					if (bullets[d]->Dir == bullets[d]->Direction::Right)
+					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 					{
-						for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-						{
-							bullets[i]->Dir = bullets[i]->Direction::Right;
-						}
+						bullets[i]->Dir = Direction::Right;
 					}
-					else if (bullets[d]->Dir == bullets[d]->Direction::Left)
-					{
-						for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-						{
-							bullets[i]->Dir = bullets[i]->Direction::Left;
-						}
-					}
-					d++;
-
 				}
+				else if (bullets[d]->Dir == Direction::Left)
+				{
+					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+					{
+						bullets[i]->Dir = Direction::Left;
+					}
+				}
+				else if (bullets[d]->Dir == Direction::Up)
+				{
+					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
+					{
+						bullets[i]->Dir = Direction::Up;
+					}
+				}
+
+				d++;
 				
 
 			}
