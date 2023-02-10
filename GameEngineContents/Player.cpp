@@ -156,8 +156,10 @@ void Player::Start()
 
 	}
 	{
-		BackGroundCollision = CreateCollision(MetalSlugOrder::PlayerReg);
-		BackGroundCollision->SetScale({500,500});
+		BulletCollision = CreateCollision(MetalSlugOrder::BulletCheck);
+		BulletCollision->SetPosition({ 500,0 });
+		BulletCollision->SetScale({10,500});
+
 	}
 
 }
@@ -180,6 +182,7 @@ void Player::Movecalculation(float _DeltaTime)
 	{
 		MoveDir += float4::Down * 4000.0f * _DeltaTime;
 	}
+	
 	
 	
 	//Actors.size(); 
@@ -211,13 +214,13 @@ void Player::Movecalculation(float _DeltaTime)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
-
-
+	
 	//// 내 미래의 위치는 여기인데/.
 
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
+	
 	
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 0)))
 	{
@@ -292,10 +295,23 @@ bool FreeMode = false;
 void Player::Update(float _DeltaTime)
 {
 
+	if (nullptr != BulletCollision)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == BulletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+
+
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
+			}
+
+		}
+
+	}
 	
-
-
-
 
 	if (GameEngineInput::IsDown("LeftMove"))
 	{
@@ -564,12 +580,9 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			}
 		}
 	
-		d++;
+		d--;
 	
-		if (d == 20)
-		{
-			d = 0;
-		}
+		
 	
 	}
 
@@ -620,7 +633,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 	if (DirString == "Left_")
 	{
-		bullets[d]->Dir = Direction::Left;
+		
 
 		if (GameEngineInput::IsPress("JumpMove"))
 		{
@@ -721,13 +734,10 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				}
 			}
 
-			d++;
+			d--;
+
 			
-			if (d == 20)
-			{
-				d = 0;
-				
-			}
+			
 			
 
 		}
@@ -737,7 +747,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	}
 	if (DirString == "Right_")
 	{
-		bullets[d]->Dir = Direction::Right;
+		
 		if (GameEngineInput::IsDown("JumpMove"))
 		{
 			if (StateValue == PlayerState::JUMPUP || StateValue == PlayerState::JUMPDOWN)
@@ -836,15 +846,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					}
 				}
 
-				d++;
-				
-
-				if (d == 20)
-				{
-					d = 0;
-					
-				}
-			
+				d--;
 
 			}
 		
@@ -892,5 +894,5 @@ void Player::Render(float _DeltaTime)
 	GameEngineLevel::DebugTextPush(MouseText);
 	GameEngineLevel::DebugTextPush(CameraMouseText);
 	BodyCollision->DebugRender();
-//	BackGroundCollision->DebugRender();
+    BulletCollision->DebugRender();
 }

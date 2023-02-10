@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include "Bullets.h"
 enum class PlayerState
 {
 	IDLE,
@@ -80,11 +81,11 @@ private:
 	float4 MoveDir = float4::Zero;
 	float4 MoveDir1 = float4::Zero;
 	float4 CameraDir = float4::Zero;
-	int d = 0;
+	int d = 99;
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
-	GameEngineCollision* BackGroundCollision = nullptr;
+	GameEngineCollision* BulletCollision = nullptr;
 	void DirCheck(const std::string_view& _AnimationName);
 	void DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
 	void  JumpDirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
@@ -157,7 +158,8 @@ private:
 	
 	bool CameraCheck = false;
 	float4 PosCheck = { 0,0 }; 
-	
+	std::vector<GameEngineActor*> Bullet;
+	std::vector<Bullets*> bullets;
 	
 };
 

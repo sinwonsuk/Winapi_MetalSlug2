@@ -30,7 +30,6 @@ void Map::Start()
 		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half()});
 		AnimationRender->SetScale({12784,800});		
 	}
-
 	
 
 

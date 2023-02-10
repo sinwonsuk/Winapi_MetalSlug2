@@ -43,6 +43,7 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map11.BMP"));
 		}
 	
+		
 		//캐릭터 모션 
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightJumpReg.BMP"));
@@ -197,6 +198,7 @@ void PlayLevel::Loading()
 	}
 
 	// 액터 생성
+
 	{
 		Player* Actor = CreateActor<Player>();
 	}
@@ -211,13 +213,14 @@ void PlayLevel::Loading()
 		Monster* Actor = CreateActor<Monster>();
 	}
 	
-
-	for (size_t i = 0; i < 20; i++)
+	for (size_t i = 0; i < 100; i++)
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
 		//Actor->SetMove({ 100,500 });
-		
+
 	}
+
+	
 
 
 	if (false == GameEngineInput::IsKey("PlayerOff"))

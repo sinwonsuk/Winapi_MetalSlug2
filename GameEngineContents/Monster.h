@@ -22,6 +22,8 @@ protected:
 	void Render(float _Time) override;
 private:
 	GameEngineRender* AnimationRender = nullptr;
+	GameEngineRender* AnimationRender1 = nullptr;
+
 	GameEngineCollision* MonsterCollision = nullptr;
 };
 

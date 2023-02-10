@@ -43,7 +43,6 @@ void Bullets::Update(float _DeltaTime)
 	
 		if (test == false)
 		{
-
 			CurPos = { Player::MainPlayer->GetPos().x, Player::MainPlayer->GetPos().y - 100 };
 			Collision->SetPosition({ CurPos });
 			AnimationRender->Off();
@@ -63,33 +62,34 @@ void Bullets::Update(float _DeltaTime)
 			
 			MoveDir = float4::Left * 2000;
 			AnimationRender->On();
-			SetMove(MoveDir * _DeltaTime);
+			//SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Right:
 		
 			AnimationRender->SetPosition({ CurPos });			
 			MoveDir = float4::Right * 2000;
 			AnimationRender->On();
-			SetMove(MoveDir * _DeltaTime);
+			//test = false;
+			//SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Down:
 			AnimationRender->SetPosition({ CurPos });
 			MoveDir = float4::Down * 2000;
 			AnimationRender->On();
-			SetMove(MoveDir * _DeltaTime);
+			//SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Up:
 			AnimationRender->SetPosition({ CurPos });
 			MoveDir = float4::Up * 2000;
 			AnimationRender->On();
-			SetMove(MoveDir * _DeltaTime);
+			//SetMove(MoveDir * _DeltaTime);
 			break;
 
 		default:
 			break;
 		}
 	}
-	
+	SetMove(MoveDir * _DeltaTime);
 
 	if (nullptr != Collision)
 	{
@@ -110,7 +110,7 @@ void Bullets::Update(float _DeltaTime)
 
 	}
 	
-	
+
 	
 
 }

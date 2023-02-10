@@ -14,9 +14,10 @@ Monster::~Monster()
 
 void Monster::Start()
 {
-	SetMove({500, 500});
+//	SetMove({500, 500});
 	AnimationRender = CreateRender(MetalSlugOrder::Monster);
 	AnimationRender->SetScale({ 400,400 });
+	AnimationRender->SetPosition({ 500,500 });
 	AnimationRender->CreateAnimation({ .AnimationName = "AAA",  .ImageName = "MonsterAttack.bmp", .Start = 0, .End = 18, .InterTime = 0.1f });
 
 	AnimationRender->ChangeAnimation("AAA");
@@ -24,9 +25,24 @@ void Monster::Start()
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
 		MonsterCollision->SetScale({ 100, 100 });
-		MonsterCollision->SetPosition({ 0,-100 });
-
+		MonsterCollision->SetPosition({ 500,500 });
 	}
+
+	
+	AnimationRender1 = CreateRender(MetalSlugOrder::Monster);
+	AnimationRender1->SetScale({ 400,400 });
+	AnimationRender1->SetPosition({ 100,500 });
+	AnimationRender1->CreateAnimation({ .AnimationName = "BBB",  .ImageName = "MonsterAttack.bmp", .Start = 0, .End = 18, .InterTime = 0.1f });
+
+	AnimationRender1->ChangeAnimation("BBB");
+
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		MonsterCollision->SetScale({ 100, 100 });
+		MonsterCollision->SetPosition({ 100,500 });
+	}
+
+
 }
 
 void Monster::Update(float _DeltaTime)
