@@ -23,7 +23,7 @@ void Bullets::Start()
 		AnimationRender->SetImage("Bullet.Bmp");
 		AnimationRender->SetPosition({500,500 });
 		AnimationRender->SetScale({ 100,100 });
-		//AnimationRender->Off();
+		AnimationRender->Off();
 	//	AnimationRender->
 
 	}
@@ -46,7 +46,7 @@ void Bullets::Update(float _DeltaTime)
 
 			CurPos = { Player::MainPlayer->GetPos().x, Player::MainPlayer->GetPos().y - 100 };
 			Collision->SetPosition({ CurPos });
-			AnimationRender->On();
+			AnimationRender->Off();
 
 		}
 	

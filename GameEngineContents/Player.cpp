@@ -157,8 +157,7 @@ void Player::Start()
 	}
 	{
 		BackGroundCollision = CreateCollision(MetalSlugOrder::PlayerReg);
-		//BackGroundCollision->SetPosition(GameEngineWindow::GetScreenSize().half());
-		BackGroundCollision->SetScale(GameEngineWindow::GetScreenSize());
+		BackGroundCollision->SetScale({500,500});
 	}
 
 }
@@ -893,5 +892,5 @@ void Player::Render(float _DeltaTime)
 	GameEngineLevel::DebugTextPush(MouseText);
 	GameEngineLevel::DebugTextPush(CameraMouseText);
 	BodyCollision->DebugRender();
-	
+	BackGroundCollision->DebugRender();
 }
