@@ -155,6 +155,11 @@ void Player::Start()
 		BodyCollision->SetPosition({ 0,-100 });
 
 	}
+	{
+		BackGroundCollision = CreateCollision(MetalSlugOrder::PlayerReg);
+		//BackGroundCollision->SetPosition(GameEngineWindow::GetScreenSize().half());
+		BackGroundCollision->SetScale(GameEngineWindow::GetScreenSize());
+	}
 
 }
 
@@ -166,70 +171,7 @@ void Player::Start()
 void Player::Movecalculation(float _DeltaTime)
 {
 	
-	//std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
-	//
-	//std::vector<Bullets*> bullets;
-	////Bullets* b = dynamic_cast<Bullets*>(Bullet[d]);
-	//for (size_t i = 0; i < Bullet.size(); i++)
-	//{
-	//	Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
-	//	bullets.push_back(bullet);
-	//}
-
-
-
 	
-	//}
-	//if (true == GameEngineInput::IsPress("RightMove"))
-	//{
-	//	
-	//		bullets[d]->Dir = bullets[d]->Direction::Right;
-	//	
-	//}
-
-	//if (true == GameEngineInput::IsDown("Attack"))
-	//{					
-	//	bullets[d]->test = true;
-	//	
-
-	//	if (bullets[d]->Dir == bullets[d]->Direction::Right)
-	//	{
-	//		for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-	//		{
-	//			bullets[i]->Dir = bullets[i]->Direction::Right;
-	//		}
-	//	}
-	//	else if (bullets[d]->Dir == bullets[d]->Direction::Left)
-	//	{
-	//		for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-	//		{
-	//			bullets[i]->Dir = bullets[i]->Direction::Left;
-	//		}
-	//	}
-
-	//	/*else if (bullets[d]->Dir == bullets[d]->Direction::Up)
-	//	{
-	//		for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-	//		{
-	//			bullets[i]->Dir = bullets[i]->Direction::Up;
-	//		}
-	//	}
-
-	//	d++;*/
-
-	//}
-		
-	
-
-
-
-	/*if (true == BodyCollision->Collision({ .TargetGroup = static_cast<int>(BubbleCollisionOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, Collision))
-	{
-		for (size_t i = 0; i < Collision.size(); i++)
-		{
-			GameEngineActor* ColActor = Collision[i]->GetActor();
-			ColActor->Death();
-		}*/
 
 	if (a == true)
 	{		
@@ -256,17 +198,7 @@ void Player::Movecalculation(float _DeltaTime)
 		}
 	}
 
-	if (300.0f <= abs(MoveDir1.x))
-	{
-		if (0 > MoveDir1.x)
-		{
-			MoveDir1.x = -300.0f;
-		}
-		else
-		{
-			MoveDir1.x = 300.0f;
-		}
-	}
+	
 
 	
 	if (false == GameEngineInput::IsPress("LeftMove") && false == GameEngineInput::IsPress("RightMove"))
@@ -296,9 +228,9 @@ void Player::Movecalculation(float _DeltaTime)
 	
   //  std::vector<GameEngineActor>() = 
 
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)))
+	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)) && MoveDir.y >= -90)
 	{
-		if (test == true)
+		if (test == true  )
 		{
 			AnimationBodyRender->SetScale({ 200,200 });
 			AnimationBodyRender->SetPosition({ body });
@@ -311,7 +243,7 @@ void Player::Movecalculation(float _DeltaTime)
 	}
 	
 
-	if (false == Check)
+	if (false == Check )
 	{
 		while (true)
 		{
@@ -360,6 +292,11 @@ bool FreeMode = false;
 
 void Player::Update(float _DeltaTime)
 {
+
+	
+
+
+
 
 	if (GameEngineInput::IsDown("LeftMove"))
 	{
@@ -629,7 +566,12 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		}
 	
 		d++;
-		
+	
+		if (d == 20)
+		{
+			d = 0;
+		}
+	
 	}
 
 	if (PrevDirString != DirString)
@@ -781,7 +723,13 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			}
 
 			d++;
-
+			
+			if (d == 20)
+			{
+				d = 0;
+				
+			}
+			
 
 		}
 
@@ -892,6 +840,13 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				d++;
 				
 
+				if (d == 20)
+				{
+					d = 0;
+					
+				}
+			
+
 			}
 		
 	}
@@ -938,4 +893,5 @@ void Player::Render(float _DeltaTime)
 	GameEngineLevel::DebugTextPush(MouseText);
 	GameEngineLevel::DebugTextPush(CameraMouseText);
 	BodyCollision->DebugRender();
+	
 }

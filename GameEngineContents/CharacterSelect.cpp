@@ -135,16 +135,14 @@ void CharacterSelect::Update(float _DeltaTime)
 
 	if (P1Time > 0.5 && DoorCheck == false)
 	{
-
 		Door1->SetMove({ 0,-2.4 });
 		Door2->SetMove({ 0,-2.8 });
 		Door3->SetMove({ 0,-3.0 });
 		Door4->SetMove({ 0,-2.5 });
-
 	}
 	
 		
-	if (P1Time > 1.6)
+	if (P1Time > 2.0)
 	{
 		if (Door1->GetPosition().y < 25)
 		{

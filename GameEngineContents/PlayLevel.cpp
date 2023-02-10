@@ -9,7 +9,7 @@
 #include "Map.h"
 #include "InterFace.h"
 #include "Bullets.h"
-
+#include "Monster.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -28,6 +28,11 @@ void PlayLevel::Loading()
 	Dir.Move("Play");
 
 	{
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterAttack.BMP"));
+			Image->Cut(5, 4);
+		}
+
 
 		// ∏  
 		
@@ -185,6 +190,8 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullet.BMP"));
 		}
+		// ∏ÛΩ∫≈Õ 
+		
 
 
 	}
@@ -200,10 +207,12 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
-
+	{
+		Monster* Actor = CreateActor<Monster>();
+	}
 	
 
-	for (size_t i = 0; i < 100; i++)
+	for (size_t i = 0; i < 20; i++)
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
 		//Actor->SetMove({ 100,500 });

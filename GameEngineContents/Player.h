@@ -84,7 +84,7 @@ private:
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
-
+	GameEngineCollision* BackGroundCollision = nullptr;
 	void DirCheck(const std::string_view& _AnimationName);
 	void DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
 	void  JumpDirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
@@ -157,8 +157,7 @@ private:
 	
 	bool CameraCheck = false;
 	float4 PosCheck = { 0,0 }; 
-	//std::vector<Bullets*> bullets;
-	//std::vector<GameEngineActor*> Bullet;
+	
 	
 };
 

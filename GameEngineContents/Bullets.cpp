@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineMath.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "Player.h"
 #include "ContentsEnums.h"
 Bullets::Bullets()
@@ -27,51 +28,98 @@ void Bullets::Start()
 
 	}
 
+	{
+		Collision = CreateCollision(MetalSlugOrder::Bullet);
+		Collision->SetScale({ 100, 100 });
+		
+	}
+
 }
 
 void Bullets::Update(float _DeltaTime)
 {
 	//CurPos = { 0,0 };
 	
-	if (test == false)
-	{
-		CurPos = { Player::MainPlayer->GetPos().x, Player::MainPlayer->GetPos().y - 100 };
-	}
+	
+		if (test == false)
+		{
+
+			CurPos = { Player::MainPlayer->GetPos().x, Player::MainPlayer->GetPos().y - 100 };
+			Collision->SetPosition({ CurPos });
+			AnimationRender->On();
+
+		}
+	
+
 
 	if (test == true)
 	{
-
-		
 		
 		switch (Dir)
 		{	
 		case Direction::Left:
 			
 			AnimationRender->SetPosition({ CurPos });
-			MoveDir += float4::Left * 2;
+			
+			MoveDir = float4::Left * 2000;
 			AnimationRender->On();
+			SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Right:
 		
-			AnimationRender->SetPosition({ CurPos });
-			MoveDir += float4::Right * 2;
+			AnimationRender->SetPosition({ CurPos });			
+			MoveDir = float4::Right * 2000;
 			AnimationRender->On();
+			SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Down:
 			AnimationRender->SetPosition({ CurPos });
-			MoveDir += float4::Down * 2;
+			MoveDir = float4::Down * 2000;
 			AnimationRender->On();
+			SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Up:
 			AnimationRender->SetPosition({ CurPos });
-			MoveDir += float4::Up * 2;
+			MoveDir = float4::Up * 2000;
 			AnimationRender->On();
+			SetMove(MoveDir * _DeltaTime);
 			break;
 
 		default:
 			break;
 		}
 	}
-	SetMove(MoveDir * _DeltaTime);
+	
 
+	if (nullptr != Collision)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+		
+
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
+			}
+			
+			AnimationRender->Off();
+			test = false;
+		}
+
+	}
+	if (GetPos().x > 2000)
+	{
+		SetPos({ 0,0 });
+		test = false;
+	}
+	
+	
+
+}
+
+void Bullets::Render(float _Time)
+{
+	//Collision->DebugRender(); 
 }

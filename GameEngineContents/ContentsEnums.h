@@ -6,6 +6,7 @@ enum class MetalSlugOrder
 	Map,	
 	PlayerReg, 
 	PlayerBody,
+	Monster,
 	Bullet,
 };
 
