@@ -892,5 +892,5 @@ void Player::Render(float _DeltaTime)
 	GameEngineLevel::DebugTextPush(MouseText);
 	GameEngineLevel::DebugTextPush(CameraMouseText);
 	BodyCollision->DebugRender();
-	BackGroundCollision->DebugRender();
+//	BackGroundCollision->DebugRender();
 }

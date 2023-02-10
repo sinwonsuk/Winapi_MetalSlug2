@@ -109,11 +109,7 @@ void Bullets::Update(float _DeltaTime)
 		}
 
 	}
-	if (GetPos().x > 2000)
-	{
-		SetPos({ 0,0 });
-		test = false;
-	}
+	
 	
 	
 
