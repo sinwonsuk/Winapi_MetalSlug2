@@ -16,6 +16,12 @@ GameEngineRender::~GameEngineRender()
 void GameEngineRender::SetImage(const std::string_view& _ImageName) 
 {
 	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
+	// SetScaleToImage();
+}
+
+void GameEngineRender::SetImageToScaleToImage(const std::string_view& _ImageName)
+{
+	Image = GameEngineResources::GetInst().ImageFind(_ImageName);
 	SetScaleToImage();
 }
 
@@ -79,7 +85,8 @@ void GameEngineRender::FrameAnimation::Render(float _DeltaTime)
 			}
 		}
 
-		CurrentTime = FrameTime[CurrentIndex];
+		// 정밀하게 하려면 이게 맞죠?
+		CurrentTime += FrameTime[CurrentIndex];
 	}
 }
 

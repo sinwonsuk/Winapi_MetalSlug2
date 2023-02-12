@@ -6,8 +6,9 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
-
+#include <stdlib.h>
 #include "Bullets.h"
+#include "Monster.h"
 #include "ContentsEnums.h"
 
 Player* Player::MainPlayer;
@@ -27,7 +28,7 @@ void Player::Start()
 {
 	MainPlayer = this;
 	SetMove({ 100,0 });
-	
+	srand(static_cast<unsigned int>(time(nullptr)));
 	
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -102,6 +103,7 @@ void Player::Start()
 		AnimationRegRender = CreateRender(MetalSlugOrder::PlayerReg);
 		AnimationRegRender->SetScale({ 200, 200 });
 		AnimationRegRender->SetPosition({ Reg });
+		
 		//Idle Reg
 
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle",  .ImageName = "RightReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
@@ -180,7 +182,7 @@ void Player::Movecalculation(float _DeltaTime)
 	}
 	if (a == false)
 	{
-		MoveDir += float4::Down * 4000.0f * _DeltaTime;
+		MoveDir += float4::Down * 3000.0f * _DeltaTime;
 	}
 	
 	
@@ -200,7 +202,7 @@ void Player::Movecalculation(float _DeltaTime)
 		}
 	}
 
-	
+
 
 	
 	if (false == GameEngineInput::IsPress("LeftMove") && false == GameEngineInput::IsPress("RightMove"))
@@ -226,11 +228,56 @@ void Player::Movecalculation(float _DeltaTime)
 	{
 		CameraCheck = true;	
 	}
-	
+
+	/*if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		if (RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0)))
+		{
+			if (MonsterCheck == 0)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ GetPos().x +600,0});
+				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 800) + 400,500) });
+				MonsterCheck += 1;
+			}
+		}
+		
+		MonsterCheck = 0;
+		
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		if (RGB(254, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(254, 0, 0)))
+		{
+			if (MonsterCheck == 0)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ GetPos().x + 600,0 });
+				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 800) + 400,500) });
+				MonsterCheck += 1;
+			}
+		}
+		else
+		{
+			MonsterCheck = 0;
+		}
+	}*/
+
+
+
+
+	/*for (size_t i = 0; i < 0; i++)
+	{
+		Monster* Actor = CreateActor<Monster>(BubbleRenderOrder::Monster);
+		Actor->SetMove(float4(static_cast<float>(rand() % GameEngineWindow::GetScreenSize().ix()), static_cast<float>(rand() % GameEngineWindow::GetScreenSize().iy()))
+		);
+	}*/
+
 	
   //  std::vector<GameEngineActor>() = 
 
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)) && MoveDir.y >= -90)
+	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)) && MoveDir.y >= -80)
 	{
 		if (test == true  )
 		{
@@ -281,12 +328,7 @@ void Player::Movecalculation(float _DeltaTime)
 		test23 = true;
 		GetLevel()->SetCameraMove(CameraDir);
 	}
-	//Bullets[d]->SetMove({MoveDir1 * _DeltaTime});
-
-	/*for (int i = 0; i < Bullets.size(); i++)
-	{
-		Bullets[d]->SetMove({ MoveDir1 * _DeltaTime });		
-	}*/
+	
 	SetMove(MoveDir * _DeltaTime);
 }
 
@@ -295,22 +337,7 @@ bool FreeMode = false;
 void Player::Update(float _DeltaTime)
 {
 
-	if (nullptr != BulletCollision)
-	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == BulletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
-		{
-
-
-			for (size_t i = 0; i < collision.size(); i++)
-			{
-				GameEngineActor* ColActor = collision[i]->GetActor();
-				ColActor->Death();
-			}
-
-		}
-
-	}
+	
 	
 
 	if (GameEngineInput::IsDown("LeftMove"))
@@ -359,6 +386,7 @@ void Player::Update(float _DeltaTime)
 
 	
 	Movecalculation(_DeltaTime);
+	CollisionCheck(_DeltaTime);
 	UpdateState(_DeltaTime);
 	
 	
@@ -422,6 +450,111 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 	}
 
 }
+
+void Player::CollisionCheck(float _DeltaTime)
+{
+	if (nullptr != BulletCollision)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == BulletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+
+
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
+			}
+
+		}
+
+	}	
+	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
+	if (nullptr == ColImage)
+	{
+		MsgAssert("충돌용 맵 이미지가 없습니다.");
+	}
+
+	bool Check = true;
+	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
+
+
+	if (RGB(0, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 0)))
+	{
+		CameraCheck = true;
+	}
+
+	
+		if (RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			if (MonsterCheck == 0)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ GetPos().x + 900,500 });
+				Actor->GetPlayerCollision()->SetScale({ 500,500 });
+				
+
+			}
+			MonsterCheck = 1;
+		}
+	
+	
+
+	
+		if (RGB(254, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(254, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			if(MonsterCheck == 1)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ GetPos().x + 900,500 });
+				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
+			}
+			if (MonsterCheck == 1)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ GetPos().x + 1050,500 });
+				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
+			}
+			
+			MonsterCheck = 2;
+		}
+		
+	
+
+
+	
+		if (RGB(253, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(253, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			if (MonsterCheck == 2)
+			{
+				bool check = false; 
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 1900,500 });
+				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
+				Actor->SetRunCheck(check);
+				MonsterCheck += 1;
+			}
+			MonsterCheck = 3;
+		}
+
+		if (RGB(252, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(252, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			if (MonsterCheck == 3)
+			{
+				bool check = false;
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 1900,500 });
+				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
+				Actor->SetRunCheck(check);
+				MonsterCheck += 1;
+			}
+			MonsterCheck = 4;
+		}
+
+
+
+}
+
 void Player::DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1)
 {
 	std::string PrevDirString = DirString;
@@ -529,7 +662,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			DirString = "Right_";
 		}
 	}
-	if (GameEngineInput::IsPress("Attack"))
+	if (GameEngineInput::IsDown("Attack"))
 	{
 	    
 	    if (StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::MOVEATTACK)
@@ -558,27 +691,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		bullets[d]->test = true;
 
 		
-		if (bullets[d]->Dir == Direction::Right)
-		{
-			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-			{
-				bullets[i]->Dir = Direction::Right;
-			}
-		}
-		else if (bullets[d]->Dir ==Direction::Left)
-		{
-			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-			{
-				bullets[i]->Dir = Direction::Left;
-			}
-		}
-		else if (bullets[d]->Dir == Direction::Up)
-		{
-			for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
-			{
-				bullets[i]->Dir = Direction::Up;
-			}
-		}
+		
 	
 		d--;
 	
@@ -656,7 +769,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 		}
 
-		if (GameEngineInput::IsPress("Attack"))
+		if (GameEngineInput::IsDown("Attack"))
 		{
 			if (StateValue == PlayerState::JUMPUPATTACK)
 			{
@@ -712,7 +825,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			bullets[d]->test = true;
 
 
-			if (bullets[d]->Dir == Direction::Right)
+		/*	if (bullets[d]->Dir == Direction::Right)
 			{
 				for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 				{
@@ -732,7 +845,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				{
 					bullets[i]->Dir = Direction::Up;
 				}
-			}
+			}*/
 
 			d--;
 
@@ -769,7 +882,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			
 		}
 
-			if (GameEngineInput::IsPress("Attack"))
+			if (GameEngineInput::IsDown("Attack"))
 			{
 				if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK )
 				{
@@ -824,7 +937,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				bullets[d]->test = true;
 
 
-				if (bullets[d]->Dir == Direction::Right)
+			/*	if (bullets[d]->Dir == Direction::Right)
 				{
 					for (size_t i = static_cast<size_t>(0) + d; i < bullets.size(); i++)
 					{
@@ -844,7 +957,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					{
 						bullets[i]->Dir = Direction::Up;
 					}
-				}
+				}*/
 
 				d--;
 
@@ -893,6 +1006,6 @@ void Player::Render(float _DeltaTime)
 
 	GameEngineLevel::DebugTextPush(MouseText);
 	GameEngineLevel::DebugTextPush(CameraMouseText);
-	BodyCollision->DebugRender();
+	//BodyCollision->DebugRender();
     BulletCollision->DebugRender();
 }

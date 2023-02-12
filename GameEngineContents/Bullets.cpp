@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include "Player.h"
 #include "ContentsEnums.h"
+#include "Monster.h"
 Bullets::Bullets()
 {
 }
@@ -46,14 +47,14 @@ void Bullets::Update(float _DeltaTime)
 			CurPos = { Player::MainPlayer->GetPos().x, Player::MainPlayer->GetPos().y - 100 };
 			Collision->SetPosition({ CurPos });
 			AnimationRender->Off();
-
+			Collision->Off();
 		}
 	
 
 
 	if (test == true)
 	{
-		
+		Collision->On();
 		switch (Dir)
 		{	
 		case Direction::Left:
@@ -62,7 +63,7 @@ void Bullets::Update(float _DeltaTime)
 			
 			MoveDir = float4::Left * 2000;
 			AnimationRender->On();
-			//SetMove(MoveDir * _DeltaTime);
+			SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Right:
 		
@@ -70,45 +71,46 @@ void Bullets::Update(float _DeltaTime)
 			MoveDir = float4::Right * 2000;
 			AnimationRender->On();
 			//test = false;
-			//SetMove(MoveDir * _DeltaTime);
+			SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Down:
 			AnimationRender->SetPosition({ CurPos });
 			MoveDir = float4::Down * 2000;
 			AnimationRender->On();
-			//SetMove(MoveDir * _DeltaTime);
+			SetMove(MoveDir * _DeltaTime);
 			break;
 		case Direction::Up:
 			AnimationRender->SetPosition({ CurPos });
 			MoveDir = float4::Up * 2000;
 			AnimationRender->On();
-			//SetMove(MoveDir * _DeltaTime);
+			SetMove(MoveDir * _DeltaTime);
 			break;
 
 		default:
 			break;
 		}
 	}
-	SetMove(MoveDir * _DeltaTime);
+	//SetMove(MoveDir * _DeltaTime);
 
-	if (nullptr != Collision)
+	/*if (nullptr != Collision)
 	{
 		std::vector<GameEngineCollision*> collision;
-		if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Monster), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision) && test ==true)
 		{
 		
-
+			this->Death();
 			for (size_t i = 0; i < collision.size(); i++)
 			{
-				GameEngineActor* ColActor = collision[i]->GetActor();
-				ColActor->Death();
+				Monster* ColActor = collision[i]->GetActor();
+				
+			    ColActor->Death();
 			}
-			
+		
 			AnimationRender->Off();
-			test = false;
+			
 		}
 
-	}
+	}*/
 	
 
 	
@@ -117,5 +119,5 @@ void Bullets::Update(float _DeltaTime)
 
 void Bullets::Render(float _Time)
 {
-	//Collision->DebugRender(); 
+	Collision->DebugRender(); 
 }

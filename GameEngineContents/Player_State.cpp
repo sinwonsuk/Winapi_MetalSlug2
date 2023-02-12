@@ -224,7 +224,7 @@ void Player::IdleUpdate(float _Time)
 		ChangeState(PlayerState::UPMOVE);
 		return;
 	}
-	else if (GameEngineInput::IsPress("Attack"))
+	else if (GameEngineInput::IsDown("Attack"))
 	{
 		ChangeState(PlayerState::IDLEATTACK);
 		return;
@@ -245,6 +245,8 @@ void Player::IdleUpdate(float _Time)
 void Player::IdleEnd() {
 
 }
+
+
 
 void Player::MoveStart() 
 {	
@@ -994,7 +996,7 @@ void Player::MoveUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 
-	StateValue;
+	
 	
 
 	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))

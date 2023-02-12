@@ -8,6 +8,8 @@ enum class MetalSlugOrder
 	PlayerBody,
 	BulletCheck,
 	Monster,
+	MonsterCheck,
+	MonsterBullet,
 	Bullet,
 };
 

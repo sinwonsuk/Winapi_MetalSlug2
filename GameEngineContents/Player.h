@@ -71,7 +71,7 @@ protected:
 
 private:
 	bool a = true;
-	
+	int MonsterCheck = 0;
 	float AccTime = 0.0f;
 	int StartFrame = 0;
 	float MoveSpeed = 300.0f;
@@ -79,7 +79,7 @@ private:
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;
-	float4 MoveDir1 = float4::Zero;
+
 	float4 CameraDir = float4::Zero;
 	int d = 99;
 	GameEngineRender* AnimationBodyRender = nullptr;
@@ -99,7 +99,7 @@ private:
 	void IdleStart();
 	void IdleUpdate(float _Time);
 	void IdleEnd();
-
+	void CollisionCheck(float _DeltaTime);
 	void UpStart();
 	void UpMoveStart();
 	void UpAttackStart(); 

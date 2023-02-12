@@ -31,6 +31,7 @@
       <Filter>Play\InterFace</Filter>
     </ClInclude>
     <ClInclude Include="Bullets.h" />
+    <ClInclude Include="MonsterBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -65,6 +66,10 @@
       <Filter>Play\InterFace</Filter>
     </ClCompile>
     <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="Monster_State.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">

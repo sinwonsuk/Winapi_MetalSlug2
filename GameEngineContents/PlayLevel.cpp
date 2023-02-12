@@ -10,6 +10,7 @@
 #include "InterFace.h"
 #include "Bullets.h"
 #include "Monster.h"
+#include "MonsterBullet.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -28,10 +29,7 @@ void PlayLevel::Loading()
 	Dir.Move("Play");
 
 	{
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterAttack.BMP"));
-			Image->Cut(5, 4);
-		}
+		
 
 
 		// 맵 
@@ -192,9 +190,48 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullet.BMP"));
 		}
 		// 몬스터 
-		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("AttackPre.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterMove.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterIdle.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterAttack.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterNife.BMP"));
+			Image->Cut(5, 3);
+		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PlayerCheck.BMP"));
+			Image->Cut(5, 1);
+		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("DeathOne.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("DeathTwo.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterJump.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterBackJump.BMP"));
+			Image->Cut(5, 3);
+		}
 	}
 
 	// 액터 생성
@@ -209,10 +246,15 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
+
 	{
-		Monster* Actor = CreateActor<Monster>();
+		//Monster* Actor = CreateActor<Monster>();
+				
 	}
+
 	
+
+
 	for (size_t i = 0; i < 100; i++)
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
