@@ -7,10 +7,12 @@ enum class MetalSlugOrder
 	PlayerReg, 
 	PlayerBody,
 	BulletCheck,
+
 	Monster,
 	MonsterCheck,
 	MonsterBullet,
 	Bullet,
+	Boob
 };
 
 enum class MetalSlugSelect

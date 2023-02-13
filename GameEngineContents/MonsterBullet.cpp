@@ -18,7 +18,7 @@ MonsterBullet::~MonsterBullet()
 
 void MonsterBullet::Start()
 {
-	//SetMove({ 800, 0 });
+	
 
 	{
 		BulletRender = CreateRender(MetalSlugOrder::MonsterBullet);
@@ -38,7 +38,7 @@ void MonsterBullet::Update(float _DeltaTime)
 	if (MonsterBulletMove == true)
 	{
 		
-		MoveDir += float4::Left * 10;
+		MoveDir += float4::Left * 20;
 		
 	}
 

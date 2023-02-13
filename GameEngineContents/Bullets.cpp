@@ -119,5 +119,5 @@ void Bullets::Update(float _DeltaTime)
 
 void Bullets::Render(float _Time)
 {
-	Collision->DebugRender(); 
+	//Collision->DebugRender(); 
 }

@@ -8,6 +8,7 @@
 #include "ContentsEnums.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include "MonsterBullet.h"
+#include "Player.h"
 void Monster::ChangeState(MonsterState _State)
 {
 	{
@@ -202,13 +203,29 @@ void Monster::PlayerCheckUpdate(float _Time)
 
 void Monster::AttackUpdate(float _Time)
 {
+
+
 	if (AnimationRender->GetFrame() == 7)
 	{
 		if (a == 0)
 		{
 			Actor = GetLevel()->CreateActor<MonsterBullet>();
 			Actor->SetPos(GetPos());
-			Actor->MoveDir += float4::Up * 650;
+			BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
+
+
+			//float BulletRange = Player::MainPlayer->GetMonsterBulletRange();
+			//float a = Player::MainPlayer->GetPos().x;
+			
+				
+
+				Actor->MoveDir += float4::Up * (250 + BulletRange);
+			
+			
+				
+
+				//Actor->MoveDir += float4::Up * (350 - BulletRange);
+			
 			Actor->MonsterBulletMove = true;
 		}
 		

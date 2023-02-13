@@ -232,7 +232,13 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterBackJump.BMP"));
 			Image->Cut(5, 3);
 		}
+		// 무기 
+		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Boom.BMP"));
+		Image->Cut(5, 4);
 	}
+	
+
+
 
 	// 액터 생성
 

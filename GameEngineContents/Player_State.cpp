@@ -237,6 +237,8 @@ void Player::IdleUpdate(float _Time)
 	}
 	else if (true == GameEngineInput::IsPress("Throw"))
 	{
+	
+		
 		ChangeState(PlayerState::THROW);
 		return;
 	}
@@ -417,7 +419,7 @@ void Player::ThrowUpdate(float _Time)
 		return;
 	}
 
-	if (true == GameEngineInput::IsPress("Throw"))
+	if (true == GameEngineInput::IsDown("Throw"))
 	{
 		ChangeState(PlayerState::THROW);
 		return;
@@ -453,11 +455,7 @@ void Player::ThrowMoveUpdate(float _Time)
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("Throw"))
-	{
-		ChangeState(PlayerState::THROWMOVE);
-		return;
-	}
+
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{

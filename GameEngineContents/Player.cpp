@@ -489,6 +489,8 @@ void Player::CollisionCheck(float _DeltaTime)
 	
 		if (RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0)) && PosCheck.x < GetPos().ix())
 		{
+			MonsterBulletRange = GetPos().x;
+
 			if (MonsterCheck == 0)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
@@ -505,6 +507,8 @@ void Player::CollisionCheck(float _DeltaTime)
 	
 		if (RGB(254, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(254, 0, 0)) && PosCheck.x < GetPos().ix())
 		{
+			MonsterBulletRange = GetPos().x;
+
 			if(MonsterCheck == 1)
 			{
 				
@@ -529,6 +533,8 @@ void Player::CollisionCheck(float _DeltaTime)
 	
 		if (RGB(253, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(253, 0, 0)) && PosCheck.x < GetPos().ix())
 		{
+			MonsterBulletRange = GetPos().x;
+
 			if (MonsterCheck == 2)
 			{
 				bool check = false; 
@@ -543,12 +549,13 @@ void Player::CollisionCheck(float _DeltaTime)
 
 		if (RGB(252, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(252, 0, 0)) && PosCheck.x < GetPos().ix())
 		{
+			MonsterBulletRange = GetPos().x;
+
 			if (MonsterCheck == 3)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetMove({ 2350,300 });
-				
-					
+						
 			}
 
 			if (MonsterCheck == 3)
@@ -579,7 +586,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
 		bullets.push_back(bullet);
 	}
-
+	bool Left = false;
+	bool Right = true; 
 
 	
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
@@ -594,6 +602,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (GameEngineInput::IsPress("LeftMove"))
 	{
+
 		LeftSetBody({ 0,0 });
 		
 		AnimationBodyRender->SetPosition({ body });
@@ -708,7 +717,74 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		
 	
 	}
+	if (GameEngineInput::IsDown("Throw"))
+	{
+		
 
+
+		if (StateValue == PlayerState::THROW)
+		{
+			if (DirString == "Left_")
+			{
+				LeftSetBody({ 0,0 });
+				Actor = GetLevel()->CreateActor<Bomb>();
+				Actor->SetPos(GetPos());
+				Actor->MoveDir += float4::Up * 650;
+				Actor->SetDirCheck(Left); 
+				
+				AnimationBodyRender->SetPosition({ body });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			else if (DirString == "Right_")
+			{
+				RightSetBody({ 0,0 });
+				Actor = GetLevel()->CreateActor<Bomb>();
+				Actor->SetPos(GetPos());
+				Actor->MoveDir += float4::Up * 650;
+			
+				Actor->SetDirCheck(Right);
+
+				AnimationBodyRender->SetPosition({ body });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Right_";
+
+			}
+		}
+		if (StateValue == PlayerState::THROWMOVE)
+		{
+			if (DirString == "Left_")
+			{
+				LeftSetBody({ 0,0 });
+				Actor = GetLevel()->CreateActor<Bomb>();
+				Actor->SetPos(GetPos());
+				Actor->MoveDir += float4::Up * 650;
+				Actor->SetDirCheck(Left);
+
+				AnimationBodyRender->SetPosition({ body });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			else if (DirString == "Right_")
+			{
+				RightSetBody({ 0,0 });
+				Actor = GetLevel()->CreateActor<Bomb>();
+				Actor->SetPos(GetPos());
+				Actor->MoveDir += float4::Up * 650;
+
+				Actor->SetDirCheck(Right);
+
+				AnimationBodyRender->SetPosition({ body });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Right_";
+
+			}
+		}
+
+
+
+
+	}
 	if (PrevDirString != DirString)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());

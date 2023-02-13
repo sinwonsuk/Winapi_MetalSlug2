@@ -25,13 +25,18 @@ public:
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
 	float4 CurPos = float4::Zero;
+	bool SetDirCheck(bool & Check)
+	{
+		return DirCheck = Check;
+	}
 
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void Render(float _Time) override;
 private:
-
+	GameEngineRender* BoombRender = nullptr;
+	bool DirCheck = true;
 };
 
 

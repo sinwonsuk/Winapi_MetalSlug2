@@ -100,6 +100,7 @@ protected:
 private:
 
 	MonsterState StateValue = MonsterState::IDLE;
+	float BulletRange = 0;
 	float4 MoveDir = float4::Zero;
 	float4 MoveDir1 = float4::Zero;
 	float JumpSpeed = 650; 

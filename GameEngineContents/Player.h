@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include "Bullets.h"
+#include "Bomb.h"
 enum class PlayerState
 {
 	IDLE,
@@ -57,6 +58,12 @@ public:
 		this->body.x = reg.x - 11;
 		this->body.y = reg.y - 35;
 	}
+	float GetMonsterBulletRange()
+	{
+		return MonsterBulletRange;
+	}
+
+
 	float4 GetCameraDir()
 	{
 		return CameraDir; 
@@ -76,6 +83,7 @@ private:
 	int StartFrame = 0;
 	float MoveSpeed = 300.0f;
 	float JumpSpeed = 800.0f;
+	float MonsterBulletRange = 0;
 	std::string DirString = "Right_";
 	PlayerState StateValue = PlayerState::IDLE;
 	float4 MoveDir = float4::Zero;
@@ -160,6 +168,7 @@ private:
 	float4 PosCheck = { 0,0 }; 
 	std::vector<GameEngineActor*> Bullet;
 	std::vector<Bullets*> bullets;
-	
+	Bomb* Actor = nullptr;
+
 };
 
