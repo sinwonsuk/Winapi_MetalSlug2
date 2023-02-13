@@ -168,7 +168,7 @@ void Monster::MoveUpdate(float _Time)
 	}
 	else if(RunCheck == true)
 	{
-		MoveDir += float4::Left * 1000;
+		MoveDir += float4::Left * JumpSpeed;
 	}
 	
 	
@@ -209,7 +209,7 @@ void Monster::AttackUpdate(float _Time)
 			Actor = GetLevel()->CreateActor<MonsterBullet>();
 			Actor->SetPos(GetPos());
 			Actor->MoveDir += float4::Up * 650;
-			Actor->test = true;
+			Actor->MonsterBulletMove = true;
 		}
 		
 		a++;
@@ -233,11 +233,22 @@ void Monster::MonsterBulletUpdate(float _Time)
 
 void Monster::MonsterJumpUpdate()
 {
+	//if (MoveDir.y > 0)
+	//{
+	//	ChangeState(MonsterState::IDLE);
+	//}
 }
 
 
 void Monster::MonsterBackJumpUpdate()
 {
+	MoveDir.x = 0;
+
+	if (true == AnimationRender->IsAnimationEnd())
+	{
+		ChangeState(MonsterState::JUMP);
+		return;
+	}
 }
 
 void Monster::MonsterDeathOneUpdate()

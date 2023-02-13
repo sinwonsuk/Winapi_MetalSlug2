@@ -32,6 +32,7 @@
     </ClInclude>
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="MonsterBullet.h" />
+    <ClInclude Include="Bomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -70,6 +71,7 @@
       <Filter>Play</Filter>
     </ClCompile>
     <ClCompile Include="MonsterBullet.cpp" />
+    <ClCompile Include="Bomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">

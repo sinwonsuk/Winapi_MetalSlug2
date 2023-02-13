@@ -102,6 +102,8 @@ private:
 	MonsterState StateValue = MonsterState::IDLE;
 	float4 MoveDir = float4::Zero;
 	float4 MoveDir1 = float4::Zero;
+	float JumpSpeed = 650; 
+	float MoveSpeed = 1000;
 	GameEngineRender* AnimationRender = nullptr;
 	//GameEngineRender* BulletRender = nullptr;
 	GameEngineCollision* MonsterCollision = nullptr;

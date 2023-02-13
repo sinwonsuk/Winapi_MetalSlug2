@@ -18,7 +18,7 @@ MonsterBullet::~MonsterBullet()
 
 void MonsterBullet::Start()
 {
-	SetMove({ 800, 0 });
+	//SetMove({ 800, 0 });
 
 	{
 		BulletRender = CreateRender(MetalSlugOrder::MonsterBullet);
@@ -34,13 +34,8 @@ void MonsterBullet::Update(float _DeltaTime)
 
 	MoveDir += float4::Down * 1000.0f * _DeltaTime;
 
-	if (test == false)
-	{
-
-	}
-
-
-	if (test == true)
+	
+	if (MonsterBulletMove == true)
 	{
 		
 		MoveDir += float4::Left * 10;
@@ -60,14 +55,11 @@ void MonsterBullet::Update(float _DeltaTime)
 	}
 
 
-	//ColMap.BMP 이걸 변수로하면 
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
 	if (nullptr == ColImage)
 	{
 		MsgAssert("충돌용 맵 이미지가 없습니다.");
 	}
-
-	//// 내 미래의 위치는 여기인데/.
 
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
@@ -78,40 +70,10 @@ void MonsterBullet::Update(float _DeltaTime)
 	{
 
 		BulletRender->ChangeAnimation("Stop");
-		//ChangeState(MonsterState::IDLE);
 		Check = false;
 		MoveDir = { 0,0 };
-		test = false;
+		MonsterBulletMove = false;
 	}
-
-
-	/*if (false == Check)
-	{
-		while (true)
-		{
-			MoveDir.y -= 1;
-			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
-			{
-				continue;
-			}
-
-			if (50.0f <= abs(MoveDir.y))
-			{
-				if (0 > MoveDir.y)
-				{
-					MoveDir.y = -80.0f;
-				}
-				else
-				{
-					MoveDir.y = 0.0f;
-				}
-
-			}
-			Check = true;
-			break;
-		}
-	}*/
 
 	SetMove(MoveDir* _DeltaTime);
 	

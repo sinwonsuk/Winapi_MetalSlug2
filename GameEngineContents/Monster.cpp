@@ -46,8 +46,8 @@ void Monster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_PlayerCheck",  .ImageName = "PlayerCheck.bmp", .Start = 0, .End = 3, .InterTime = 0.15f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathOne",  .ImageName = "DeathOne.bmp", .Start = 0, .End = 10, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathTwo",  .ImageName = "DeathTwo.bmp", .Start = 0, .End = 19, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterJump",  .ImageName = "MonsterJump.bmp", .Start = 0, .End = 8, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterBackJump",  .ImageName = "MonsterBackJump.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterJump",  .ImageName = "MonsterJump.bmp", .Start = 0, .End = 8, .InterTime = 0.1f  });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterBackJump",  .ImageName = "MonsterBackJump.bmp", .Start = 0, .End = 11, .InterTime = 0.075f , .Loop = false });
 
 		//AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterNife",  .ImageName = "MonsterNife.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
 
@@ -73,7 +73,7 @@ void Monster::Start()
 
 	{
 		PlayerCollision = CreateCollision(MetalSlugOrder::MonsterCheck);
-		//PlayerCollision->SetScale({ 500, 500 });
+		PlayerCollision->SetScale({ 500, 500 });
 	}
 
 	
@@ -88,7 +88,7 @@ void Monster::Movecalculation(float _DeltaTime)
 	
 
 	
-	MoveDir += float4::Down * 5000.0f * _DeltaTime;
+	MoveDir += float4::Down * 2000.0f * _DeltaTime;
 
 	if (450.0f <= abs(MoveDir.x))
 	{
@@ -113,39 +113,58 @@ void Monster::Movecalculation(float _DeltaTime)
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	
 
-
-
-
-
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) /*&& MoveDir.y >= -90*/)
+	if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)) && StateValue == MonsterState::MOVE)
 	{
-		Check = false;
+		MoveDir += float4::Up * 550;
+		ChangeState(MonsterState::JUMPBACK);
+
+		return;
 	}
+
+
+
+
+	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) && StateValue != MonsterState::JUMPBACK)
+	{
+		if (StateValue == MonsterState::JUMP)
+		{
+			ChangeState(MonsterState::IDLE);
+		}
+
+
+		Check = false;
+
+
+
+	}
+
 	
 
+
+	
 	if (false == Check)
 	{
 		while (true)
 		{
-			MoveDir.y -= 20;
+			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
 			{
 				continue;
 			}
 
-			/*if (50.0f <= abs(MoveDir.y))
+			if (50.0f <= abs(MoveDir.y))
 			{
 				if (0 > MoveDir.y)
 				{
-					MoveDir.y = -80.0f;
+					MoveDir.y = -100.0f;
 				}
 				else
 				{
 					MoveDir.y = 0.0f;
 				}
 
-			}*/
+			}
 			Check = true;
 			break;
 		}

@@ -28,7 +28,7 @@ void Player::Start()
 {
 	MainPlayer = this;
 	SetMove({ 100,0 });
-	srand(static_cast<unsigned int>(time(nullptr)));
+	
 	
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -178,11 +178,11 @@ void Player::Movecalculation(float _DeltaTime)
 
 	if (a == true)
 	{		
-		MoveDir += float4::Down * 1200.0f * _DeltaTime;
+		MoveDir += float4::Down * 1500.0f * _DeltaTime;
 	}
 	if (a == false)
 	{
-		MoveDir += float4::Down * 3000.0f * _DeltaTime;
+		MoveDir += float4::Down * 6000.0f * _DeltaTime;
 	}
 	
 	
@@ -453,6 +453,8 @@ void Player::DirCheck(const std::string_view& _AnimationName)
 
 void Player::CollisionCheck(float _DeltaTime)
 {
+	srand(static_cast<unsigned int>(time(nullptr)));
+
 	if (nullptr != BulletCollision)
 	{
 		std::vector<GameEngineCollision*> collision;
@@ -505,15 +507,17 @@ void Player::CollisionCheck(float _DeltaTime)
 		{
 			if(MonsterCheck == 1)
 			{
+				
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ GetPos().x + 900,500 });
-				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
+				Actor->SetMove({  1600,500 });
+				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 			}
 			if (MonsterCheck == 1)
 			{
+				
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ GetPos().x + 1050,500 });
-				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
+				Actor->SetMove({  1650,500 });
+				Actor->GetPlayerCollision();
 			}
 			
 			MonsterCheck = 2;
@@ -541,14 +545,20 @@ void Player::CollisionCheck(float _DeltaTime)
 		{
 			if (MonsterCheck == 3)
 			{
-				bool check = false;
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 1900,500 });
-				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
-				Actor->SetRunCheck(check);
-				MonsterCheck += 1;
+				Actor->SetMove({ 2350,300 });
+				
+					
 			}
-			MonsterCheck = 4;
+
+			if (MonsterCheck == 3)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 2650,600 });
+				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
+			
+			}
+			MonsterCheck += 1;
 		}
 
 

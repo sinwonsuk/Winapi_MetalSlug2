@@ -14,7 +14,7 @@ public:
 	MonsterBullet(MonsterBullet&& _Other) noexcept = delete;
 	MonsterBullet& operator=(const MonsterBullet& _Other) = delete;
 	MonsterBullet& operator=(MonsterBullet&& _Other) noexcept = delete;
-	bool test = false;
+	bool MonsterBulletMove = false;
 	float4 MoveDir = float4::Zero;
 protected:
 	void Start() override;

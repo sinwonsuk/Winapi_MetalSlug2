@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="CharacterSelect.h" />
     <ClInclude Include="InterFace.h" />
@@ -52,6 +53,7 @@
     <ClInclude Include="ContentsEnums.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="CharacterSelect.cpp" />
     <ClCompile Include="InterFace.cpp" />
