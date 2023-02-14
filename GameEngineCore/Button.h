@@ -67,6 +67,33 @@ public:
 		return ButtonCollision;
 	}
 
+	ButtonState GetState() 
+	{
+		return State;
+	}
+
+	int GetHoverIndex() 
+	{
+		return HoverIndex;
+	}
+
+	int GetReleaseIndex() 
+	{
+		return ReleaseIndex;
+	}
+
+	int GetPressIndex()
+	{
+		return PressIndex;
+	}
+
+	void SetCollisionOrder(int _Order);
+
+	float4 GetScale() 
+	{
+		return Scale;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

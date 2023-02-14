@@ -21,7 +21,7 @@ public:
 	{
 		Position = _Position;
 	}
-	
+
 	inline void SetMove(float4 _Position)
 	{
 		Position += _Position;

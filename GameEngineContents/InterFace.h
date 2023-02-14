@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/NumberRenderObject.h>
+
 class InterFace : public GameEngineActor
 {
 public:
@@ -18,6 +20,10 @@ protected:
 private:
 	float TimeCheck = 0;
 	bool Time = false;
+	float Value = 10;
+	NumberRenderObject TestNumber;
+
+
 	float4 CamerPos = float4::Zero;
 	GameEngineRender* M = nullptr;
 	GameEngineRender* I = nullptr;

@@ -2,6 +2,8 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include "Bullets.h"
 #include "Bomb.h"
+
+
 enum class PlayerState
 {
 	IDLE,
@@ -29,7 +31,20 @@ enum class PlayerState
 	UPJUMPMOVEATTACK,
 	UPJUMPMOVEDOWNATTACK,
 	THROW,
-	THROWMOVE
+	THROWMOVE,
+	HEAVYIDLE,
+	HEAVYMOVE,
+	HEAVYUP,
+	HEAVYUPMOVE,
+	HEAVYJUMPUP,
+	HEAVYJUMPDOWN,
+	HEAVYJUMPMOVEUP,
+	HEAVYJUMPMOVEDOWN,
+	HEAVYUPJUMPUPMOVE,
+	HEAVYUPJUMPDOWNMOVE,
+	HEAVYIDLEATTACK,
+	HEAVYMOVEATTACK,
+
 };
 
 // 설명 :
@@ -62,7 +77,10 @@ public:
 	{
 		return MonsterBulletRange;
 	}
-
+	float GetBombNumber()
+	{
+		return BombNumber;
+	}
 
 	float4 GetCameraDir()
 	{
@@ -78,36 +96,54 @@ protected:
 
 private:
 	bool a = true;
+	bool test = false;
+	bool test1 = false;
+	bool CameraCheck = false;
+
 	int MonsterCheck = 0;
-	float AccTime = 0.0f;
+	int d = 99;
 	int StartFrame = 0;
+
+	float AccTime = 0.0f;
 	float MoveSpeed = 300.0f;
 	float JumpSpeed = 800.0f;
 	float MonsterBulletRange = 0;
-	std::string DirString = "Right_";
-	PlayerState StateValue = PlayerState::IDLE;
-	float4 MoveDir = float4::Zero;
+	float TimeCheck = 0;
+	float BombNumber = 10; 
 
+	std::string DirString = "Right_";
+	std::vector<GameEngineActor*> Bullet;
+	std::vector<Bullets*> bullets;
+	PlayerState StateValue = PlayerState::IDLE;
+
+	float4 MoveDir = float4::Zero;
 	float4 CameraDir = float4::Zero;
-	int d = 99;
+	float4 body = { 0,0 };
+	float4 Reg = { 0,0 };
+	float4 gravity = float4::Zero;
+	float4 PosCheck = { 0,0 };
+
+
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* BulletCollision = nullptr;
+
 	void DirCheck(const std::string_view& _AnimationName);
 	void DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
-	void  JumpDirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
+	void JumpDirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);
 	
 	// State
-    //void CameraCheck(); 
 	void ChangeState(PlayerState _State);
 	void UpdateState(float _Time);
 	void Movecalculation(float _DeltaTime);
-	// FSM 내가 어떤일을 할때 이동하면서 가만히 있을수 없다.
+
 	void IdleStart();
 	void IdleUpdate(float _Time);
 	void IdleEnd();
+
 	void CollisionCheck(float _DeltaTime);
+
 	void UpStart();
 	void UpMoveStart();
 	void UpAttackStart(); 
@@ -127,9 +163,10 @@ private:
 	void JumpDownStart();
 	void JumpMoveUpStart(); 
 	void JumpMoveDownStart();
+
 	void JumpUpdate(float _Time);
 	void JumpMoveUpdate(float _Time);
-	void test2(float _Time);
+	
 
 	void MoveStart();
 	void MoveUpdate(float _Time);
@@ -157,18 +194,39 @@ private:
 	void ThrowUpdate(float _Time);
 	void ThrowMoveUpdate(float _Time);
 
-	float TimeCheck = 0;
-	bool test = false;
-	bool test1 = false;
-	float4 body = { 0,0 };
-	float4 Reg = { 0,0 };
-	float4 gravity = float4::Zero;
-	
-	bool CameraCheck = false;
-	float4 PosCheck = { 0,0 }; 
-	std::vector<GameEngineActor*> Bullet;
-	std::vector<Bullets*> bullets;
+	void HeavyIdleStart();
+	void HeavyIdleUpdate(float _Time);
+
+	void HeavyMoveStart();
+	void HeavyMoveUpdate(float _Time);
+
+	void HeavyUpStart();
+	void HeavyUpMoveStart();
+
+	void HeavyUpUpdate(float _Time);
+	void HeavyUpMoveUpdate(float _Time);
+
+	void HeavyJumpUpStart();
+	void HeavyJumpDownStart();
+	void HeavyJumpMoveUpStart();
+	void HeavyJumpMoveDownStart();
+
+
+
+	void HeavyUpJumpUpMoveStart(); 
+	void HeavyUpJumpDownMoveStart();
+
+	void HeavyJumpUpdate(float _Time);
+	void HeavyJumpMoveUpdate(float _Time);
+
+	void HeavyAttackStart();
+	void HeavyAttackMoveStart();
+
+	void HeavyAttackIdleUpdate(float _Time);
+	void HeavyAttackMoveUpdate(float _Time);
+
 	Bomb* Actor = nullptr;
+	
 
 };
 

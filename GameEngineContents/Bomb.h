@@ -29,7 +29,10 @@ public:
 	{
 		return DirCheck = Check;
 	}
-
+	bool SetMoveCheck(bool& Check)
+	{
+		return MoveCheck = Check;
+	}
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -37,6 +40,10 @@ protected:
 private:
 	GameEngineRender* BoombRender = nullptr;
 	bool DirCheck = true;
+	int GroundCheck = 0;
+	bool MoveCheck = false;
+
+	bool BoomDeath = false;
 };
 
 

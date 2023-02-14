@@ -20,7 +20,10 @@ void Map::Start()
 		GameEngineRender* AnimationRender = CreateRender(0);
 		AnimationRender->SetImage("BackGround1.Bmp");
 		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half() });
-		AnimationRender->SetScale({ 1000,300 });
+		AnimationRender->Set
+		
+		
+		({ 1000,300 });
 
 	}*/
 

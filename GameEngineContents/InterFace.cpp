@@ -14,7 +14,10 @@ InterFace::~InterFace()
 
 void InterFace::Start()
 {
-
+	TestNumber.SetOwner(this);
+	TestNumber.SetImage("Number.BMp", { 25, 25 }, 10, RGB(255, 255, 255), "");
+	TestNumber.SetValue(Value);
+	TestNumber.SetRenderPos({ 360,57 });
 	{
 		GameEngineRender* AnimationRender = CreateRender(2);
 		AnimationRender->SetImage("Score.Bmp");
@@ -37,6 +40,7 @@ void InterFace::Start()
 		AnimationRender->SetPosition({ 470,45 });
 		AnimationRender->SetScale({ 99,66 });
 		AnimationRender->EffectCameraOff();
+
 
 	}
 
@@ -144,13 +148,17 @@ void InterFace::Start()
 
 void InterFace::Update(float _DeltaTime)
 {
-		
+//	Value = Player::MainPlayer->GetBombNumber();
+
+	TestNumber.SetValue(Player::MainPlayer->GetBombNumber());
+	TestNumber.SetAlign(Align::Right);
 	if (Time == false)
 	{
 		TimeCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
 		if (TimeCheck > 0.2)
 		{
+			
 			M->SetPosition({ 220,290 });
 		}
 		if (TimeCheck > 0.4)

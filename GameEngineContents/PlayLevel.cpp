@@ -28,17 +28,45 @@ void PlayLevel::Loading()
 	Dir.Move("Image");
 	Dir.Move("Play");
 
+
+
+
+
+	GameEngineDirectory InferFace;
+	InferFace.MoveParentToDirectory("ContentsResources");
+	InferFace.Move("ContentsResources");
+	InferFace.Move("Image");
+	InferFace.Move("Interface");
+
+
+	GameEngineDirectory map;
+	map.MoveParentToDirectory("ContentsResources");
+	map.Move("ContentsResources");
+	map.Move("Image");
+	map.Move("Map");
+
+	GameEngineDirectory Monster;
+	Monster.MoveParentToDirectory("ContentsResources");
+	Monster.Move("ContentsResources");
+	Monster.Move("Image");
+	Monster.Move("Monster");
+
+	GameEngineDirectory Weapon;
+	Weapon.MoveParentToDirectory("ContentsResources");
+	Weapon.Move("ContentsResources");
+	Weapon.Move("Image");
+	Weapon.Move("Weapon");
+
 	{
 		
 
 
 		// 맵 
-		
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map12.BMP"));
-		}
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("Map12.BMP"));
+		}				
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Map11.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("Map11.BMP"));
 		}
 	
 		
@@ -47,8 +75,6 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightJumpReg.BMP"));
 			Image->Cut(5, 3);
 		}
-
-
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightBodyMove.BMP"));
 			Image->Cut(5, 3);
@@ -140,101 +166,208 @@ void PlayLevel::Loading()
 			Image->Cut(5, 2);
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunUpAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunUpAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyGunIdleAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeavyGunIdleAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyGunIdle.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeavyGunIdle.BMP"));
+			Image->Cut(5, 1);
+		}
+
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunUp.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunUp.BMP"));
+			Image->Cut(5, 1);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunThrow.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunThrow.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunMoveJump.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunMoveJump.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunMove.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunMove.BMP"));
+			Image->Cut(5, 3);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunDownAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunDownAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeaveGunIdleJump.BMP"));
+			Image->Cut(5, 1);
+		}		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeaveGunIdleJump.BMP"));
+			Image->Cut(5, 1);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	     //인터페이스 
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullets.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("Bullets.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Score.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("Score.BMP"));
 		}		
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PressStart.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("PressStart.BMP"));
 			Image->Cut(2, 1);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("00.BMP"));
-		}
-
-		// 글자 
-
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("M.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("00.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("I.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("Number.BMP"));
+			Image->Cut(10, 1);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("S.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("M.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("O.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("I.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("N.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("S.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("T.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("O.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("A.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("N.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("R.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("T.BMP"));
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("!.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("A.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("R.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("!.BMP"));
 		}
 		
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Bullet.BMP"));
-		}
+		
+
+
 		// 몬스터 
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("AttackPre.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("AttackPre.BMP"));
 			Image->Cut(5, 1);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterMove.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterMove.BMP"));
 			Image->Cut(5, 3);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterIdle.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterIdle.BMP"));
 			Image->Cut(5, 2);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterAttack.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterAttack.BMP"));
 			Image->Cut(5, 4);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterNife.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterNife.BMP"));
 			Image->Cut(5, 3);
 		}
 
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PlayerCheck.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PlayerCheck.BMP"));
 			Image->Cut(5, 1);
 		}
 
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("DeathOne.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("DeathOne.BMP"));
 			Image->Cut(5, 3);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("DeathTwo.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("DeathTwo.BMP"));
 			Image->Cut(5, 4);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterJump.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterJump.BMP"));
 			Image->Cut(5, 2);
 		}
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("MonsterBackJump.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterBackJump.BMP"));
 			Image->Cut(5, 3);
 		}
 		// 무기 
-		GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Boom.BMP"));
-		Image->Cut(5, 4);
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("Boom.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("Exploision1.BMP"));
+			Image->Cut(5, 6);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("Bullet.BMP"));
+		}
 	}
 	
 
@@ -264,8 +397,6 @@ void PlayLevel::Loading()
 	for (size_t i = 0; i < 100; i++)
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
-		//Actor->SetMove({ 100,500 });
-
 	}
 
 	
@@ -294,7 +425,8 @@ void PlayLevel::Update(float _DeltaTime)
 		// Player::MainPlayer->Death()p;
 	}
 
-	float CameraMoveSpeed = 400.0f;
+	float CameraMoveSpeed = 
+		.0f;
 
 	//if (GameEngineInput::IsPress("CameraLeftMove"))
 	//{
