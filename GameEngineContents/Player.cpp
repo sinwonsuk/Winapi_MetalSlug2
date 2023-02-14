@@ -7,6 +7,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <stdlib.h>
+#include <math.h>
 #include "Bullets.h"
 #include "Monster.h"
 #include "ContentsEnums.h"
@@ -16,7 +17,7 @@ Player* Player::MainPlayer;
 Player::Player() 
 {
 	
-
+	
 
 }
 
@@ -29,7 +30,7 @@ void Player::Start()
 	MainPlayer = this;
 	SetMove({ 100,0 });
 	
-	
+	float a = cos(20);
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
