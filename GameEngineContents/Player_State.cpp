@@ -129,6 +129,12 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::HEAVYMOVEATTACK:
 		HeavyAttackMoveStart();	
 		break;
+	case PlayerState::HEAVYUPATTACK:
+		HeavyUpAttackStart();
+		break;
+	case PlayerState::HEAVYUPMOVEATTACK:
+		HeavyAttackMoveStart();
+		break;
 	default:
 		break;
 	}
@@ -258,6 +264,12 @@ void Player::UpdateState(float _Time)
 			HeavyAttackIdleUpdate(_Time);
 			break;
 		case PlayerState::HEAVYMOVEATTACK:
+			HeavyAttackMoveUpdate(_Time);
+			break;
+		case PlayerState::HEAVYUPATTACK:
+			HeavyUpUpdate(_Time);
+			break;
+		case PlayerState::HEAVYUPMOVEATTACK:
 			HeavyAttackMoveUpdate(_Time);
 			break;
 		default:
@@ -442,6 +454,16 @@ void Player::HeavyAttackStart()
 void Player::HeavyAttackMoveStart()
 {
 	DirCheck("HeavyGunIdleAttack", "Move");
+}
+
+void Player::HeavyUpAttackStart()
+{
+	DirCheck("HeaveGunUpAttack", "Idle");
+}
+
+void Player::HeavyUpMoveAttackStart()
+{
+	DirCheck("HeaveGunUp", "Move");
 }
 
 
@@ -751,6 +773,8 @@ void Player::HeavyAttackMoveUpdate(float _Time)
 }
 
 
+
+
 void Player::AttackJumpUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
@@ -897,6 +921,17 @@ void Player::HeavyUpUpdate(float _Time)
 		ChangeState(PlayerState::HEAVYIDLE);
 		return;
 	}
+	else if (true == GameEngineInput::IsDown("Attack"))
+	{
+		ChangeState(PlayerState::HEAVYUPATTACK);
+		return;
+	}
+	if (true == AnimationBodyRender->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::HEAVYUP);
+		return;
+	}
+
 
 	else if (true == GameEngineInput::IsPress("RightMove") && true == GameEngineInput::IsPress("UpMove"))
 	{

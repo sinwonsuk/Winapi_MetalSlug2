@@ -44,7 +44,8 @@ enum class PlayerState
 	HEAVYUPJUMPDOWNMOVE,
 	HEAVYIDLEATTACK,
 	HEAVYMOVEATTACK,
-
+	HEAVYUPATTACK,
+	HEAVYUPMOVEATTACK,
 };
 
 // Ό³Έν :
@@ -221,9 +222,15 @@ private:
 
 	void HeavyAttackStart();
 	void HeavyAttackMoveStart();
+	void HeavyUpAttackStart();
+	void HeavyUpMoveAttackStart();
+
 
 	void HeavyAttackIdleUpdate(float _Time);
 	void HeavyAttackMoveUpdate(float _Time);
+	void HeavyUpAttackUpdaet(float _Time);
+	void HeavyUpMoveAttackUpdate(float _Time);
+
 
 	Bomb* Actor = nullptr;
 	

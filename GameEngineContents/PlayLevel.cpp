@@ -249,7 +249,15 @@ void PlayLevel::Loading()
 			Image->Cut(5, 1);
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeavyUpAttack.BMP"));
+			Image->Cut(5, 1);
+		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyUpAttack.BMP"));
+			Image->Cut(5, 1);
+		}
 
 
 

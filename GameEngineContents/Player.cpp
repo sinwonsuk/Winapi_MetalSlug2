@@ -124,8 +124,8 @@ void Player::Start()
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunMoveDownJump",  .ImageName = "LeftHeaveGunMoveJump.bmp", .Start = 3, .End = 5, .InterTime = 0.1f , .Loop = false });
 
 		
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeavyGunIdleAttack",  .ImageName = "RightHeavyGunIdleAttack.bmp", .Start = 0, .End = 6, .InterTime = 0.1f , .Loop = true });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeavyGunIdleAttack",  .ImageName = "LeftHeavyGunIdleAttack.bmp", .Start = 0, .End = 6, .InterTime = 0.1f , .Loop = true });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeavyGunIdleAttack",  .ImageName = "RightHeavyGunIdleAttack.bmp", .Start = 0, .End = 6, .InterTime = 0.1f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeavyGunIdleAttack",  .ImageName = "LeftHeavyGunIdleAttack.bmp", .Start = 0, .End = 6, .InterTime = 0.1f , .Loop = false });
 
 
 
@@ -135,19 +135,12 @@ void Player::Start()
 
 
 
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpAttack",  .ImageName = "RightHeaveGunUpAttack.bmp", .Start = 0, .End = 7, .InterTime = 0.1f , .Loop = true });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpAttack",  .ImageName = "LeftHeaveGunUpAttack.bmp", .Start = 0, .End = 7, .InterTime = 0.1f , .Loop = true });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpAttack",  .ImageName = "RightHeavyUpAttack.bmp", .Start = 0, .End = 4, .InterTime = 0.5f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpAttack",  .ImageName = "LeftHeavyUpAttack.bmp", .Start = 0, .End = 4, .InterTime = 0.5f , .Loop = false });
 
 	
 
-		
-
-		
-		
-
-		
-
-		
+			
 
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunDownAttack",  .ImageName = "RightHeaveGunDownAttack.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunDownAttack",  .ImageName = "LeftHeaveGunDownAttack.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
@@ -610,8 +603,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 
 	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::HEAVYIDLEATTACK ||
-		StateValue == PlayerState::UPATTACK   || StateValue == PlayerState::UPMOVEATTACK  || StateValue == PlayerState::HEAVYMOVEATTACK
-		&& AnimationBodyRender->GetFrame() > 1)
+		StateValue == PlayerState::UPATTACK   || StateValue == PlayerState::UPMOVEATTACK  || StateValue == PlayerState::HEAVYMOVEATTACK || StateValue == PlayerState::HEAVYUPATTACK
+		&& AnimationBodyRender->GetFrame() > 2)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(),true);
 	}
@@ -683,6 +676,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (StateValue == PlayerState::HEAVYMOVE )
 	{
+		AnimationBodyRender->SetScale({ 400,400 });
+
 		if (GameEngineInput::IsPress("LeftMove"))
 		{
 
@@ -705,6 +700,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (StateValue == PlayerState::HEAVYUPMOVE)
 	{
+		AnimationBodyRender->SetScale({ 400,400 });
+
 		if (GameEngineInput::IsPress("LeftMove"))
 		{
 
@@ -748,6 +745,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (StateValue == PlayerState::HEAVYUP)
 	{
+		AnimationBodyRender->SetScale({ 400,400 });
 
 		if (DirString == "Left_")
 		{
@@ -816,6 +814,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	    }
 		if (StateValue == PlayerState::HEAVYIDLEATTACK || StateValue == PlayerState::HEAVYMOVEATTACK)
 		{
+			AnimationBodyRender->SetScale({ 400,400 });
+
 			if (DirString == "Left_")
 			{
 				LeftSetBody({ 0,0 });
@@ -834,6 +834,27 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			}
 		}
 
+		if (StateValue == PlayerState::HEAVYUPATTACK)
+		{
+			AnimationBodyRender->SetScale({ 600,600 });
+			if (DirString == "Left_")
+			{
+
+				LeftSetBody({ 0,0 });
+
+				AnimationBodyRender->SetPosition({ body.x + 10 ,body.y - 15 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			if (DirString == "Right_")
+			{
+				RightSetBody({ 0,0 });
+
+				AnimationBodyRender->SetPosition({ body.x - 25 ,body.y - 15 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Right_";
+			}
+		}
 
 		bullets[d]->test = true;
 
@@ -946,8 +967,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 	}
 	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::HEAVYIDLEATTACK ||
-		StateValue == PlayerState::HEAVYMOVEATTACK ||
-		StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK && AnimationBodyRender->GetFrame() > 1)
+		StateValue == PlayerState::HEAVYMOVEATTACK ||  StateValue == PlayerState::HEAVYUPATTACK || 
+		StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK && AnimationBodyRender->GetFrame() > 2)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
 	}
