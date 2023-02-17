@@ -135,8 +135,8 @@ void Player::Start()
 
 
 
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpAttack",  .ImageName = "RightHeavyUpAttack.bmp", .Start = 0, .End = 4, .InterTime = 0.5f , .Loop = false });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpAttack",  .ImageName = "LeftHeavyUpAttack.bmp", .Start = 0, .End = 4, .InterTime = 0.5f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpAttack",  .ImageName = "RightHeavyUpAttack.bmp", .Start = 0, .End = 3, .InterTime = 0.075f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpAttack",  .ImageName = "LeftHeavyUpAttack.bmp", .Start = 0, .End = 3, .InterTime = 0.075f , .Loop = false });
 
 	
 
@@ -148,6 +148,11 @@ void Player::Start()
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunThrow",  .ImageName = "RightHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunThrow",  .ImageName = "LeftHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunIdleChangeUp",  .ImageName = "RightHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.1f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunIdleChangeUp",  .ImageName = "LeftHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.1f , .Loop = false });
+
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpChangeIdle",  .ImageName = "RightHeavyUpChangeIdle.bmp", .Start = 0, .End = 2, .InterTime = 0.1f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpChangeIdle",  .ImageName = "LeftHeavyUpChangeIdle.bmp", .Start = 0, .End = 2, .InterTime = 0.1f , .Loop = false });
 
 	}
 
@@ -604,13 +609,16 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::HEAVYIDLEATTACK ||
 		StateValue == PlayerState::UPATTACK   || StateValue == PlayerState::UPMOVEATTACK  || StateValue == PlayerState::HEAVYMOVEATTACK || StateValue == PlayerState::HEAVYUPATTACK
-		&& AnimationBodyRender->GetFrame() > 2)
+		|| StateValue == PlayerState::HEAVYUPMOVEATTACK
+		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(),true);
 	}
 
 	if (StateValue == PlayerState::IDLE)
 	{
+		AnimationBodyRender->SetScale({ 200,200 });
+
 		if (DirString == "Left_")
 		{
 			LeftSetBody({ 0,0 });
@@ -650,10 +658,94 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		}
 	}
 
+	if (StateValue == PlayerState::HEAVYIDLECHANGEUPATTACK)
+	{
+		AnimationBodyRender->SetScale({ 600,600 });
+		if (DirString == "Left_")
+		{
+			LeftSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x-40 ,body.y-18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Left_";
+		}
+		if (DirString == "Right_")
+		{
+			RightSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x+35 ,body.y-18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Right_";
+		}
+	}
+
+	if (StateValue == PlayerState::HEAVYUPCHANGEIDLEATTACK)
+	{
+		AnimationBodyRender->SetScale({ 400,400 });
+		if (DirString == "Left_")
+		{
+			LeftSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x - 40 ,body.y - 18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Left_";
+		}
+		if (DirString == "Right_")
+		{
+			RightSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x + 35 ,body.y - 18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Right_";
+		}
+	}
+
+	if (StateValue == PlayerState::HEAVYMOVECHANGEUPATTACK)
+	{
+		AnimationBodyRender->SetScale({ 600,600 });
+		if (DirString == "Left_")
+		{
+			LeftSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x - 40 ,body.y - 18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Left_";
+		}
+		if (DirString == "Right_")
+		{
+			RightSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x + 35 ,body.y - 18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Right_";
+		}
+	}
+	if (StateValue == PlayerState::HEAVYUPCHANGEMOVEATTACK)
+	{
+		AnimationBodyRender->SetScale({ 400,400 });
+		if (DirString == "Left_")
+		{
+			LeftSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x - 40 ,body.y - 18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Left_";
+		}
+		if (DirString == "Right_")
+		{
+			RightSetBody({ 0,0 });
+
+			AnimationBodyRender->SetPosition({ body.x + 35 ,body.y - 18 });
+			AnimationRegRender->SetPosition({ Reg });
+			DirString = "Right_";
+		}
+	}
 
 
 	if (StateValue == PlayerState::MOVE || StateValue == PlayerState::UPMOVE)
 	{
+		AnimationBodyRender->SetScale({ 200,200 });
+
 		if (GameEngineInput::IsPress("LeftMove"))
 		{
 
@@ -724,6 +816,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (StateValue == PlayerState::UP)
 	{
+		AnimationBodyRender->SetScale({ 200,200 });
 		
 		if (DirString == "Left_")
 		{
@@ -768,6 +861,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 	if (StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK)
 	{
+		AnimationBodyRender->SetScale({ 200,200 });
+
 		if (DirString == "Left_")
 		{
 			LeftSetBody({ 0,0 });
@@ -787,11 +882,10 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			DirString = "Right_";
 		}
 	}
-	if (GameEngineInput::IsDown("Attack"))
-	{
-	    
+	 
 	    if (StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::MOVEATTACK)
 	    {
+			AnimationBodyRender->SetScale({ 200,200 });
 	    	if (DirString == "Left_")
 	    	{
 	    		LeftSetBody({ 0,0 });
@@ -812,7 +906,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	    
 	    	}
 	    }
-		if (StateValue == PlayerState::HEAVYIDLEATTACK || StateValue == PlayerState::HEAVYMOVEATTACK)
+		 if (StateValue == PlayerState::HEAVYIDLEATTACK || StateValue == PlayerState::HEAVYMOVEATTACK)
 		{
 			AnimationBodyRender->SetScale({ 400,400 });
 
@@ -834,15 +928,16 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			}
 		}
 
-		if (StateValue == PlayerState::HEAVYUPATTACK)
+		 if (StateValue == PlayerState::HEAVYUPATTACK || StateValue == PlayerState::HEAVYUPMOVEATTACK)
 		{
 			AnimationBodyRender->SetScale({ 600,600 });
+
 			if (DirString == "Left_")
 			{
-
 				LeftSetBody({ 0,0 });
 
-				AnimationBodyRender->SetPosition({ body.x + 10 ,body.y - 15 });
+
+				AnimationBodyRender->SetPosition({ body.x +15 ,body.y - 20 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
@@ -850,18 +945,13 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			{
 				RightSetBody({ 0,0 });
 
-				AnimationBodyRender->SetPosition({ body.x - 25 ,body.y - 15 });
+				AnimationBodyRender->SetPosition({ body.x -15 ,body.y - 20 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Right_";
 			}
 		}
 
-		bullets[d]->test = true;
-
-			
-		d--;
-			
-	}
+	
 	if (GameEngineInput::IsDown("Throw"))
 	{
 		
@@ -967,8 +1057,9 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 	}
 	if (StateValue == PlayerState::MOVEATTACK || StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::HEAVYIDLEATTACK ||
-		StateValue == PlayerState::HEAVYMOVEATTACK ||  StateValue == PlayerState::HEAVYUPATTACK || 
-		StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK && AnimationBodyRender->GetFrame() > 2)
+		StateValue == PlayerState::UPATTACK || StateValue == PlayerState::UPMOVEATTACK || StateValue == PlayerState::HEAVYMOVEATTACK || StateValue == PlayerState::HEAVYUPATTACK
+		|| StateValue == PlayerState::HEAVYUPMOVEATTACK
+		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
 	}
@@ -1000,6 +1091,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 		StateValue == PlayerState::JUMPMOVEDOWNATTACK||StateValue == PlayerState::JUMPUPATTACK ||
 		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
 		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK ||
+		StateValue == PlayerState::HEAVYJUMPUPATTACK || StateValue == PlayerState::HEAVYUPJUMPATTACK ||
+		StateValue == PlayerState::HEAVYJUMPMOVEUPATTACK  || StateValue == PlayerState::HEAVYJUMPMOVEDOWNATTACK ||
+		StateValue == PlayerState::HEAVYUPJUMPMOVEATTACK || StateValue == PlayerState::HEAVYUPJUMPMOVEDOWNATTACK || 
 		StateValue == PlayerState:: THROW
 		&& AnimationBodyRender->GetFrame() > 1)
 	{
@@ -1022,6 +1116,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 			else if (StateValue == PlayerState::HEAVYJUMPUP || StateValue == PlayerState::HEAVYJUMPDOWN)
 			{
+				AnimationBodyRender->SetScale({ 400,400 });
 				LeftSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x ,body.y - 22 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1040,6 +1135,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 			else if (StateValue == PlayerState::HEAVYJUMPMOVEUP || StateValue == PlayerState::HEAVYUPJUMPUPMOVE)
 			{
+				AnimationBodyRender->SetScale({ 400,400 });
 				LeftSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x+10  ,body.y - 45 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1050,6 +1146,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			
 			else if (StateValue == PlayerState::HEAVYJUMPMOVEDOWN || StateValue == PlayerState::HEAVYUPJUMPDOWNMOVE)
 			{
+				AnimationBodyRender->SetScale({ 400,400 });
 				RightSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x - 12 ,body.y - 40 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1061,9 +1158,8 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 		if (GameEngineInput::IsDown("Attack"))
 		{
-			if (StateValue == PlayerState::JUMPUPATTACK)
-			{
-				
+			if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK)
+			{				
 				LeftSetBody({ 0,0 });
 				bullets[d]->Dir = Direction::Left;
 			
@@ -1071,6 +1167,18 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
+
+			else if (StateValue == PlayerState::HEAVYJUMPUPATTACK || StateValue == PlayerState::HEAVYJUMPDOWNATTACK)
+			{
+				AnimationBodyRender->SetScale({ 400,400 });
+				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Left;
+
+				AnimationBodyRender->SetPosition({ body.x - 50, body.y - 10 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+
 			else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
@@ -1080,8 +1188,21 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
+			else if (StateValue == PlayerState::HEAVYUPJUMPATTACK || StateValue == PlayerState::HEAVYUPJUMPDOWNATTACK)
+			{
+				AnimationBodyRender->SetScale({ 600,600 }); 
+				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Up;
+
+				AnimationBodyRender->SetPosition({ body.x + 17,body.y - 35 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			
+
 			else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
 			{
+				
 				LeftSetBody({ 0,0 });
 				bullets[d]->Dir = Direction::Up;
 			
@@ -1089,6 +1210,19 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
+			else if (StateValue == PlayerState::HEAVYUPJUMPMOVEATTACK || StateValue == PlayerState::HEAVYUPJUMPMOVEDOWNATTACK)
+			{
+				AnimationBodyRender->SetScale({ 600,600 });
+				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Up;
+
+				AnimationBodyRender->SetPosition({ body.x + 35 ,body.y - 50 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+
+			
+
 
 			else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 			{
@@ -1101,12 +1235,37 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 			}
 
+			else if (StateValue == PlayerState::HEAVYJUMPMOVEUPATTACK)
+			{
+				AnimationBodyRender->SetScale({ 400,400 });
+				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Left;
+
+				AnimationBodyRender->SetPosition({ body.x - 40  ,body.y - 38 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+
+			}
+
+
+
 			else if (StateValue == PlayerState::JUMPMOVEDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
 				bullets[d]->Dir = Direction::Left;
 			
 				AnimationBodyRender->SetPosition({ body.x - 20  ,body.y - 25 });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+
+			else if (StateValue == PlayerState::HEAVYJUMPMOVEDOWNATTACK)
+			{
+				AnimationBodyRender->SetScale({ 400,400 });
+				LeftSetBody({ 0,0 });
+				bullets[d]->Dir = Direction::Left;
+
+				AnimationBodyRender->SetPosition({ body.x - 40  ,body.y - 38 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
@@ -1139,6 +1298,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			}
 			else if (StateValue == PlayerState::HEAVYJUMPUP || StateValue == PlayerState::HEAVYJUMPDOWN)
 			{
+				AnimationBodyRender->SetScale({ 400,400 });
 				LeftSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x + 15,body.y - 22 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1146,6 +1306,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			}
 			else if (StateValue == PlayerState::HEAVYJUMPMOVEUP || StateValue == PlayerState::HEAVYUPJUMPUPMOVE )
 			{
+				AnimationBodyRender->SetScale({ 400,400 });
 				RightSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x-15 ,body.y -45 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1154,6 +1315,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			}
 			else if ( StateValue == PlayerState::HEAVYJUMPMOVEDOWN || StateValue == PlayerState::HEAVYUPJUMPDOWNMOVE)
 			{
+				AnimationBodyRender->SetScale({ 400,400 });
 				RightSetBody({ 0,0 });
 				AnimationBodyRender->SetPosition({ body.x - 10 ,body.y - 35 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1175,7 +1337,15 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
 				}
-			
+				else if (StateValue == PlayerState::HEAVYJUMPUPATTACK || StateValue == PlayerState::HEAVYJUMPDOWNATTACK)
+				{
+					AnimationBodyRender->SetScale({ 400,400 });
+					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Right;
+					AnimationBodyRender->SetPosition({ body.x + 42, body.y - 20 });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+				}
 				else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
@@ -1184,6 +1354,19 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
 				}
+				else if (StateValue == PlayerState::HEAVYUPJUMPATTACK || StateValue == PlayerState::HEAVYUPJUMPDOWNATTACK)
+				{
+
+					AnimationBodyRender->SetScale({ 600,600 });
+
+					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Up;
+					AnimationBodyRender->SetPosition({ body.x - 17,body.y-35  });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+				}
+
+
 				else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
@@ -1193,6 +1376,15 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					DirString = "Right_";
 				}
 
+				else if (StateValue == PlayerState::HEAVYUPJUMPMOVEATTACK || StateValue == PlayerState::HEAVYUPJUMPMOVEDOWNATTACK)
+				{
+					AnimationBodyRender->SetScale({ 600,600 });
+					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Up;
+					AnimationBodyRender->SetPosition({ body.x - 30 ,body.y - 50 });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+				}
 
 				else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 				{
@@ -1203,6 +1395,21 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					DirString = "Right_";
 					
 				}
+
+
+				else if (StateValue == PlayerState::HEAVYJUMPMOVEUPATTACK)
+				{
+					AnimationBodyRender->SetScale({ 400,400 });
+					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Right;
+					AnimationBodyRender->SetPosition({ body.x + 43 ,body.y - 38 });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+
+				}
+
+
+
 				else if (StateValue == PlayerState::JUMPMOVEDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
@@ -1212,6 +1419,23 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					DirString = "Right_";
 
 				}
+
+				else if (StateValue == PlayerState::HEAVYJUMPMOVEDOWNATTACK)
+				{
+					AnimationBodyRender->SetScale({ 400,400 });
+					RightSetBody({ 0,0 });
+					bullets[d]->Dir = Direction::Right;
+					AnimationBodyRender->SetPosition({ body.x + 43 ,body.y - 38 });
+					AnimationRegRender->SetPosition({ Reg });
+					DirString = "Right_";
+				}
+
+
+
+
+
+
+
 
 				bullets[d]->test = true;
 				d--;
@@ -1231,11 +1455,15 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 		StateValue == PlayerState::JUMPMOVEDOWNATTACK || StateValue == PlayerState::JUMPUPATTACK ||
 		StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK ||
 		StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK ||
+		StateValue == PlayerState::HEAVYJUMPUPATTACK || StateValue == PlayerState::HEAVYUPJUMPATTACK ||
+		StateValue == PlayerState::HEAVYJUMPMOVEUPATTACK || StateValue == PlayerState::HEAVYJUMPMOVEDOWNATTACK ||
+		StateValue == PlayerState::HEAVYUPJUMPMOVEATTACK || StateValue == PlayerState::HEAVYUPJUMPMOVEDOWNATTACK ||
 		StateValue == PlayerState::THROW
 		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
 	}
+	
 
 }
 

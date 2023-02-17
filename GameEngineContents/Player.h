@@ -46,6 +46,20 @@ enum class PlayerState
 	HEAVYMOVEATTACK,
 	HEAVYUPATTACK,
 	HEAVYUPMOVEATTACK,
+	HEAVYJUMPUPATTACK,
+	HEAVYJUMPDOWNATTACK,
+	HEAVYUPJUMPATTACK,
+	HEAVYUPJUMPDOWNATTACK,
+	HEAVYJUMPMOVEDOWNATTACK,
+	HEAVYJUMPMOVEUPATTACK,
+	HEAVYUPJUMPMOVEATTACK,
+	HEAVYUPJUMPMOVEDOWNATTACK,
+	HEAVYIDLECHANGEUPATTACK,
+	HEAVYUPCHANGEIDLEATTACK,
+
+	HEAVYMOVECHANGEUPATTACK,
+	HEAVYUPCHANGEMOVEATTACK,
+	
 };
 
 // Ό³Έν :
@@ -156,7 +170,6 @@ private:
 
 	void UpUpdate(float _Time);
 	void UpMoveUpdate(float _Time);
-	void UpMoveAttackUpdate(float _Time);
 	void UpAttackJumpMoveUpdate(float _Time);
 	
 	
@@ -224,13 +237,40 @@ private:
 	void HeavyAttackMoveStart();
 	void HeavyUpAttackStart();
 	void HeavyUpMoveAttackStart();
+	void HeavyUpJumpAttackStart();
+	void HeavyUpJumpDownAttackStart();
 
+	void HeavyAttackJumpUpStart();
+	void HeavyAttackJumpDownStart();
+	void HeavyAttackJumpMoveUpStart();
+	void HeavyAttackJumpMoveDownStart();
 
+	void HeavyUpJumpMoveAttackStart();
+	void HeavyUpJumpMoveDownAttackStart();
+
+	void HeavIdleChangeUpStart(); 
+	void HeavUpChangeIdleStart();
+
+	void HeavyMoveChangeUpStart(); 
+	void HeavyUpChangeUpMoveStart();
+
+	void HeavyIdleChangeUpUpdate(float _Time);
+	void HeavUpChangeIdleUpdate(float _Time);
+
+	void HeavyUpAttackUpdate(float _Time);
+
+	void HeavyUpAttackJumpMoveUpdate(float _Time);
+	void HeavyAttackJumpUpdate(float _Time);
 	void HeavyAttackIdleUpdate(float _Time);
 	void HeavyAttackMoveUpdate(float _Time);
-	void HeavyUpAttackUpdaet(float _Time);
-	void HeavyUpMoveAttackUpdate(float _Time);
 
+	void HeavyMoveChangeUpUpdate(float _Time);
+	void HeavyUpChangeMoveUpdate(float _Time);
+
+	void HeavyUpAttackMoveUpdate(float _Time);
+		
+	//void HeavyUpJumpMoveAttackUpdate(float _Time);
+	//void HeavyUpJumpMoveDownAttackStart(float _Time);
 
 	Bomb* Actor = nullptr;
 	

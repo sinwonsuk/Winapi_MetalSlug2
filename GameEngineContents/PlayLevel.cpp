@@ -260,10 +260,26 @@ void PlayLevel::Loading()
 		}
 
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyUpChangeIdle.BMP"));
+			Image->Cut(5, 1);
+		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeavyUpChangeIdle.BMP"));
+			Image->Cut(5, 1);
+		}
+		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("LeftHeavyIdleChangeUp.BMP"));
+			Image->Cut(5, 1);
+		}
 
-
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyIdleChangeUp.BMP"));
+			Image->Cut(5, 1);
+		}
+		
 
 
 
