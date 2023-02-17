@@ -29,7 +29,7 @@ public:
 
 	void SetScale(float4 _Scale);
 
-	void SetClickCallBack(void(*_ClickPtr)())
+	void SetClickCallBack(void(*_ClickPtr)(Button* _Btn))
 	{
 		ClickPtr = _ClickPtr;
 	}
@@ -103,7 +103,7 @@ private:
 	GameEngineCollision* ButtonCollision = nullptr;
 	int PointTargetGroup = 0;
 	CollisionType ButtonCollisionType = CollisionType::CT_Rect;
-	void(*ClickPtr)() = nullptr;
+	void(*ClickPtr)(Button* _Btn) = nullptr;
 
 	float4 Scale;
 	ButtonState State;

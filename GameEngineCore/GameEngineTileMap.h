@@ -34,15 +34,19 @@ public:
 
     int GetTileFrame(int _ZIndex, float4 _Pos);
 
+    GameEngineRender* GetTile(int _ZIndex, float4 _Pos); 
+
+    bool IsValidIndex(int _Z, int _Y, int _X);
+
 protected:
 
 private:
-    float4 ScreenSize;
-    float4 TileScale;
+    float4 ScreenSize = float4::Zero;
+    float4 TileScale = float4::Zero;
 
-    int X;
-    int Y;
-    int Z;
+    int X = -1;
+    int Y = -1;
+    int Z = -1;
 
     std::vector<std::string_view> FloorImageName;
     std::vector<std::vector<std::vector<GameEngineRender*>>> TileRenders;

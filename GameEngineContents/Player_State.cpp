@@ -1019,6 +1019,9 @@ void Player::HeavyAttackJumpUpdate(float _Time)
 			ChangeState(PlayerState::HEAVYJUMPUPATTACK);
 			return;
 		}
+
+	
+
 	}
 	if (MoveDir.y > 0)
 	{
@@ -1033,6 +1036,9 @@ void Player::HeavyAttackJumpUpdate(float _Time)
 			ChangeState(PlayerState::HEAVYJUMPDOWNATTACK);
 			return;
 		}
+
+		
+
 	}
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
@@ -1045,6 +1051,8 @@ void Player::HeavyAttackJumpUpdate(float _Time)
 		MoveDir += float4::Right * MoveSpeed;
 		CameraDir = float4::Right * MoveSpeed * _Time;
 	}
+
+	
 
 
 }
@@ -1451,30 +1459,39 @@ void Player::UpAttackJumpMoveUpdate(float _Time)
 
 	if (MoveDir.y < 300)
 	{
-		if (true == GameEngineInput::IsPress("RightMove") || true == GameEngineInput::IsPress("LeftMove") && true == GameEngineInput::IsDown("Attack"))
-		{
-			ChangeState(PlayerState::JUMPMOVEUPATTACK);
-			return; 
-		}
-
-
-		 if (true == GameEngineInput::IsDown("Attack"))
+		if (true == GameEngineInput::IsPress("UPMove")  && true == GameEngineInput::IsDown("Attack"))
 		{
 			ChangeState(PlayerState::UPJUMPMOVEATTACK);
+			return; 
+		}
+		if (true == GameEngineInput::IsPress("UPMove") && true == GameEngineInput::IsDown("Attack"))
+		{
+			ChangeState(PlayerState::UPJUMPMOVEATTACK);
+			return;
+		}
+
+		if (true == GameEngineInput::IsDown("Attack"))
+		{
+			ChangeState(PlayerState::JUMPMOVEUPATTACK);
 			return;
 		}
 	}
 	if (MoveDir.y > 300)
 	{
-		if (true == GameEngineInput::IsPress("LeftMove") && true == GameEngineInput::IsDown("Attack"))
+		if (true == GameEngineInput::IsPress("UPMove") && true == GameEngineInput::IsDown("Attack"))
 		{
-			ChangeState(PlayerState::JUMPMOVEDOWNATTACK);
+			ChangeState(PlayerState::UPJUMPMOVEATTACK);
+			return;
+		}
+		if (true == GameEngineInput::IsPress("UPMove") && true == GameEngineInput::IsDown("Attack"))
+		{
+			ChangeState(PlayerState::UPJUMPMOVEATTACK);
 			return;
 		}
 
 		 if (true == GameEngineInput::IsDown("Attack"))
 		{
-			ChangeState(PlayerState::UPJUMPMOVEDOWNATTACK);
+			ChangeState(PlayerState::JUMPMOVEDOWNATTACK);
 			return;
 		}
 	}

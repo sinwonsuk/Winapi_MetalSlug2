@@ -1522,14 +1522,14 @@ void Player::Render(float _DeltaTime)
 	);
 
 
-	std::string MouseText = "MousePosition : ";
+	/*std::string MouseText = "MousePosition : ";
 	MouseText += GetLevel()->GetMousePos().ToString();
 
 	std::string CameraMouseText = "MousePositionCamera : ";
 	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
 
 	GameEngineLevel::DebugTextPush(MouseText);
-	GameEngineLevel::DebugTextPush(CameraMouseText);
+	GameEngineLevel::DebugTextPush(CameraMouseText);*/
 	//BodyCollision->DebugRender();
     BulletCollision->DebugRender();
 }

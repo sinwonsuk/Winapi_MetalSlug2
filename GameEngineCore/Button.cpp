@@ -51,7 +51,7 @@ void Button::Update(float _DeltaTime)
 	{
 		if (true == GameEngineInput::IsUp("EngineMouseLeft") && nullptr != ClickPtr)
 		{
-			ClickPtr();
+			ClickPtr(this);
 		}
 		else if (true == GameEngineInput::IsFree("EngineMouseLeft"))
 		{
