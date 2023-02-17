@@ -137,7 +137,7 @@ private:
 	float4 Reg = { 0,0 };
 	float4 gravity = float4::Zero;
 	float4 PosCheck = { 0,0 };
-
+	bool a1 = false;
 
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;

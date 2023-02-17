@@ -1513,7 +1513,7 @@ void Player::HeavUpChangeIdleUpdate(float _Time)
 	if (true == AnimationBodyRender->IsAnimationEnd())
 	{
 
-		ChangeState(PlayerState::HEAVYIDLEATTACK);
+		ChangeState(PlayerState::HEAVYIDLE);
 		return;
 	}
 
@@ -1536,6 +1536,19 @@ void Player::HeavUpChangeIdleUpdate(float _Time)
 void Player::HeavyMoveChangeUpUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
+
+	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+	if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+
+
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
@@ -1563,6 +1576,19 @@ void Player::HeavyMoveChangeUpUpdate(float _Time)
 void Player::HeavyUpChangeMoveUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
+
+	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+	if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+
+
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
