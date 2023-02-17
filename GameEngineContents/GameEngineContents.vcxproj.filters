@@ -33,6 +33,7 @@
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="MonsterBullet.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="HeavyGun.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -72,6 +73,7 @@
     </ClCompile>
     <ClCompile Include="MonsterBullet.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="HeavyGun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">
