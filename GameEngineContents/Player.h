@@ -2,7 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 #include "Bullets.h"
 #include "Bomb.h"
-
+#include "HeavyGun.h"
 
 enum class PlayerState
 {
@@ -127,6 +127,9 @@ private:
 	float BombNumber = 10; 
 
 	std::string DirString = "Right_";
+	std::string DirStringBullet = "Right";
+
+
 	std::vector<GameEngineActor*> Bullet;
 	std::vector<Bullets*> bullets;
 	PlayerState StateValue = PlayerState::IDLE;
@@ -271,9 +274,14 @@ private:
 		
 	//void HeavyUpJumpMoveAttackUpdate(float _Time);
 	//void HeavyUpJumpMoveDownAttackStart(float _Time);
-
+	float HeavyBulletTime = 0;;
 	Bomb* Actor = nullptr;
-	
-
+	HeavyGun* HeavyBullet = nullptr;
+	HeavyGun* HeavyBullet1 = nullptr;
+	HeavyGun* HeavyBullet2 = nullptr;
+	HeavyGun* HeavyBullet3 = nullptr;
+	HeavyGun* HeavyBullet4 = nullptr;
+	bool HeavyBulletCheck = false;
+	float HeavyBulletNumber = 0;
 };
 

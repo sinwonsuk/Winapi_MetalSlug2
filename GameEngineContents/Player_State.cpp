@@ -1506,7 +1506,7 @@ void Player::HeavyIdleChangeUpUpdate(float _Time)
 	if (true == AnimationBodyRender->IsAnimationEnd())
 	{
 	
-		ChangeState(PlayerState::HEAVYUPATTACK);
+		ChangeState(PlayerState::HEAVYUP);
 		return;
 	}
 
@@ -1530,7 +1530,7 @@ void Player::HeavUpChangeIdleUpdate(float _Time)
 	if (true == AnimationBodyRender->IsAnimationEnd())
 	{
 
-		ChangeState(PlayerState::HEAVYIDLE);
+		ChangeState(PlayerState::HEAVYIDLEATTACK);
 		return;
 	}
 
@@ -1554,6 +1554,18 @@ void Player::HeavyMoveChangeUpUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		MoveDir += float4::Left * MoveSpeed;
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		MoveDir += float4::Right * MoveSpeed;
+		CameraDir = float4::Right * MoveSpeed * _Time;
+	}
+
+
 	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
 	{
 		ChangeState(PlayerState::HEAVYIDLE);
@@ -1567,16 +1579,6 @@ void Player::HeavyMoveChangeUpUpdate(float _Time)
 
 
 
-	if (true == GameEngineInput::IsPress("LeftMove"))
-	{
-		MoveDir += float4::Left * MoveSpeed;
-	}
-
-	if (true == GameEngineInput::IsPress("RightMove"))
-	{
-		MoveDir += float4::Right * MoveSpeed;
-		CameraDir = float4::Right * MoveSpeed * _Time;
-	}
 	
 
 	
@@ -1594,6 +1596,22 @@ void Player::HeavyUpChangeMoveUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 
+
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		MoveDir += float4::Left * MoveSpeed;
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		MoveDir += float4::Right * MoveSpeed;
+		CameraDir = float4::Right * MoveSpeed * _Time;
+	}
+
+
+
+
+
 	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
 	{
 		ChangeState(PlayerState::HEAVYIDLE);
@@ -1607,17 +1625,7 @@ void Player::HeavyUpChangeMoveUpdate(float _Time)
 
 
 
-	if (true == GameEngineInput::IsPress("LeftMove"))
-	{
-		MoveDir += float4::Left * MoveSpeed;
-	}
-
-	if (true == GameEngineInput::IsPress("RightMove"))
-	{
-		MoveDir += float4::Right * MoveSpeed;
-		CameraDir = float4::Right * MoveSpeed * _Time;
-	}
-
+	
 
 
 	if (true == AnimationBodyRender->IsAnimationEnd())

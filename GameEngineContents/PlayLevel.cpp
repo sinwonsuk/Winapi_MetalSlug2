@@ -392,6 +392,9 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("Bullet.BMP"));
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("HeavyBullet.BMP"));
+		}
 	}
 	
 
