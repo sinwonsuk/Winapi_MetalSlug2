@@ -13,6 +13,7 @@
 #include "Monster.h"
 #include "MonsterCamel.h"
 #include "ContentsEnums.h"
+#include "NPC.h"
 
 Player* Player::MainPlayer;
 
@@ -397,236 +398,236 @@ void Player::Update(float _DeltaTime)
 	}
 
 
-	if (GameEngineInput::IsDown("Attack"))
+	/*if (GameEngineInput::IsDown("Attack"))
 	{
 		
 
 		HeavyBulletCheck = true;
 		
 		
-	}
-	if (HeavyBulletCheck == true)
-	{
-		HeavyBulletTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	}*/
+	//if (HeavyBulletCheck == true)
+	//{
+	//	HeavyBulletTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-		if (DirStringBullet == "Up")
-		{
-			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//	if (DirStringBullet == "Up")
+	//	{
+	//		HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 
-			if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 0)
-			{
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y-50 });
-				HeavyBullet->MoveDir = float4::Up;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			 if (HeavyBulletTime > 0.4 && HeavyBulletNumber == 1)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Up;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			if (HeavyBulletTime > 0.6 && HeavyBulletNumber == 2)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Up;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			 if (HeavyBulletTime > 0.8 && HeavyBulletNumber == 3)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Up;
-				HeavyBullet->test = true;
+	//		if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 0)
+	//		{
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y-50 });
+	//			HeavyBullet->MoveDir = float4::Up;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		 if (HeavyBulletTime > 0.4 && HeavyBulletNumber == 1)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Up;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		if (HeavyBulletTime > 0.6 && HeavyBulletNumber == 2)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Up;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		 if (HeavyBulletTime > 0.8 && HeavyBulletNumber == 3)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Up;
+	//			HeavyBullet->test = true;
 
-				HeavyBulletCheck = false;
-				HeavyBulletTime = 0;
-				HeavyBulletNumber = 0;
-			
-			}
+	//			HeavyBulletCheck = false;
+	//			HeavyBulletTime = 0;
+	//			HeavyBulletNumber = 0;
+	//		
+	//		}
 
-			
-		}
-
-
-
-		if (DirStringBullet == "Right")
-		{
-			
-			if (HeavyBulletTime > 0.0 && HeavyBulletNumber == 0)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->MoveDir = float4::Right;
-				//HeavyBullet->test = true;
-
-			
-
-				
-
-				HeavyBulletNumber += 1;
-			}
-
-			else if (GameEngineInput::IsDown("Upmove") && HeavyBulletNumber == 1 )
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::A;
-				HeavyBullet->test = true;
-
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::B;
-				HeavyBullet->test = true;
-
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::C;
-				HeavyBullet->test = true;
-
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::D;
-				HeavyBullet->test = true;
-
-				HeavyBulletCheck = false;
-				HeavyBulletTime = 0;
-				HeavyBulletNumber = 0;
-			}
+	//		
+	//	}
 
 
 
-			else if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 1)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->MoveDir = float4::Right;
-			
-				HeavyBulletNumber += 1;
-			}
+	//	if (DirStringBullet == "Right")
+	//	{
+	//		
+	//		if (HeavyBulletTime > 0.0 && HeavyBulletNumber == 0)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->MoveDir = float4::Right;
+	//			//HeavyBullet->test = true;
 
-			else if (GameEngineInput::IsDown("Upmove") && HeavyBulletNumber == 2)
-			 {
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::A;
-				HeavyBullet->test = true;
+	//		
 
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::B;
-				HeavyBullet->test = true;
+	//			
 
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::C;
-				HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
 
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::D;
-				HeavyBullet->test = true;
+	//		else if (GameEngineInput::IsDown("Upmove") && HeavyBulletNumber == 1 )
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::A;
+	//			HeavyBullet->test = true;
 
-				HeavyBulletCheck = false;
-				HeavyBulletTime = 0;
-				HeavyBulletNumber = 0;
-			 }
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::B;
+	//			HeavyBullet->test = true;
 
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::C;
+	//			HeavyBullet->test = true;
 
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::D;
+	//			HeavyBullet->test = true;
 
-
-			else if (HeavyBulletTime > 0.4 && HeavyBulletNumber == 2)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->MoveDir = float4::Right;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			else if (GameEngineInput::IsDown("Upmove") && HeavyBulletNumber == 3)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::A;
-				HeavyBullet->test = true;
-
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::B;
-				HeavyBullet->test = true;
-
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::C;
-				HeavyBullet->test = true;
-
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->Dir = Direction::D;
-				HeavyBullet->test = true;
-
-				HeavyBulletCheck = false;
-				HeavyBulletTime = 0;
-				HeavyBulletNumber = 0;
-			}
-
-			else if (HeavyBulletTime > 0.6 && HeavyBulletNumber == 3)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
-				HeavyBullet->MoveDir = float4::Right;
-				HeavyBullet->test = true;
-
-				HeavyBulletCheck = false;
-				HeavyBulletTime = 0;
-				HeavyBulletNumber = 0;
-			}
+	//			HeavyBulletCheck = false;
+	//			HeavyBulletTime = 0;
+	//			HeavyBulletNumber = 0;
+	//		}
 
 
-		}
-		if (DirStringBullet == "Left")
-		{
-			if (HeavyBulletTime > 0.0 && HeavyBulletNumber == 0)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Left;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 1)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Left;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			if (HeavyBulletTime > 0.4 && HeavyBulletNumber == 2)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Left;
-				HeavyBullet->test = true;
-				HeavyBulletNumber += 1;
-			}
-			if (HeavyBulletTime > 0.6 && HeavyBulletNumber == 3)
-			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->MoveDir = float4::Left;
-				HeavyBullet->test = true;
 
-				HeavyBulletCheck = false;
-				HeavyBulletTime = 0;
-				HeavyBulletNumber = 0;
-			}
-		}
-	}
+	//		else if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 1)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->MoveDir = float4::Right;
+	//		
+	//			HeavyBulletNumber += 1;
+	//		}
+
+	//		else if (GameEngineInput::IsDown("Upmove") && HeavyBulletNumber == 2)
+	//		 {
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::A;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::B;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::C;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::D;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBulletCheck = false;
+	//			HeavyBulletTime = 0;
+	//			HeavyBulletNumber = 0;
+	//		 }
+
+
+
+
+	//		else if (HeavyBulletTime > 0.4 && HeavyBulletNumber == 2)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->MoveDir = float4::Right;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		else if (GameEngineInput::IsDown("Upmove") && HeavyBulletNumber == 3)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::A;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::B;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::C;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->Dir = Direction::D;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBulletCheck = false;
+	//			HeavyBulletTime = 0;
+	//			HeavyBulletNumber = 0;
+	//		}
+
+	//		else if (HeavyBulletTime > 0.6 && HeavyBulletNumber == 3)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos().x,GetPos().y - 50 });
+	//			HeavyBullet->MoveDir = float4::Right;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBulletCheck = false;
+	//			HeavyBulletTime = 0;
+	//			HeavyBulletNumber = 0;
+	//		}
+
+
+	//	}
+	//	if (DirStringBullet == "Left")
+	//	{
+	//		if (HeavyBulletTime > 0.0 && HeavyBulletNumber == 0)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Left;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 1)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Left;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		if (HeavyBulletTime > 0.4 && HeavyBulletNumber == 2)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Left;
+	//			HeavyBullet->test = true;
+	//			HeavyBulletNumber += 1;
+	//		}
+	//		if (HeavyBulletTime > 0.6 && HeavyBulletNumber == 3)
+	//		{
+	//			HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+	//			HeavyBullet->SetPos({ GetPos() });
+	//			HeavyBullet->MoveDir = float4::Left;
+	//			HeavyBullet->test = true;
+
+	//			HeavyBulletCheck = false;
+	//			HeavyBulletTime = 0;
+	//			HeavyBulletNumber = 0;
+	//		}
+	//	}
+	//}
 
 
 	if (true == FreeMode)
@@ -816,8 +817,22 @@ void Player::CollisionCheck(float _DeltaTime)
 				Actor->SetMove({ 1900,500 });
 				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
 				Actor->SetRunCheck(check);
-				MonsterCheck += 1;
+			
 			}
+			if (MonsterCheck == 2)
+			{
+				
+				NPC* Actor = GetLevel()->CreateActor<NPC>();
+				Actor->SetMove({ 2000,700 });				
+			}
+			if (MonsterCheck == 2)
+			{
+
+				NPC* Actor = GetLevel()->CreateActor<NPC>();
+				Actor->SetMove({ 2140,300 });
+			}
+
+
 			MonsterCheck = 3;
 		}
 
@@ -849,14 +864,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 4)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 2850,300 });
+				Actor->SetMove({ 3200,600 });
 
 			}
 
 			if (MonsterCheck == 4)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 3050,600 });
+				Actor->SetMove({ 3400,600 });
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 
 			}
@@ -870,21 +885,69 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 5)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 3250,300 });
+				Actor->SetMove({ 3800,600 });
 
 			}
 
 			if (MonsterCheck == 5)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 3450,600 });
+				Actor->SetMove({ 4000,600 });
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 
 			}
 			MonsterCheck = 6;
 		}
 
+		if (RGB(249, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(249, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			MonsterBulletRange = GetPos().x;
+		
+			CameraCheck = false;
 
+
+			if (MonsterCheck == 6)
+			{
+				MonsterCamel* Actor = GetLevel()->CreateActor<MonsterCamel>();
+				Actor->SetMove({ 4200,500 });
+				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+
+			}
+			MonsterCheck = 7;
+		}
+
+		if (RGB(248, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(248, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			CamelDeath = GetPos(); 
+			
+			
+			if (MonsterCheck == 7)
+			{
+			
+
+			}
+
+
+
+
+			MonsterCheck = 8;
+		}
+		if (MonsterCheck == 8)
+		{
+			float a = CamelDeath.x - CamelCheck.x;
+
+			float4 b = float4::Right * 1000 * _DeltaTime;
+
+			GetLevel()->SetCameraMove(b);
+
+			if (GetLevel()->GetCameraPos().x > GetPos().x-350)
+			{
+				MonsterCheck = 9;
+				CameraCheck = true;
+			}
+		}
+
+	
 
 
 
@@ -1849,9 +1912,9 @@ void Player::Render(float _DeltaTime)
 
 
 	std::string MouseText = "MousePosition : ";
-	MouseText += GetLevel()->GetMousePos().ToString();
+	MouseText += GetLevel()->GetMousePos().ToString(); 
 
-	std::string CameraMouseText = "MousePositionCamera : ";
+	std::string CameraMouseText = "MousePositionCamera : \n";
 	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
 
 	GameEngineLevel::DebugTextPush(MouseText);

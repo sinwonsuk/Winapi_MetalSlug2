@@ -112,7 +112,8 @@ protected:
 private:
 	bool Gravity = true;
 	bool test = false;
-	
+	float4 CamelCheck = float4::Zero;
+	float4 CamelDeath = float4::Zero;
 	bool CameraCheck = false;
 
 	int MonsterCheck = 0;
