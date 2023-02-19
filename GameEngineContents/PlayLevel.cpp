@@ -11,6 +11,8 @@
 #include "Bullets.h"
 #include "Monster.h"
 #include "MonsterBullet.h"
+#include "MonsterCamel.h"
+#include "NPC.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -50,6 +52,14 @@ void PlayLevel::Loading()
 	Monster.Move("ContentsResources");
 	Monster.Move("Image");
 	Monster.Move("Monster");
+
+	GameEngineDirectory Npc;
+	Npc.MoveParentToDirectory("ContentsResources");
+	Npc.Move("ContentsResources");
+	Npc.Move("Image");
+	Npc.Move("Npc");
+
+
 
 	GameEngineDirectory Weapon;
 	Weapon.MoveParentToDirectory("ContentsResources");
@@ -380,6 +390,82 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterBackJump.BMP"));
 			Image->Cut(5, 3);
 		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CamelMonsterStart.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelAttackBody.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelDeathReg.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelDownBody.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelDownReg.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelMoveBody.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelMoveReg.BMP"));
+			Image->Cut(5, 3);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelEffect.BMP"));
+		}
+
+
+		//NPC
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("RightNpcMove.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcCollisionAfter.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcIdle.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("LeftNpcMove.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcCollision.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcDeath.BMP"));
+			Image->Cut(5, 2);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		// ¹«±â 
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("Boom.BMP"));
@@ -412,11 +498,14 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
-
 	{
-		//Monster* Actor = CreateActor<Monster>();
-				
+		NPC* Actor = CreateActor<NPC>();
+		Actor->SetMove({ 500,0 });
 	}
+	/*{
+		MonsterCamel* Actor = CreateActor<MonsterCamel>();
+		Actor->SetMove({ 1000,0 });
+	}*/
 
 	
 

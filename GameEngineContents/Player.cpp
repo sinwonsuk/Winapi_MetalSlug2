@@ -11,6 +11,7 @@
 #include <math.h>
 #include "Bullets.h"
 #include "Monster.h"
+#include "MonsterCamel.h"
 #include "ContentsEnums.h"
 
 Player* Player::MainPlayer;
@@ -31,7 +32,7 @@ void Player::Start()
 	MainPlayer = this;
 	SetMove({ 100,0 });
 	
-	float a = cos(20);
+	
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -150,11 +151,11 @@ void Player::Start()
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunThrow",  .ImageName = "RightHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunThrow",  .ImageName = "LeftHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunIdleChangeUp",  .ImageName = "RightHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.075f , .Loop = false });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunIdleChangeUp",  .ImageName = "LeftHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.075f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunIdleChangeUp",  .ImageName = "RightHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.05f , .Loop = false ,.FrameIndex{0,1,2,2} });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunIdleChangeUp",  .ImageName = "LeftHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.05f , .Loop = false ,.FrameIndex{0,1,2,2}});
 
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpChangeIdle",  .ImageName = "RightHeavyUpChangeIdle.bmp", .Start = 0, .End = 2, .InterTime = 0.075f , .Loop = false });
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpChangeIdle",  .ImageName = "LeftHeavyUpChangeIdle.bmp", .Start = 0, .End = 2, .InterTime = 0.075f , .Loop = false });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpChangeIdle",  .ImageName = "RightHeavyUpChangeIdle.bmp",  .InterTime = 0.05f , .Loop = false,.FrameIndex{0,1,1} });
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpChangeIdle",  .ImageName = "LeftHeavyUpChangeIdle.bmp",  .InterTime = 0.05f , .Loop = false,.FrameIndex{0,1,1} });
 
 	}
 
@@ -217,12 +218,7 @@ void Player::Start()
 		BodyCollision->SetPosition({ 0,-100 });
 
 	}
-	{
-		BulletCollision = CreateCollision(MetalSlugOrder::BulletCheck);
-		BulletCollision->SetPosition({ 500,0 });
-		BulletCollision->SetScale({10,500});
-
-	}
+	
 
 }
 
@@ -236,26 +232,26 @@ void Player::Movecalculation(float _DeltaTime)
 	
 	
 
-	if (a == true)
+	if (Gravity == true)
 	{		
 		MoveDir += float4::Down * 1500.0f * _DeltaTime;
 	}
-	if (a == false)
+	if (Gravity == false)
 	{
 		MoveDir += float4::Down * 6000.0f * _DeltaTime;
 	}
 	
 	if (true == GameEngineInput::IsDown("test"))
 	{
-		if (a1 == false)
+		if (GunChange == false)
 		{
 			ChangeState(PlayerState::HEAVYIDLE);
-			a1 = true;
+			GunChange = true;
 		}
-		else if (a1 == true)
+		else if (GunChange == true)
 		{
 			ChangeState(PlayerState::IDLE);
-			a1 = false;
+			GunChange = false;
 		}
 
 	}
@@ -304,9 +300,9 @@ void Player::Movecalculation(float _DeltaTime)
 
 	
 
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)) && MoveDir.y >= -80)
+	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0))) && MoveDir.y >= -80)
 	{
-		if (a1 == false)
+		if (GunChange == false)
 		{
 			if (test == true)
 			{
@@ -318,9 +314,9 @@ void Player::Movecalculation(float _DeltaTime)
 			}
 			test = false;
 			Check = false;
-			a = false;
+			Gravity = false;
 		}
-		else if (a1 == true)
+		else if (GunChange == true)
 		{
 			if (test == true)
 			{
@@ -332,7 +328,7 @@ void Player::Movecalculation(float _DeltaTime)
 			}
 			test = false;
 			Check = false;
-			a = false;
+			Gravity = false;
 		}		
 	}
 	
@@ -343,7 +339,7 @@ void Player::Movecalculation(float _DeltaTime)
 		{
 			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
+			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
 			{				
 				continue;				
 			}
@@ -360,17 +356,17 @@ void Player::Movecalculation(float _DeltaTime)
 				}
 			
 			}
-			a = true;
+			Gravity = true;
 			Check = true;
 			break;
 		}
 	}
-	test23 = false;
+	GroundCheck = false;
 
 
 	if (CameraCheck == true && PosCheck.x < GetPos().ix())
 	{		
-		test23 = true;
+		GroundCheck = true;
 		GetLevel()->SetCameraMove(CameraDir);
 	}
 	
@@ -420,7 +416,7 @@ void Player::Update(float _DeltaTime)
 			if (HeavyBulletTime > 0.2 && HeavyBulletNumber == 0)
 			{
 				HeavyBullet->SetPos({ GetPos().x,GetPos().y-50 });
-				HeavyBullet->Dir = Direction::Up;
+				HeavyBullet->MoveDir = float4::Up;
 				HeavyBullet->test = true;
 				HeavyBulletNumber += 1;
 			}
@@ -428,7 +424,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->Dir = Direction::Up;
+				HeavyBullet->MoveDir = float4::Up;
 				HeavyBullet->test = true;
 				HeavyBulletNumber += 1;
 			}
@@ -436,7 +432,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->Dir = Direction::Up;
+				HeavyBullet->MoveDir = float4::Up;
 				HeavyBullet->test = true;
 				HeavyBulletNumber += 1;
 			}
@@ -444,7 +440,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyBullet->SetPos({ GetPos() });
-				HeavyBullet->Dir = Direction::Up;
+				HeavyBullet->MoveDir = float4::Up;
 				HeavyBullet->test = true;
 
 				HeavyBulletCheck = false;
@@ -774,7 +770,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetMove({ GetPos().x + 900,500 });
 				Actor->GetPlayerCollision()->SetScale({ 500,500 });
-				
+			
 
 			}
 			MonsterCheck = 1;
@@ -843,8 +839,52 @@ void Player::CollisionCheck(float _DeltaTime)
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 			
 			}
-			MonsterCheck += 1;
+			MonsterCheck = 4;
 		}
+
+		if (RGB(251, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(251, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			MonsterBulletRange = GetPos().x;
+
+			if (MonsterCheck == 4)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 2850,300 });
+
+			}
+
+			if (MonsterCheck == 4)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 3050,600 });
+				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
+
+			}
+			MonsterCheck = 5;
+		}
+
+		if (RGB(250, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(250, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			MonsterBulletRange = GetPos().x;
+
+			if (MonsterCheck == 5)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 3250,300 });
+
+			}
+
+			if (MonsterCheck == 5)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 3450,600 });
+				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
+
+			}
+			MonsterCheck = 6;
+		}
+
+
 
 
 
@@ -882,7 +922,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	if ( StateValue == PlayerState::HEAVYIDLEATTACK ||
 		 StateValue == PlayerState::HEAVYMOVEATTACK || StateValue == PlayerState::HEAVYUPATTACK
 		|| StateValue == PlayerState::HEAVYUPMOVEATTACK
-		&& AnimationBodyRender->GetFrame() > 2)
+		&& AnimationBodyRender->GetFrame() > 1)
 	{
 		AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data(), true);
 	}
@@ -1808,14 +1848,14 @@ void Player::Render(float _DeltaTime)
 	);
 
 
-	/*std::string MouseText = "MousePosition : ";
+	std::string MouseText = "MousePosition : ";
 	MouseText += GetLevel()->GetMousePos().ToString();
 
 	std::string CameraMouseText = "MousePositionCamera : ";
 	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
 
 	GameEngineLevel::DebugTextPush(MouseText);
-	GameEngineLevel::DebugTextPush(CameraMouseText);*/
-	//BodyCollision->DebugRender();
-    BulletCollision->DebugRender();
+	GameEngineLevel::DebugTextPush(CameraMouseText);
+
+   
 }

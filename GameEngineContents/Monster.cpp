@@ -88,7 +88,7 @@ void Monster::Movecalculation(float _DeltaTime)
 	
 
 	
-	MoveDir += float4::Down * 2000.0f * _DeltaTime;
+	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
 	if (450.0f <= abs(MoveDir.x))
 	{
@@ -112,19 +112,20 @@ void Monster::Movecalculation(float _DeltaTime)
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	
+	   if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)) && StateValue == MonsterState::MOVE)
+	    {
+	    	
+	    		MoveDir += float4::Up * 450;
+	    		ChangeState(MonsterState::JUMPBACK);
+	    		BackJumpCheck = true;
+	    		return;	
 
-	if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)) && StateValue == MonsterState::MOVE)
-	{
-		MoveDir += float4::Up * 550;
-		ChangeState(MonsterState::JUMPBACK);
-
-		return;
-	}
+	    }
+	
 
 
 
-
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) && StateValue != MonsterState::JUMPBACK)
+	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))) && StateValue != MonsterState::JUMPBACK)
 	{
 		if (StateValue == MonsterState::JUMP)
 		{
@@ -148,7 +149,7 @@ void Monster::Movecalculation(float _DeltaTime)
 		{
 			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
+			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
 			{
 				continue;
 			}
@@ -227,50 +228,41 @@ void Monster::Update(float _DeltaTime)
 
 void Monster::DirCheck(const std::string_view& _AnimationName)
 {
-	if (StateValue == MonsterState::MONSTERBULLET)
+	//if (StateValue == MonsterState::MONSTERBULLET)
+	//{
+	//	std::string PrevDirString = DirString;
+
+	//	//BulletRender->ChangeAnimation(DirString + _AnimationName.data());
+
+	//	if (GameEngineInput::IsPress("LeftMove"))
+	//	{
+	//		DirString = "Left_";
+	//	}
+
+
+
+
+	//	if (PrevDirString != DirString)
+	//	{
+	//		//BulletRender->ChangeAnimation(DirString + _AnimationName.data());
+
+	//	}
+
+
+	//}
+
+
+	std::string PrevDirString = DirString;
+
+	AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
+
+		
+	if (PrevDirString != DirString)
 	{
-		std::string PrevDirString = DirString;
-
-		//BulletRender->ChangeAnimation(DirString + _AnimationName.data());
-
-		if (GameEngineInput::IsPress("LeftMove"))
-		{
-			DirString = "Left_";
-		}
-
-
-
-
-		if (PrevDirString != DirString)
-		{
-			//BulletRender->ChangeAnimation(DirString + _AnimationName.data());
-
-		}
-
-
-	}
-
-
-	else 
-	{
-		std::string PrevDirString = DirString;
-
 		AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
-
-		if (GameEngineInput::IsPress("LeftMove"))
-		{
-			DirString = "Left_";
-		}
-
-
-
-
-		if (PrevDirString != DirString)
-		{
-			AnimationRender->ChangeAnimation(DirString + _AnimationName.data());
-			
-		}
+		
 	}
+	
 }
 
 void Monster::Render(float _Time)

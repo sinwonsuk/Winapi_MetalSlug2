@@ -30,6 +30,9 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MonsterBullet.h" />
+    <ClInclude Include="MonsterCamel.h" />
+    <ClInclude Include="MonsterCamelEffect.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
@@ -39,10 +42,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="SelectLevel.h" />
-    <ClInclude Include="StudyGameCore.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="StudyGameCore.h" />
     <ClInclude Include="TitleBack.h">
       <SubType>
       </SubType>
@@ -65,7 +65,12 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MonsterBullet.cpp" />
+    <ClCompile Include="MonsterCamel.cpp" />
+    <ClCompile Include="MonsterCamelEffect.cpp" />
+    <ClCompile Include="MonsterCamel_State.cpp" />
     <ClCompile Include="Monster_State.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NpcState.cpp" />
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>

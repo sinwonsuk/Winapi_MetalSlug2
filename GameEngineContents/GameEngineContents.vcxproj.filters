@@ -26,7 +26,6 @@
     <ClInclude Include="SelectLevel.h">
       <Filter>CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="StudyGameCore.h" />
     <ClInclude Include="InterFace.h">
       <Filter>Play\InterFace</Filter>
     </ClInclude>
@@ -34,6 +33,10 @@
     <ClInclude Include="MonsterBullet.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="HeavyGun.h" />
+    <ClInclude Include="MonsterCamel.h" />
+    <ClInclude Include="MonsterCamelEffect.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="StudyGameCore.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -74,6 +77,11 @@
     <ClCompile Include="MonsterBullet.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="HeavyGun.cpp" />
+    <ClCompile Include="MonsterCamel.cpp" />
+    <ClCompile Include="MonsterCamel_State.cpp" />
+    <ClCompile Include="MonsterCamelEffect.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NpcState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Play">

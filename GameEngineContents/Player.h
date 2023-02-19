@@ -102,7 +102,7 @@ public:
 		return CameraDir; 
 	}
 
-	bool test23 = false;
+	bool GroundCheck = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -110,9 +110,9 @@ protected:
 	
 
 private:
-	bool a = true;
+	bool Gravity = true;
 	bool test = false;
-	bool test1 = false;
+	
 	bool CameraCheck = false;
 
 	int MonsterCheck = 0;
@@ -140,7 +140,7 @@ private:
 	float4 Reg = { 0,0 };
 	float4 gravity = float4::Zero;
 	float4 PosCheck = { 0,0 };
-	bool a1 = false;
+	bool GunChange = false;
 
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
@@ -282,6 +282,7 @@ private:
 	HeavyGun* HeavyBullet3 = nullptr;
 	HeavyGun* HeavyBullet4 = nullptr;
 	bool HeavyBulletCheck = false;
+	bool IdleChangeUpCheck = false;
 	float HeavyBulletNumber = 0;
 };
 

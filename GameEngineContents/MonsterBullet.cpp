@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineResources.h>
 #include "ContentsEnums.h"
+#include "Player.h"
 
 MonsterBullet::MonsterBullet()
 {
@@ -64,17 +65,17 @@ void MonsterBullet::Update(float _DeltaTime)
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	
+	
+	
+		if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
+		{
 
-
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) )
-	{
-
-		BulletRender->ChangeAnimation("Stop");
-		Check = false;
-		MoveDir = { 0,0 };
-		MonsterBulletMove = false;
-	}
-
+			BulletRender->ChangeAnimation("Stop");
+			Check = false;
+			MoveDir = { 0,0 };
+			
+		}
+	
 	SetMove(MoveDir* _DeltaTime);
 	
 }

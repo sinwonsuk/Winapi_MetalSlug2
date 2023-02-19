@@ -7,8 +7,9 @@ enum class MetalSlugOrder
 	PlayerReg, 
 	PlayerBody,
 	BulletCheck,
-
+	NPC,
 	Monster,
+	MonsterReg,
 	MonsterCheck,
 	MonsterBullet,
 	Bullet,

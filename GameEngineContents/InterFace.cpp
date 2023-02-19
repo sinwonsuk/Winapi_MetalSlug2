@@ -18,6 +18,7 @@ void InterFace::Start()
 	TestNumber.SetImage("Number.BMp", { 25, 25 }, 10, RGB(255, 255, 255), "");
 	TestNumber.SetValue(Value);
 	TestNumber.SetRenderPos({ 360,57 });
+
 	{
 		GameEngineRender* AnimationRender = CreateRender(2);
 		AnimationRender->SetImage("Score.Bmp");

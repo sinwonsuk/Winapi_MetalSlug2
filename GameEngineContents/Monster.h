@@ -112,7 +112,7 @@ private:
 	bool RunCheck = true;
 	MonsterBullet* Actor = nullptr;
 	float AnimationCheck = 0;
-
+	bool BackJumpCheck = false;
 };
 
 
