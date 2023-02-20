@@ -150,7 +150,7 @@ void NPC::DirCheck(const std::string_view& _AnimationName)
 
 void NPC::Update(float _DeltaTime)
 {
-	if (Death == true)
+	if (death == true)
 	{
 		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	}
@@ -159,7 +159,9 @@ void NPC::Update(float _DeltaTime)
 
 	if (DeathCheck > 1)
 	{
-		this->Death(); 
+		this->Death();
+		death = false;
+
 	}
 
 

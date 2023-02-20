@@ -94,7 +94,7 @@ private:
 	float MoveSpeed = 100;
 	float DeathCheck = 0; 
 	bool EffectCheck = false;
-	bool Death = false;
+	bool death = false;
 
 
 
