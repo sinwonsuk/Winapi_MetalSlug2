@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
 
 
@@ -149,6 +150,14 @@ void NPC::DirCheck(const std::string_view& _AnimationName)
 
 void NPC::Update(float _DeltaTime)
 {
+	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+
+
+	if (DeathCheck > 1)
+	{
+		this->Death(); 
+	}
+
 
 	if (nullptr != NpcCollision && StateValue == NpcState::IDLE)
 	{

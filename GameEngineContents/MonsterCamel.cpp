@@ -72,7 +72,10 @@ void MonsterCamel::Start()
 
 	{
 		PlayerCollision = CreateCollision(MetalSlugOrder::MonsterCheck);
+		
 		PlayerCollision->SetScale({ 500, 500 });
+
+
 	}
 
 
@@ -84,10 +87,10 @@ void MonsterCamel::Start()
 
 void MonsterCamel::Movecalculation(float _DeltaTime)
 {
-
+	PlayerCollision->SetPosition({ -200,0 });
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
-	if (450.0f <= abs(MoveDir.x))
+	if (450.0f <= abs(MoveDir.x) && StateValue == MonsterCamelState::IDLESTART)
 	{
 		if (0 > MoveDir.x)
 		{
@@ -99,6 +102,17 @@ void MonsterCamel::Movecalculation(float _DeltaTime)
 		}
 	}
 
+	if (200.0f <= abs(MoveDir.x) && StateValue == MonsterCamelState::MOVE)
+	{
+		if (0 > MoveDir.x)
+		{
+			MoveDir.x = -200.0f;
+		}
+		else
+		{
+			MoveDir.x = 200.0f;
+		}
+	}
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
 
 	if (nullptr == ColImage)

@@ -92,7 +92,7 @@ private:
 	float TimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 100;
-
+	float DeathCheck = 0; 
 	bool EffectCheck = false;
 
 

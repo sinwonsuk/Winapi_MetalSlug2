@@ -127,7 +127,7 @@ void MonsterCamel::UpStart()
 
 void MonsterCamel::MonsterUpdate(float _Time)
 {
-	MoveDir += float4::Left * MoveSpeed;
+	MoveDir += float4::Left * 600;
 
 }
 
@@ -171,7 +171,7 @@ void MonsterCamel::MoveUpdate(float _Time)
 		{
 			
 			MoveDir.x = 0;
-			MoveDir += float4::Right * 300;
+			MoveDir = float4::Right * 300;
 		}
 	}
 	if (  LeftRightTimeCheck> 1)
@@ -180,7 +180,7 @@ void MonsterCamel::MoveUpdate(float _Time)
 		{
 			
 			MoveDir.x = 0;
-			MoveDir += float4::Left * 300;
+			MoveDir = float4::Left * 300;
 			
 		}
 
