@@ -193,5 +193,6 @@ void NPC::CollisionAfterUpdate(float _Time)
 
 void NPC::DeathUpdate(float _Time)
 {
+	death = true; 
 	MoveDir += float4::Left * MoveSpeed;
 }
