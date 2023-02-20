@@ -5,9 +5,6 @@
     <ClInclude Include="TitleLevel.h">
       <Filter>Title</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Play</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Play</Filter>
     </ClInclude>
@@ -29,21 +26,35 @@
     <ClInclude Include="InterFace.h">
       <Filter>Play\InterFace</Filter>
     </ClInclude>
-    <ClInclude Include="Bullets.h" />
-    <ClInclude Include="MonsterBullet.h" />
-    <ClInclude Include="Bomb.h" />
-    <ClInclude Include="HeavyGun.h" />
-    <ClInclude Include="MonsterCamel.h" />
-    <ClInclude Include="MonsterCamelEffect.h" />
-    <ClInclude Include="NPC.h" />
-    <ClInclude Include="StudyGameCore.h" />
+    <ClInclude Include="MetalSlugCore.h" />
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBullet.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterCamel.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterCamelEffect.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullets.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="HeavyGun.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Play</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Play</Filter>
@@ -70,31 +81,61 @@
     <ClCompile Include="InterFace.cpp">
       <Filter>Play\InterFace</Filter>
     </ClCompile>
-    <ClCompile Include="Bullets.cpp" />
-    <ClCompile Include="Monster_State.cpp">
-      <Filter>Play</Filter>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterBullet.cpp" />
-    <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="HeavyGun.cpp" />
-    <ClCompile Include="MonsterCamel.cpp" />
-    <ClCompile Include="MonsterCamel_State.cpp" />
-    <ClCompile Include="MonsterCamelEffect.cpp" />
-    <ClCompile Include="NPC.cpp" />
-    <ClCompile Include="NpcState.cpp" />
+    <ClCompile Include="Monster_State.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBullet.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterCamel.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterCamel_State.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterCamelEffect.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullets.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="HeavyGun.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcState.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Play">
-      <UniqueIdentifier>{dbe06dfd-001e-4f83-800b-981e80d33e75}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Title">
       <UniqueIdentifier>{e319163e-7f2f-4f80-b187-882031d15de9}</UniqueIdentifier>
     </Filter>
     <Filter Include="CharacterSelect">
       <UniqueIdentifier>{7bfef9f0-83a1-4597-aa88-03286ad3e5ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{5f288853-4687-4394-8b03-24ce417aeab3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play">
+      <UniqueIdentifier>{dbe06dfd-001e-4f83-800b-981e80d33e75}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Play\InterFace">
       <UniqueIdentifier>{605be437-9172-4c4e-960b-7b3544cb305f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapon">
+      <UniqueIdentifier>{ea208af4-6298-4d41-837d-60d2064848dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NPC">
+      <UniqueIdentifier>{6272fcb1-0e58-471b-80dd-015fab3878d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

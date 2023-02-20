@@ -31,7 +31,7 @@ protected:
 	void Render(float _Time) override;
 private:
 	float Speed = 1000;
-
+	float DeathCheck = 0;
 };
 
 

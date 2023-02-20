@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include <GameEngineContents/StudyGameCore.h>
+#include <GameEngineContents/MetalSlugCore.h>
 #include <GameEngineBase/GameEngineTime.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,

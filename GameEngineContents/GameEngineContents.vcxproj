@@ -42,7 +42,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="SelectLevel.h" />
-    <ClInclude Include="StudyGameCore.h" />
+    <ClInclude Include="MetalSlugCore.h" />
     <ClInclude Include="TitleBack.h">
       <SubType>
       </SubType>

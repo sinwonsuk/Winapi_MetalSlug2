@@ -498,10 +498,10 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
-	{
+	/*{
 		NPC* Actor = CreateActor<NPC>();
 		Actor->SetMove({ 500,0 });
-	}
+	}*/
 	/*{
 		MonsterCamel* Actor = CreateActor<MonsterCamel>();
 		Actor->SetMove({ 1000,0 });

@@ -1,4 +1,4 @@
-#include "StudyGameCore.h"
+#include "MetalSlugCore.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 #include "PlayLevel.h"

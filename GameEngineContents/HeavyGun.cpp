@@ -4,6 +4,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include "Player.h"
 #include "ContentsEnums.h"
 #include <math.h>
@@ -24,9 +25,9 @@ void HeavyGun::Start()
 {
 	{
 		AnimationRender = CreateRender(10);
-		AnimationRender->SetImage("Bullet.Bmp");
+		AnimationRender->SetImage("HeavyBullet.Bmp");
 		//AnimationRender->SetPosition({ 500,500 });
-		AnimationRender->SetScale({ 100,100 });
+		AnimationRender->SetScale({132,60 });
 		AnimationRender->On();
 		//	AnimationRender->
 
@@ -43,7 +44,19 @@ void HeavyGun::Update(float _DeltaTime)
 {
 	
 
-	SetMove(MoveDir * _DeltaTime * 1000);
+	SetMove(MoveDir * _DeltaTime * 1500);
+
+	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	
+	if (DeathCheck > 0.46)
+	{
+		this->Death(); 
+	}
+
+
+
+
+
 	//AnimationRender->On();
 
 	
