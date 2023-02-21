@@ -647,6 +647,7 @@ void Player::IdleEnd() {
 }
 void Player::HeavyIdleUpdate(float _Time)
 {
+	
 
 	if (GameEngineInput::IsPress("LeftMove") || GameEngineInput::IsPress("RightMove"))
 	{
@@ -725,24 +726,31 @@ void Player::HeavyAttackIdleUpdate(float _Time)
 	CameraDir = { 0,0 };
 
 
+	
+
+	
+		if (true == GameEngineInput::IsDown("Attack"))
+		{
+			ChangeState(PlayerState::HEAVYIDLEATTACK);
+			return;
+		}
+	
+	
+		if (true == GameEngineInput::IsDown("UpMove"))
+		{
+			ChangeState(PlayerState::HEAVYIDLECHANGEUPATTACK);
+			return;
+		}
+	
+
+
+
 	if (AnimationBodyRender->IsAnimationEnd() == true)
 	{
 		ChangeState(PlayerState::HEAVYIDLE);
 		return;
 	}
 
-
-	if (true == GameEngineInput::IsDown("Attack"))
-	{
-		ChangeState(PlayerState::HEAVYIDLEATTACK);
-		return;
-	}
-
-	if (true == GameEngineInput::IsDown("UpMove"))
-	{
-		ChangeState(PlayerState::HEAVYIDLECHANGEUPATTACK);
-		return;
-	}
 
 
 	if (true == GameEngineInput::IsPress("LeftMove"))
@@ -757,6 +765,10 @@ void Player::HeavyAttackIdleUpdate(float _Time)
 		MoveDir += float4::Right * MoveSpeed;
 		CameraDir = float4::Right * MoveSpeed * _Time;
 	}
+
+
+
+
 }
 
 
@@ -1166,7 +1178,7 @@ void Player::HeavyUpUpdate(float _Time)
 		return;
 	}*/
 
-	if (true == GameEngineInput::IsDown("Attack"))
+	else if (true == GameEngineInput::IsDown("Attack"))
 	{
 		ChangeState(PlayerState::HEAVYUPATTACK);
 		return;
@@ -1174,19 +1186,19 @@ void Player::HeavyUpUpdate(float _Time)
 
 
 
-     if (true == GameEngineInput::IsDown("JumpMove"))
+    else if (true == GameEngineInput::IsDown("JumpMove"))
 	{
 		ChangeState(PlayerState::HEAVYJUMPUP);
 		MoveDir += float4::Up * 650;
 		test = true;
 		return;
 	}
-	 if (true == GameEngineInput::IsPress("RightMove"))
+	 else if (true == GameEngineInput::IsPress("RightMove"))
 	{
 		ChangeState(PlayerState::HEAVYUPMOVE);
 		return;
 	}
-	 if (true == GameEngineInput::IsPress("LeftMove"))
+	 else if (true == GameEngineInput::IsPress("LeftMove"))
 	{
 		ChangeState(PlayerState::HEAVYUPMOVE);
 		return;
@@ -1204,14 +1216,20 @@ void Player::HeavyUpUpdate(float _Time)
 void Player::HeavyUpAttackUpdate(float _Time)
 {
 	
+	if (true == AnimationBodyRender->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::HEAVYUP);
+		return;
+	}
+
+
 	if (true == GameEngineInput::IsUp("UpMove"))
 	{
 		ChangeState(PlayerState::HEAVYUPCHANGEIDLEATTACK);
 		return;
 	}
 
-
-	if (true == GameEngineInput::IsPress("RightMove"))
+	 if (true == GameEngineInput::IsPress("RightMove"))
 	{
 		ChangeState(PlayerState::HEAVYUPMOVE);
 		return;
@@ -1229,11 +1247,7 @@ void Player::HeavyUpAttackUpdate(float _Time)
 	 }
 
 
-	if (true == AnimationBodyRender->IsAnimationEnd())
-	{
-		ChangeState(PlayerState::HEAVYUP);
-		return;
-	}
+	
 }
 
 
@@ -1509,7 +1523,7 @@ void Player::HeavyIdleChangeUpUpdate(float _Time)
 		IdleChangeUpCheck = true;
 	}
 
-	if (true == AnimationBodyRender->IsAnimationEnd())
+	if (true == AnimationBodyRender->IsAnimationEnd()+1)
 	{
 		if (IdleChangeUpCheck == false)
 		{
@@ -1578,17 +1592,17 @@ void Player::HeavyMoveChangeUpUpdate(float _Time)
 	}
 
 
-	/*if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
-	{
-		ChangeState(PlayerState::HEAVYIDLE);
-		return;
-	}*/
+	///*if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
+	//{
+	//	ChangeState(PlayerState::HEAVYIDLE);
+	//	return;
+	//}*/
 
-	if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
-	{
-		ChangeState(PlayerState::HEAVYIDLE);
-		return;
-	}
+	//if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
+	//{
+	//	ChangeState(PlayerState::HEAVYIDLE);
+	//	return;
+	//}
 
 	if (true == GameEngineInput::IsDown("Attack"))
 	{

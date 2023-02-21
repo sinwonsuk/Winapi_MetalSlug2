@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
 
 MonsterCamel* MonsterCamel::CamelMonster;
@@ -62,20 +63,17 @@ void MonsterCamel::Start()
 
 
 
-	//{
-	//	MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-	//	MonsterCollision->SetPosition({ 0,-100 });
-	//	MonsterCollision->SetScale({ 100, 100 });
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);		
+		MonsterCollision->SetScale({ 100, 100 });
 
-	//}
+	}
 
 
 	{
 		PlayerCollision = CreateCollision(MetalSlugOrder::MonsterCheck);
 		
 		PlayerCollision->SetScale({ 500, 500 });
-
-
 	}
 
 
@@ -213,6 +211,16 @@ void MonsterCamel::DirBodyCheck(const std::string_view& _AnimationName , const s
 		return;
 	}
 
+	else if (StateValue == MonsterCamelState::DEATH)
+	{
+		AnimationBodyRender->On();
+
+		AnimationBodyRender->SetPosition({ 0,-100 });
+		AnimationRegRender->SetPosition({ 0,0 });
+		return;
+	}
+
+
 
 
 
@@ -244,6 +252,44 @@ void MonsterCamel::Update(float _DeltaTime)
 
 		}
 	}
+
+	if (nullptr != MonsterCollision  )
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+
+			Hp--;
+
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
+			}
+
+			if (Hp == 0)
+			{
+				ChangeState(MonsterCamelState::DEATH);
+				death = true; 
+			}
+		
+
+
+
+
+		}
+	}
+
+	if (death == true)
+	{
+		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+	}
+	if (DeathCheck == 1.5)
+	{
+		this->Death(); 
+	}
+
+
 	Movecalculation(_DeltaTime);
 
 	UpdateState(_DeltaTime);
@@ -260,6 +306,6 @@ void MonsterCamel::Render(float _Time)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-
+	MonsterCollision->DebugRender();
 	//PlayerCollision->DebugRender();
 }

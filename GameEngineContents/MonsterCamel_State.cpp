@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "MonsterCamelEffect.h"
+#include "MonsterCamelBullet.h"
 void MonsterCamel::ChangeState(MonsterCamelState _State)
 {
 	{
@@ -37,14 +38,9 @@ void MonsterCamel::ChangeState(MonsterCamelState _State)
 		case MonsterCamelState::UP:
 			UpStart();
 			break;
-
-	/*	case MonsterCamelState::MONSTERBULLET:
-			MonsterBulletStart();
-			break;
-	
 		case MonsterCamelState::DEATH:
-			MonsterDeathStart();
-			break;*/
+			DeathStart();
+			break;
 
 		default:
 			break;
@@ -85,9 +81,10 @@ void MonsterCamel::UpdateState(float _Time)
 	case MonsterCamelState::ATTACK:
 		AttackUpdate(_Time);
 		break;
-	//case MonsterCamelState::MONSTERBULLET:
-	//	MonsterBulletUpdate(_Time);
-	//	break;
+	case MonsterCamelState::DEATH:
+		DeathUpdate(_Time);
+		break;
+
 
 	default:
 		break;
@@ -123,7 +120,10 @@ void MonsterCamel::UpStart()
 {
 	DirBodyCheck("Reg_Up", "Body_Up");
 }
-
+void MonsterCamel::DeathStart()
+{
+	DirBodyCheck("Body_Death", "Reg_Death");
+}
 
 void MonsterCamel::MonsterUpdate(float _Time)
 {
@@ -212,6 +212,14 @@ void MonsterCamel::MoveUpdate(float _Time)
 
 void MonsterCamel::AttackUpdate(float _Time)
 {
+	if (AnimationRegRender->GetFrame() == 5)
+	{
+		MonsterCamelBullet* Bullet = GetLevel()->CreateActor<MonsterCamelBullet>();
+		Bullet->SetMove({ GetPos().x-100, GetPos().y-125 });
+	}
+
+
+
 	if (AnimationRegRender->IsAnimationEnd())
 	{
 		ChangeState(MonsterCamelState::UP);
@@ -241,6 +249,15 @@ void MonsterCamel::UpUpdate(float _Time)
 		ChangeState(MonsterCamelState::MOVE);
 		return;
 	}
+}
+
+
+
+void MonsterCamel::DeathUpdate(float _Time)
+{
+	MoveDir = { 0,0 };
+	float4 a = float4::Left * 800 * _Time; 
+	AnimationRegRender->SetMove({ a });
 }
 
 

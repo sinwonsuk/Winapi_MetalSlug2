@@ -10,6 +10,7 @@ enum class MetalSlugOrder
 	NPC,
 	Monster,
 	MonsterReg,
+	MonsterCamel,
 	MonsterCheck,
 	MonsterBullet,
 	Bullet,
@@ -38,4 +39,8 @@ enum class Direction
 	B,
 	C,
 	D,
+	LeftA,
+	LeftB,
+	LeftC,
+	LeftD,
 };

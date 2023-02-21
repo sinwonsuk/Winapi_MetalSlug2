@@ -54,15 +54,9 @@ public:
 
 	void UpStart(); 
 	void UpUpdate(float _Time);
-	void PlayerCheckStart();
-	void PlayerCheckUpdate(float _Time);
-
-	void MonsterBulletStart();
-	void MonsterBulletUpdate(float _Time);
-
-	void MonsterDeathStart();
-	void MonsterDeathUpdate();
-
+	
+	void DeathStart(); 
+	void DeathUpdate(float _Time);
 	
 	
 	GameEngineCollision* GetPlayerCollision()
@@ -92,7 +86,9 @@ private:
 	float LeftRightTimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 1000;
-
+	int Hp = 10;;
+	float DeathCheck = 0;
+	bool  death = false;
 	bool EffectCheck = false;
 	
 	

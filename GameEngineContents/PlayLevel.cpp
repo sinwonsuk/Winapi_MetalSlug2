@@ -481,6 +481,50 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("HeavyBullet.BMP"));
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("RightHeavyBullet.BMP"));
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("RightUpHeavyBullet1.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("RightUpHeavyBullet2.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("RightUpHeavyBullet3.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("RightUpHeavyBullet4.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("RightUpHeavyBullet5.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("UpHeavyBullet.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftHeavyBullet.BMP"));
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftUpHeavyBullet1.BMP"));
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftUpHeavyBullet2.BMP"));
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftUpHeavyBullet3.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftUpHeavyBullet4.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftUpHeavyBullet5.BMP"));
+		}
+
 	}
 	
 
@@ -502,7 +546,7 @@ void PlayLevel::Loading()
 		NPC* Actor = CreateActor<NPC>();
 		Actor->SetMove({ 500,0 });
 	}*/
-	/*{
+   /* {
 		MonsterCamel* Actor = CreateActor<MonsterCamel>();
 		Actor->SetMove({ 1000,0 });
 	}*/
@@ -541,8 +585,7 @@ void PlayLevel::Update(float _DeltaTime)
 		// Player::MainPlayer->Death()p;
 	}
 
-	float CameraMoveSpeed = 
-		.0f;
+	
 
 	//if (GameEngineInput::IsPress("CameraLeftMove"))
 	//{

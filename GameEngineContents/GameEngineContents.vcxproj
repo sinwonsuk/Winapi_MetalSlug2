@@ -31,6 +31,7 @@
     </ClInclude>
     <ClInclude Include="MonsterBullet.h" />
     <ClInclude Include="MonsterCamel.h" />
+    <ClInclude Include="MonsterCamelBullet.h" />
     <ClInclude Include="MonsterCamelEffect.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h">
@@ -66,6 +67,7 @@
     </ClCompile>
     <ClCompile Include="MonsterBullet.cpp" />
     <ClCompile Include="MonsterCamel.cpp" />
+    <ClCompile Include="MonsterCamelBullet.cpp" />
     <ClCompile Include="MonsterCamelEffect.cpp" />
     <ClCompile Include="MonsterCamel_State.cpp" />
     <ClCompile Include="Monster_State.cpp" />

@@ -129,19 +129,21 @@ private:
 
 	std::string DirString = "Right_";
 	std::string DirStringBullet = "Right";
-
+	std::string CurDirStringBullet = ""; 
 
 	std::vector<GameEngineActor*> Bullet;
 	std::vector<Bullets*> bullets;
 	PlayerState StateValue = PlayerState::IDLE;
-
+	
 	float4 MoveDir = float4::Zero;
+	float4 SpinMoveDir = float4::Zero;
 	float4 CameraDir = float4::Zero;
 	float4 body = { 0,0 };
 	float4 Reg = { 0,0 };
 	float4 gravity = float4::Zero;
 	float4 PosCheck = { 0,0 };
 	bool GunChange = false;
+	bool SpinDown = false;
 
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
@@ -275,15 +277,32 @@ private:
 		
 	//void HeavyUpJumpMoveAttackUpdate(float _Time);
 	//void HeavyUpJumpMoveDownAttackStart(float _Time);
-	float HeavyBulletTime = 0;;
+
+	float RightHeavyBulletTime = 0;
+	float LeftHeavyBulletTime = 0;
+	float UpHeavyBulletTime = 0;
+
+	float asda = 20;
 	Bomb* Actor = nullptr;
-	HeavyGun* HeavyBullet = nullptr;
-	HeavyGun* HeavyBullet1 = nullptr;
-	HeavyGun* HeavyBullet2 = nullptr;
-	HeavyGun* HeavyBullet3 = nullptr;
-	HeavyGun* HeavyBullet4 = nullptr;
-	bool HeavyBulletCheck = false;
+	HeavyGun* HeavyBullet = nullptr; 
+	float SpeedDown = 0; 
+
+
+	bool RightHeavyBulletCheck = false;
+	bool LeftHeavyBulletCheck = false;
+	bool UpHeavyBulletCheck = false;
+
 	bool IdleChangeUpCheck = false;
-	float HeavyBulletNumber = 0;
+
+
+
+	float RightAttackChangeUp = 0;
+	float LeftAttackChangeUp = 0;
+	float RightUpChangeAttack = 0; 
+	float LeftUpChangeAttack = 0;
+	float RightHeavyBulletNumber = 0;
+	float LeftHeavyBulletNumber = 0;
+	float UPHeavyBulletNumber = 0;
+
 };
 

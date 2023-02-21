@@ -51,6 +51,7 @@
     <ClInclude Include="NPC.h">
       <Filter>NPC</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterCamelBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -114,6 +115,7 @@
     <ClCompile Include="NpcState.cpp">
       <Filter>NPC</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterCamelBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">
