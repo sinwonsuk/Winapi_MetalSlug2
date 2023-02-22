@@ -13,6 +13,7 @@
 #include "MonsterBullet.h"
 #include "MonsterCamel.h"
 #include "NPC.h"
+#include "MiddleBoss.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -424,6 +425,10 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelEffect.BMP"));
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceBase.BMP"));
+		}
+
 
 		//NPC
 
@@ -527,7 +532,7 @@ void PlayLevel::Loading()
 
 	}
 	
-
+	//6200
 
 
 	// 액터 생성
@@ -541,6 +546,10 @@ void PlayLevel::Loading()
 	}
 	{
 		InterFace* Actor = CreateActor<InterFace>();
+	}
+	{
+		MiddleBoss* Actor = CreateActor<MiddleBoss>();
+		Actor->SetPos({ 6550,500 });
 	}
 	/*{
 		NPC* Actor = CreateActor<NPC>();

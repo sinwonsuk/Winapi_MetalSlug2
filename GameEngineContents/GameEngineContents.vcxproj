@@ -25,6 +25,7 @@
     <ClInclude Include="HeavyGun.h" />
     <ClInclude Include="InterFace.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MiddleBoss.h" />
     <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
@@ -61,6 +62,7 @@
     <ClCompile Include="HeavyGun.cpp" />
     <ClCompile Include="InterFace.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MiddleBoss.cpp" />
     <ClCompile Include="Monster.cpp">
       <SubType>
       </SubType>

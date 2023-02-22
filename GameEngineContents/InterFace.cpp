@@ -23,7 +23,7 @@ void InterFace::Start()
 		GameEngineRender* AnimationRender = CreateRender(2);
 		AnimationRender->SetImage("Score.Bmp");
 		AnimationRender->SetPosition({ 110,60 });
-		AnimationRender->SetScale({ 201,76 });
+		AnimationRender->SetScale({ 201,76 }); 
 		AnimationRender->EffectCameraOff();
 	}
 

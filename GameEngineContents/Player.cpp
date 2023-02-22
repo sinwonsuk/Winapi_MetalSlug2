@@ -2271,8 +2271,8 @@ void Player::Render(float _DeltaTime)
 	
 
 	std::string CameraMouseText = "MousePositionCamera : \n";
-	//CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
-	CameraMouseText = SpinMoveDir.ToString();
+	CameraMouseText += GetLevel()->GetCameraPos().ToString();
+	//CameraMouseText = SpinMoveDir.ToString();
 
 	//CameraMouseText += GetLevel()
 
