@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+
 class MonsterCamelBullet : public GameEngineActor
 {
 public:
@@ -21,4 +22,5 @@ protected:
 private:
 	GameEngineRender* BulletRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
+	
 };

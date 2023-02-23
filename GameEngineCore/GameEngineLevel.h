@@ -132,6 +132,17 @@ public:
 		DebugTexts.push_back(_DebugText);
 	}
 
+	template<typename EnumType>
+	void SetTimeScale(EnumType _GroupIndex, float _Time)
+	{
+		SetTimeScale(static_cast<int>(_GroupIndex), _Time);
+	}
+
+	void SetTimeScale(int _GroupIndex, float _Time)
+	{
+		TimeScales[_GroupIndex] = _Time;
+	}
+
 protected:
 	virtual void Loading() = 0;
 	virtual void Update(float _DeltaTime) = 0;
@@ -169,10 +180,13 @@ private:
 	std::map<int, std::list<GameEngineRender*>> Renders;
 	void PushRender(GameEngineRender* _Render, int _ChangeOrder);
 
+	std::map<int, float> TimeScales;
+
 	std::map<int, std::list<GameEngineCollision*>> Collisions;
 	void PushCollision(GameEngineCollision* _Collision, int _ChangeOrder);
 
 	// 엔진수준의 기능이기 때문에 private으로 둔다.
 	void Release();
+
 };
 

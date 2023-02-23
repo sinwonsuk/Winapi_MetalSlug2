@@ -14,6 +14,8 @@
 #include "MonsterCamel.h"
 #include "NPC.h"
 #include "MiddleBoss.h"
+#include "PalaceBullet.h"
+
 PlayLevel::PlayLevel() 
 {
 }
@@ -425,10 +427,66 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelEffect.BMP"));
 		}
 
+
+		// ±ÃÀü 
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceBase.BMP"));
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceLeft.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceRight.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceMiddle.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceDoor.BMP"));			
+				Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceWindow.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceHumanIdle.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceHumanAttack.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceHuman.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceMissileIdle.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceMissileMove.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceSmoke.BMP"));
+			Image->Cut(5, 7);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceLeftDestory.BMP"));
+			
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceMiddleDestory.BMP"));
+		
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceRightDestory.BMP"));
+		
+		}
 
 		//NPC
 
@@ -549,8 +607,14 @@ void PlayLevel::Loading()
 	}
 	{
 		MiddleBoss* Actor = CreateActor<MiddleBoss>();
-		Actor->SetPos({ 6550,500 });
+		Actor->SetPos({ 6540,500 });
 	}
+	/*{
+		PalaceBullet* Actor = CreateActor<PalaceBullet>();
+	}*/
+
+
+
 	/*{
 		NPC* Actor = CreateActor<NPC>();
 		Actor->SetMove({ 500,0 });
@@ -559,7 +623,6 @@ void PlayLevel::Loading()
 		MonsterCamel* Actor = CreateActor<MonsterCamel>();
 		Actor->SetMove({ 1000,0 });
 	}*/
-
 	
 
 

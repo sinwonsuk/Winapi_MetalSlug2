@@ -53,6 +53,7 @@
     </ClInclude>
     <ClInclude Include="MonsterCamelBullet.h" />
     <ClInclude Include="MiddleBoss.h" />
+    <ClInclude Include="PalaceBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -118,6 +119,8 @@
     </ClCompile>
     <ClCompile Include="MonsterCamelBullet.cpp" />
     <ClCompile Include="MiddleBoss.cpp" />
+    <ClCompile Include="MiddleBossState.cpp" />
+    <ClCompile Include="PalaceBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

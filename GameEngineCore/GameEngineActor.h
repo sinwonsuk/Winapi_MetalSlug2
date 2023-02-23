@@ -100,6 +100,7 @@ protected:
 	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel);
 
 private:
+	float TimeScale = 0.0;
 	float LiveTime = 0.0;
 	float4 Pos = {0.0f, 0.0f};
 	std::list<GameEngineRender*> RenderList;

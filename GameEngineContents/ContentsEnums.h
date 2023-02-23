@@ -3,7 +3,13 @@
 enum class MetalSlugOrder
 {
 	BackGround,
-	Map,	
+	Map,
+	Pillar, 
+	Palace,
+	Window,
+	WindowHuman,
+	Door,
+	Smoke,
 	PlayerReg, 
 	PlayerBody,
 	BulletCheck,

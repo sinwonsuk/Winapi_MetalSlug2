@@ -31,8 +31,8 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 100,0 });
-	
+	SetMove({ 6200,0 });
+	GetLevel()->SetCameraPos({ 6200,0 });
 	
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
@@ -2255,6 +2255,30 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 void Player::Render(float _DeltaTime)
 {
+	//HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	//float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
+
+	//Rectangle(DoubleDC,
+	//	ActorPos.ix() - 5,
+	//	ActorPos.iy() - 5,
+	//	ActorPos.ix() + 5,
+	//	ActorPos.iy() + 5
+	//);
+	//
+
+	//std::string MouseText = "MousePosition : ";
+	//MouseText += GetLevel()->GetMousePos().ToString(); 
+	//
+
+	//std::string CameraMouseText = "MousePositionCamera : \n";
+	//CameraMouseText += GetLevel()->GetCameraPos().ToString();
+	////CameraMouseText = SpinMoveDir.ToString();
+
+	////CameraMouseText += GetLevel()
+
+	////CameraMouseText = MoveDir
+	//GameEngineLevel::DebugTextPush(MouseText);
+	//GameEngineLevel::DebugTextPush(CameraMouseText);
 	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 
@@ -2264,21 +2288,31 @@ void Player::Render(float _DeltaTime)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-	
+
+	//()->GetMousePosToCamera()
+	float4 Angle = GetLevel()->GetMousePosToCamera() - GetPos();
+	float Deg = Angle.GetAnagleDeg();
+
+	//float4 Angle = GetLevel()->GetMousePos();
+
+
+	std::string AngleText = "Angle : ";
+	AngleText += std::to_string(Deg);
+	GameEngineLevel::DebugTextPush(AngleText);
 
 	std::string MouseText = "MousePosition : ";
-	MouseText += GetLevel()->GetMousePos().ToString(); 
-	
+	MouseText += GetLevel()->GetMousePos().ToString();
 
-	std::string CameraMouseText = "MousePositionCamera : \n";
-	CameraMouseText += GetLevel()->GetCameraPos().ToString();
-	//CameraMouseText = SpinMoveDir.ToString();
+	std::string CameraMouseText = "MousePositionCamera : ";
+	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
 
-	//CameraMouseText += GetLevel()
-
-	//CameraMouseText = MoveDir
 	GameEngineLevel::DebugTextPush(MouseText);
-	GameEngineLevel::DebugTextPush(CameraMouseText);
+	// GameEngineLevel::DebugTextPush(CameraMouseText);
 
+	//std::string Text = "출력";
+	//SetBkMode(DoubleDC, TRANSPARENT);
+	//TextOut(DoubleDC, 0, 0, Text.c_str(), Text.size());
+
+	// 디버깅용.
    
 }
