@@ -27,7 +27,7 @@ MiddleBoss::~MiddleBoss()
 void MiddleBoss::Start()
 {
 	middleBoss = this;
-	srand(static_cast<unsigned int>(time(nullptr)));
+	
 	{
 		PalaceBase = CreateRender(MetalSlugOrder::Palace);
 		PalaceBase->SetImage("PalaceBase.Bmp");
@@ -376,7 +376,7 @@ void MiddleBoss::LeftAttackCheck(const std::string_view& _AnimationName)
 	AnimationLeftHumanAttackRender->On();
 	
 
-	AnimationLeftHumanAttackRender->ChangeAnimation(_AnimationName.data());
+	AnimationLeftHumanAttackRender->ChangeAnimation(_AnimationName.data(),true);
 
 
 
@@ -389,7 +389,7 @@ void MiddleBoss::RightAttackCheck(const std::string_view& _AnimationName)
 
 
 
-	AnimationRightHumanAttackRender->ChangeAnimation(_AnimationName.data());
+	AnimationRightHumanAttackRender->ChangeAnimation(_AnimationName.data(),true);
 }
 
 void MiddleBoss::MiddleAttackCheck(const std::string_view& _AnimationName)
@@ -397,7 +397,7 @@ void MiddleBoss::MiddleAttackCheck(const std::string_view& _AnimationName)
 	
 	AnimationMiddleHumanAttackRender->On();
 
-	AnimationMiddleHumanAttackRender->ChangeAnimation(_AnimationName.data());
+	AnimationMiddleHumanAttackRender->ChangeAnimation(_AnimationName.data(),true);
 
 
 
@@ -405,24 +405,30 @@ void MiddleBoss::MiddleAttackCheck(const std::string_view& _AnimationName)
 
 void MiddleBoss::LeftSmokeCheck(const std::string_view& _AnimationName)
 {
+	/*AnimationRightSmokeRender->Off();
+	AnimationMiddleSmokeRender->Off();*/
+	AnimationLeftSmokeRender->On();
 
-	AnimationLeftSmokeRender->On(); 
-
-	AnimationLeftSmokeRender->ChangeAnimation(_AnimationName.data());
+	AnimationLeftSmokeRender->ChangeAnimation(_AnimationName.data(),true);
 }
 
 void MiddleBoss::RightSmokeCheck(const std::string_view& _AnimationName)
 {
+	/*AnimationLeftSmokeRender->Off();
+	
+	AnimationMiddleSmokeRender->Off();*/
 	AnimationRightSmokeRender->On();
-
-	AnimationRightSmokeRender->ChangeAnimation(_AnimationName.data());
+	AnimationRightSmokeRender->ChangeAnimation(_AnimationName.data(),true);
 }
 
 void MiddleBoss::MiddleSmokeCheck(const std::string_view& _AnimationName)
 {
-	AnimationMiddleSmokeRender->On();
+	/*AnimationLeftSmokeRender->Off();
+	AnimationRightSmokeRender->Off();
+	AnimationMiddleSmokeRender->On();*/
 
-	AnimationMiddleSmokeRender->ChangeAnimation(_AnimationName.data());
+	AnimationMiddleSmokeRender->On();
+	AnimationMiddleSmokeRender->ChangeAnimation(_AnimationName.data(), true);
 }
 
 
@@ -558,28 +564,7 @@ void MiddleBoss::Update(float _DeltaTime)
 		PalaceRightDestory->SetMove(MoveDirRight * _DeltaTime);
 	}
 
-	AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
-
-	/*if (AttackTime > 1.5)
-	{
-		int a = rand() % 3;
-
-		if (a == 0)
-		{
-
-		}
-		if (a == 1)
-		{
-
-		}
-		if (a == 2)
-		{
-
-		}
-
-
-
-	}*/
+	
 
 
 	if (MoveCheck > 1.0 &&StateValue == MiddleBossState::IDLESTART )
