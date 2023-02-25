@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Bullets.h" />
+    <ClInclude Include="Carriage.h" />
     <ClInclude Include="CharacterSelect.h" />
     <ClInclude Include="HeavyGun.h" />
     <ClInclude Include="InterFace.h" />
@@ -59,6 +60,8 @@
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="Carriage.cpp" />
+    <ClCompile Include="CarriageState.cpp" />
     <ClCompile Include="CharacterSelect.cpp" />
     <ClCompile Include="HeavyGun.cpp" />
     <ClCompile Include="InterFace.cpp" />

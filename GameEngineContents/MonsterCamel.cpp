@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
+#include "Player.h"
 
 MonsterCamel* MonsterCamel::CamelMonster;
 
@@ -271,6 +272,9 @@ void MonsterCamel::Update(float _DeltaTime)
 			{
 				ChangeState(MonsterCamelState::DEATH);
 				death = true; 
+
+
+
 			}
 		
 
@@ -279,12 +283,25 @@ void MonsterCamel::Update(float _DeltaTime)
 
 		}
 	}
+	if (Hp < 0 && MoveCamera == false)
+	{
 
+		float4 b = float4::Right * 1000 * _DeltaTime;
+
+		GetLevel()->SetCameraMove(b);
+
+		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 350)
+		{
+			Player::MainPlayer->SetCameraCheck(true);
+			MoveCamera = true;
+		}
+
+	}
 	if (death == true)
 	{
 		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
 	}
-	if (DeathCheck == 1.5)
+	if (DeathCheck > 1.5)
 	{
 		this->Death(); 
 	}

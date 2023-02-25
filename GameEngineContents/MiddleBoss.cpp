@@ -226,6 +226,102 @@ void MiddleBoss::Start()
 		//MiddleDoorRender->ChangeAnimation("Door");
 	}
 
+	{
+		SmallExploision = CreateRender(MetalSlugOrder::Exploision);
+		SmallExploision->SetScale({ 700,700 });
+		SmallExploision->SetPosition({ 112,-290 });
+		SmallExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = false });
+
+		SmallExploision2 = CreateRender(MetalSlugOrder::Exploision);
+		SmallExploision2->SetScale({ 700,700 });
+		SmallExploision2->SetPosition({ 112,-290 });
+		SmallExploision2->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = false });
+
+		SmallExploision3 = CreateRender(MetalSlugOrder::Exploision);
+		SmallExploision3->SetScale({ 700,700 });
+		SmallExploision3->SetPosition({ 112,-290 });
+		SmallExploision3->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = false });
+
+		MiddleExploision = CreateRender(MetalSlugOrder::Exploision);
+		MiddleExploision->SetScale({ 700,700 });
+		MiddleExploision->SetPosition({ 112,-290 });
+		MiddleExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+
+		MiddleExploision2 = CreateRender(MetalSlugOrder::Exploision);
+		MiddleExploision2->SetScale({ 700,700 });
+		MiddleExploision2->SetPosition({ 112,-290 });
+		MiddleExploision2->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+
+		MiddleExploision3 = CreateRender(MetalSlugOrder::Exploision);
+		MiddleExploision3->SetScale({ 700,700 });
+		MiddleExploision3->SetPosition({ 112,-290 });
+		MiddleExploision3->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+
+		MiddleExploision4 = CreateRender(MetalSlugOrder::Exploision);
+		MiddleExploision4->SetScale({ 700,700 });
+		MiddleExploision4->SetPosition({ 112,-290 });
+		MiddleExploision4->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+
+		MiddleExploision5 = CreateRender(MetalSlugOrder::Exploision);
+		MiddleExploision5->SetScale({ 700,700 });
+		MiddleExploision5->SetPosition({ 112,-290 });
+		MiddleExploision5->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+
+		MiddleExploision6 = CreateRender(MetalSlugOrder::Exploision);
+		MiddleExploision6->SetScale({ 700,700 });
+		MiddleExploision6->SetPosition({ 112,-290 });
+		MiddleExploision6->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+
+
+		BigExploision = CreateRender(MetalSlugOrder::Exploision);
+		BigExploision->SetScale({ 900,900 });
+		BigExploision->SetPosition({ 112,-290 });
+		BigExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
+
+		BigExploision2 = CreateRender(MetalSlugOrder::Exploision);
+		BigExploision2->SetScale({ 900,900 });
+		BigExploision2->SetPosition({ 112,-290 });
+		BigExploision2->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
+
+		BigExploision3 = CreateRender(MetalSlugOrder::Exploision);
+		BigExploision3->SetScale({ 900,900 });
+		BigExploision3->SetPosition({ 112,-290 });
+		BigExploision3->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
+		
+	}
+	{
+		PalaceLeftDoorEffect = CreateRender(MetalSlugOrder::Exploision);
+		PalaceLeftDoorEffect->SetScale({ 200,200 });
+		PalaceLeftDoorEffect->SetPosition({ -200,100 });
+		PalaceLeftDoorEffect->CreateAnimation({ .AnimationName = "DoorEffect",  .ImageName = "PalaceDoorEffect.bmp", .Start = 0, .End = 13, .InterTime = 0.05f,.Loop = true });
+
+		PalaceRightDoorEffect = CreateRender(MetalSlugOrder::Exploision);
+		PalaceRightDoorEffect->SetScale({200,200 });
+		PalaceRightDoorEffect->SetPosition({ 400,100 });
+		PalaceRightDoorEffect->CreateAnimation({ .AnimationName = "DoorEffect",  .ImageName = "PalaceDoorEffect.bmp", .Start = 0, .End = 13, .InterTime = 0.05f,.Loop = true });
+	}
+
+
+	PalaceRightDoorEffect->Off(); 
+	PalaceLeftDoorEffect->Off();
+	SmallExploision ->ChangeAnimation("Exploision"); 
+	SmallExploision2->ChangeAnimation("Exploision");
+	SmallExploision3->ChangeAnimation("Exploision");
+
+	MiddleExploision->ChangeAnimation("Exploision");
+	MiddleExploision2->ChangeAnimation("Exploision");
+	MiddleExploision3->ChangeAnimation("Exploision");
+	MiddleExploision4->ChangeAnimation("Exploision");
+	MiddleExploision5->ChangeAnimation("Exploision");
+	MiddleExploision6->ChangeAnimation("Exploision");
+
+	BigExploision->ChangeAnimation("Exploision");
+	BigExploision2->ChangeAnimation("Exploision");
+	BigExploision3->ChangeAnimation("Exploision");
+
+
+
+
 
 	AnimationMiddleDoorRender->ChangeAnimation("Door");
 	AnimationRightDoorRender->ChangeAnimation("Door");
@@ -244,6 +340,9 @@ void MiddleBoss::Start()
 	AnimationRightSmokeRender->ChangeAnimation("Smoke");
 	AnimationMiddleSmokeRender->ChangeAnimation("Smoke");
 
+	PalaceLeftDoorEffect->ChangeAnimation("DoorEffect");
+	PalaceRightDoorEffect->ChangeAnimation("DoorEffect");
+
 
 	AnimationMiddleDoorRender->Off();
 	AnimationRightDoorRender->Off();
@@ -261,6 +360,21 @@ void MiddleBoss::Start()
 	AnimationLeftSmokeRender->Off(); 
 	AnimationRightSmokeRender->Off(); 
 	AnimationMiddleSmokeRender->Off(); 
+
+	SmallExploision ->Off();
+	SmallExploision2->Off();
+	SmallExploision3->Off();
+
+	MiddleExploision ->Off();
+	MiddleExploision2->Off();
+	MiddleExploision3->Off();
+	MiddleExploision4->Off();
+	MiddleExploision5->Off();
+	MiddleExploision6->Off();
+
+	BigExploision ->Off();
+	BigExploision2->Off();
+	BigExploision3->Off();
 
 	{
 		LeftMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
@@ -440,6 +554,8 @@ void MiddleBoss::DoorUpdate(float _Time)
 
 void MiddleBoss::Update(float _DeltaTime)
 {
+	
+
 	if (nullptr != LeftMonsterCollision)
 	{
 		std::vector<GameEngineCollision*> collision;
@@ -465,6 +581,7 @@ void MiddleBoss::Update(float _DeltaTime)
 				AnimationLeftSmokeRender->Off(); 
 				PalaceLeft->Off(); 
 				PalaceLeftDestory->On();
+			
 			}
 		}
 	}
@@ -491,6 +608,7 @@ void MiddleBoss::Update(float _DeltaTime)
 				AnimationRightWindowRender->Off();
 				PalaceRight->Off();
 				PalaceRightDestory->On();
+				ChangeState(MiddleBossState::DEATH);
 				//RightMonsterCollision->Death(); 
 			}
 		}

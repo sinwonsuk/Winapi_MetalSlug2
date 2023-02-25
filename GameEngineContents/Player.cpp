@@ -31,8 +31,8 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 6200,0 });
-	GetLevel()->SetCameraPos({ 6200,0 });
+	SetMove({ 100,0 });
+	GetLevel()->SetCameraPos({ 100,0 });
 	
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
@@ -986,14 +986,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({  1600,500 });
+				Actor->SetMove({  1700,600 });
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 			}
 			if (MonsterCheck == 1)
 			{
 				
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({  1650,500 });
+				Actor->SetMove({  1750,600 });
 				Actor->GetPlayerCollision();
 			}
 			
@@ -1028,6 +1028,7 @@ void Player::CollisionCheck(float _DeltaTime)
 
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
 				Actor->SetMove({ 2140,300 });
+				Actor->SetDownCheck(false); 
 			}
 
 
@@ -1103,6 +1104,21 @@ void Player::CollisionCheck(float _DeltaTime)
 		
 			CameraCheck = false;
 
+			if (MonsterCheck == 5)
+			{
+				NPC* Actor = GetLevel()->CreateActor<NPC>();
+				Actor->SetMove({ 4200, 300 });
+
+				Actor->ChangeState(NpcState::BIND);
+				Actor->SetTurn(false); 
+			}
+
+			if (MonsterCheck == 5)
+			{
+				NPC* Actor = GetLevel()->CreateActor<NPC>();
+				Actor->SetMove({ 4500, 300 });
+				Actor->SetDownCheck(true); 
+			}
 
 			if (MonsterCheck == 5)
 			{
@@ -1130,9 +1146,9 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			MonsterCheck = 7;
 		}
-		if (MonsterCheck == 7)
+		/*if (MonsterCheck == 7)
 		{
-			float a = CamelDeath.x - CamelCheck.x;
+	
 
 			float4 b = float4::Right * 1000 * _DeltaTime;
 
@@ -1143,7 +1159,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				MonsterCheck = 8;
 				CameraCheck = true;
 			}
-		}
+		}*/
 
 	
 
@@ -2255,30 +2271,6 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 void Player::Render(float _DeltaTime)
 {
-	//HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-	//float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
-
-	//Rectangle(DoubleDC,
-	//	ActorPos.ix() - 5,
-	//	ActorPos.iy() - 5,
-	//	ActorPos.ix() + 5,
-	//	ActorPos.iy() + 5
-	//);
-	//
-
-	//std::string MouseText = "MousePosition : ";
-	//MouseText += GetLevel()->GetMousePos().ToString(); 
-	//
-
-	//std::string CameraMouseText = "MousePositionCamera : \n";
-	//CameraMouseText += GetLevel()->GetCameraPos().ToString();
-	////CameraMouseText = SpinMoveDir.ToString();
-
-	////CameraMouseText += GetLevel()
-
-	////CameraMouseText = MoveDir
-	//GameEngineLevel::DebugTextPush(MouseText);
-	//GameEngineLevel::DebugTextPush(CameraMouseText);
 	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 
@@ -2288,12 +2280,32 @@ void Player::Render(float _DeltaTime)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
+	
 
-	//()->GetMousePosToCamera()
-	float4 Angle = GetLevel()->GetMousePosToCamera() - GetPos();
-	float Deg = Angle.GetAnagleDeg();
+	std::string MouseText = "MousePosition : \n";
+	MouseText += GetLevel()->GetMousePosToCamera().ToString(); 
+	
 
-	//float4 Angle = GetLevel()->GetMousePos();
+	/*std::string CameraMouseText = "MousePositionCamera : \n";
+	CameraMouseText += GetLevel()->GetCameraPos().ToString();*/
+	//CameraMouseText = SpinMoveDir.ToString();
+
+	//CameraMouseText += GetLevel()
+
+	//CameraMouseText = MoveDir
+	GameEngineLevel::DebugTextPush(MouseText);
+	//GameEngineLevel::DebugTextPush(CameraMouseText);
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
+
+	Rectangle(DoubleDC,
+		ActorPos.ix() - 5,
+		ActorPos.iy() - 5,
+		ActorPos.ix() + 5,
+		ActorPos.iy() + 5
+	);
+
+	
 
 
 	std::string AngleText = "Angle : ";
@@ -2306,7 +2318,7 @@ void Player::Render(float _DeltaTime)
 	std::string CameraMouseText = "MousePositionCamera : ";
 	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
 
-	GameEngineLevel::DebugTextPush(MouseText);
+	GameEngineLevel::DebugTextPush(MouseText);*/
 	// GameEngineLevel::DebugTextPush(CameraMouseText);
 
 	//std::string Text = "Ãâ·Â";

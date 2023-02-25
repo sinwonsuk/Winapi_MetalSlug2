@@ -11,9 +11,11 @@ enum class NpcState
 	PlAYERCHECK,
 	COLLISION,
 	COLLISIONAFTER,
-	
+	BIND,
+	DOWN,
+	MOVEDOWN,
 	DEATH,
-
+	BINDMOVEPRE,
 
 };
 
@@ -59,13 +61,30 @@ public:
 	void CollisionAfterStart(); 
 	void CollisionAfterUpdate(float _Time);
 
-
+	void BindStart(); 
+	void BindUpdate(float _Time);
 	
+	void DownStart();
+	void DownUpdate(float _Time);
+
+	void MoveDownStart();
+	void MoveDownUpdate(float _Time);
 
 	void DeathStart();
 	void DeathUpdate(float _Time);
 
+	void BindMovePre();
+	void BindMovePreUpdate(float _Time);
 
+
+	bool SetTurn(const bool& Check)
+	{
+		return Turn = Check; 
+	}
+	bool SetDownCheck(const bool& Check)
+	{
+		return DownCheck = Check;
+	}
 
 	GameEngineCollision* GetPlayerCollision()
 	{
@@ -88,14 +107,14 @@ private:
 
 
 	float4 MoveDir = float4::Zero;
-	
+	bool Turn = true;
+	bool DownCheck = false;
 	float TimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 100;
 	float DeathCheck = 0; 
 	bool EffectCheck = false;
 	bool death = false;
-
 
 
 	GameEngineCollision* MonsterCollision = nullptr;

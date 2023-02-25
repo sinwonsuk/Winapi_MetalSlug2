@@ -33,7 +33,18 @@ void Map::Start()
 		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half()});
 		AnimationRender->SetScale({12784,800});		
 	}
-	
+	/*{
+		GameEngineRender* AnimationRender = CreateRender();
+		AnimationRender->SetImage("Map12.Bmp");
+		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half() });
+		AnimationRender->SetScale({ 12784,1000 });
+	}*/
+	{
+		DestoryBase = CreateRender(0);
+		DestoryBase->SetImage("DestoryBase.Bmp");
+		DestoryBase->SetPosition({ 6600,500 });
+		DestoryBase->SetScale({1200,430});		
+	}
 
 
 		/*{

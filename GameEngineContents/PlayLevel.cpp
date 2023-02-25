@@ -70,6 +70,13 @@ void PlayLevel::Loading()
 	Weapon.Move("Image");
 	Weapon.Move("Weapon");
 
+	GameEngineDirectory Exploision;
+	Exploision.MoveParentToDirectory("ContentsResources");
+	Exploision.Move("ContentsResources");
+	Exploision.Move("Image");
+	Exploision.Move("Exploision");
+
+
 	{
 		
 
@@ -483,10 +490,20 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceMiddleDestory.BMP"));
 		
 		}
+
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceRightDestory.BMP"));
-		
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceRightDestory.BMP"));	
+
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceDoorEffect.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("DestoryBase.BMP"));
+		}
+
+		
 
 		//NPC
 
@@ -514,11 +531,37 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcDeath.BMP"));
 			Image->Cut(5, 2);
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcBind.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcMoveDown.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcDown.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Npc.GetPlusFileName("NpcBindMovePre.BMP"));
+			Image->Cut(5, 3);
+		}
 
+		//Exploision
 
-
-
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Exploision.GetPlusFileName("BigExploision.BMP"));
+			Image->Cut(5, 6);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Exploision.GetPlusFileName("MiddleExploision.BMP"));
+			Image->Cut(5, 6);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Exploision.GetPlusFileName("SmallExploision.BMP"));
+			Image->Cut(5, 6);
+		}
 
 
 
@@ -605,16 +648,13 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
-	{
+	/*{
 		MiddleBoss* Actor = CreateActor<MiddleBoss>();
 		Actor->SetPos({ 6540,500 });
-	}
+	}*/
 	/*{
 		PalaceBullet* Actor = CreateActor<PalaceBullet>();
 	}*/
-
-
-
 	/*{
 		NPC* Actor = CreateActor<NPC>();
 		Actor->SetMove({ 500,0 });

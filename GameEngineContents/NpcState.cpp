@@ -36,6 +36,20 @@ void NPC::ChangeState(NpcState _State)
 		case NpcState::COLLISIONAFTER:
 			CollisionAfterStart();
 			break;
+		case NpcState::BIND:
+			BindStart();
+			break;
+		case NpcState::DOWN:
+			DownStart();
+			break;
+		case NpcState::MOVEDOWN:
+			MoveDownStart();
+			break;
+		case NpcState::BINDMOVEPRE:
+			BindMovePre(); 
+			break;
+
+
 		case NpcState::DEATH:
 			DeathStart(); 
 			break;
@@ -80,18 +94,22 @@ void NPC::UpdateState(float _Time)
 	case NpcState::COLLISIONAFTER:
 		CollisionAfterUpdate(_Time);
 		break;
-
+	case NpcState::BIND:
+		BindUpdate(_Time);
+		break;
+	case NpcState::DOWN:
+		DownUpdate(_Time);
+		break;
+	case NpcState::MOVEDOWN:
+		MoveDownUpdate(_Time);
+		break;
+	case NpcState::BINDMOVEPRE:
+		BindMovePreUpdate(_Time);
+		break;
 	case NpcState::DEATH:
 		DeathUpdate(_Time);
 		break;
-	//case NpcState::UP:
-	//	UpUpdate(_Time);
-	//	break;
-
-
-	//case NpcState::ATTACK:
-	//	AttackUpdate(_Time);
-	//	break;
+	
 	
 	default:
 		break;
@@ -127,32 +145,78 @@ void NPC::DeathStart()
 {
 	DirCheck("Npc_Death");
 }
-
+void NPC::BindStart()
+{
+	DirCheck("Npc_Bind");
+}
+void NPC::DownStart()
+{
+	DirCheck("Npc_Down");
+}
+void NPC::MoveDownStart()
+{
+	DirCheck("Npc_MoveDown");
+}
+void NPC::BindMovePre()
+{
+	DirCheck("Npc_BindMovePre");
+}
 
 void NPC::IdleUpdate(float _Time)
 {
 
 }
 
+
 void NPC::MovePreUpdate(float _Time)
 {
-	if (true == AnimationRender->IsAnimationEnd())
+
+	if (true == AnimationRender->IsAnimationEnd() &&DownCheck == false)
 	{
 		ChangeState(NpcState::LEFTMOVE);
 		return; 
 	}
+
+	if (true == AnimationRender->IsAnimationEnd() && DownCheck == true)
+	{
+		DownCheck = false;
+		ChangeState(NpcState::MOVEDOWN);
+		return;
+	}
+
 }
 
 
 
 void NPC::MoveLeftUpdate(float _Time)
 {
+
 	MoveDir += float4::Left * MoveSpeed;
-	if (true == AnimationRender->IsAnimationEnd())
+	if (Turn == true)
 	{
-		ChangeState(NpcState::RIGHTMOVE);
-		return;
+		if (true == AnimationRender->IsAnimationEnd())
+		{
+			ChangeState(NpcState::RIGHTMOVE);
+			return;
+		}
 	}
+
+
+
+	if(MoveDir.y -2> 0)
+	{
+		ChangeState(NpcState::DOWN);
+		return; 
+	}
+	/*float CurPos = GetPos().y;
+
+	float4 NextPos = GetPos() + MoveDir * _Time;
+	if (MoveDir.y < -0.5)
+	{
+		ChangeState(NpcState::DOWN);
+	}*/
+
+
 
 }
 
@@ -160,11 +224,31 @@ void NPC::MoveLeftUpdate(float _Time)
 void NPC::MoveRightUpdate(float _Time)
 {
 	MoveDir += float4::Right * MoveSpeed;
-	if (true == AnimationRender->IsAnimationEnd())
+	if (Turn == true)
 	{
-		ChangeState(NpcState::LEFTMOVE);
-		return; 
+
+		if (true == AnimationRender->IsAnimationEnd())
+		{
+			ChangeState(NpcState::LEFTMOVE);
+			return;
+		}
 	}
+	if (MoveDir.y-2 > 0)
+	{
+		ChangeState(NpcState::DOWN);
+		return;
+
+	}
+	/*float CurPos = GetPos().y;
+
+	float4 NextPos = GetPos() + MoveDir * _Time;
+	if (CurPos-2 < NextPos.y)
+	{
+		ChangeState(NpcState::DOWN);
+		return;
+	}*/
+
+
 }
 
 
@@ -191,8 +275,47 @@ void NPC::CollisionAfterUpdate(float _Time)
 	}
 }
 
+
+
+void NPC::BindUpdate(float _Time)
+{
+}
+
+
+
+void NPC::DownUpdate(float _Time)
+{	
+	Turn = true;	
+}
+
+
+void NPC::MoveDownUpdate(float _Time)
+{
+	MoveDir = float4::Down * 50;
+
+
+	if (AnimationRender->IsAnimationEnd())
+	{
+		//MoveDir = { 0,0 };
+		ChangeState(NpcState::DOWN);
+		return; 
+	}
+}
+
 void NPC::DeathUpdate(float _Time)
 {
 	death = true; 
 	MoveDir += float4::Left * MoveSpeed;
+}
+
+
+
+void NPC::BindMovePreUpdate(float _Time)
+{
+	if (true == AnimationRender->IsAnimationEnd())
+	{
+		ChangeState(NpcState::LEFTMOVE);
+		return;
+	}
+
 }

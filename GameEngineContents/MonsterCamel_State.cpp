@@ -257,6 +257,11 @@ void MonsterCamel::DeathUpdate(float _Time)
 {
 	MoveDir = { 0,0 };
 	float4 a = float4::Left * 800 * _Time; 
+
+	if (true == AnimationBodyRender->IsAnimationEnd())
+	{
+		AnimationBodyRender->Off();
+	}
 	AnimationRegRender->SetMove({ a });
 }
 

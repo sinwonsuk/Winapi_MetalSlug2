@@ -39,7 +39,10 @@ void NPC::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Collision",  .ImageName = "NpcCollision.bmp", .Start = 0, .End = 10, .InterTime = 0.1f, .Loop = false , .FrameIndex{0,1,2,3,4,5,6,7,8,9,10,9,8,7,6} });
 		AnimationRender->CreateAnimation({ .AnimationName = "Npc_CollisionAfter",  .ImageName = "NpcCollisionAfter.bmp", .Start = 0, .End = 13, .InterTime = 0.1f, .Loop = false });
 	
-
+		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Bind",  .ImageName = "NpcBind.bmp", .Start = 0, .End = 8, .InterTime = 0.2f, .Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Down",  .ImageName = "NpcDown.bmp", .Start = 0, .End = 4, .InterTime = 0.1f, .Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "Npc_MoveDown",  .ImageName = "NpcMoveDown.bmp", .Start = 0, .End = 13, .InterTime = 0.1f, .Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "Npc_BindMovePre",  .ImageName = "NpcBindMovePre.bmp", .Start = 0, .End = 2, .InterTime = 0.1f, .Loop = true });
 	}
 	
 	{
@@ -96,15 +99,20 @@ void NPC::Movecalculation(float _DeltaTime)
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
 
+	
 
 
-
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
+	if( (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) )&& StateValue != NpcState::MOVEDOWN)
 	{
+		if (StateValue == NpcState::DOWN)
+		{
+			ChangeState(NpcState::LEFTMOVE);			
+		}
+		
 		Check = false;
 	}
 
-
+	
 
 
 	if (false == Check)
@@ -113,7 +121,7 @@ void NPC::Movecalculation(float _DeltaTime)
 		{
 			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
+			if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) )&& StateValue != NpcState::MOVEDOWN)
 			{
 				continue;
 			}
@@ -175,6 +183,17 @@ void NPC::Update(float _DeltaTime)
 
 		}
 	}
+	if (nullptr != NpcCollision && StateValue == NpcState::BIND)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == NpcCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+
+			ChangeState(NpcState::BINDMOVEPRE);
+
+		}
+	}
+
 	if (nullptr != NpcCollision && (StateValue == NpcState::LEFTMOVE || StateValue == NpcState::RIGHTMOVE))
 	{
 		std::vector<GameEngineCollision*> collision;

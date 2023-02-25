@@ -58,6 +58,7 @@ public:
 	void DeathStart(); 
 	void DeathUpdate(float _Time);
 	
+
 	
 	GameEngineCollision* GetPlayerCollision()
 	{
@@ -88,6 +89,7 @@ private:
 	float MoveSpeed = 1000;
 	int Hp = 10;;
 	float DeathCheck = 0;
+	bool MoveCamera = false;
 	bool  death = false;
 	bool EffectCheck = false;
 	

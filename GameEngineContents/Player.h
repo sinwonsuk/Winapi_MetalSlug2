@@ -3,7 +3,7 @@
 #include "Bullets.h"
 #include "Bomb.h"
 #include "HeavyGun.h"
-
+#include "MiddleBoss.h"
 enum class PlayerState
 {
 	IDLE,
@@ -101,7 +101,11 @@ public:
 	{
 		return CameraDir; 
 	}
-
+	bool SetCameraCheck(const bool& Check)
+	{
+		
+		return CameraCheck = Check;
+	}
 	bool GroundCheck = false;
 protected:
 	void Start() override;
@@ -147,6 +151,7 @@ private:
 
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
+
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* BulletCollision = nullptr;
 
@@ -285,6 +290,7 @@ private:
 	float asda = 20;
 	Bomb* Actor = nullptr;
 	HeavyGun* HeavyBullet = nullptr; 
+	MiddleBoss* middleBoss = nullptr;
 	float SpeedDown = 0; 
 
 

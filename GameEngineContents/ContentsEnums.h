@@ -10,6 +10,7 @@ enum class MetalSlugOrder
 	WindowHuman,
 	Door,
 	Smoke,
+	Exploision,
 	PlayerReg, 
 	PlayerBody,
 	BulletCheck,

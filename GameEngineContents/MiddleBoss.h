@@ -78,8 +78,8 @@ public:
 	void MiddleSmokeStart();
 	void MiddleSmokeUpdate(float _Time);
 
-
-
+	
+	
 
 
 	void DeathStart();
@@ -138,6 +138,33 @@ private:
 	GameEngineRender* PalaceMiddleDestory = nullptr;
 
 
+
+
+	GameEngineRender* SmallExploision = nullptr;
+	GameEngineRender* SmallExploision2 = nullptr;
+	GameEngineRender* SmallExploision3 = nullptr;
+	
+
+
+	GameEngineRender* MiddleExploision = nullptr;
+	GameEngineRender* MiddleExploision2 = nullptr;
+	GameEngineRender* MiddleExploision3 = nullptr;
+	GameEngineRender* MiddleExploision4 = nullptr;
+	GameEngineRender* MiddleExploision5 = nullptr;
+	GameEngineRender* MiddleExploision6 = nullptr;
+
+	GameEngineRender* BigExploision = nullptr;
+	GameEngineRender* BigExploision2 = nullptr;
+	GameEngineRender* BigExploision3 = nullptr;
+
+
+	GameEngineRender* PalaceLeftDoorEffect = nullptr;
+	GameEngineRender* PalaceRightDoorEffect = nullptr;
+
+
+
+
+
 	//GameEngineRender* EffectRender = nullptr;
 	float4 MoveDirLeft = float4::Zero;
 	float4 MoveDirMiddle = float4::Zero;
@@ -149,10 +176,12 @@ private:
 
 
 	float4 CollisionPos = float4::Zero;
+	float4 MoveDir = float4::Zero;
+	float4 MoveDir1 = float4::Zero;
+	float4 CurPos = float4::Zero;
 	float AttackTime = 0; 
 	float LeftRightTimeCheck = 0;
 	float MoveCheck = 0; 
-	float JumpSpeed = 650;
 	float MoveSpeed = 1000;
 	float MissileDirCheck = 0;
 	int LeftHp = 10;
@@ -162,9 +191,28 @@ private:
 	bool  death = false;
 	bool ad = false;
 	bool EffectCheck = false;
-
+	float DeathTime = 0;
+	float DeathTime2 = 0;
+	float DeathTime3 = 0;
+	float DeathTime4 = 0;
+	float DeathTime5 = 0;
+	float DeathTime6 = 0;
+	float DeathTime7 = 0;
+	float DeathTime8 = 0;
+	float DeathTime9 = 0;
+	float DeathTime10 = 0;
+	float DeathTime11 = 0;
+	float DeathTime12 = 0;
+	float DeathTime13 = 0;
+	float DeathTime14 = 0;
+	float DeathTime15 = 0;
+	float DeathTime16 = 0;
+	float shakeTime = 0; 
+	bool UpDownShake = false; 
 	bool MissileCheck = false;
-
+	bool AnimationEnd = false;
+	float LeftScale = 0;
+	float RightScale = 0;
 	PalaceBullet* Bullet = nullptr;
 	GameEngineCollision* LeftMonsterCollision = nullptr;
 	GameEngineCollision* RightMonsterCollision = nullptr;
