@@ -33,6 +33,14 @@ void Map::Start()
 		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half()});
 		AnimationRender->SetScale({12784,800});		
 	}
+
+	/*{
+		GameEngineRender* AnimationRender = CreateRender();
+		AnimationRender->SetImage("Map10.Bmp");
+		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half() });
+		AnimationRender->SetScale({ 12784,800 });
+	}*/
+
 	/*{
 		GameEngineRender* AnimationRender = CreateRender();
 		AnimationRender->SetImage("Map12.Bmp");

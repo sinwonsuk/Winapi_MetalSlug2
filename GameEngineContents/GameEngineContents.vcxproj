@@ -45,6 +45,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RunMonster.h" />
     <ClInclude Include="SelectLevel.h" />
     <ClInclude Include="MetalSlugCore.h" />
     <ClInclude Include="TitleBack.h">
@@ -94,6 +95,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="RunMonster.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
     <ClCompile Include="TitleBack.cpp">
       <SubType>

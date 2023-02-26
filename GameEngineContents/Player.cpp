@@ -14,7 +14,7 @@
 #include "MonsterCamel.h"
 #include "ContentsEnums.h"
 #include "NPC.h"
-
+#include "Carriage.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -298,6 +298,13 @@ void Player::Movecalculation(float _DeltaTime)
 	{
 		CameraCheck = true;	
 	}
+	if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)))
+	{
+		//MoveDir.x = 0;
+		SetMove({ -3,0 });
+
+	}
+
 
 	
 
@@ -339,9 +346,19 @@ void Player::Movecalculation(float _DeltaTime)
 		while (true)
 		{
 			MoveDir.y -= 1;
+
+
+
+
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
+
 			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
-			{				
+			{	
+				
+				
+					
+			
+				
 				continue;				
 			}
 		
@@ -1130,36 +1147,18 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 6;
 		}
 
-		if (RGB(248, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(248, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix())
 		{
-			CamelDeath = GetPos(); 
-			
-			
-			if (MonsterCheck == 6)
+			if (MonsterCheck = 6)
 			{
-			
+				CameraCheck = false;
+				Carriage * Actor = GetLevel()->CreateActor<Carriage>();
+				Actor->SetMove({ 5500,700 }); 
 
 			}
-
-
-
-
 			MonsterCheck = 7;
 		}
-		/*if (MonsterCheck == 7)
-		{
 	
-
-			float4 b = float4::Right * 1000 * _DeltaTime;
-
-			GetLevel()->SetCameraMove(b);
-
-			if (GetLevel()->GetCameraPos().x > GetPos().x-350)
-			{
-				MonsterCheck = 8;
-				CameraCheck = true;
-			}
-		}*/
 
 	
 

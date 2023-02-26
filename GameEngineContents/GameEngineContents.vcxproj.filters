@@ -55,6 +55,7 @@
     <ClInclude Include="MiddleBoss.h" />
     <ClInclude Include="PalaceBullet.h" />
     <ClInclude Include="Carriage.h" />
+    <ClInclude Include="RunMonster.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -124,6 +125,7 @@
     <ClCompile Include="PalaceBullet.cpp" />
     <ClCompile Include="Carriage.cpp" />
     <ClCompile Include="CarriageState.cpp" />
+    <ClCompile Include="RunMonster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

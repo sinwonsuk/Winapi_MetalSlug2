@@ -107,6 +107,9 @@ public:
 		return CameraCheck = Check;
 	}
 	bool GroundCheck = false;
+
+	float4 MoveDir = float4::Zero;
+	
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -114,12 +117,13 @@ protected:
 	
 
 private:
+
 	bool Gravity = true;
 	bool test = false;
 	float4 CamelCheck = float4::Zero;
 	float4 CamelDeath = float4::Zero;
 	bool CameraCheck = false;
-
+	PlayerState StateValue = PlayerState::IDLE;
 	int MonsterCheck = 0;
 	int d = 99;
 	int StartFrame = 0;
@@ -137,9 +141,9 @@ private:
 
 	std::vector<GameEngineActor*> Bullet;
 	std::vector<Bullets*> bullets;
-	PlayerState StateValue = PlayerState::IDLE;
 	
-	float4 MoveDir = float4::Zero;
+	
+	
 	float4 SpinMoveDir = float4::Zero;
 	float4 CameraDir = float4::Zero;
 	float4 body = { 0,0 };

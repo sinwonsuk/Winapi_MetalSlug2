@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "MonsterCamelEffect.h"
+
 enum class NpcState
 {
 	

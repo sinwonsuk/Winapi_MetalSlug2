@@ -25,7 +25,7 @@ void NPC::Start()
 
 	{
 		AnimationRender = CreateRender(MetalSlugOrder::NPC);
-		AnimationRender->SetScale({ 500,500 });
+		AnimationRender->SetScale({ 600,600 });
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Idle",  .ImageName = "NpcIdle.bmp", .Start = 0, .End = 4, .InterTime = 0.2f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Npc_Move",  .ImageName = "LeftNpcMove.bmp", .Start = 0, .End = 11, .InterTime = 0.15f });

@@ -15,7 +15,7 @@
 #include "NPC.h"
 #include "MiddleBoss.h"
 #include "PalaceBullet.h"
-
+#include "Carriage.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -87,6 +87,9 @@ void PlayLevel::Loading()
 		}				
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("Map11.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("Map10.BMP"));
 		}
 	
 		
@@ -434,6 +437,42 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelEffect.BMP"));
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RunMonsterRegAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RunMonsterMove.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RunMonsterIdle.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RunMonsterDeath.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RunMonsterBodyAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("Carriage.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CarriageDestory.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CarriageMove.BMP"));
+			Image->Cut(5, 1);
+		}
+
+
+
+
 
 		// ±ÃÀü 
 		{
@@ -648,6 +687,8 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
+	
+
 	/*{
 		MiddleBoss* Actor = CreateActor<MiddleBoss>();
 		Actor->SetPos({ 6540,500 });
@@ -663,7 +704,7 @@ void PlayLevel::Loading()
 		MonsterCamel* Actor = CreateActor<MonsterCamel>();
 		Actor->SetMove({ 1000,0 });
 	}*/
-	
+
 
 
 	for (size_t i = 0; i < 100; i++)
