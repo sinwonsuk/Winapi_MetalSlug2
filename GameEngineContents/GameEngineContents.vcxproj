@@ -45,6 +45,8 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Rebel.h" />
+    <ClInclude Include="RebelBullet.h" />
     <ClInclude Include="RunMonster.h" />
     <ClInclude Include="SelectLevel.h" />
     <ClInclude Include="MetalSlugCore.h" />
@@ -57,6 +59,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnums.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
@@ -95,7 +98,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Rebel.cpp" />
+    <ClCompile Include="RebelBullet.cpp" />
+    <ClCompile Include="RebelState.cpp" />
     <ClCompile Include="RunMonster.cpp" />
+    <ClCompile Include="RunMonsterState.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
     <ClCompile Include="TitleBack.cpp">
       <SubType>
@@ -105,6 +112,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -16,6 +16,8 @@
 #include "MiddleBoss.h"
 #include "PalaceBullet.h"
 #include "Carriage.h"
+#include "RunMonster.h"
+#include "Wall.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -91,7 +93,15 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("Map10.BMP"));
 		}
-	
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("Wall.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("StonEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+
 		
 		//캐릭터 모션 
 		{
@@ -458,6 +468,10 @@ void PlayLevel::Loading()
 			Image->Cut(5, 2);
 		}
 		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CarriageMove.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("Carriage.BMP"));
 			Image->Cut(5, 3);
 		}
@@ -465,15 +479,39 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CarriageDestory.BMP"));
 			Image->Cut(5, 2);
 		}
+		// Rebel
 		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CarriageMove.BMP"));
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelAttack.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelDeath.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelIdle.BMP"));
 			Image->Cut(5, 1);
 		}
-
-
-
-
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelIdle2.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelMove.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelMoveFinish.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelMovePre.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelWeapon.BMP"));
+			Image->Cut(5, 3);
+		}
 		// 궁전 
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceBase.BMP"));
@@ -541,7 +579,10 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("DestoryBase.BMP"));
 		}
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("Blood.BMP"));
+			Image->Cut(5, 2);
+		}
 		
 
 		//NPC
@@ -704,6 +745,11 @@ void PlayLevel::Loading()
 		MonsterCamel* Actor = CreateActor<MonsterCamel>();
 		Actor->SetMove({ 1000,0 });
 	}*/
+   /* {
+		RunMonster* Actor = CreateActor<RunMonster>();
+		Actor->SetMove({ 800,500 });
+	}*/
+	
 
 
 

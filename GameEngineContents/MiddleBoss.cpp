@@ -554,146 +554,147 @@ void MiddleBoss::DoorUpdate(float _Time)
 
 void MiddleBoss::Update(float _DeltaTime)
 {
-	
-
-	if (nullptr != LeftMonsterCollision)
+	if (MiddleBossStart == true)
 	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == LeftMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+
+		if (nullptr != LeftMonsterCollision)
 		{
-
-			LeftHp--;
-
-			for (size_t i = 0; i < collision.size(); i++)
+			std::vector<GameEngineCollision*> collision;
+			if (true == LeftMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 			{
-				GameEngineActor* ColActor = collision[i]->GetActor();
-				ColActor->Death();
-			}
 
-			if (LeftHp == 0)
-			{
-				AnimationLeftDoorRender->Off();
-				AnimationLeftHumanAttackRender->Off();
-				AnimationLeftHumanRender->Off();
-				AnimationLeftSmokeRender->Off();
-				AnimationLeftWindowRender->Off();
-			
-				AnimationLeftSmokeRender->Off(); 
-				PalaceLeft->Off(); 
-				PalaceLeftDestory->On();
-			
+				LeftHp--;
+
+				for (size_t i = 0; i < collision.size(); i++)
+				{
+					GameEngineActor* ColActor = collision[i]->GetActor();
+					ColActor->Death();
+				}
+
+				if (LeftHp == 0)
+				{
+					AnimationLeftDoorRender->Off();
+					AnimationLeftHumanAttackRender->Off();
+					AnimationLeftHumanRender->Off();
+					AnimationLeftSmokeRender->Off();
+					AnimationLeftWindowRender->Off();
+
+					AnimationLeftSmokeRender->Off();
+					PalaceLeft->Off();
+					PalaceLeftDestory->On();
+
+				}
 			}
 		}
-	}
-	if (nullptr != RightMonsterCollision)
-	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == RightMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (nullptr != RightMonsterCollision)
 		{
-
-			RightHp--;
-
-			for (size_t i = 0; i < collision.size(); i++)
+			std::vector<GameEngineCollision*> collision;
+			if (true == RightMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 			{
-				GameEngineActor* ColActor = collision[i]->GetActor();
-				ColActor->Death();
-			}
 
-			if (RightHp == 0)
-			{
-				AnimationRightDoorRender->Off();
-				AnimationRightHumanAttackRender->Off();
-				AnimationRightHumanRender->Off();
-				AnimationRightSmokeRender->Off();
-				AnimationRightWindowRender->Off();
-				PalaceRight->Off();
-				PalaceRightDestory->On();
-				ChangeState(MiddleBossState::DEATH);
-				//RightMonsterCollision->Death(); 
+				RightHp--;
+
+				for (size_t i = 0; i < collision.size(); i++)
+				{
+					GameEngineActor* ColActor = collision[i]->GetActor();
+					ColActor->Death();
+				}
+
+				if (RightHp == 0)
+				{
+					AnimationRightDoorRender->Off();
+					AnimationRightHumanAttackRender->Off();
+					AnimationRightHumanRender->Off();
+					AnimationRightSmokeRender->Off();
+					AnimationRightWindowRender->Off();
+					PalaceRight->Off();
+					PalaceRightDestory->On();
+					ChangeState(MiddleBossState::DEATH);
+					//RightMonsterCollision->Death(); 
+				}
 			}
 		}
-	}
-	if (nullptr != MiddleMonsterCollision)
-	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == MiddleMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (nullptr != MiddleMonsterCollision)
 		{
-
-			MiddleHp--;
-
-			for (size_t i = 0; i < collision.size(); i++)
+			std::vector<GameEngineCollision*> collision;
+			if (true == MiddleMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 			{
-				GameEngineActor* ColActor = collision[i]->GetActor();
-				ColActor->Death();
-			}
 
-			if (MiddleHp == 0)
-			{
-				AnimationMiddleDoorRender->Off();
-				AnimationMiddleHumanAttackRender->Off();
-				AnimationMiddleHumanRender->Off();
-				AnimationMiddleSmokeRender->Off();
-				AnimationMiddleWindowRender->Off();
-				PalaceMiddle->Off();
-				PalaceMiddleDestory->On();
+				MiddleHp--;
 
+				for (size_t i = 0; i < collision.size(); i++)
+				{
+					GameEngineActor* ColActor = collision[i]->GetActor();
+					ColActor->Death();
+				}
+
+				if (MiddleHp == 0)
+				{
+					AnimationMiddleDoorRender->Off();
+					AnimationMiddleHumanAttackRender->Off();
+					AnimationMiddleHumanRender->Off();
+					AnimationMiddleSmokeRender->Off();
+					AnimationMiddleWindowRender->Off();
+					PalaceMiddle->Off();
+					PalaceMiddleDestory->On();
+
+				}
 			}
 		}
+
+
+
+		MoveCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		if (MoveCheck < 0.7)
+		{
+			MoveDirMiddle = float4::Up * 100;
+			PalaceMiddle->SetMove(MoveDirMiddle * _DeltaTime);
+			AnimationMiddleDoorRender->SetMove(MoveDirMiddle * _DeltaTime);
+			AnimationMiddleWindowRender->SetMove(MoveDirMiddle * _DeltaTime);
+			AnimationMiddleHumanRender->SetMove(MoveDirMiddle * _DeltaTime);
+			AnimationMiddleHumanAttackRender->SetMove(MoveDirMiddle * _DeltaTime);
+			MiddleDoorRender->SetMove(MoveDirMiddle * _DeltaTime);
+			AnimationMiddleSmokeRender->SetMove(MoveDirMiddle * _DeltaTime);
+			PalaceMiddleDestory->SetMove(MoveDirMiddle * _DeltaTime);
+
+		}
+		if (MoveCheck < 0.7)
+		{
+			MoveDirLeft = float4::AngleToDirection2DToDeg(-110) * 100;
+			PalaceLeft->SetMove(MoveDirLeft * _DeltaTime);
+			AnimationLeftDoorRender->SetMove(MoveDirLeft * _DeltaTime);
+			AnimationLeftWindowRender->SetMove(MoveDirLeft * _DeltaTime);
+			AnimationLeftHumanRender->SetMove(MoveDirLeft * _DeltaTime);
+			AnimationLeftHumanAttackRender->SetMove(MoveDirLeft * _DeltaTime);
+			LeftDoorRender->SetMove(MoveDirLeft * _DeltaTime);
+			AnimationLeftSmokeRender->SetMove(MoveDirLeft * _DeltaTime);
+			PalaceLeftDestory->SetMove(MoveDirLeft * _DeltaTime);
+		}
+		if (MoveCheck < 0.7)
+		{
+			MoveDirRight = float4::AngleToDirection2DToDeg(-70) * 100;
+			PalaceRight->SetMove(MoveDirRight * _DeltaTime);
+			AnimationRightDoorRender->SetMove(MoveDirRight * _DeltaTime);
+			AnimationRightWindowRender->SetMove(MoveDirRight * _DeltaTime);
+			AnimationRightHumanRender->SetMove(MoveDirRight * _DeltaTime);
+			AnimationRightHumanAttackRender->SetMove(MoveDirRight * _DeltaTime);
+			RightDoorRender->SetMove(MoveDirRight * _DeltaTime);
+			AnimationRightSmokeRender->SetMove(MoveDirRight * _DeltaTime);
+			PalaceRightDestory->SetMove(MoveDirRight * _DeltaTime);
+		}
+
+
+
+
+		if (MoveCheck > 1.0 && StateValue == MiddleBossState::IDLESTART)
+		{
+			ChangeState(MiddleBossState::IDLE);
+			return;
+		}
+
+
+		UpdateState(_DeltaTime);
 	}
-	
-	
-
-	MoveCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
-	if (MoveCheck < 0.7)
-	{
-		MoveDirMiddle = float4::Up * 100;
-		PalaceMiddle->SetMove(MoveDirMiddle * _DeltaTime);
-		AnimationMiddleDoorRender->SetMove(MoveDirMiddle * _DeltaTime);
-		AnimationMiddleWindowRender->SetMove(MoveDirMiddle * _DeltaTime);
-		AnimationMiddleHumanRender->SetMove(MoveDirMiddle * _DeltaTime);
-		AnimationMiddleHumanAttackRender->SetMove(MoveDirMiddle * _DeltaTime);
-		MiddleDoorRender->SetMove(MoveDirMiddle * _DeltaTime);
-		AnimationMiddleSmokeRender->SetMove(MoveDirMiddle * _DeltaTime);
-		PalaceMiddleDestory->SetMove(MoveDirMiddle * _DeltaTime);
-
-	}
-	if (MoveCheck < 0.7)
-	{
-		MoveDirLeft = float4::AngleToDirection2DToDeg(-110)*100;
-		PalaceLeft->SetMove(MoveDirLeft * _DeltaTime);
-		AnimationLeftDoorRender->SetMove(MoveDirLeft * _DeltaTime);
-		AnimationLeftWindowRender->SetMove(MoveDirLeft * _DeltaTime);
-		AnimationLeftHumanRender->SetMove(MoveDirLeft * _DeltaTime);
-		AnimationLeftHumanAttackRender->SetMove(MoveDirLeft * _DeltaTime);
-		LeftDoorRender->SetMove(MoveDirLeft * _DeltaTime);
-		AnimationLeftSmokeRender->SetMove(MoveDirLeft * _DeltaTime);
-		PalaceLeftDestory->SetMove(MoveDirLeft * _DeltaTime);
-	}
-	if (MoveCheck < 0.7)
-	{
-		MoveDirRight = float4::AngleToDirection2DToDeg(-70) * 100;
-		PalaceRight->SetMove(MoveDirRight * _DeltaTime);
-		AnimationRightDoorRender->SetMove(MoveDirRight * _DeltaTime);
-		AnimationRightWindowRender->SetMove(MoveDirRight * _DeltaTime);
-		AnimationRightHumanRender->SetMove(MoveDirRight * _DeltaTime);
-		AnimationRightHumanAttackRender->SetMove(MoveDirRight * _DeltaTime);
-		RightDoorRender->SetMove(MoveDirRight * _DeltaTime);
-		AnimationRightSmokeRender->SetMove(MoveDirRight * _DeltaTime);
-		PalaceRightDestory->SetMove(MoveDirRight * _DeltaTime);
-	}
-
-	
-
-
-	if (MoveCheck > 1.0 &&StateValue == MiddleBossState::IDLESTART )
-	{
-		ChangeState(MiddleBossState::IDLE);
-		return;
-	}
-
-
-	UpdateState(_DeltaTime);
-
 	
 }
 

@@ -56,6 +56,9 @@
     <ClInclude Include="PalaceBullet.h" />
     <ClInclude Include="Carriage.h" />
     <ClInclude Include="RunMonster.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="Rebel.h" />
+    <ClInclude Include="RebelBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -126,6 +129,11 @@
     <ClCompile Include="Carriage.cpp" />
     <ClCompile Include="CarriageState.cpp" />
     <ClCompile Include="RunMonster.cpp" />
+    <ClCompile Include="RunMonsterState.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Rebel.cpp" />
+    <ClCompile Include="RebelState.cpp" />
+    <ClCompile Include="RebelBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

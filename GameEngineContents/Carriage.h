@@ -4,21 +4,9 @@
 
 	enum class CarriageState
 	{
-
 		IDLE,
-		MOVEPRE,
-		LEFTMOVE,
 		STOP,
-		RIGHTMOVE,
-		PlAYERCHECK,
-		COLLISION,
-		COLLISIONAFTER,
-		BIND,
-		DOWN,
-		MOVEDOWN,
 		DEATH,
-		BINDMOVEPRE,
-
 	};
 
 	// Ό³Έν :
@@ -89,8 +77,9 @@ private:
 	float DeathCheck = 0;
 	bool EffectCheck = false;
 	bool death = false;
-
-
+	bool MoveCamera = false;
+	float Hp = 10; 
+	float Time = 0; 
 	GameEngineCollision* MonsterCollision = nullptr;
 
 };

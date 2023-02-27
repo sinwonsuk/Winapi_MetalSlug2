@@ -15,6 +15,9 @@
 #include "ContentsEnums.h"
 #include "NPC.h"
 #include "Carriage.h"
+#include "RunMonster.h"
+#include "Wall.h"
+#include "Rebel.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -31,9 +34,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 100,0 });
-	GetLevel()->SetCameraPos({ 100,0 });
-	
+	SetMove({ 6800,0 });
+	GetLevel()->SetCameraPos({ 6500,0 });
+	MonsterCheck = 10;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -291,7 +294,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-
+	float4 NextPos1 = GetPos() + float4{1, 0}; 
 	
 	
 	if (RGB(0, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 0)))
@@ -300,11 +303,16 @@ void Player::Movecalculation(float _DeltaTime)
 	}
 	if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)))
 	{
-		//MoveDir.x = 0;
-		SetMove({ -3,0 });
-
+		blueCheck = true;
+		CurPos = GetPos();
+		CameraCheck = false;
+		SetMove({ -5,0 });		
 	}
-
+	if (CurPos.x < GetPos().x  && blueCheck==true)
+	{
+		CameraCheck = true;
+		blueCheck = false;
+	}
 
 	
 
@@ -1149,21 +1157,143 @@ void Player::CollisionCheck(float _DeltaTime)
 
 		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix())
 		{
-			if (MonsterCheck = 6)
+			CameraCheck = false;
+
+			if (MonsterCheck == 6)
 			{
-				CameraCheck = false;
+				
 				Carriage * Actor = GetLevel()->CreateActor<Carriage>();
 				Actor->SetMove({ 5500,700 }); 
+
+			}
+
+			if (MonsterCheck == 6)
+			{
+			
+				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+				Actor->SetMove({ 5600,700 });
+
+			}
+			if (MonsterCheck == 6)
+			{
+				
+				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+				Actor->SetMove({ 5680,700 });
+
+			}
+
+			if (MonsterCheck == 6)
+			{
+				
+				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+				Actor->SetMove({ 5760,700 });
+
+			}
+			if (MonsterCheck == 6)
+			{
+
+				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+				Actor->SetMove({ 5840,700 });
 
 			}
 			MonsterCheck = 7;
 		}
 	
+		if (RGB(245, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(245, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			
 
-	
+			if (MonsterCheck == 7)
+			{
+				middleBoss = GetLevel()->CreateActor<MiddleBoss>();
+				middleBoss->SetPos({ 6520,500 });
+				
+			}
+
+			MonsterCheck = 8;
+		}
+		if (GetLevel()->GetCameraPos().x > 6200 && MonsterCheck == 8)
+		{
+			CameraCheck = false;
+			middleBoss->SetMiddleBossStart(true); 
+
+			MonsterCheck = 9; 
+	    }
+
+		if (middleBoss != nullptr)
+		{
+			PalaceTime = middleBoss->GetDeathTime();
+			if (PalaceTime > 6.3)
+			{
+				CameraCheck = true;
+				MonsterCheck = 10;
+
+			}
+		}
+		if (MonsterCheck == 10)
+		{
+			float4 b = float4::Right * 1000 * _DeltaTime;
+
+			GetLevel()->SetCameraMove(b);
+
+			if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 350)
+			{
+				CameraCheck = true; 
+				Player::MainPlayer->SetCameraCheck(true);
+				PosCheck = GetPos();
+				MonsterCheck = 11;
+			}
+		}
+
+		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			CameraCheck = true;
+
+			if (MonsterCheck == 11)
+			{
+				Wall* Actor = GetLevel()->CreateActor<Wall>();
+				Actor->SetMove({ 8400,770 });
+			}
+			if (MonsterCheck == 11)
+			{
+				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
+				Actor->SetMove({ 8000,500 });
+				//Actor->ChangeState(RebelState::IDLE);
+			}
+			if (MonsterCheck == 11)
+			{
+				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
+				Actor->SetMove({ 8200,500 });
+				Actor->ChangeState(RebelState::IDLE2);
+			}
+			if (MonsterCheck == 11)
+			{
+				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
+				Actor->ChangeState(RebelState::ATTACK);
+				Actor->SetMove({ 8350,0 });
+			}
 
 
-
+			MonsterCheck = 12;
+		}
+		
+		
+		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			if (MonsterCheck == 12)
+			{
+				RebelStart = true;
+			}
+			MonsterCheck = 13;		
+		}
+		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix())
+		{
+			if (MonsterCheck == 13)
+			{
+				CameraCheck = false;
+			}
+			MonsterCheck = 14;
+		}
 }
 
 void Player::DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1)
@@ -2281,19 +2411,19 @@ void Player::Render(float _DeltaTime)
 	);
 	
 
-	std::string MouseText = "MousePosition : \n";
-	MouseText += GetLevel()->GetMousePosToCamera().ToString(); 
-	
+	//std::string MouseText = "MousePosition : \n";
+	//MouseText += GetLevel()->GetCameraPos().ToString();
+	//GetLevel()->GetCameraPos().x > 6500
 
-	/*std::string CameraMouseText = "MousePositionCamera : \n";
-	CameraMouseText += GetLevel()->GetCameraPos().ToString();*/
+	std::string CameraMouseText = "MousePositionCamera : \n";
+	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
 	//CameraMouseText = SpinMoveDir.ToString();
 
 	//CameraMouseText += GetLevel()
 
 	//CameraMouseText = MoveDir
-	GameEngineLevel::DebugTextPush(MouseText);
-	//GameEngineLevel::DebugTextPush(CameraMouseText);
+	//GameEngineLevel::DebugTextPush(MouseText);
+	GameEngineLevel::DebugTextPush(CameraMouseText);
 	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 

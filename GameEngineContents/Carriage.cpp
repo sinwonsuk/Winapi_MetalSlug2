@@ -7,7 +7,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
 #include "Player.h"
-
+#include "RunMonster.h"
 Carriage::Carriage()
 {
 
@@ -20,10 +20,10 @@ Carriage::~Carriage()
 void Carriage::Start()
 {
 	{
-		AnimationRender = CreateRender(MetalSlugOrder::NPC);
+		AnimationRender = CreateRender(MetalSlugOrder::Carriage);
 		AnimationRender->SetScale({ 800,800 });
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Carriage",  .ImageName = "Carriage.bmp", .Start = 0, .End = 11, .InterTime = 0.5f,.Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "Carriage",  .ImageName = "Carriage.bmp", .Start = 0, .End = 11, .InterTime = 0.1f,.Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "CarriageDestory",  .ImageName = "CarriageDestory.bmp", .Start = 0, .End = 5, .InterTime = 0.1f ,.Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "CarriageMove",  .ImageName = "CarriageMove.bmp", .Start = 0, .End = 3, .InterTime = 0.1f,.Loop = true });
 	}
@@ -31,7 +31,7 @@ void Carriage::Start()
 	{
 		Exploision = CreateRender(MetalSlugOrder::Exploision);
 		Exploision->SetScale({ 700,700 });
-		Exploision->SetPosition({ 112,-290 });
+		Exploision->SetPosition({ 80,-250 });
 		Exploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
 	}
 
@@ -43,7 +43,7 @@ void Carriage::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
-		MonsterCollision->SetScale({ 300,100 });
+		MonsterCollision->SetScale({ 300,300 });
 	}
 
 
@@ -158,27 +158,54 @@ void Carriage::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
-			Exploision->On(); 
-			ChangeState(CarriageState::DEATH);
-
-		}
-	}
-	if (nullptr != MonsterCollision )
-	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
-		{
-			
-			Player::MainPlayer->SetMove({ -2,0 });
-
-			if (GetPos().y < Player::MainPlayer->GetPos().y)
+			for (size_t i = 0; i < collision.size(); i++)
 			{
-				Player::MainPlayer->SetMove({ 2,-2 });
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
 			}
-	
+			//Player::MainPlayer->SetMove({ 0,-1 });
+
+			Hp--;
+		
+		}
+
+		if (Hp <= 0)
+		{
+			Exploision->On();
+			ChangeState(CarriageState::DEATH);
+		}
+
+
+	}
+	if (Hp > 0 && StateValue == CarriageState::STOP)
+	{
+		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		if (Time > 3)
+		{
+			RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+			
+			
+
+			Actor->SetMove({ 4900,600 });
+			Actor->SetCarriageMonster(true);
+			Time = 0;
 		}
 	}
 
+	if (Hp <= 0 && MoveCamera == false)
+	{
+
+		float4 b = float4::Right * 1000 * _DeltaTime;
+
+		GetLevel()->SetCameraMove(b);
+
+		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 150)
+		{
+			Player::MainPlayer->SetCameraCheck(true);
+			MoveCamera = true;
+		}
+
+	}
 
 	Movecalculation(_DeltaTime);
 
@@ -187,6 +214,6 @@ void Carriage::Update(float _DeltaTime)
 
 void Carriage::Render(float _Time)
 {
-	MonsterCollision->DebugRender();
+	//MonsterCollision->DebugRender();
 
 }

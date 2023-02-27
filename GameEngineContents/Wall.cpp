@@ -1,0 +1,241 @@
+#include "Wall.h"
+#include <GameEngineCore/GameEngineRender.h>
+#include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineResources.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineTime.h>
+#include "ContentsEnums.h"
+#include "Player.h"
+Wall::Wall()
+{
+}
+
+Wall::~Wall()
+{
+}
+
+void Wall::Start()
+{
+	{
+		AnimationRender = CreateRender(MetalSlugOrder::Wall);
+		AnimationRender->SetScale({ 1600,1600 });
+
+		AnimationRender->CreateAnimation({ .AnimationName = "WallDown",  .ImageName = "Wall.bmp", .Start = 0, .End = 0, .InterTime = 0.1f,.Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "WallMiddle",  .ImageName = "Wall.bmp", .Start = 1, .End = 1, .InterTime = 0.1f ,.Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "WallUp",  .ImageName = "Wall.bmp", .Start = 2, .End = 2, .InterTime = 0.1f,.Loop = false });
+	}
+	{
+		Ston = CreateRender(MetalSlugOrder::Wall);
+		Ston->SetScale({ 800,800 });
+		Ston->SetPosition({ -20,-300 });
+		Ston->CreateAnimation({ .AnimationName = "Ston",  .ImageName = "StonEffect.bmp", .Start = 0, .End = 7, .InterTime = 0.05f,.Loop = true });
+	}
+	{
+		Ston2 = CreateRender(MetalSlugOrder::Wall);
+		Ston2->SetScale({ 800,800 });
+		Ston2->SetPosition({ -10,-100 });
+		Ston2->CreateAnimation({ .AnimationName = "Ston",  .ImageName = "StonEffect.bmp", .Start = 0, .End = 7, .InterTime = 0.05f,.Loop = true });
+	}
+	{
+		Ston3 = CreateRender(MetalSlugOrder::Wall);
+		Ston3->SetScale({ 800,800 });
+		Ston3->SetPosition({ 10,-200 });
+		Ston3->CreateAnimation({ .AnimationName = "Ston",  .ImageName = "StonEffect.bmp", .Start = 0, .End = 7, .InterTime = 0.05f,.Loop = true });
+	}
+
+
+
+	Ston->ChangeAnimation("Ston"); 
+	Ston2->ChangeAnimation("Ston");
+	Ston3->ChangeAnimation("Ston");
+	Ston->On(); 
+	Ston2->On();
+	Ston3->On();
+
+	AnimationRender->ChangeAnimation("WallDown");
+
+	{
+		WallCollision = CreateCollision(MetalSlugOrder::Wall);
+		WallCollision->SetScale({ 100,500 });
+	}
+
+}
+void Wall::Movecalculation(float _DeltaTime)
+{
+	//WallMoveDir += float4::Down * 1500.0f * _DeltaTime;
+
+	if (50.0f <= abs(MoveDir.x))
+	{
+		if (0 > MoveDir.x)
+		{
+			MoveDir.x = -200.0f;
+		}
+		else
+		{
+			MoveDir.x = 200.0f;
+		}
+	}
+
+	//if (450.0f <= abs(MoveDir.x))
+	//{
+	//	if (0 > MoveDir.x)
+	//	{
+	//		MoveDir.x = -450.0f;
+	//	}
+	//	else
+	//	{
+	//		MoveDir.x = 450.0f;
+	//	}
+	//}
+
+
+
+
+	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
+
+	if (nullptr == ColImage)
+	{
+		MsgAssert("충돌용 맵 이미지가 없습니다.");
+	}
+
+	bool Check = true;
+	float4 Pos = -Ston->GetPosition();
+	float4 NextPos = Pos + MoveDir * _DeltaTime;
+	
+	float4 Pos2 = -Ston2->GetPosition();
+	float4 NextPos2 = Pos2 + MoveDir * _DeltaTime;
+
+	float4 Pos3 = -Ston3->GetPosition();
+	float4 NextPos3 = Pos3 + MoveDir * _DeltaTime;
+
+
+
+	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
+	{
+		Ston->On();
+	}
+	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos2, RGB(0, 255, 0))))
+	{
+		Ston2->On();
+	}
+	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos3, RGB(0, 255, 0))))
+	{
+		Ston3->On();
+	}
+
+
+
+	//if (false == Check)
+	//{
+	//	while (true)
+	//	{
+	//		WallMoveDir.y -= 1;
+	//		float4 NextPos = GetPos() + WallMoveDir * _DeltaTime;
+	//		if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0))))
+	//		{
+	//			continue;
+	//		}
+
+	//		if (50.0f <= abs(MoveDir.y))
+	//		{
+	//			if (0 > MoveDir.y)
+	//			{
+	//				MoveDir.y = -100.0f;
+	//			}
+	//			else
+	//			{
+	//				MoveDir.y = 0.0f;
+	//			}
+	//		}
+	//		Check = true;
+	//		break;
+	//	}
+	//}
+//	AnimationRender->SetMove(WallMoveDir * _DeltaTime);
+//	SetMove(MoveDir * _DeltaTime);
+}
+
+void Wall::Update(float _DeltaTime)
+{
+	
+	
+
+
+	if (nullptr != WallCollision )
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == WallCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
+			}
+		
+			Hp--;
+		}
+		if (Hp <= -50)
+		{
+			AnimationRender->Off(); 
+			if (StonReset == false)
+			{
+				MoveDir = { 0,0 };
+				Ston->SetPosition({ -20,-300 });
+				Ston2->SetPosition({ -10,-100 });
+				Ston3->SetPosition({ 10,-200 });
+				StonReset = true;
+			}
+
+			MoveDir += float4::Down * 1500 * _DeltaTime;
+			MoveDir += float4::Left * 80;
+
+		}
+
+
+
+
+
+		else if (Hp <= -30)
+		{
+			AnimationRender->ChangeAnimation("WallUp");
+
+			if (StonReset == true)
+			{
+				MoveDir = { 0,0 };
+				Ston->SetPosition({ -20,-300 });
+				Ston2->SetPosition({ -10,-100 });
+				Ston3->SetPosition({ 10,-200 });
+				StonReset = false;
+			}
+			MoveDir += float4::Down * 1500 * _DeltaTime;
+			MoveDir += float4::Left * 150;
+
+		}
+
+		else if (Hp <= 0)
+		{
+			AnimationRender->ChangeAnimation("WallMiddle");
+
+			Ston->On(); 
+			Ston2->On();
+			Ston3->On();
+			StonReset = true;
+			MoveDir += float4::Down * 1500 * _DeltaTime;
+			MoveDir += float4::Left * 100;
+		
+		}
+
+
+	}
+
+	Ston->SetMove(MoveDir * _DeltaTime); 
+	Ston2->SetMove(MoveDir * _DeltaTime);
+	Ston3->SetMove(MoveDir * _DeltaTime);
+	Movecalculation(_DeltaTime); 
+}
+
+void Wall::Render(float _Time)
+{
+}
+

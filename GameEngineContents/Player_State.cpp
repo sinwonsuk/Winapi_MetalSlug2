@@ -1532,7 +1532,7 @@ void Player::HeavyIdleChangeUpUpdate(float _Time)
 		IdleChangeUpCheck = true;
 	}
 
-	if (true == AnimationBodyRender->IsAnimationEnd()+1)
+	if (true == (AnimationBodyRender->IsAnimationEnd()+1))
 	{
 		if (IdleChangeUpCheck == false)
 		{

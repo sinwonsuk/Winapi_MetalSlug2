@@ -79,16 +79,22 @@ public:
 	void MiddleSmokeUpdate(float _Time);
 
 	
-	
+	bool SetMiddleBossStart(const bool& Check)
+	{
+		return MiddleBossStart = Check; 
+	}
 
 
 	void DeathStart();
 	void DeathUpdate(float _Time);
-
-
-	GameEngineCollision* GetPlayerCollision()
+	float GetDeathTime()
 	{
-		return PlayerCollision;
+		return DeathTime15;
+	}
+
+	GameEngineRender* GetPalaceBase()
+	{
+		return PalaceBase;
 	}
 
 
@@ -162,7 +168,7 @@ private:
 	GameEngineRender* PalaceRightDoorEffect = nullptr;
 
 
-
+	
 
 
 	//GameEngineRender* EffectRender = nullptr;
@@ -207,12 +213,17 @@ private:
 	float DeathTime14 = 0;
 	float DeathTime15 = 0;
 	float DeathTime16 = 0;
+
+	
 	float shakeTime = 0; 
 	bool UpDownShake = false; 
 	bool MissileCheck = false;
 	bool AnimationEnd = false;
 	float LeftScale = 0;
 	float RightScale = 0;
+
+	bool MiddleBossStart = false;
+
 	PalaceBullet* Bullet = nullptr;
 	GameEngineCollision* LeftMonsterCollision = nullptr;
 	GameEngineCollision* RightMonsterCollision = nullptr;

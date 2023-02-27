@@ -106,6 +106,10 @@ public:
 		
 		return CameraCheck = Check;
 	}
+	bool GetRebelStart()
+	{
+		return RebelStart;
+	}
 	bool GroundCheck = false;
 
 	float4 MoveDir = float4::Zero;
@@ -143,7 +147,7 @@ private:
 	std::vector<Bullets*> bullets;
 	
 	
-	
+	float4 CurPos = float4::Zero;
 	float4 SpinMoveDir = float4::Zero;
 	float4 CameraDir = float4::Zero;
 	float4 body = { 0,0 };
@@ -297,14 +301,14 @@ private:
 	MiddleBoss* middleBoss = nullptr;
 	float SpeedDown = 0; 
 
-
+	float PalaceTime = 0; 
 	bool RightHeavyBulletCheck = false;
 	bool LeftHeavyBulletCheck = false;
 	bool UpHeavyBulletCheck = false;
 
 	bool IdleChangeUpCheck = false;
-
-
+	bool blueCheck = false;
+	bool RebelStart = false;
 
 	float RightAttackChangeUp = 0;
 	float LeftAttackChangeUp = 0;

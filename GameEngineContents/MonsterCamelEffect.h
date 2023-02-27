@@ -15,7 +15,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	
+	void Render(); 
 private:
 	float TimeCheck = 0;
 	bool Time = false;
@@ -30,7 +30,7 @@ private:
 	float4 MoveDir3 = float4::Zero;
 	float4 MoveDir4 = float4::Zero;
 	float4 MoveDir5 = float4::Zero;
-
+	
 
 
 	GameEngineRender* CamelEffect = nullptr;
