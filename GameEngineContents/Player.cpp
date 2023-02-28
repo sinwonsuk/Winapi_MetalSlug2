@@ -18,6 +18,7 @@
 #include "RunMonster.h"
 #include "Wall.h"
 #include "Rebel.h"
+#include "MiniBoss.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -34,9 +35,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 6800,0 });
-	GetLevel()->SetCameraPos({ 6500,0 });
-	MonsterCheck = 10;
+	SetMove({ 200,0 });
+	//GetLevel()->SetCameraPos({ 100,0 });
+	
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -200,21 +201,22 @@ void Player::Start()
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Move_Down_Jump_Reg",    .ImageName = "RightJumpReg.bmp", .Start = 9, .End = 11, .InterTime = 0.12f,.Loop = false });
 		AnimationRegRender->CreateAnimation({ .AnimationName = "Left_Move_Down_Jump_Reg",    .ImageName = "LeftJumpReg.bmp" ,.Start = 9, .End = 11, .InterTime = 0.12f,.Loop = false });
 
-
-
-
-
-		// Up Idle Reg
-		//AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Idle_Up_Reg",  .ImageName = "RightReg.bmp", .Start = 0, .End = 0, .InterTime = 0.2f });
-		//AnimationRegRender->CreateAnimation({ .AnimationName = "Right_Up_Move",  .ImageName = "RightReg.bmp", .Start = 3, .End = 15, .InterTime = 0.05f });
-
 		
 	}
+	{
+		parachuteRender = CreateRender(MetalSlugOrder::PlayerReg);
+		parachuteRender->SetScale({ 800, 800 });
+		parachuteRender->SetPosition({ -10,-75 });
+		parachuteRender->CreateAnimation({ .AnimationName = "parachute",    .ImageName = "parachute.bmp", .Start = 0, .End = 4, .InterTime = 0.12f,.Loop = true});
+		parachuteRender->CreateAnimation({ .AnimationName = "parachuteDown",    .ImageName = "parachuteDown.bmp" ,.Start = 0, .End = 18, .InterTime = 0.05f,.Loop = true });
+	}
 
-	
+	    parachuteRender->ChangeAnimation("parachute");
+	  //  parachuteRender->SetMove({ 200,200 });
 
 
-	ChangeState(PlayerState::IDLE);
+
+	ChangeState(PlayerState::JUMPDOWN);
 	//ChangeState(PlayerState::HEAVYIDLE);
 	{
 		BodyCollision = CreateCollision(MetalSlugOrder::PlayerReg);
@@ -233,16 +235,24 @@ void Player::Start()
 
 void Player::Movecalculation(float _DeltaTime)
 {
-	
+
 	
 
 	if (Gravity == true)
 	{		
 		MoveDir += float4::Down * 1500.0f * _DeltaTime;
+
+		if (true == parachuteRender->IsAnimationEnd())
+		{
+			parachuteRender->Off(); 
+		}
+
 	}
 	if (Gravity == false)
 	{
-		MoveDir += float4::Down * 6000.0f * _DeltaTime;
+		test = true;
+		MoveDir = float4::Down * 15000.0f * _DeltaTime;
+		
 	}
 	
 	if (true == GameEngineInput::IsDown("test"))
@@ -301,20 +311,27 @@ void Player::Movecalculation(float _DeltaTime)
 	{
 		CameraCheck = true;	
 	}
-	if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)))
-	{
-		blueCheck = true;
-		CurPos = GetPos();
-		CameraCheck = false;
-		SetMove({ -5,0 });		
-	}
-	if (CurPos.x < GetPos().x  && blueCheck==true)
-	{
-		CameraCheck = true;
-		blueCheck = false;
-	}
 
-	
+	if (MonsterCheck == 7)
+	{
+
+		if (Carriage::carriage->GetNotMove() == true)
+		{
+
+			if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)))
+			{
+				blueCheck = true;
+				CurPos = GetPos();
+				CameraCheck = false;
+				SetMove({ -5,0 });
+			}
+			if (CurPos.x < GetPos().x && blueCheck == true)
+			{
+				CameraCheck = true;
+				blueCheck = false;
+			}
+		}
+	}
 
 	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0))) && MoveDir.y >= -80)
 	{
@@ -327,10 +344,11 @@ void Player::Movecalculation(float _DeltaTime)
 				AnimationBodyRender->SetPosition({ body });
 
 				ChangeState(PlayerState::IDLE);
+				
 			}
 			test = false;
 			Check = false;
-			Gravity = false;
+			//Gravity = false;
 		}
 		else if (GunChange == true)
 		{
@@ -344,7 +362,7 @@ void Player::Movecalculation(float _DeltaTime)
 			}
 			test = false;
 			Check = false;
-			Gravity = false;
+		//	Gravity = false;
 		}		
 	}
 	
@@ -439,7 +457,7 @@ void Player::Update(float _DeltaTime)
 			if (RightHeavyBulletTime > 0 && RightHeavyBulletNumber == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 75 });
 				HeavyBullet->Dir = Direction::Right;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-1);
 				RightHeavyBulletNumber = 1;
@@ -447,7 +465,7 @@ void Player::Update(float _DeltaTime)
 			if (RightHeavyBulletTime > 0.1 && RightHeavyBulletNumber == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 55 });
 				HeavyBullet->Dir = Direction::Right;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(1);
 				RightHeavyBulletNumber = 2;
@@ -456,7 +474,7 @@ void Player::Update(float _DeltaTime)
 			if (RightHeavyBulletTime > 0.2 && RightHeavyBulletNumber == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 75 });
 				HeavyBullet->Dir = Direction::Right;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(2);
 				RightHeavyBulletNumber = 3;
@@ -465,7 +483,7 @@ void Player::Update(float _DeltaTime)
 			if (RightHeavyBulletTime > 0.3 && RightHeavyBulletNumber == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 55});
 				HeavyBullet->Dir = Direction::Right;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(0);
 				
@@ -494,7 +512,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftHeavyBulletTime > 0 && LeftHeavyBulletNumber == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x-100 , GetPos().y - 75 });
 				HeavyBullet->Dir = Direction::Left;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-181);
 				LeftHeavyBulletNumber = 1;
@@ -502,7 +520,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftHeavyBulletTime > 0.1 && LeftHeavyBulletNumber == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
 				HeavyBullet->Dir = Direction::Left;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(181);
 				LeftHeavyBulletNumber = 2;
@@ -511,7 +529,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftHeavyBulletTime > 0.2 && LeftHeavyBulletNumber == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 70 });
 				HeavyBullet->Dir = Direction::Left;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(183);
 				LeftHeavyBulletNumber = 3;
@@ -520,7 +538,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftHeavyBulletTime > 0.3 && LeftHeavyBulletNumber == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
 				HeavyBullet->Dir = Direction::Left;
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(180);
 
@@ -548,7 +566,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x+100 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-10);
 				HeavyBullet->Dir = Direction::A;
 				HeavyBullet->Speed -= SpeedDown;
@@ -558,7 +576,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x + 100 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-30);
 				HeavyBullet->Dir = Direction::B;
 				HeavyBullet->Speed -= SpeedDown;
@@ -569,7 +587,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x + 100 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-50);
 				HeavyBullet->Dir = Direction::C;
 				HeavyBullet->Speed -= SpeedDown;
@@ -580,7 +598,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x + 100 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-70);
 				HeavyBullet->Dir = Direction::D;
 				HeavyBullet->Speed -= SpeedDown;
@@ -604,7 +622,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftAttackChangeUp == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x-100 , GetPos().y -75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-170);
 				HeavyBullet->Dir = Direction::LeftA;
 					
@@ -615,7 +633,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftAttackChangeUp == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-150);
 				HeavyBullet->Dir = Direction::LeftB;
 				HeavyBullet->Speed -= SpeedDown;
@@ -626,7 +644,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftAttackChangeUp == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-130);
 				HeavyBullet->Dir = Direction::LeftC;
 				HeavyBullet->Speed -= SpeedDown;
@@ -637,7 +655,7 @@ void Player::Update(float _DeltaTime)
 			if (LeftAttackChangeUp == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-110);
 				HeavyBullet->Dir = Direction::LeftD;
 				HeavyBullet->Speed -= SpeedDown;
@@ -660,7 +678,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-70);
 				HeavyBullet->Dir = Direction::D;
 				HeavyBullet->Speed -= SpeedDown;
@@ -670,7 +688,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-50);
 				HeavyBullet->Dir = Direction::C;
 				HeavyBullet->Speed -= SpeedDown;
@@ -681,7 +699,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-30);
 				HeavyBullet->Dir = Direction::B;
 				HeavyBullet->Speed -= SpeedDown;
@@ -692,7 +710,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-10);
 				HeavyBullet->Dir = Direction::A;
 				HeavyBullet->Speed -= SpeedDown;
@@ -1003,7 +1021,7 @@ void Player::CollisionCheck(float _DeltaTime)
 	
 
 	
-		if (RGB(254, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(254, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(254, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(254, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 1)
 		{
 			MonsterBulletRange = GetPos().x;
 
@@ -1029,7 +1047,7 @@ void Player::CollisionCheck(float _DeltaTime)
 
 
 	
-		if (RGB(253, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(253, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(253, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(253, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 2)
 		{
 			MonsterBulletRange = GetPos().x;
 
@@ -1060,7 +1078,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 3;
 		}
 
-		if (RGB(252, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(252, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(252, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(252, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 3)
 		{
 			MonsterBulletRange = GetPos().x;
 
@@ -1081,7 +1099,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 4;
 		}
 
-		if (RGB(251, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(251, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(251, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(251, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 4)
 		{
 			MonsterBulletRange = GetPos().x;
 
@@ -1123,7 +1141,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 6;
 		}*/
 
-		if (RGB(249, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(249, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(249, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(249, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 5)
 		{
 			MonsterBulletRange = GetPos().x;
 		
@@ -1155,7 +1173,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 6;
 		}
 
-		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 6 )
 		{
 			CameraCheck = false;
 
@@ -1196,6 +1214,16 @@ void Player::CollisionCheck(float _DeltaTime)
 				Actor->SetMove({ 5840,700 });
 
 			}
+
+			if (MonsterCheck == 6)
+			{
+
+				MiniBoss* Actor = GetLevel()->CreateActor<MiniBoss>();
+				Actor->SetMove({ 5920,700 });
+
+			}
+
+
 			MonsterCheck = 7;
 		}
 	
@@ -1300,17 +1328,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 {
 	std::string PrevDirString = DirString;
 
-	std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
-
-	std::vector<Bullets*> bullets;
-	bullets.reserve(Bullet.size());
-	//Bullets* b = dynamic_cast<Bullets*>(Bullet[d]);
-	for (size_t i = 0; i < Bullet.size(); i++)
-	{
-		Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
-		bullets.push_back(bullet);
-	}
-
+	
 	bool Left = false;
 	bool Right = true; 
 	bool NotMove = false;
@@ -1613,7 +1631,9 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		if (DirString == "Left_")
 		{
 			LeftSetBody({ 0,0 });
-			bullets[d]->Dir = Direction::Up;
+			Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+			Actor->SetPos({ GetPos().x,GetPos().y - 200 });
+			Actor->MoveDir = float4::Up;
 			
 			AnimationBodyRender->SetPosition({ body.x+10,body.y-120 });
 			AnimationRegRender->SetPosition({ Reg });
@@ -1623,7 +1643,9 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		if (DirString == "Right_")
 		{
 			RightSetBody({ 0,0 });
-			bullets[d]->Dir = Direction::Up;
+			Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+			Actor->SetPos({ GetPos().x,GetPos().y - 200 });
+			Actor->MoveDir = float4::Up;
 		
 			AnimationBodyRender->SetPosition({ body.x-5,body.y -120});
 			AnimationRegRender->SetPosition({ Reg });
@@ -1635,11 +1657,16 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	{
 		if (StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::MOVEATTACK)
 		{
+
+
+
 			AnimationBodyRender->SetScale({ 200,200 });
 			if (DirString == "Left_")
 			{
 				LeftSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Left;
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x-100,GetPos().y - 95 });
+				Actor->MoveDir = float4::Left;
 
 				AnimationBodyRender->SetPosition({ body.x - 38 , body.y + 7 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1649,7 +1676,9 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			else if (DirString == "Right_")
 			{
 				RightSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Right;
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x+100,GetPos().y - 95 });
+				Actor->MoveDir = float4::Right;
 
 				AnimationBodyRender->SetPosition({ body.x + 40, body.y + 7 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1659,11 +1688,6 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			}
 		}
 		
-
-		bullets[d]->test = true;
-
-		d--;
-
 	}
 	
 
@@ -1904,14 +1928,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 	AnimationBodyRender->ChangeAnimation(DirString + _AnimationName.data());
 	AnimationRegRender->ChangeAnimation(DirString + _AnimationName1.data());
 
-	std::vector<GameEngineActor*> Bullet = GetLevel()->GetActors(MetalSlugOrder::Bullet);
 	
-	std::vector<Bullets*> bullets;
-	for (size_t i = 0; i < Bullet.size(); i++)
-	{
-		Bullets* bullet = dynamic_cast<Bullets*>(Bullet[i]);
-		bullets.push_back(bullet);
-	}
 
 	
 
@@ -1990,7 +2007,11 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK)
 			{				
 				LeftSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Left;
+
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x - 95,GetPos().y - 100 });
+				Actor->MoveDir = float4::Left;
+
 			
 				AnimationBodyRender->SetPosition({ body.x - 38, body.y - 10 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -2002,7 +2023,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Up;
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x,GetPos().y - 200 });
+				Actor->MoveDir = float4::Up;
 			
 				AnimationBodyRender->SetPosition({ body.x + 10,body.y - 135 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -2012,9 +2035,12 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 			else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
 			{
-				
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x,GetPos().y - 250 });
+				Actor->MoveDir = float4::Up;
+
 				LeftSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Up;
+				
 			
 				AnimationBodyRender->SetPosition({ body.x + 20 ,body.y - 150 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -2027,7 +2053,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 			{
 				LeftSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Left;
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x - 95,GetPos().y - 100 });
+				Actor->MoveDir = float4::Left;
 			
 				AnimationBodyRender->SetPosition({ body.x - 20  ,body.y - 25 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -2042,7 +2070,9 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			else if (StateValue == PlayerState::JUMPMOVEDOWNATTACK)
 			{
 				LeftSetBody({ 0,0 });
-				bullets[d]->Dir = Direction::Left;
+				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+				Actor->SetPos({ GetPos().x - 95,GetPos().y - 100 });
+				Actor->MoveDir = float4::Left;
 			
 				AnimationBodyRender->SetPosition({ body.x - 20  ,body.y - 25 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -2052,9 +2082,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 			
 
 
-			bullets[d]->test = true;
-
-			d--;	
+		
 		}	
 
 	
@@ -2194,7 +2222,11 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				if (StateValue == PlayerState::JUMPUPATTACK || StateValue == PlayerState::JUMPDOWNATTACK )
 				{
 					RightSetBody({ 0,0 });
-					bullets[d]->Dir = Direction::Right;
+
+					Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+					Actor->SetPos({ GetPos().x + 95,GetPos().y - 100 });
+					Actor->MoveDir = float4::Right;
+
 					AnimationBodyRender->SetPosition({ body.x + 38, body.y - 5 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2205,7 +2237,10 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				{
 					AnimationBodyRender->SetScale({ 400,400 });
 					RightSetBody({ 0,0 });
-					//bullets[d]->Dir = Direction::Right;
+				
+
+
+
 					AnimationBodyRender->SetPosition({ body.x + 42, body.y - 20 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2215,7 +2250,12 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				else if (StateValue == PlayerState::UPJUMPATTACK || StateValue == PlayerState::UPJUMPDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
-					bullets[d]->Dir = Direction::Up;
+
+					Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+					Actor->SetPos({ GetPos().x ,GetPos().y - 200 });
+					Actor->MoveDir = float4::Up;
+
+				
 					AnimationBodyRender->SetPosition({ body.x - 10,body.y - 135 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2238,7 +2278,11 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				else if (StateValue == PlayerState::UPJUMPMOVEATTACK || StateValue == PlayerState::UPJUMPMOVEDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
-					bullets[d]->Dir = Direction::Up;
+			
+					Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+					Actor->SetPos({ GetPos().x ,GetPos().y - 250 });
+					Actor->MoveDir = float4::Up;
+
 					AnimationBodyRender->SetPosition({ body.x-20 ,body.y - 150 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2248,7 +2292,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				{
 					AnimationBodyRender->SetScale({ 600,600 });
 					RightSetBody({ 0,0 });
-					//bullets[d]->Dir = Direction::Up;
+					
 					AnimationBodyRender->SetPosition({ body.x - 30 ,body.y - 50 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2259,7 +2303,12 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				else if (StateValue == PlayerState::JUMPMOVEUPATTACK)
 				{
 					RightSetBody({ 0,0 });
-					bullets[d]->Dir = Direction::Right;
+			
+					Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+					Actor->SetPos({ GetPos().x + 95 ,GetPos().y - 100 });
+					Actor->MoveDir = float4::Right;
+
+
 					AnimationBodyRender->SetPosition({ body.x + 30 ,body.y - 30 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2284,7 +2333,11 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 				else if (StateValue == PlayerState::JUMPMOVEDOWNATTACK)
 				{
 					RightSetBody({ 0,0 });
-					bullets[d]->Dir = Direction::Right;
+				
+					Bullets* Actor = GetLevel()->CreateActor<Bullets>();
+					Actor->SetPos({ GetPos().x + 95 ,GetPos().y - 100 });
+					Actor->MoveDir = float4::Right;
+
 					AnimationBodyRender->SetPosition({ body.x + 30 ,body.y -25 });
 					AnimationRegRender->SetPosition({ Reg });
 					DirString = "Right_";
@@ -2302,8 +2355,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 					DirStringBullet = "Right";
 				}
 
-				bullets[d]->test = true;
-				d--;
+			
 			}
 
 

@@ -113,7 +113,12 @@ public:
 	bool GroundCheck = false;
 
 	float4 MoveDir = float4::Zero;
-	
+	float4 SetPosCheck(const float4& Pos)
+	{
+		return PosCheck = Pos;
+	}
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -122,7 +127,7 @@ protected:
 
 private:
 
-	bool Gravity = true;
+	bool Gravity = false;
 	bool test = false;
 	float4 CamelCheck = float4::Zero;
 	float4 CamelDeath = float4::Zero;
@@ -143,8 +148,8 @@ private:
 	std::string DirStringBullet = "Right";
 	std::string CurDirStringBullet = ""; 
 
-	std::vector<GameEngineActor*> Bullet;
-	std::vector<Bullets*> bullets;
+	//std::vector<GameEngineActor*> Bullet;
+	//std::vector<Bullets*> bullets;
 	
 	
 	float4 CurPos = float4::Zero;
@@ -160,8 +165,12 @@ private:
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
 
+	GameEngineRender* parachuteRender = nullptr;
+
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* BulletCollision = nullptr;
+
+	//Carriage* carriage = nullptr;
 
 	void DirCheck(const std::string_view& _AnimationName);
 	void DirCheck(const std::string_view& _AnimationName, const std::string_view& _AnimationName1);

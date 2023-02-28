@@ -970,6 +970,9 @@ void Player::AttackJumpUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 
+
+
+
 	if (MoveDir.y < 0)
 	{
 		if (true == GameEngineInput::IsPress("UpMove") && true == GameEngineInput::IsDown("Attack"))
@@ -991,7 +994,13 @@ void Player::AttackJumpUpdate(float _Time)
 			ChangeState(PlayerState::UPJUMPDOWNATTACK);
 			return;
 		}
-
+		if (Gravity == false)
+		{
+			Gravity = true;
+			parachuteRender->ChangeAnimation("parachuteDown");
+			parachuteRender->SetMove({ -MoveDir * _Time });
+		}
+		
 		if (true == GameEngineInput::IsDown("Attack"))
 		{
 			ChangeState(PlayerState::JUMPDOWNATTACK);
@@ -1589,6 +1598,13 @@ void Player::HeavyMoveChangeUpUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 
+	if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+
+
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
 		MoveDir += float4::Left * MoveSpeed;
@@ -1600,18 +1616,6 @@ void Player::HeavyMoveChangeUpUpdate(float _Time)
 		CameraDir = float4::Right * MoveSpeed * _Time;
 	}
 
-
-	///*if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
-	//{
-	//	ChangeState(PlayerState::HEAVYIDLE);
-	//	return;
-	//}*/
-
-	//if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
-	//{
-	//	ChangeState(PlayerState::HEAVYIDLE);
-	//	return;
-	//}
 
 	if (true == GameEngineInput::IsDown("Attack"))
 	{
@@ -1911,6 +1915,17 @@ void Player::JumpUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 
+	if (AnimationBodyRender->GetFrame() > 0)
+	{
+		AnimationBodyRender->SetFrame(2);
+	}
+	if (AnimationRegRender->GetFrame() > 0)
+	{
+		AnimationRegRender->SetFrame(5);
+	}
+
+
+
 	if (true == GameEngineInput::IsPress("LeftMove"))
 	{
 		MoveDir += float4::Left * MoveSpeed;
@@ -1941,6 +1956,8 @@ void Player::JumpUpdate(float _Time)
 			return;
 		}
 	}
+	
+
 	if (MoveDir.y > 0)
 	{
 		if (true == GameEngineInput::IsPress("UpMove") && true == GameEngineInput::IsDown("Attack"))

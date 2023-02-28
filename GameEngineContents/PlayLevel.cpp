@@ -312,7 +312,14 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyIdleChangeUp.BMP"));
 			Image->Cut(5, 1);
 		}
-		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("parachute.BMP"));
+			Image->Cut(5, 1);
+		} 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("parachuteDown.BMP"));
+			Image->Cut(5, 4);
+		}
 
 
 
@@ -547,11 +554,27 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonster.BMP"));
 			Image->Cut(5, 2);
 		}
-
-
-
-
-
+		//MiniBoss
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MiniBossAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MiniBossLeftMove.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MiniBossSurrender.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MiniBossRightMove.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MiniBossIdle.BMP"));
+			Image->Cut(5, 1);
+		}
 
 
 

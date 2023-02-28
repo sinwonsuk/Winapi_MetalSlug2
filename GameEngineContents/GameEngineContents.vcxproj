@@ -29,6 +29,7 @@
     <ClInclude Include="MachineMonsterBullet.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MiddleBoss.h" />
+    <ClInclude Include="MiniBoss.h" />
     <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
@@ -77,6 +78,8 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MiddleBoss.cpp" />
     <ClCompile Include="MiddleBossState.cpp" />
+    <ClCompile Include="MiniBoss.cpp" />
+    <ClCompile Include="MiniBossState.cpp" />
     <ClCompile Include="Monster.cpp">
       <SubType>
       </SubType>

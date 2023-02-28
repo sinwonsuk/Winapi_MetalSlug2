@@ -45,7 +45,7 @@ void Carriage::StopStart()
 
 void Carriage::StopUpdate(float _Time)
 {
-	
+	NotMove = true;
 }
 
 void Carriage::IdleStart()
@@ -85,7 +85,7 @@ void Carriage::DeathStart()
 
 void Carriage::DeathUpdate(float _Time)
 {
-
+	death = true;
 }
 
 

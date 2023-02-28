@@ -8,6 +8,9 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include "RunMonster.h"
+#include "MiniBoss.h"
+
+Carriage* Carriage::carriage;
 Carriage::Carriage()
 {
 
@@ -19,6 +22,8 @@ Carriage::~Carriage()
 }
 void Carriage::Start()
 {
+	carriage = this; 
+
 	{
 		AnimationRender = CreateRender(MetalSlugOrder::Carriage);
 		AnimationRender->SetScale({ 800,800 });
@@ -43,7 +48,7 @@ void Carriage::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
-		MonsterCollision->SetScale({ 300,300 });
+		MonsterCollision->SetScale({ 400,500 });
 	}
 
 
@@ -179,16 +184,16 @@ void Carriage::Update(float _DeltaTime)
 	}
 	if (Hp > 0 && StateValue == CarriageState::STOP)
 	{
-		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-		if (Time > 3)
+		if (MiniBoss::miniboss->GetAttackCheck() == true)
 		{
-			RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-			
-			
-
-			Actor->SetMove({ 4900,600 });
-			Actor->SetCarriageMonster(true);
-			Time = 0;
+			Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+			if (Time > 3)
+			{
+				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+				Actor->SetMove({ 4900,600 });
+				Actor->SetCarriageMonster(true);
+				Time = 0;
+			}
 		}
 	}
 
@@ -201,7 +206,9 @@ void Carriage::Update(float _DeltaTime)
 
 		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 150)
 		{
+
 			Player::MainPlayer->SetCameraCheck(true);
+			Player::MainPlayer->SetPosCheck(Player::MainPlayer->GetPos());
 			MoveCamera = true;
 		}
 

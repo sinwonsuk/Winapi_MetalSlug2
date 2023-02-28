@@ -41,8 +41,9 @@ void RunMonster::Start()
 	//	
 	//}
 	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-		MonsterCollision->SetScale({ 300,100 });
+		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
+		MonsterCollision->SetPosition({ 0,-80 });
+		MonsterCollision->SetScale({ 50,150 });
 	}
 	AnimationBloodRender->ChangeAnimation("Blood");
 	AnimationBloodRender->Off(); 

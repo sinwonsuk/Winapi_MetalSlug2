@@ -37,21 +37,22 @@ public:
 	void IdleStart();
 	void IdleUpdate(float _Time);
 
+	bool GetNotMove()
+	{
+		return NotMove;
+	}
 	
 	void DeathStart();
+
 	void DeathUpdate(float _Time);
 
+	bool GetDeath()
+	{
+		return death;
+	}
+
 	
-
-	bool SetTurn(const bool& Check)
-	{
-		return Turn = Check;
-	}
-	bool SetDownCheck(const bool& Check)
-	{
-		return DownCheck = Check;
-	}
-
+	
 
 
 
@@ -69,8 +70,8 @@ private:
 	GameEngineRender* Exploision = nullptr;
 
 	float4 MoveDir = float4::Zero;
-	bool Turn = true;
-	bool DownCheck = false;
+	
+	
 	float TimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 100;
@@ -78,7 +79,9 @@ private:
 	bool EffectCheck = false;
 	bool death = false;
 	bool MoveCamera = false;
-	float Hp = 10; 
+
+	bool NotMove = false;
+	float Hp = 25; 
 	float Time = 0; 
 	GameEngineCollision* MonsterCollision = nullptr;
 

@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include "MiniBoss.h"
 void RunMonster::ChangeState(RunMonsterState _State)
 {
 	{
@@ -44,6 +45,9 @@ void RunMonster::MoveUpdate(float _Time)
 	MoveDir += float4::Left * 100; 
 
 
+
+
+
 	if (MoveCheck > 3.5 && Idle == true)
 	{
 		//MoveCheck = 0;
@@ -74,11 +78,13 @@ void RunMonster::DeathStart()
 
 void RunMonster::IdleUpdate(float _Time)
 {
-	IdleCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	
 	MoveDir = { 0,0 };
-	if (IdleCheck > 2 )
+
+
+
+	if (MiniBoss::miniboss->GetAttackCheck() ==true)
 	{
-		
 		Idle = false;
 		ChangeState(RunMonsterState::MOVE);
 		return;
