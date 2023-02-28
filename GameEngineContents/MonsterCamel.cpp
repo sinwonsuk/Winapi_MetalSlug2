@@ -283,7 +283,8 @@ void MonsterCamel::Update(float _DeltaTime)
 
 		}
 	}
-	if (Hp < 0 && MoveCamera == false)
+
+	if (Hp <= 0 && MoveCamera == false)
 	{
 
 		float4 b = float4::Right * 1000 * _DeltaTime;
@@ -292,7 +293,9 @@ void MonsterCamel::Update(float _DeltaTime)
 
 		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 350)
 		{
+			Player::MainPlayer->SetPosCheck(Player::MainPlayer->GetPos());
 			Player::MainPlayer->SetCameraCheck(true);
+
 			MoveCamera = true;
 		}
 

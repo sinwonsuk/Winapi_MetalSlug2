@@ -347,8 +347,7 @@ void Player::Movecalculation(float _DeltaTime)
 				
 			}
 			test = false;
-			Check = false;
-			//Gravity = false;
+			Check = false;			
 		}
 		else if (GunChange == true)
 		{
@@ -362,7 +361,6 @@ void Player::Movecalculation(float _DeltaTime)
 			}
 			test = false;
 			Check = false;
-		//	Gravity = false;
 		}		
 	}
 	
@@ -566,7 +564,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x+100 , GetPos().y - 75 });
+				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-10);
 				HeavyBullet->Dir = Direction::A;
 				HeavyBullet->Speed -= SpeedDown;
@@ -576,7 +574,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x + 100 , GetPos().y - 55 });
+				HeavyBullet->SetPos({ GetPos().x + 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-30);
 				HeavyBullet->Dir = Direction::B;
 				HeavyBullet->Speed -= SpeedDown;
@@ -587,7 +585,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x + 100 , GetPos().y - 75 });
+				HeavyBullet->SetPos({ GetPos().x + 20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-50);
 				HeavyBullet->Dir = Direction::C;
 				HeavyBullet->Speed -= SpeedDown;
@@ -598,7 +596,7 @@ void Player::Update(float _DeltaTime)
 			if ( RightAttackChangeUp == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x + 100 , GetPos().y - 55 });
+				HeavyBullet->SetPos({ GetPos().x + 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-70);
 				HeavyBullet->Dir = Direction::D;
 				HeavyBullet->Speed -= SpeedDown;
@@ -678,8 +676,8 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 75 });
-				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-70);
+				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 75 });
+				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-80);
 				HeavyBullet->Dir = Direction::D;
 				HeavyBullet->Speed -= SpeedDown;
 				SpeedDown += 200;
@@ -688,7 +686,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 1)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 55 });
+				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-50);
 				HeavyBullet->Dir = Direction::C;
 				HeavyBullet->Speed -= SpeedDown;
@@ -699,7 +697,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 2)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 75 });
+				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-30);
 				HeavyBullet->Dir = Direction::B;
 				HeavyBullet->Speed -= SpeedDown;
@@ -710,7 +708,7 @@ void Player::Update(float _DeltaTime)
 			if (RightUpChangeAttack == 3)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
-				HeavyBullet->SetPos({ GetPos().x+50 , GetPos().y - 55 });
+				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-10);
 				HeavyBullet->Dir = Direction::A;
 				HeavyBullet->Speed -= SpeedDown;
@@ -1273,7 +1271,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			}
 		}
 
-		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 11)
 		{
 			CameraCheck = true;
 
@@ -1306,7 +1304,7 @@ void Player::CollisionCheck(float _DeltaTime)
 		}
 		
 		
-		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 12)
 		{
 			if (MonsterCheck == 12)
 			{
@@ -1314,7 +1312,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			}
 			MonsterCheck = 13;		
 		}
-		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 13)
 		{
 			if (MonsterCheck == 13)
 			{
