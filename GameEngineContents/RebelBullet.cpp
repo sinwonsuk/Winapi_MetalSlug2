@@ -1,5 +1,4 @@
 #include "RebelBullet.h"
-#include "Rebel.h"
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>

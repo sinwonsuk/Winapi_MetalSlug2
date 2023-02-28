@@ -7,6 +7,10 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
 #include "Player.h"
+#include "MachineMonster.h"
+
+Wall* Wall::wall;
+
 Wall::Wall()
 {
 }
@@ -15,8 +19,10 @@ Wall::~Wall()
 {
 }
 
+
 void Wall::Start()
 {
+	wall = this;
 	{
 		AnimationRender = CreateRender(MetalSlugOrder::Wall);
 		AnimationRender->SetScale({ 1600,1600 });
@@ -43,15 +49,21 @@ void Wall::Start()
 		Ston3->SetPosition({ 10,-200 });
 		Ston3->CreateAnimation({ .AnimationName = "Ston",  .ImageName = "StonEffect.bmp", .Start = 0, .End = 7, .InterTime = 0.05f,.Loop = true });
 	}
-
-
+	{
+		Exploision = CreateRender(MetalSlugOrder::Exploision);
+		Exploision->SetScale({ 1200,1200 });
+		Exploision->SetPosition({ -100,-200});
+		Exploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
+	}
+	Exploision->ChangeAnimation("Exploision");
+	Exploision->Off();
 
 	Ston->ChangeAnimation("Ston"); 
 	Ston2->ChangeAnimation("Ston");
 	Ston3->ChangeAnimation("Ston");
-	Ston->On(); 
-	Ston2->On();
-	Ston3->On();
+	Ston->Off(); 
+	Ston2->Off();
+	Ston3->Off();
 
 	AnimationRender->ChangeAnimation("WallDown");
 
@@ -111,7 +123,7 @@ void Wall::Movecalculation(float _DeltaTime)
 
 
 
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
+	/*if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
 	{
 		Ston->On();
 	}
@@ -122,38 +134,11 @@ void Wall::Movecalculation(float _DeltaTime)
 	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos3, RGB(0, 255, 0))))
 	{
 		Ston3->On();
-	}
+	}*/
 
 
 
-	//if (false == Check)
-	//{
-	//	while (true)
-	//	{
-	//		WallMoveDir.y -= 1;
-	//		float4 NextPos = GetPos() + WallMoveDir * _DeltaTime;
-	//		if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0))))
-	//		{
-	//			continue;
-	//		}
-
-	//		if (50.0f <= abs(MoveDir.y))
-	//		{
-	//			if (0 > MoveDir.y)
-	//			{
-	//				MoveDir.y = -100.0f;
-	//			}
-	//			else
-	//			{
-	//				MoveDir.y = 0.0f;
-	//			}
-	//		}
-	//		Check = true;
-	//		break;
-	//	}
-	//}
-//	AnimationRender->SetMove(WallMoveDir * _DeltaTime);
-//	SetMove(MoveDir * _DeltaTime);
+	
 }
 
 void Wall::Update(float _DeltaTime)
@@ -177,7 +162,7 @@ void Wall::Update(float _DeltaTime)
 		}
 		if (Hp <= -50)
 		{
-			AnimationRender->Off(); 
+			AnimationRender->Off();
 			if (StonReset == false)
 			{
 				MoveDir = { 0,0 };
@@ -189,13 +174,10 @@ void Wall::Update(float _DeltaTime)
 
 			MoveDir += float4::Down * 1500 * _DeltaTime;
 			MoveDir += float4::Left * 80;
-
+			
+		
+			
 		}
-
-
-
-
-
 		else if (Hp <= -30)
 		{
 			AnimationRender->ChangeAnimation("WallUp");
@@ -217,15 +199,32 @@ void Wall::Update(float _DeltaTime)
 		{
 			AnimationRender->ChangeAnimation("WallMiddle");
 
-			Ston->On(); 
+			Ston->On();
 			Ston2->On();
 			Ston3->On();
 			StonReset = true;
 			MoveDir += float4::Down * 1500 * _DeltaTime;
 			MoveDir += float4::Left * 100;
-		
+
 		}
 
+	}
+	
+
+	if (Hp <= -50)
+	{
+		Exploision->On();
+
+		if (MonsterCheck == false)
+		{
+			MachineMonster* Monster = GetLevel()->CreateActor<MachineMonster>();
+			Monster->SetMove({ 8400,720 });
+			MonsterCheck = true; 
+		}
+		if (Exploision->IsAnimationEnd())
+		{
+			this->Death(); 
+		}
 
 	}
 

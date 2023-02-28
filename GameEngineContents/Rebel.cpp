@@ -6,7 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
-
+#include "Wall.h"
 Rebel::Rebel()
 {
 
@@ -25,21 +25,51 @@ void Rebel::Start()
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Idle",  .ImageName = "RebelIdle.bmp", .Start = 0, .End = 3, .InterTime = 0.1f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Idle2",  .ImageName = "RebelIdle2.bmp", .Start = 0, .End = 3, .InterTime = 0.1f ,.Loop = true });
-		AnimationRender->CreateAnimation({ .AnimationName = "MovePre",  .ImageName = "RebelMovePre.bmp", .Start = 0, .End = 9, .InterTime = 0.2f,.Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "MovePre",  .ImageName = "RebelMovePre.bmp", .Start = 0, .End = 9, .InterTime = 0.1f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Move",  .ImageName = "RebelMove.bmp", .Start = 0, .End = 13, .InterTime = 0.1f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "MoveFinish",  .ImageName = "RebelMoveFinish.bmp", .Start = 0, .End = 3, .InterTime = 0.1f ,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Attack",  .ImageName = "RebelAttack.bmp", .Start = 0, .End = 13, .InterTime = 0.1f,.Loop = true });
-		AnimationRender->CreateAnimation({ .AnimationName = "Death",  .ImageName = "RebelDeath.bmp", .Start = 0, .End = 10, .InterTime = 0.1f,.Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "Death",  .ImageName = "RebelDeath.bmp", .Start = 0, .End = 10, .InterTime = 0.075f,.Loop = false });
 
 
 
 
 	}
 	ChangeState(RebelState::IDLE); 
+
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
+		MonsterCollision->SetPosition({ 0,-80 });
+		MonsterCollision->SetScale({ 50,150 });
+	}
+
+
 }
 
 void Rebel::Update(float _DeltaTime)
 {
+	if (nullptr != MonsterCollision)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				ColActor->Death();
+			}
+			Hp--;
+		}
+	}
+
+	if (Hp <= 0)
+	{
+		MonsterCollision->Death();
+		ChangeState(RebelState::DEATH);
+	}
+
+
+
 	Movecalculation(_DeltaTime);
 
 	UpdateState(_DeltaTime);
@@ -86,13 +116,16 @@ void Rebel::Movecalculation(float _DeltaTime)
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
-
-
-
-
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) ||( RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0) && StateValue == RebelState::ATTACK))))
+	
+	if (Wall::wall->GetHp() <= -50)
 	{
+		ChangeState(RebelState::DEATH);
+	}
 
+
+	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || (RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0))) && Wall::wall->GetHp() >= -49)
+	{
+	    
 
 		Check = false;
 	}
@@ -109,7 +142,7 @@ void Rebel::Movecalculation(float _DeltaTime)
 		{
 			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || (RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0) && StateValue == RebelState::ATTACK))))
+			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || (RGB(255, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 0, 0))) && Wall::wall->GetHp() >= -49)
 			{
 				continue;
 			}
@@ -140,6 +173,6 @@ void Rebel::DirCheck(const std::string_view& _AnimationName)
 
 void Rebel::Render(float _Time)
 {
-
+	//MonsterCollision->DebugRender();
 }
 

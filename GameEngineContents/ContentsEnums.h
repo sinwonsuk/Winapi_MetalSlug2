@@ -17,8 +17,9 @@ enum class MetalSlugOrder
 	NPC,
 	Carriage,
 	Wall,
+	Effect,
 	Monster,
-
+	
 	MonsterReg,
 	MonsterCamel,
 	MonsterCheck,

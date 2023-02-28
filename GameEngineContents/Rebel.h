@@ -85,7 +85,7 @@ private:
 	bool EffectCheck = false;
 	bool death = false;
 	bool MoveCamera = false;
-	float Hp = 10;
+	float Hp = 1;
 	float Time = 0;
 	int a = 0;
 	float BulletRange = 0;

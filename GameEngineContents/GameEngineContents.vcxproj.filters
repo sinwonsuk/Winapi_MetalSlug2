@@ -59,6 +59,8 @@
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Rebel.h" />
     <ClInclude Include="RebelBullet.h" />
+    <ClInclude Include="MachineMonster.h" />
+    <ClInclude Include="MachineMonsterBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -134,6 +136,9 @@
     <ClCompile Include="Rebel.cpp" />
     <ClCompile Include="RebelState.cpp" />
     <ClCompile Include="RebelBullet.cpp" />
+    <ClCompile Include="MachineMonster.cpp" />
+    <ClCompile Include="MachineMonsterState.cpp" />
+    <ClCompile Include="MachineMonsterBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

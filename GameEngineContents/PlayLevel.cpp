@@ -512,6 +512,50 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RebelWeapon.BMP"));
 			Image->Cut(5, 3);
 		}
+		//Machine
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonsterSfx.BMP"));
+			Image->Cut(5, 4);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonsterMove.BMP"));
+			Image->Cut(5, 1);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonsterDeath.BMP"));
+			Image->Cut(5, 5);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonsterBullet.BMP"));
+			Image->Cut(5, 3);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonsterAttackPre.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonsterAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MachineMonster.BMP"));
+			Image->Cut(5, 2);
+		}
+
+
+
+
+
+
+
+
+
 		// ±ÃÀü 
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceBase.BMP"));

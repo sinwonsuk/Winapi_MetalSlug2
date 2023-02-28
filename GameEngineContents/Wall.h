@@ -6,13 +6,14 @@ enum class WallState
 	IDLE,
 	STOP,
 	DEATH,
+	EXPLOISION
 };
 
 // Ό³Έν :
 class Wall : public GameEngineActor
 {
 public:
-	//static Carriage* carriage;
+	static Wall* wall;
 
 	// constrcuter destructer
 	Wall();
@@ -25,23 +26,11 @@ public:
 	Wall& operator=(Wall&& _Other) noexcept = delete;
 
 	void Movecalculation(float _DeltaTime);
-	void DirCheck(const std::string_view& _AnimationName);
-
-	void UpdateState(float _Time);
-	void ChangeState(WallState _State);
-
-	void StopStart();
-	void StopUpdate(float _Time);
-
-	void IdleStart();
-	void IdleUpdate(float _Time);
-
-
-	void DeathStart();
-	void DeathUpdate(float _Time);
-
-
-
+	
+	float GetHp()
+	{
+		return Hp;
+	}
 	
 
 
@@ -62,7 +51,7 @@ private:
 	GameEngineRender* Ston2 = nullptr;
 	GameEngineRender* Ston3 = nullptr;
 	
-
+	GameEngineRender* Exploision = nullptr;
 	float4 WallMoveDir = float4::Zero;
 	float4 MoveDir = float4::Zero;
 	float4 MoveDir1 = float4::Zero;
@@ -77,8 +66,10 @@ private:
 	float JumpSpeed = 650;
 	float MoveSpeed = 100;
 	float DeathCheck = 0;
+	bool MonsterCheck = false;
 	bool EffectCheck = false;
 	bool death = false;
+
 	bool MoveCamera = false;
 	bool StonReset = false;
 	float Hp = 10;

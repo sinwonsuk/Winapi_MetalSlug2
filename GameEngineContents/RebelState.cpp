@@ -157,36 +157,45 @@ void Rebel::MoveFinsihUpdate(float _Time)
 }
 void Rebel::AttackUpdate(float _Time)
 {
-
-	if (AnimationRender->GetFrame() == 10)
+	if (Player::MainPlayer->GetRebelStart() == true)
 	{
-		if (a == 0)
+
+		if (AnimationRender->GetFrame() == 10)
 		{
-			Actor = GetLevel()->CreateActor<RebelBullet>();
-			Actor->SetPos(GetPos());
-			BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
+			if (a == 0)
+			{
+				Actor = GetLevel()->CreateActor<RebelBullet>();
+				Actor->SetPos(GetPos());
+				BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
 
 
-			//float BulletRange = Player::MainPlayer->GetMonsterBulletRange();
-			//float a = Player::MainPlayer->GetPos().x;
+				//float BulletRange = Player::MainPlayer->GetMonsterBulletRange();
+				//float a = Player::MainPlayer->GetPos().x;
 
 
 
-			Actor->MoveDir += float4::Up * (100 + BulletRange);
+				Actor->MoveDir += float4::Up * (25 + BulletRange);
 
 
-			Actor->BulletMove = true;
+				Actor->BulletMove = true;
+			}
+			a++;
 		}
-		a ++;
+		if (AnimationRender->GetFrame() > 12)
+		{
+			a = 0;
+		}
 	}
-	if (AnimationRender->GetFrame() > 12)
-	{
-		a = 0;
-	}
-	
 
 	
 }
 void Rebel::DeathUpdate(float _Time)
 {
+	MoveDir.x = 0;
+
+	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	if (DeathCheck > 2)
+	{
+		this->Death(); 
+	}
 }
