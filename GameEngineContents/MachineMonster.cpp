@@ -5,6 +5,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include "BulletEffect.h"
 #include "ContentsEnums.h"
 
 MachineMonster::MachineMonster()
@@ -41,7 +42,7 @@ void MachineMonster::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
-		MonsterCollision->SetScale({ 250,300 });
+		MonsterCollision->SetScale({ 200,300 });
 	}
 
 
@@ -147,6 +148,11 @@ void MachineMonster::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				
+
 				ColActor->Death();
 			}
 			Hp--;
@@ -155,6 +161,8 @@ void MachineMonster::Update(float _DeltaTime)
 	if (Hp <= -30)
 	{
 		ChangeState(MachineState::DEATH);
+		MonsterCollision->Death();
+
 	}
 
 	Movecalculation(_DeltaTime);

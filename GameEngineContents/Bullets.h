@@ -20,17 +20,17 @@ public:
 	Bullets& operator=(const Bullets& _Other) = delete;
 	Bullets& operator=(Bullets&& _Other) noexcept = delete;
 	float4 MoveDir = float4::Zero;
-	bool test = false;
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
-	float4 CurPos = float4::Zero;
 
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void Render(float _Time) override;
 private:
+	float DeathCheck = 0; 
 	
+
 
 };
 

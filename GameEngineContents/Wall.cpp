@@ -8,7 +8,7 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include "MachineMonster.h"
-
+#include "BulletEffect.h"
 Wall* Wall::wall;
 
 Wall::Wall()
@@ -155,6 +155,10 @@ void Wall::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+
+
 				ColActor->Death();
 			}
 		
@@ -214,12 +218,14 @@ void Wall::Update(float _DeltaTime)
 	if (Hp <= -50)
 	{
 		Exploision->On();
+		WallCollision->Death();
 
 		if (MonsterCheck == false)
 		{
 			MachineMonster* Monster = GetLevel()->CreateActor<MachineMonster>();
 			Monster->SetMove({ 8400,720 });
 			MonsterCheck = true; 
+		
 		}
 		if (Exploision->IsAnimationEnd())
 		{

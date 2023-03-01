@@ -59,7 +59,8 @@ enum class PlayerState
 
 	HEAVYMOVECHANGEUPATTACK,
 	HEAVYUPCHANGEMOVEATTACK,
-	
+	HEAVYTHROW,
+	HEAVYTHROWMOVE
 };
 
 // Ό³Έν :
@@ -117,7 +118,10 @@ public:
 	{
 		return PosCheck = Pos;
 	}
-
+	float4 GetCameraMoveCheck()
+	{
+		return CameraMoveCheck;
+	}
 
 protected:
 	void Start() override;
@@ -153,12 +157,16 @@ private:
 	
 	
 	float4 CurPos = float4::Zero;
+	float4 CameraMoveCheck = float4::Zero;
+
 	float4 SpinMoveDir = float4::Zero;
 	float4 CameraDir = float4::Zero;
 	float4 body = { 0,0 };
 	float4 Reg = { 0,0 };
 	float4 gravity = float4::Zero;
 	float4 PosCheck = { 0,0 };
+
+
 	bool GunChange = false;
 	bool SpinDown = false;
 
@@ -168,7 +176,12 @@ private:
 	GameEngineRender* parachuteRender = nullptr;
 
 	GameEngineCollision* BodyCollision = nullptr;
-	GameEngineCollision* BulletCollision = nullptr;
+	GameEngineCollision* LeftBulletCollision = nullptr;
+	GameEngineCollision* RightBulletCollision = nullptr;
+	GameEngineCollision* UpBulletCollision = nullptr;
+
+
+
 
 	//Carriage* carriage = nullptr;
 
@@ -297,6 +310,13 @@ private:
 
 	void HeavyUpAttackMoveUpdate(float _Time);
 		
+	void HeavyThrowStart();
+	void HeavyThrowUpdate(float _Time); 
+
+	void HeavyThrowMoveStart();
+	void HeavyThrowMoveUpdate(float _Time);
+
+
 	//void HeavyUpJumpMoveAttackUpdate(float _Time);
 	//void HeavyUpJumpMoveDownAttackStart(float _Time);
 

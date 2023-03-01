@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="BulletEffect.h" />
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="Carriage.h" />
     <ClInclude Include="CharacterSelect.h" />
@@ -66,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="BulletEffect.cpp" />
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="Carriage.cpp" />
     <ClCompile Include="CarriageState.cpp" />

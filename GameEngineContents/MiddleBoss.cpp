@@ -8,7 +8,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentsEnums.h"
 #include "Player.h"
-
+#include "BulletEffect.h"
 MiddleBoss* MiddleBoss::middleBoss;
 
 
@@ -568,11 +568,17 @@ void MiddleBoss::Update(float _DeltaTime)
 				for (size_t i = 0; i < collision.size(); i++)
 				{
 					GameEngineActor* ColActor = collision[i]->GetActor();
+					BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+					Effect->SetMove(ColActor->GetPos());
+					
+
+
 					ColActor->Death();
 				}
 
 				if (LeftHp == 0)
 				{
+					LeftMonsterCollision->Death();
 					AnimationLeftDoorRender->Off();
 					AnimationLeftHumanAttackRender->Off();
 					AnimationLeftHumanRender->Off();
@@ -597,11 +603,17 @@ void MiddleBoss::Update(float _DeltaTime)
 				for (size_t i = 0; i < collision.size(); i++)
 				{
 					GameEngineActor* ColActor = collision[i]->GetActor();
+
+					BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+					Effect->SetMove(ColActor->GetPos());
+					
+
 					ColActor->Death();
 				}
 
 				if (RightHp == 0)
 				{
+					RightMonsterCollision->Death();
 					AnimationRightDoorRender->Off();
 					AnimationRightHumanAttackRender->Off();
 					AnimationRightHumanRender->Off();
@@ -625,11 +637,16 @@ void MiddleBoss::Update(float _DeltaTime)
 				for (size_t i = 0; i < collision.size(); i++)
 				{
 					GameEngineActor* ColActor = collision[i]->GetActor();
+
+					BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+					Effect->SetMove(ColActor->GetPos());
+
 					ColActor->Death();
 				}
 
 				if (MiddleHp == 0)
 				{
+					MiddleMonsterCollision->Death();
 					AnimationMiddleDoorRender->Off();
 					AnimationMiddleHumanAttackRender->Off();
 					AnimationMiddleHumanRender->Off();

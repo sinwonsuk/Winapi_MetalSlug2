@@ -87,7 +87,7 @@ private:
 	float LeftRightTimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 1000;
-	int Hp = 10;;
+	int Hp = 20;
 	float DeathCheck = 0;
 	bool MoveCamera = false;
 	bool  death = false;

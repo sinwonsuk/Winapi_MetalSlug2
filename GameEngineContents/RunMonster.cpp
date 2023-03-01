@@ -6,7 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
-
+#include "BulletEffect.h"
 RunMonster::RunMonster()
 {
 }
@@ -105,6 +105,7 @@ void RunMonster::Movecalculation(float _DeltaTime)
 		AnimationRender->On();
 		CarriageMonsterSee = true;
 	}
+
 	if (StateValue == RunMonsterState::DEATH)
 	{
 		DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
@@ -153,7 +154,7 @@ void RunMonster::DirCheck(const std::string_view& _AnimationName)
 }
 void RunMonster::Update(float _DeltaTime)
 {
-	if (nullptr != MonsterCollision && StateValue == RunMonsterState::MOVE)
+	if (nullptr != MonsterCollision && StateValue != RunMonsterState::DEATH)
 	{
 		
 		std::vector<GameEngineCollision*> collision;
@@ -163,26 +164,61 @@ void RunMonster::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				
+
+				ColActor->Death();
+			}			
+
+			if (Hp <= 0)
+			{
+				MoveDir += float4::Right * 1000;
+				MoveDir += float4::Up * 650;
+			}
+		}
+	}
+
+	if (nullptr != MonsterCollision && StateValue != RunMonsterState::DEATH)
+	{
+
+		std::vector<GameEngineCollision*> collision;
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+			Hp -= 5;
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				Effect->BoobBulletCheck = true; 
 				ColActor->Death();
 			}
-
-			
-
-			if ( Hp == 0)
-			{
-				ChangeState(RunMonsterState::DEATH);
-				AnimationBloodRender->On();
+			if (Hp <= 0)
+			{				
 				MoveDir += float4::Right * 1000;
 				MoveDir += float4::Up * 650;
 			}
 
-			
 		}
-
-		
-
 	}
 
+
+
+
+
+
+
+
+
+	if (Hp <= 0)
+	{
+	//	MonsterCollision->Death();
+		ChangeState(RunMonsterState::DEATH);
+		AnimationBloodRender->On();
+	}
 	
 
 	Movecalculation(_DeltaTime);
@@ -192,5 +228,5 @@ void RunMonster::Update(float _DeltaTime)
 
 void RunMonster::Render(float _Time)
 {
-	//MonsterCollision->DebugRender();
+	MonsterCollision->DebugRender();
 }

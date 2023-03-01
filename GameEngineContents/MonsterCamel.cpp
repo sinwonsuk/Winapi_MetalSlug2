@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
+#include "BulletEffect.h"
 #include "Player.h"
 
 MonsterCamel* MonsterCamel::CamelMonster;
@@ -66,7 +67,7 @@ void MonsterCamel::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);		
-		MonsterCollision->SetScale({ 100, 100 });
+		MonsterCollision->SetScale({ 100, 400 });
 
 	}
 
@@ -105,11 +106,11 @@ void MonsterCamel::Movecalculation(float _DeltaTime)
 	{
 		if (0 > MoveDir.x)
 		{
-			MoveDir.x = -200.0f;
+			MoveDir.x = -100.0f;
 		}
 		else
 		{
-			MoveDir.x = 200.0f;
+			MoveDir.x = 100.0f;
 		}
 	}
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
@@ -208,7 +209,7 @@ void MonsterCamel::DirBodyCheck(const std::string_view& _AnimationName , const s
 	{
 		//AnimationBodyRender->On();
 		AnimationBodyRender->SetPosition({ 0,0 });
-		AnimationRegRender->SetPosition({ 10,-50});
+		AnimationRegRender->SetPosition({ 10,-10});
 		return;
 	}
 
@@ -245,7 +246,7 @@ void MonsterCamel::Update(float _DeltaTime)
 	if (nullptr != PlayerCollision && StateValue == MonsterCamelState::IDLESTART)
 	{
 		std::vector<GameEngineCollision*> collision;
-		if (true == PlayerCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (GetPos().x < 3500)
 		{
 			CollisionPos = GetPos(); 
 
@@ -265,41 +266,77 @@ void MonsterCamel::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				
+
 				ColActor->Death();
 			}
 
-			if (Hp == 0)
+			if (Hp <= 0)
 			{
 				ChangeState(MonsterCamelState::DEATH);
+				MonsterCollision->Death();
+				PlayerCollision->Death();
 				death = true; 
-
-
-
 			}
-		
+	
+		}
+	}
+	if (nullptr != MonsterCollision)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+
+			Hp -= 5;
+
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->BoobBulletCheck = true; 
+				Effect->SetMove(ColActor->GetPos());
 
 
+				ColActor->Death();
+			}
 
+			if (Hp <= 0)
+			{
+				ChangeState(MonsterCamelState::DEATH);
+				MonsterCollision->Death();
+				PlayerCollision->Death(); 
+				death = true;
+			}
 
 		}
 	}
+	if (Player::MainPlayer->GetCameraMoveCheck().x > Player::MainPlayer->GetPos().x && MoveCamera == false)
+	{
+		if (Hp <= 0)
+		{
+			Player::MainPlayer->SetCameraCheck(true);
+			Player::MainPlayer->SetPosCheck(Player::MainPlayer->GetCameraMoveCheck());
+			MoveCamera = true;
+		}
+	}
 
-	if (Hp <= 0 && MoveCamera == false)
+	else if (Hp <= 0 && MoveCamera == false)
 	{
 
 		float4 b = float4::Right * 1000 * _DeltaTime;
 
 		GetLevel()->SetCameraMove(b);
-
 		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 350)
 		{
-			Player::MainPlayer->SetPosCheck(Player::MainPlayer->GetPos());
+			Player::MainPlayer->SetPosCheck({ Player::MainPlayer->GetPos().x - 350, Player::MainPlayer->GetPos().y });
 			Player::MainPlayer->SetCameraCheck(true);
 
 			MoveCamera = true;
 		}
-
 	}
+	
 	if (death == true)
 	{
 		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
@@ -326,6 +363,6 @@ void MonsterCamel::Render(float _Time)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-	MonsterCollision->DebugRender();
-	//PlayerCollision->DebugRender();
+	//MonsterCollision->DebugRender();
 }
+	

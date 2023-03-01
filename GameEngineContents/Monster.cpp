@@ -8,8 +8,9 @@
 #include <time.h>
 #include "ContentsEnums.h"
 #include "Bullets.h"
+#include "BulletEffect.h"
 #include "MonsterBullet.h"
-
+#include "Bomb.h"
 
 
 Monster* Monster::MonsterA;
@@ -65,8 +66,8 @@ void Monster::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-		MonsterCollision->SetPosition({ 0,-100 });
-		MonsterCollision->SetScale({ 100, 100 });
+		MonsterCollision->SetPosition({ 0,-80 });
+		MonsterCollision->SetScale({ 75, 150 });
 
 	}
 	
@@ -191,7 +192,14 @@ void Monster::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				MonsterCollision->Death(); 
+
+
 				ColActor->Death();
+
 			}
 
 			if (Choice == 0 )
@@ -205,7 +213,40 @@ void Monster::Update(float _DeltaTime)
 		}
 
 	}
+	if (nullptr != MonsterCollision && StateValue != MonsterState::DEATHONE && StateValue != MonsterState::DEATHTWO)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		{
+			int Choice = rand() % 2;
 
+
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				Effect->BoobBulletCheck = true;
+				MonsterCollision->Death();
+
+
+				ColActor->Death();
+			
+	
+			}
+
+			if (Choice == 0)
+			{
+				ChangeState(MonsterState::DEATHONE);
+			}
+			if (Choice == 1)
+			{
+				ChangeState(MonsterState::DEATHTWO);
+			}
+		}
+
+	}
 
 	if (nullptr != PlayerCollision && (StateValue == MonsterState::MOVE || StateValue == MonsterState::IDLE))
 	{

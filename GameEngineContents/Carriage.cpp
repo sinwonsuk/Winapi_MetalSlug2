@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "RunMonster.h"
 #include "MiniBoss.h"
+#include "BulletEffect.h"
 
 Carriage* Carriage::carriage;
 Carriage::Carriage()
@@ -34,9 +35,9 @@ void Carriage::Start()
 	}
 
 	{
-		Exploision = CreateRender(MetalSlugOrder::Exploision);
-		Exploision->SetScale({ 700,700 });
-		Exploision->SetPosition({ 80,-250 });
+		Exploision = CreateRender(MetalSlugOrder::Exploision2);
+		Exploision->SetScale({ 1200,1200 });
+		Exploision->SetPosition({ -80,-120 });
 		Exploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
 	}
 
@@ -48,7 +49,7 @@ void Carriage::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
-		MonsterCollision->SetScale({ 400,500 });
+		MonsterCollision->SetScale({ 400,600 });
 	}
 
 
@@ -163,25 +164,60 @@ void Carriage::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
+			Hp--;
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				
+
 				ColActor->Death();
 			}
-			//Player::MainPlayer->SetMove({ 0,-1 });
-
-			Hp--;
-		
+					
 		}
 
-		if (Hp <= 0)
+		
+	}
+	if (nullptr != MonsterCollision && StateValue == CarriageState::STOP)
+	{
+		std::vector<GameEngineCollision*> collision;
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
-			Exploision->On();
-			ChangeState(CarriageState::DEATH);
+			Hp -= 5;
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				Effect->BoobBulletCheck = true; 
+
+				ColActor->Death();
+			}
+			
+			
+
 		}
 
 
 	}
+
+
+
+
+
+
+
+
+	if (Hp <= 0)
+	{
+		MonsterCollision->Death();
+		Exploision->On();
+		ChangeState(CarriageState::DEATH);
+	}
+
+
+
 	if (Hp > 0 && StateValue == CarriageState::STOP)
 	{
 		if (MiniBoss::miniboss->GetAttackCheck() == true)
@@ -197,7 +233,17 @@ void Carriage::Update(float _DeltaTime)
 		}
 	}
 
-	if (Hp <= 0 && MoveCamera == false)
+	if (Player::MainPlayer->GetCameraMoveCheck().x > Player::MainPlayer->GetPos().x && MoveCamera == false)
+	{
+		if (Hp <= 0)
+		{
+			Player::MainPlayer->SetCameraCheck(true);
+			Player::MainPlayer->SetPosCheck(Player::MainPlayer->GetCameraMoveCheck());
+			MoveCamera = true;
+		}
+	}
+
+	else if (Hp <= 0 && MoveCamera == false)
 	{
 
 		float4 b = float4::Right * 1000 * _DeltaTime;

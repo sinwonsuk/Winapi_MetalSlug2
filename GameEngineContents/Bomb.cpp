@@ -14,7 +14,7 @@ Bomb::~Bomb()
 void Bomb::Start()
 {
 	{
-		BoombRender = CreateRender(MetalSlugOrder::Boob);
+		BoombRender = CreateRender(MetalSlugOrder::Boomb);
 		//BoombRender->SetPosition({ 0,-200 });
 		BoombRender->SetScale({ 500,500 });
 		BoombRender->CreateAnimation({ .AnimationName = "Boomb", .ImageName = "Boom.bmp", .Start = 0, .End = 15, .InterTime = 0.1f });
@@ -22,6 +22,10 @@ void Bomb::Start()
 		//BoombRender->CreateAnimation({ .AnimationName = "Stop", .ImageName = "MonsterNife.bmp", .Start = 11, .End = 11, .InterTime = 0.1f });
 		//BoombRender->EffectCameraOff();
 		BoombRender->ChangeAnimation("Boomb");
+	}
+	{
+		Collision = CreateCollision(MetalSlugOrder::Boomb);
+		Collision->SetScale({ 30, 30 });
 	}
 }
 

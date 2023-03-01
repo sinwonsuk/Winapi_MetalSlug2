@@ -62,6 +62,7 @@
     <ClInclude Include="MachineMonster.h" />
     <ClInclude Include="MachineMonsterBullet.h" />
     <ClInclude Include="MiniBoss.h" />
+    <ClInclude Include="BulletEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -142,6 +143,7 @@
     <ClCompile Include="MachineMonsterBullet.cpp" />
     <ClCompile Include="MiniBoss.cpp" />
     <ClCompile Include="MiniBossState.cpp" />
+    <ClCompile Include="BulletEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

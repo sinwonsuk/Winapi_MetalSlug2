@@ -19,13 +19,14 @@ enum class MetalSlugOrder
 	Wall,
 	Effect,
 	Monster,
-	
+	Exploision2,
 	MonsterReg,
 	MonsterCamel,
 	MonsterCheck,
 	MonsterBullet,
 	Bullet,
-	Boob
+	BulletEffect,
+	Boomb
 };
 
 enum class MetalSlugSelect

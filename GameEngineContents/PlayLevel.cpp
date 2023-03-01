@@ -312,6 +312,7 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("RightHeavyIdleChangeUp.BMP"));
 			Image->Cut(5, 1);
 		}
+
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("parachute.BMP"));
 			Image->Cut(5, 1);
@@ -319,6 +320,14 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("parachuteDown.BMP"));
 			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Left_HeavyGun_Throw.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("Right_HeavyGun_Throw.BMP"));
+			Image->Cut(5, 2);
 		}
 
 
@@ -777,6 +786,11 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("LeftUpHeavyBullet5.BMP"));
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("BulletEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+
 
 	}
 	
@@ -820,10 +834,10 @@ void PlayLevel::Loading()
 
 
 
-	for (size_t i = 0; i < 100; i++)
+	/*for (size_t i = 0; i < 100; i++)
 	{
 		Bullets* Actor = CreateActor<Bullets>(MetalSlugOrder::Bullet);
-	}
+	}*/
 
 	
 

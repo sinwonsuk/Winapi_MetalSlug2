@@ -22,8 +22,8 @@ public:
 	Bomb& operator=(Bomb&& _Other) noexcept = delete;
 	float4 MoveDir = float4::Zero;
 	bool test = false;
-	GameEngineRender* AnimationRender = nullptr;
-	GameEngineCollision* Collision = nullptr;
+	
+	
 	float4 CurPos = float4::Zero;
 	bool SetDirCheck(bool & Check)
 	{
@@ -44,6 +44,8 @@ private:
 	bool MoveCheck = false;
 
 	bool BoomDeath = false;
+	GameEngineCollision* Collision = nullptr;
+
 };
 
 

@@ -33,6 +33,7 @@ protected:
 private:
 	
 	float DeathCheck = 0;
+	float DirTime = 0;
 	GameEngineRender* RightHeavyBullet = nullptr;
 	GameEngineRender* RightUpHeavyBullet = nullptr;
 	GameEngineRender* RightUpHeavyBullet1 = nullptr;

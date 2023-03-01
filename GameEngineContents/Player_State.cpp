@@ -171,6 +171,13 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::HEAVYUPCHANGEMOVEATTACK:
 		HeavyUpChangeUpMoveStart();
 		break;
+	case PlayerState::HEAVYTHROW:
+		HeavyThrowStart();
+		break;
+	case PlayerState::HEAVYTHROWMOVE:
+		HeavyThrowMoveStart();
+		break;
+
 	default:
 		break;
 	}
@@ -349,6 +356,14 @@ void Player::UpdateState(float _Time)
 		case PlayerState::HEAVYUPCHANGEMOVEATTACK:
 			HeavyUpChangeMoveUpdate(_Time);
 			break;
+		case PlayerState::HEAVYTHROW:
+			HeavyThrowUpdate(_Time);
+			break;
+		case PlayerState::HEAVYTHROWMOVE:
+			HeavyThrowMoveUpdate(_Time);
+			break;
+
+
 		default:
 			break;
 		}
@@ -603,6 +618,18 @@ void Player::HeavyUpChangeUpMoveStart()
 	DirCheck("HeaveGunUpChangeIdle", "Move");
 }
 
+void Player::HeavyThrowStart()
+{
+	DirCheck("HeaveGunThrow", "Idle");
+}
+
+void Player::HeavyThrowMoveStart()
+{
+	DirCheck("HeaveGunThrow", "Move");
+}
+
+
+
 
 void Player::IdleUpdate(float _Time)
 {
@@ -635,7 +662,7 @@ void Player::IdleUpdate(float _Time)
 		MoveDir += float4::Up * 650;
 		test = true;
 	}
-	else if (true == GameEngineInput::IsPress("Throw"))
+	else if (true == GameEngineInput::IsDown("Throw"))
 	{
 		ChangeState(PlayerState::THROW);
 		return;
@@ -670,6 +697,11 @@ void Player::HeavyIdleUpdate(float _Time)
 		ChangeState(PlayerState::HEAVYJUMPUP);
 		MoveDir += float4::Up * 650;
 		test = true;
+	}
+	else if (true == GameEngineInput::IsDown("Throw"))
+	{
+		ChangeState(PlayerState::HEAVYTHROW);
+		return;
 	}
 
 }
@@ -787,6 +819,22 @@ void Player::ThrowUpdate(float _Time)
 		return;
 	}
 }
+void Player::HeavyThrowUpdate(float _Time)
+{
+	if (AnimationBodyRender->IsAnimationEnd() == true)
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown("Throw"))
+	{
+		ChangeState(PlayerState::HEAVYTHROW);
+		return;
+	}
+
+}
+
 
 
 void Player::ThrowMoveUpdate(float _Time)
@@ -831,6 +879,52 @@ void Player::ThrowMoveUpdate(float _Time)
 	}
 
 }
+
+void Player::HeavyThrowMoveUpdate(float _Time)
+{
+	CameraDir = { 0,0 };
+
+	if (AnimationBodyRender->IsAnimationEnd() == true)
+	{
+		ChangeState(PlayerState::HEAVYMOVE);
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+	if (true == GameEngineInput::IsUp("LeftMove") || true == GameEngineInput::IsUp("RightMove"))
+	{
+		ChangeState(PlayerState::HEAVYIDLE);
+		return;
+	}
+
+
+	if (true == GameEngineInput::IsDown("Throw"))
+	{
+		ChangeState(PlayerState::HEAVYTHROWMOVE);
+		return;
+	}
+
+
+
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		MoveDir += float4::Left * MoveSpeed;
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		MoveDir += float4::Right * MoveSpeed;
+		CameraDir = float4::Right * MoveSpeed * _Time;
+	}
+
+
+
+}
+
 
 
 void Player::AttackMoveUpdate(float _Time)
@@ -893,6 +987,16 @@ void Player::HeavyAttackMoveUpdate(float _Time)
 {
 	CameraDir = { 0,0 };
 	
+	if (true == GameEngineInput::IsPress("LeftMove"))
+	{
+		MoveDir += float4::Left * MoveSpeed;
+	}
+
+	if (true == GameEngineInput::IsPress("RightMove"))
+	{
+		MoveDir += float4::Right * MoveSpeed;
+		CameraDir = float4::Right * MoveSpeed * _Time;
+	}
 
 
 	if (true == GameEngineInput::IsDown("LeftMove") || true == GameEngineInput::IsDown("RightMove"))
@@ -948,16 +1052,6 @@ void Player::HeavyAttackMoveUpdate(float _Time)
 	}
 
 
-	if (true == GameEngineInput::IsPress("LeftMove"))
-	{
-		MoveDir += float4::Left * MoveSpeed;
-	}
-
-	if (true == GameEngineInput::IsPress("RightMove"))
-	{
-		MoveDir += float4::Right * MoveSpeed;
-		CameraDir = float4::Right * MoveSpeed * _Time;
-	}
 
 }
 
@@ -2082,7 +2176,7 @@ void Player::MoveUpdate(float _Time)
 		return;
 	}
 
-	else if (true == GameEngineInput::IsPress("Throw"))
+	else if (true == GameEngineInput::IsDown("Throw"))
 	{
 		ChangeState(PlayerState::THROWMOVE);
 		return;
@@ -2137,12 +2231,12 @@ void Player::HeavyMoveUpdate(float _Time)
 		ChangeState(PlayerState::HEAVYIDLE);
 		return;
 	}
+	 else if (true == GameEngineInput::IsDown("Throw"))
+	 {
+		 ChangeState(PlayerState::HEAVYTHROWMOVE);
+		 return;
+	 }
 
-	/*else if (true == GameEngineInput::IsPress("Throw"))
-	{
-		ChangeState(PlayerState::THROWMOVE);
-		return;
-	}*/
 	 if (true == GameEngineInput::IsPress("UpMove"))
 	{
 		ChangeState(PlayerState::HEAVYUP);

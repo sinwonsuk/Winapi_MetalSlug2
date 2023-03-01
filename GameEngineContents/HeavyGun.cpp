@@ -150,11 +150,11 @@ void HeavyGun::Update(float _DeltaTime)
 		{
 		case Direction::Left:
 			LeftHeavyBullet->On(); 
-		
+			DirTime = 0.6;
 			break;
 		case Direction::Right:
 			RightHeavyBullet->On(); 
-		
+			DirTime = 0.6;
 		
 			break;
 		case Direction::Down:
@@ -163,22 +163,23 @@ void HeavyGun::Update(float _DeltaTime)
 			break;
 		case Direction::Up:
 			UpHeavyBullet->On();
-		
+			DirTime = 0.6;
 			break;
 		case Direction::A:
 			RightUpHeavyBullet->On(); 
-			
+			DirTime = 0.75;
 			break;
 		case Direction::B:
 			RightUpHeavyBullet1->On();
-		
+			DirTime = 0.95;
 			break;
 		case Direction::C:
 			RightUpHeavyBullet3->On();
-			
+			DirTime = 0.9;
 			break;
 		case Direction::D:
 			RightUpHeavyBullet4->On();
+			DirTime = 0.9;
 			break;
 		case Direction::LeftA:
 			LeftUpHeavyBullet->On();
@@ -202,7 +203,12 @@ void HeavyGun::Update(float _DeltaTime)
 		default:
 			break;
 		}
-	
+		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+		if (DeathCheck > DirTime)
+		{
+			this->Death();
+		}
 		SetMove(MoveDir * _DeltaTime * Speed);
 }
 

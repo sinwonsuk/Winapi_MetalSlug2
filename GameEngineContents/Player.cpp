@@ -19,6 +19,7 @@
 #include "Wall.h"
 #include "Rebel.h"
 #include "MiniBoss.h"
+#include "BulletEffect.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -35,9 +36,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 200,0 });
-	//GetLevel()->SetCameraPos({ 100,0 });
-	
+	SetMove({ 100,0 });
+	//GetLevel()->SetCameraPos({ 4000,0 });
+	//MonsterCheck = 6;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -153,14 +154,19 @@ void Player::Start()
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunDownAttack",  .ImageName = "RightHeaveGunDownAttack.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunDownAttack",  .ImageName = "LeftHeaveGunDownAttack.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 
-		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunThrow",  .ImageName = "RightHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
+		/*AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunThrow",  .ImageName = "RightHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunThrow",  .ImageName = "LeftHeaveGunThrow.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
-		
+		*/
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunIdleChangeUp",  .ImageName = "RightHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.075f , .Loop = false ,.FrameIndex{0,1,2,2} });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunIdleChangeUp",  .ImageName = "LeftHeavyIdleChangeUp.bmp", .Start = 0, .End = 2, .InterTime = 0.075f , .Loop = false ,.FrameIndex{0,1,2,2}});
 
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunUpChangeIdle",  .ImageName = "RightHeavyUpChangeIdle.bmp",  .InterTime = 0.05f , .Loop = false,.FrameIndex{0,1,1} });
 		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunUpChangeIdle",  .ImageName = "LeftHeavyUpChangeIdle.bmp",  .InterTime = 0.05f , .Loop = false,.FrameIndex{0,1,1} });
+
+
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Right_HeaveGunThrow",  .ImageName = "Right_HeavyGun_Throw.bmp", .Start = 0, .End = 5, .InterTime = 0.05f , .Loop = false});
+		AnimationBodyRender->CreateAnimation({ .AnimationName = "Left_HeaveGunThrow",  .ImageName = "Left_HeavyGun_Throw.bmp", .Start = 0, .End = 5, .InterTime = 0.05f , .Loop = false});
+
 
 	}
 
@@ -224,7 +230,25 @@ void Player::Start()
 		BodyCollision->SetPosition({ 0,-100 });
 
 	}
-	
+	/*{
+		LeftBulletCollision = CreateCollision(MetalSlugOrder::PlayerReg);
+		LeftBulletCollision->SetScale({ 100, 100 });
+		LeftBulletCollision->SetPosition({ 0,-100 });
+
+	}
+	{
+		RightBulletCollision = CreateCollision(MetalSlugOrder::PlayerReg);
+		RightBulletCollision->SetScale({ 10 ,800 });
+		RightBulletCollision->SetPosition({ 600,-350 });
+		
+
+	}
+	{
+		UpBulletCollision = CreateCollision(MetalSlugOrder::PlayerReg);
+		UpBulletCollision->SetScale({ 100, 100 });
+		UpBulletCollision->SetPosition({ 0,-100 });
+
+	}*/
 
 }
 
@@ -969,10 +993,10 @@ void Player::CollisionCheck(float _DeltaTime)
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	if (nullptr != BulletCollision)
+	if (nullptr != RightBulletCollision)
 	{
 		std::vector<GameEngineCollision*> collision;
-		if (true == BulletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (true == RightBulletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
 
 
@@ -1142,7 +1166,7 @@ void Player::CollisionCheck(float _DeltaTime)
 		if (RGB(249, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(249, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 5)
 		{
 			MonsterBulletRange = GetPos().x;
-		
+		    CameraMoveCheck = GetPos(); 
 			CameraCheck = false;
 
 			if (MonsterCheck == 5)
@@ -1163,6 +1187,7 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			if (MonsterCheck == 5)
 			{
+				
 				MonsterCamel* Actor = GetLevel()->CreateActor<MonsterCamel>();
 				Actor->SetMove({ 4200,500 });
 				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
@@ -1174,7 +1199,7 @@ void Player::CollisionCheck(float _DeltaTime)
 		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 6 )
 		{
 			CameraCheck = false;
-
+			CameraMoveCheck = GetPos();
 			if (MonsterCheck == 6)
 			{
 				
@@ -1225,7 +1250,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 7;
 		}
 	
-		if (RGB(245, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(245, 0, 0)) && PosCheck.x < GetPos().ix())
+		if (RGB(245, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(245, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 7)
 		{
 			
 
@@ -1238,25 +1263,44 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			MonsterCheck = 8;
 		}
+
+
 		if (GetLevel()->GetCameraPos().x > 6200 && MonsterCheck == 8)
 		{
 			CameraCheck = false;
-			middleBoss->SetMiddleBossStart(true); 
-
+			
 			MonsterCheck = 9; 
 	    }
+
+		if (GetPos().x > 6500 && MonsterCheck == 9)
+		{
+			middleBoss->SetMiddleBossStart(true);
+			CameraMoveCheck = GetPos();
+
+			MonsterCheck = 10; 
+		}
+
+
 
 		if (middleBoss != nullptr)
 		{
 			PalaceTime = middleBoss->GetDeathTime();
 			if (PalaceTime > 6.3)
 			{
-				CameraCheck = true;
-				MonsterCheck = 10;
+				
+				MonsterCheck = 11;
 
 			}
 		}
-		if (MonsterCheck == 10)
+		if (MonsterCheck == 11 && CameraMoveCheck.x > GetPos().x)
+		{
+
+			CameraCheck = true;
+			PosCheck = CameraMoveCheck;
+			MonsterCheck = 12; 
+		}
+
+		if (MonsterCheck == 11 && CameraMoveCheck.x < GetPos().x)
 		{
 			float4 b = float4::Right * 1000 * _DeltaTime;
 
@@ -1267,32 +1311,32 @@ void Player::CollisionCheck(float _DeltaTime)
 				CameraCheck = true; 
 				Player::MainPlayer->SetCameraCheck(true);
 				PosCheck = GetPos();
-				MonsterCheck = 11;
+				MonsterCheck = 12;
 			}
 		}
-
-		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 11)
+		
+		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 12)
 		{
-			CameraCheck = true;
+			//CameraCheck = true;
 
-			if (MonsterCheck == 11)
+			if (MonsterCheck == 12)
 			{
 				Wall* Actor = GetLevel()->CreateActor<Wall>();
 				Actor->SetMove({ 8400,770 });
 			}
-			if (MonsterCheck == 11)
+			if (MonsterCheck == 12)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->SetMove({ 8000,500 });
 				//Actor->ChangeState(RebelState::IDLE);
 			}
-			if (MonsterCheck == 11)
+			if (MonsterCheck == 12)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->SetMove({ 8200,500 });
 				Actor->ChangeState(RebelState::IDLE2);
 			}
-			if (MonsterCheck == 11)
+			if (MonsterCheck == 12)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->ChangeState(RebelState::ATTACK);
@@ -1300,25 +1344,25 @@ void Player::CollisionCheck(float _DeltaTime)
 			}
 
 
-			MonsterCheck = 12;
+			MonsterCheck = 13;
 		}
 		
 		
-		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 12)
-		{
-			if (MonsterCheck == 12)
-			{
-				RebelStart = true;
-			}
-			MonsterCheck = 13;		
-		}
-		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 13)
+		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 13)
 		{
 			if (MonsterCheck == 13)
 			{
+				RebelStart = true;
+			}
+			MonsterCheck = 14;		
+		}
+		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 14)
+		{
+			if (MonsterCheck == 14)
+			{
 				CameraCheck = false;
 			}
-			MonsterCheck = 14;
+			MonsterCheck = 15;
 		}
 }
 
@@ -1662,9 +1706,15 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 			if (DirString == "Left_")
 			{
 				LeftSetBody({ 0,0 });
+
+
 				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
 				Actor->SetPos({ GetPos().x-100,GetPos().y - 95 });
 				Actor->MoveDir = float4::Left;
+
+				/*BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetPos({ GetPos().x - 100,GetPos().y - 95 });
+				Effect->MoveDir = float4::Left;*/
 
 				AnimationBodyRender->SetPosition({ body.x - 38 , body.y + 7 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1677,6 +1727,10 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
 				Actor->SetPos({ GetPos().x+100,GetPos().y - 95 });
 				Actor->MoveDir = float4::Right;
+
+			/*	BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetPos({ GetPos().x + 100,GetPos().y - 95 });
+				Effect->MoveDir = float4::Right;*/
 
 				AnimationBodyRender->SetPosition({ body.x + 40, body.y + 7 });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1804,22 +1858,20 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 		if (StateValue == PlayerState::THROW)
 		{
 
-			if (BombNumber > 0)
-			{
-				BombNumber--;
-			}
-
+			
 			if (DirString == "Left_")
 			{
 				LeftSetBody({ 0,0 });
 
 				if (BombNumber > 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
-					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
-					Actor->MoveDir += float4::Up * 550;
-					Actor->SetDirCheck(Left);
-					Actor->SetMoveCheck(NotMove);
+					
+						Actor = GetLevel()->CreateActor<Bomb>();
+						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
+						Actor->MoveDir += float4::Up * 550;
+						Actor->SetDirCheck(Left);
+						Actor->SetMoveCheck(NotMove);
+					
 				}
 				AnimationBodyRender->SetPosition({ body });
 				AnimationRegRender->SetPosition({ Reg });
@@ -1831,11 +1883,13 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 				if (BombNumber > 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
-					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
-					Actor->MoveDir += float4::Up * 550;
-					Actor->SetDirCheck(Right);
-					Actor->SetMoveCheck(NotMove);
+					
+						Actor = GetLevel()->CreateActor<Bomb>();
+						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
+						Actor->MoveDir += float4::Up * 550;
+						Actor->SetDirCheck(Right);
+						Actor->SetMoveCheck(NotMove);
+					
 				}
 
 				AnimationBodyRender->SetPosition({ body });
@@ -1843,14 +1897,16 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				DirString = "Right_";
 
 			}
+
+			if (BombNumber > 0)
+			{
+				BombNumber--;
+			}
+
 		}
 		if (StateValue == PlayerState::THROWMOVE)
 		{
-			if (BombNumber > 0)
-			{
-				BombNumber--;
-			}
-
+			
 
 
 
@@ -1860,14 +1916,63 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 				if (BombNumber > 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
-					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
-					Actor->MoveDir += float4::Up * 550;
-					Actor->SetDirCheck(Left);
-					Actor->SetMoveCheck(Move);
+					
+						Actor = GetLevel()->CreateActor<Bomb>();
+						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
+						Actor->MoveDir += float4::Up * 550;
+						Actor->SetDirCheck(Left);
+						Actor->SetMoveCheck(Move);
+					
 				}
 
 				AnimationBodyRender->SetPosition({ body });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			else if (DirString == "Right_")
+			{
+				RightSetBody({ 0,0 });
+
+				if (BombNumber > 0)
+				{
+					
+						Actor = GetLevel()->CreateActor<Bomb>();
+						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
+						Actor->MoveDir += float4::Up * 550;
+						Actor->SetDirCheck(Right);
+						Actor->SetMoveCheck(Move);
+									
+				}
+
+				AnimationBodyRender->SetPosition({ body });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Right_";
+
+			}
+			if (BombNumber > 0)
+			{
+				BombNumber--;
+			}
+
+		}
+
+		if (StateValue == PlayerState::HEAVYTHROW)
+		{
+			AnimationBodyRender->SetScale({ 600,600 });
+			
+			if (DirString == "Left_")
+			{
+				LeftSetBody({ 0,0 });
+
+				if (BombNumber > 0)
+				{
+					Actor = GetLevel()->CreateActor<Bomb>();
+					Actor->SetPos({ GetPos().x - 50,GetPos().y - 100 });
+					Actor->MoveDir += float4::Up * 550;
+					Actor->SetDirCheck(Left);
+					Actor->SetMoveCheck(NotMove);
+				}
+				AnimationBodyRender->SetPosition({ body.x -20,  body.y});
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Left_";
 			}
@@ -1881,17 +1986,70 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 					Actor->MoveDir += float4::Up * 550;
 					Actor->SetDirCheck(Right);
-					Actor->SetMoveCheck(Move);
+					Actor->SetMoveCheck(NotMove);
 				}
 
-				AnimationBodyRender->SetPosition({ body });
+				AnimationBodyRender->SetPosition({ body.x+20,body.y-48 });
 				AnimationRegRender->SetPosition({ Reg });
 				DirString = "Right_";
 
 			}
-		}
+			if (BombNumber > 0)
+			{
+				--BombNumber;
+			}
 
-		
+		}
+		if (StateValue == PlayerState::HEAVYTHROWMOVE)
+		{
+			
+			AnimationBodyRender->SetScale({ 600,600 });
+
+
+
+			if (DirString == "Left_")
+			{
+				LeftSetBody({ 0,0 });
+
+				if (BombNumber >= 0)
+				{
+					Actor = GetLevel()->CreateActor<Bomb>();
+					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
+					Actor->MoveDir += float4::Up * 550;
+					Actor->SetDirCheck(Left);
+					Actor->SetMoveCheck(Move);
+				}
+
+				AnimationBodyRender->SetPosition({ body.x-25,body.y });
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Left_";
+			}
+			else if (DirString == "Right_")
+			{
+				RightSetBody({ 0,0 });
+
+				if (BombNumber > 0)
+				{
+					Actor = GetLevel()->CreateActor<Bomb>();
+
+
+					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
+					Actor->MoveDir += float4::Up * 550;
+					Actor->SetDirCheck(Right);
+					Actor->SetMoveCheck(Move);
+				}
+
+				AnimationBodyRender->SetPosition({ body.x+25,  body.y-50});
+				AnimationRegRender->SetPosition({ Reg });
+				DirString = "Right_";
+
+			}
+			if (BombNumber > 0)
+			{
+				--BombNumber;
+			}
+
+		}
 
 
 	}
@@ -2505,5 +2663,9 @@ void Player::Render(float _DeltaTime)
 	//TextOut(DoubleDC, 0, 0, Text.c_str(), Text.size());
 
 	// µð¹ö±ë¿ë.
+
+	/*LeftBulletCollision->DebugRender(); 
+	RightBulletCollision->DebugRender();
+	UpBulletCollision->DebugRender();*/
    
 }

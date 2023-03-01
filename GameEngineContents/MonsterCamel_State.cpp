@@ -215,7 +215,7 @@ void MonsterCamel::AttackUpdate(float _Time)
 	if (AnimationRegRender->GetFrame() == 5)
 	{
 		MonsterCamelBullet* Bullet = GetLevel()->CreateActor<MonsterCamelBullet>();
-		Bullet->SetMove({ GetPos().x-100, GetPos().y-125 });
+		Bullet->SetMove({ GetPos().x-100, GetPos().y-85 });
 	}
 
 
