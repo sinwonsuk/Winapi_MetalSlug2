@@ -21,10 +21,13 @@ private:
 	float TimeCheck = 0;
 	bool Time = false;
 	float Value = 10;
+	float Value1 = 200;
 	NumberRenderObject TestNumber;
-
+	NumberRenderObject TestNumber1;
 
 	float4 CamerPos = float4::Zero;
+
+	GameEngineRender* BaseBullet = nullptr;
 	GameEngineRender* M = nullptr;
 	GameEngineRender* I = nullptr;
 	GameEngineRender* S = nullptr;

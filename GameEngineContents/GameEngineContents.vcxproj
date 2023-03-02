@@ -26,6 +26,7 @@
     <ClInclude Include="CharacterSelect.h" />
     <ClInclude Include="HeavyGun.h" />
     <ClInclude Include="InterFace.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="MachineMonster.h" />
     <ClInclude Include="MachineMonsterBullet.h" />
     <ClInclude Include="Map.h" />
@@ -74,6 +75,7 @@
     <ClCompile Include="CharacterSelect.cpp" />
     <ClCompile Include="HeavyGun.cpp" />
     <ClCompile Include="InterFace.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="MachineMonster.cpp" />
     <ClCompile Include="MachineMonsterBullet.cpp" />
     <ClCompile Include="MachineMonsterState.cpp" />

@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include "Items.h"
 void NPC::ChangeState(NpcState _State)
 {
 	{
@@ -256,18 +257,48 @@ void NPC::CollisionUpdate(float _Time)
 {
 
 	MoveDir.x = 0;
-	if (true == AnimationRender->IsAnimationEnd() )
-	{ 
-		
-		TimeCheck = 0;
-		ChangeState(NpcState::COLLISIONAFTER);
-		return;
+	if (true == AnimationRender->IsAnimationEnd())
+	{
+		if (ItemCheck == true)
+		{
+			TimeCheck = 0;
+			Items* Actor = GetLevel()->CreateActor<Items>();
+			Actor->SetPos({ GetPos().x - 50,GetPos().y });
+			Actor->SetGunBoombChangeCheck(true);
+			ChangeState(NpcState::COLLISIONAFTER);
+			return;
+		}
+
+		if (ItemCheck == false)
+		{
+			TimeCheck = 0;
+			Items* Actor = GetLevel()->CreateActor<Items>();
+			Actor->SetPos({ GetPos().x - 50,GetPos().y });
+			Actor->SetGunBoombChangeCheck(true);
+			ChangeState(NpcState::COLLISIONAFTER);
+			return;
+		}
+
+
+
+
+
+
+
+
+
+
 	}
+	
 }
 
 
 void NPC::CollisionAfterUpdate(float _Time)
 {
+
+
+
+
 	if (true == AnimationRender->IsAnimationEnd())
 	{
 		ChangeState(NpcState::DEATH);

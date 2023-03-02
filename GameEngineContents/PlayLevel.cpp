@@ -78,6 +78,14 @@ void PlayLevel::Loading()
 	Exploision.Move("Image");
 	Exploision.Move("Exploision");
 
+	GameEngineDirectory items;
+	items.MoveParentToDirectory("ContentsResources");
+	items.Move("ContentsResources");
+	items.Move("Image");
+	items.Move("items");
+
+
+
 
 	{
 		
@@ -344,6 +352,9 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("Score.BMP"));
 		}		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("BaseGunBullet.BMP"));
+		}
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("PressStart.BMP"));
 			Image->Cut(2, 1);
@@ -790,7 +801,19 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("BulletEffect.BMP"));
 			Image->Cut(5, 2);
 		}
+		// items
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(items.GetPlusFileName("ItemBoomb.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(items.GetPlusFileName("ItemEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(items.GetPlusFileName("ItemHeavyGun.BMP"));
 
+		}
 
 	}
 	

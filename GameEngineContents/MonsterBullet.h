@@ -21,5 +21,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	
 private:
+	bool DeathCheck = false;
 	GameEngineRender* BulletRender = nullptr;
+	float DeathTime = false;
 };

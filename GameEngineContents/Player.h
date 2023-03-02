@@ -93,9 +93,16 @@ public:
 	{
 		return MonsterBulletRange;
 	}
+	
+
+
 	float GetBombNumber()
 	{
 		return BombNumber;
+	}
+	float GetHeavyMachineGun()
+	{
+		return HeavyMachineGun;
 	}
 
 	float4 GetCameraDir()
@@ -103,8 +110,7 @@ public:
 		return CameraDir; 
 	}
 	bool SetCameraCheck(const bool& Check)
-	{
-		
+	{		
 		return CameraCheck = Check;
 	}
 	bool GetRebelStart()
@@ -122,6 +128,14 @@ public:
 	{
 		return CameraMoveCheck;
 	}
+	bool GetGunChange()
+	{
+		return GunChange;
+	}
+
+	float BombNumber = 10;
+	float HeavyMachineGun = 0;
+
 
 protected:
 	void Start() override;
@@ -131,6 +145,8 @@ protected:
 
 private:
 
+	
+
 	bool Gravity = false;
 	bool test = false;
 	float4 CamelCheck = float4::Zero;
@@ -138,7 +154,6 @@ private:
 	bool CameraCheck = false;
 	PlayerState StateValue = PlayerState::IDLE;
 	int MonsterCheck = 0;
-	int d = 99;
 	int StartFrame = 0;
 
 	float AccTime = 0.0f;
@@ -146,7 +161,7 @@ private:
 	float JumpSpeed = 800.0f;
 	float MonsterBulletRange = 0;
 	float TimeCheck = 0;
-	float BombNumber = 10; 
+	
 
 	std::string DirString = "Right_";
 	std::string DirStringBullet = "Right";
@@ -331,6 +346,7 @@ private:
 	float SpeedDown = 0; 
 
 	float PalaceTime = 0; 
+
 	bool RightHeavyBulletCheck = false;
 	bool LeftHeavyBulletCheck = false;
 	bool UpHeavyBulletCheck = false;

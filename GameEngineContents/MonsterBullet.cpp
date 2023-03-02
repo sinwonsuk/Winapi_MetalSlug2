@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineResources.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
 #include "Player.h"
 
@@ -73,8 +74,21 @@ void MonsterBullet::Update(float _DeltaTime)
 			BulletRender->ChangeAnimation("Stop");
 			Check = false;
 			MoveDir = { 0,0 };
-			
+			MonsterBulletMove = false;
+
+			DeathCheck = true;
 		}
+		if (DeathCheck == true)
+		{
+			DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+
+			if (DeathTime > 0.5)
+			{
+				this->Death(); 
+			}
+		}
+
+		
 	
 	SetMove(MoveDir* _DeltaTime);
 	

@@ -9,7 +9,9 @@ enum class RunMonsterState
 	STOP,
 	MOVE,
 	DEATH,
-	BINDMOVEPRE,
+	
+	
+	DMOVEPRE,
 	DEATHTWO
 };
 

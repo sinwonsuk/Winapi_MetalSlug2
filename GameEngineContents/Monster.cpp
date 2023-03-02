@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineResources.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include <time.h>
 #include "ContentsEnums.h"
 #include "Bullets.h"
@@ -48,7 +49,7 @@ void Monster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathOne",  .ImageName = "DeathOne.bmp", .Start = 0, .End = 10, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathTwo",  .ImageName = "DeathTwo.bmp", .Start = 0, .End = 19, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterJump",  .ImageName = "MonsterJump.bmp", .Start = 0, .End = 8, .InterTime = 0.1f  });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterBackJump",  .ImageName = "MonsterBackJump.bmp", .Start = 0, .End = 11, .InterTime = 0.075f , .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterBackJump",  .ImageName = "MonsterBackJump.bmp", .Start = 0, .End = 11, .InterTime = 0.05f , .Loop = false });
 
 		//AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterNife",  .ImageName = "MonsterNife.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
 
@@ -74,7 +75,7 @@ void Monster::Start()
 
 	{
 		PlayerCollision = CreateCollision(MetalSlugOrder::MonsterCheck);
-		PlayerCollision->SetScale({ 500, 500 });
+		PlayerCollision->SetScale({ 500, 1000 });
 	}
 
 	
@@ -113,31 +114,48 @@ void Monster::Movecalculation(float _DeltaTime)
 	bool Check = true;
 	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 	
-	   if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)) && StateValue == MonsterState::MOVE)
-	    {
-	    	
-	    		MoveDir += float4::Up * 450;
-	    		ChangeState(MonsterState::JUMPBACK);
-	    		BackJumpCheck = true;
-	    		return;	
+	   if (RGB(0, 0, 255) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)) && StateValue == MonsterState::MOVE && Test == false)
+	   {
+		   Test = true;
+	    	MoveDir += float4::Up * 450;
+	    	ChangeState(MonsterState::JUMPBACK);
+	    	BackJumpCheck = true;
+	    	return;	
 
-	    }
+	   }
+
+	   if (RGB(0, 0, 250) == ColImage->GetPixelColor(NextPos, RGB(0, 0, 255)) && StateValue == MonsterState::MOVE)
+	   {
+		 
+		   MoveDir += float4::Up * 450;
+		   ChangeState(MonsterState::JUMPBACK);
+		   BackJumpCheck = true;
+		   return;
+
+	   }
+
+
+
 	
+	   if (Test == true)
+	   {
+		   BackJumpTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+			   if (BackJumpTime > 1.0)
+			   {
+				   Test = false;
+			   }
+
+	   }
 
 
-
-	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))) && StateValue != MonsterState::JUMPBACK)
+	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))) && StateValue != MonsterState::JUMPBACK && Test == false)
 	{
 		if (StateValue == MonsterState::JUMP)
 		{
 			ChangeState(MonsterState::IDLE);
 		}
-
-
 		Check = false;
-
-
-
 	}
 
 	
@@ -150,7 +168,7 @@ void Monster::Movecalculation(float _DeltaTime)
 		{
 			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
+			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) && Test == false)
 			{
 				continue;
 			}

@@ -110,7 +110,9 @@ private:
 	GameEngineCollision* MonsterCollision = nullptr;
 	int a = 0;
 	bool RunCheck = true;
+	bool Test = false;
 	MonsterBullet* Actor = nullptr;
+	float BackJumpTime =0;
 	float AnimationCheck = 0;
 	bool BackJumpCheck = false;
 };

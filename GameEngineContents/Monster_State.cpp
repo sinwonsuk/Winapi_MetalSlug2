@@ -212,20 +212,10 @@ void Monster::AttackUpdate(float _Time)
 			Actor = GetLevel()->CreateActor<MonsterBullet>();
 			Actor->SetPos(GetPos());
 			BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
-
-
-			//float BulletRange = Player::MainPlayer->GetMonsterBulletRange();
-			//float a = Player::MainPlayer->GetPos().x;
-			
 				
-
-				Actor->MoveDir += float4::Up * (250 + BulletRange);
+			Actor->MoveDir += float4::Left * (10 + BulletRange);
 			
-			
-				
-
-				//Actor->MoveDir += float4::Up * (350 - BulletRange);
-			
+			Actor->MoveDir += float4::Up* (250 + BulletRange);
 			Actor->MonsterBulletMove = true;
 		}
 		

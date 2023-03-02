@@ -19,6 +19,21 @@ void InterFace::Start()
 	TestNumber.SetValue(Value);
 	TestNumber.SetRenderPos({ 360,57 });
 
+	TestNumber1.SetOwner(this);
+	TestNumber1.SetImage("Number.BMp", { 25, 25 }, 10, RGB(255, 255, 255), "");
+	TestNumber1.SetValue(Value1);
+	TestNumber1.SetRenderPos({ 250,57 });
+	TestNumber1.Off();
+
+
+	{
+		BaseBullet = CreateRender(2);
+		BaseBullet->SetImage("BaseGunBullet.Bmp");
+		BaseBullet->SetPosition({ 275,57 });
+		BaseBullet->SetScale({ 80, 22 });
+		BaseBullet->EffectCameraOff();
+	}
+
 	{
 		GameEngineRender* AnimationRender = CreateRender(2);
 		AnimationRender->SetImage("Score.Bmp");
@@ -26,6 +41,8 @@ void InterFace::Start()
 		AnimationRender->SetScale({ 201,76 }); 
 		AnimationRender->EffectCameraOff();
 	}
+
+
 
 	{
 		GameEngineRender* AnimationRender = CreateRender(2);
@@ -35,14 +52,15 @@ void InterFace::Start()
 		AnimationRender->EffectCameraOff();
 
 	}
+
+	
+
 	{
 		GameEngineRender* AnimationRender = CreateRender(2);
 		AnimationRender->SetImage("00.Bmp");
 		AnimationRender->SetPosition({ 470,45 });
 		AnimationRender->SetScale({ 99,66 });
 		AnimationRender->EffectCameraOff();
-
-
 	}
 
 	{
@@ -153,6 +171,23 @@ void InterFace::Update(float _DeltaTime)
 
 	TestNumber.SetValue(Player::MainPlayer->GetBombNumber());
 	TestNumber.SetAlign(Align::Right);
+
+	TestNumber1.SetValue(Player::MainPlayer->GetHeavyMachineGun());
+	TestNumber1.SetAlign(Align::Left);
+
+	if (Player::MainPlayer->GetGunChange() == false)
+	{
+		TestNumber1.Off();
+		BaseBullet->On(); 
+	}
+
+	if (Player::MainPlayer->GetGunChange() == true)
+	{
+		TestNumber1.On();
+		BaseBullet->Off();
+	}
+
+
 	if (Time == false)
 	{
 		TimeCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();

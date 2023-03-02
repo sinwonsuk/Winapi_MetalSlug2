@@ -85,6 +85,10 @@ public:
 	{
 		return DownCheck = Check;
 	}
+	bool SetItemCheck(const bool& Check)
+	{
+		return ItemCheck = Check; 
+	}
 
 	GameEngineCollision* GetPlayerCollision()
 	{
@@ -116,6 +120,7 @@ private:
 	bool EffectCheck = false;
 	bool death = false;
 
+	bool ItemCheck = false;
 
 	GameEngineCollision* MonsterCollision = nullptr;
 

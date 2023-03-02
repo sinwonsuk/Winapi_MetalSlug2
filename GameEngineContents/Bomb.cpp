@@ -88,7 +88,7 @@ void Bomb::Update(float _DeltaTime)
 
 
 
-	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
+	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || (RGB(255, 100, 0) == ColImage->GetPixelColor(NextPos, RGB(255, 100, 0))))
 	{
 		++GroundCheck;
 

@@ -26,7 +26,8 @@ enum class MetalSlugOrder
 	MonsterBullet,
 	Bullet,
 	BulletEffect,
-	Boomb
+	Boomb,
+	Item
 };
 
 enum class MetalSlugSelect
