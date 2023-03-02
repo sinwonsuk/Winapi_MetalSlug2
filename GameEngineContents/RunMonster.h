@@ -5,7 +5,7 @@ enum class RunMonsterState
 {
 
 	IDLE,
-
+	IDLE2,
 	STOP,
 	MOVE,
 	DEATH,
@@ -55,7 +55,7 @@ public:
 	}
 	
 
-
+	
 
 
 protected:

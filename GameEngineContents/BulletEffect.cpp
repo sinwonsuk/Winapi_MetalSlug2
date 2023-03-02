@@ -26,7 +26,16 @@ void BulletEffect::Start()
 		BobmEffect->CreateAnimation({ .AnimationName = "BoombExploision", .ImageName = "Exploision1.bmp", .Start = 0, .End = 26, .InterTime = 0.05f });
 		BobmEffect->ChangeAnimation("BoombExploision");
 	}
+	{
+		Exploision = CreateRender(10);
+		Exploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = false });
 
+
+		Exploision->SetScale({ 800,800 });
+		Exploision->ChangeAnimation("Exploision");
+		Exploision->Off();
+
+	}
 
 	BobmEffect->ChangeAnimation("BoombExploision");
 	BobmEffect->Off();
@@ -43,6 +52,10 @@ void BulletEffect::Start()
 
 void BulletEffect::Update(float _DeltaTime)
 {
+	if (ExploisionCheck == true)
+	{
+		Exploision->On();
+	}
 	if (BoobBulletCheck == false)
 	{
 		AnimationRender->On();
@@ -62,8 +75,11 @@ void BulletEffect::Update(float _DeltaTime)
 	{
 		this->Death();
 	}
+	if (Exploision->IsAnimationEnd())
+	{
+		this->Death();
+	}
 	
-
 	
 }
 

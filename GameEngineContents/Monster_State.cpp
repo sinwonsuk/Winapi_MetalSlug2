@@ -178,7 +178,7 @@ void Monster::MoveUpdate(float _Time)
 
 void Monster::AttackPreUpdate(float _Time)
 {
-
+	MoveDir = { 0,0 };
 	if (true == AnimationRender->IsAnimationEnd())
 	{
 		ChangeState(MonsterState::ATTACK);
@@ -189,6 +189,7 @@ void Monster::AttackPreUpdate(float _Time)
 
 void Monster::PlayerCheckUpdate(float _Time)
 {
+	MoveDir = { 0,0 };
 
 	AnimationCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 

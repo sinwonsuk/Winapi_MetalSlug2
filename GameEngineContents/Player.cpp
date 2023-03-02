@@ -36,9 +36,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 100,0 });
-	//GetLevel()->SetCameraPos({ 4000,0 });
-	//MonsterCheck = 6;
+	SetMove({ 5000,0 });
+	GetLevel()->SetCameraPos({ 4500,0 });
+	MonsterCheck = 8;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -257,8 +257,8 @@ void Player::Movecalculation(float _DeltaTime)
 	if (Gravity == false)
 	{
 		test = true;
-		MoveDir = float4::Down * 15000.0f * _DeltaTime;
-		
+		//MoveDir = float4::Down * 15000.0f * _DeltaTime;
+		MoveDir += float4::Down * 1500.0f * _DeltaTime;
 	}
 	
 	if (true == GameEngineInput::IsDown("test"))
@@ -318,7 +318,7 @@ void Player::Movecalculation(float _DeltaTime)
 		CameraCheck = true;	
 	}
 
-	if (MonsterCheck == 7)
+	/*if (MonsterCheck == 7)
 	{
 
 		if (Carriage::carriage->GetNotMove() == true)
@@ -337,9 +337,9 @@ void Player::Movecalculation(float _DeltaTime)
 				blueCheck = false;
 			}
 		}
-	}
+	}*/
 
-	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0))) && MoveDir.y >= -80)
+	if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255,0)) || RGB(0, 254, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 254, 0))) && MoveDir.y >= -80)
 	{
 		if (GunChange == false)
 		{
@@ -382,7 +382,7 @@ void Player::Movecalculation(float _DeltaTime)
 
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
-			if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))
+			if ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)) || RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || RGB(0, 254, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 254, 0))))
 			{	
 				
 				
@@ -633,13 +633,15 @@ void Player::Update(float _DeltaTime)
 
 
 		}
+		
+
 		if (DirStringBullet == "BLEFT")
 		{
 			if (LeftAttackChangeUp == 0)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x-100 , GetPos().y -75 });
+				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y -75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-170);
 				HeavyBullet->Dir = Direction::LeftA;
 					
@@ -651,7 +653,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
+				HeavyBullet->SetPos({ GetPos().x - 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-150);
 				HeavyBullet->Dir = Direction::LeftB;
 				HeavyBullet->Speed -= SpeedDown;
@@ -663,7 +665,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 75 });
+				HeavyBullet->SetPos({ GetPos().x - 20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-130);
 				HeavyBullet->Dir = Direction::LeftC;
 				HeavyBullet->Speed -= SpeedDown;
@@ -675,7 +677,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
+				HeavyBullet->SetPos({ GetPos().x - 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-110);
 				HeavyBullet->Dir = Direction::LeftD;
 				HeavyBullet->Speed -= SpeedDown;
@@ -759,7 +761,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y - 50 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-110);
 				HeavyBullet->Dir = Direction::LeftD;
 				HeavyBullet->Speed -= SpeedDown;
@@ -770,7 +772,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x -20, GetPos().y - 25 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-130);
 				HeavyBullet->Dir = Direction::LeftC;
 				HeavyBullet->Speed -= SpeedDown;
@@ -782,7 +784,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 50 });
+				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y - 50 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-150);
 				HeavyBullet->Dir = Direction::LeftB;
 				HeavyBullet->Speed -= SpeedDown;
@@ -794,7 +796,7 @@ void Player::Update(float _DeltaTime)
 			{
 				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
-				HeavyBullet->SetPos({ GetPos().x , GetPos().y - 25 });
+				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y - 25 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-170);
 				HeavyBullet->Dir = Direction::LeftA;
 				HeavyBullet->Speed -= SpeedDown;
@@ -1120,7 +1122,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
 				Actor->SetMove({ 2000,700 });		
-
+				Actor->SetItemCheck(false);
 			}
 			if (MonsterCheck == 2)
 			{
@@ -1140,6 +1142,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterBulletRange = GetPos().x;
 
 			if (MonsterCheck == 3)
+
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetMove({ 2350,300 });
@@ -1210,6 +1213,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				Actor->SetMove({ 4200, 300 });
 
 				Actor->ChangeState(NpcState::BIND);
+				Actor->SetItemCheck(true);
 				Actor->SetTurn(false); 
 			}
 
@@ -1217,6 +1221,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
 				Actor->SetMove({ 4500, 300 });
+				Actor->SetItemCheck(true);
 				Actor->SetDownCheck(true); 
 			}
 
@@ -1224,95 +1229,191 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				
 				MonsterCamel* Actor = GetLevel()->CreateActor<MonsterCamel>();
-				Actor->SetMove({ 4200,500 });
+				Actor->SetMove({ 4000,700 });
 				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
 
 			}
 			MonsterCheck = 6;
 		}
+		if (RGB(248, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(248, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 6)
+		{
+			//MonsterBulletRange = GetPos().x;
+			//CameraMoveCheck = GetPos();
+			//CameraCheck = false;
 
-		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 6 )
+			if (MonsterCheck == 6)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 4350,220 });
+				Actor->GetPlayerCollision()->SetPosition({100,0 });
+			}
+
+			if (MonsterCheck == 6)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 4350,410 });
+				Actor->GetPlayerCollision()->SetPosition({ 50,0 });
+			
+			}
+
+			if (MonsterCheck == 6)
+			{
+				bool Check = false;
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 4500,350 });
+				Actor->GetPlayerCollision()->SetPosition({ -150,0 });
+				Actor->SetRunCheck(Check);
+
+			}
+			MonsterCheck = 7;
+		}
+		if (RGB(246, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(246, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 7 && MonsterDeathCheck== false)
 		{
 			CameraCheck = false;
 			CameraMoveCheck = GetPos();
-			if (MonsterCheck == 6)
-			{
-				
-				Carriage * Actor = GetLevel()->CreateActor<Carriage>();
-				Actor->SetMove({ 5500,700 }); 
 
-			}
-
-			if (MonsterCheck == 6)
-			{
-			
-				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-				Actor->SetMove({ 5600,700 });
-
-			}
-			if (MonsterCheck == 6)
-			{
-				
-				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-				Actor->SetMove({ 5680,700 });
-
-			}
-
-			if (MonsterCheck == 6)
-			{
-				
-				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-				Actor->SetMove({ 5760,700 });
-
-			}
-			if (MonsterCheck == 6)
-			{
-
-				RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-				Actor->SetMove({ 5840,700 });
-
-			}
-
-			if (MonsterCheck == 6)
-			{
-
-				MiniBoss* Actor = GetLevel()->CreateActor<MiniBoss>();
-				Actor->SetMove({ 5920,700 });
-
-			}
-
-
-			MonsterCheck = 7;
-		}
-	
-		if (RGB(245, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(245, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 7)
-		{
-			
 
 			if (MonsterCheck == 7)
 			{
-				middleBoss = GetLevel()->CreateActor<MiddleBoss>();
-				middleBoss->SetPos({ 6520,500 });
-				
+				monster = GetLevel()->CreateActor<Monster>();
+				monster->SetMove({ 5300, 100 });			
+				monster->GetPlayerCollision()->SetPosition({ 100,0 });
 			}
 
-			MonsterCheck = 8;
+			if (MonsterCheck == 7)
+			{
+				monster2 = GetLevel()->CreateActor<Monster>();
+				monster2->SetMove({ 5300, 300 });
+				monster->GetPlayerCollision()->SetPosition({ 100,0 });
+
+			}
+
+			MonsterDeathCheck = true; 
+
+		
+		}
+		
+		
+
+		if (MonsterDeathCheck == true)
+		{
+			MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+
+			if (MonsterTime > 3)
+			{
+				if (MonsterCheck == 7)
+				{
+					Carriage* Actor = GetLevel()->CreateActor<Carriage>();
+					Actor->SetMove({ 5500,700 });
+
+				}
+
+				if (MonsterCheck == 7)
+				{
+
+					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+					Actor->SetMove({ 5600,700 });
+				}
+				if (MonsterCheck == 7)
+				{
+
+					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+					Actor->SetMove({ 5680,700 });
+
+				}
+
+				if (MonsterCheck == 7)
+				{
+
+					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+					Actor->SetMove({ 5760,700 });
+
+				}
+				if (MonsterCheck == 7)
+				{
+
+					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
+					Actor->SetMove({ 5840,700 });
+
+				}
+
+				if (MonsterCheck == 7)
+				{
+					MiniBoss* Actor = GetLevel()->CreateActor<MiniBoss>();
+					Actor->SetMove({ 5920,700 });
+				}
+				if (MonsterCheck == 7)
+				{
+					NPC* Actor = GetLevel()->CreateActor<NPC>();
+					Actor->ChangeState(NpcState::BIND);
+					Actor->SetMove({ 5500,300 });
+				}
+
+
+
+
+				MonsterDeathCheck = false;
+				MonsterCheck = 8;
+			}
+			
+
+		
+		}
+				
+		
+
+	
+		if (RGB(245, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(245, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 8)
+		{
+			if (MonsterCheck == 8)
+			{
+				middleBoss = GetLevel()->CreateActor<MiddleBoss>();
+				
+				middleBoss->SetPos({ 6520,500 });				
+			}
+			if (MonsterCheck == 8)
+			{
+				RunMonster*Atcor = GetLevel()->CreateActor<RunMonster>();
+				Atcor->ChangeState(RunMonsterState::IDLE);
+				Atcor->SetPos({ 6840,300 });
+			}
+			if (MonsterCheck == 8)
+			{
+				RunMonster* Atcor = GetLevel()->CreateActor<RunMonster>();
+				Atcor->ChangeState(RunMonsterState::IDLE);
+				Atcor->SetPos({ 6920,300 });
+			}
+			if (MonsterCheck == 8)
+			{
+				RunMonster* Atcor = GetLevel()->CreateActor<RunMonster>();
+				Atcor->ChangeState(RunMonsterState::IDLE);
+				Atcor->SetPos({ 7000,300 });
+			}
+			if (MonsterCheck == 8)
+			{
+				MiniBoss* Actor = GetLevel()->CreateActor<MiniBoss>();
+				Actor->ChangeState(MiniMonsterState::IDLE);
+				Actor->SetPos({ 7080,300 });
+				Actor->compulsionAttack = true;
+			}
+
+			MonsterCheck = 9;
 		}
 
 
-		if (GetLevel()->GetCameraPos().x > 6200 && MonsterCheck == 8)
+		if (GetLevel()->GetCameraPos().x > 6200 && MonsterCheck == 9)
 		{
 			CameraCheck = false;
 			
-			MonsterCheck = 9; 
+			MonsterCheck = 10; 
 	    }
 
-		if (GetPos().x > 6500 && MonsterCheck == 9)
+		if (GetPos().x > 6500 && MonsterCheck == 10)
 		{
 			middleBoss->SetMiddleBossStart(true);
 			CameraMoveCheck = GetPos();
 
-			MonsterCheck = 10; 
+			MonsterCheck = 11; 
 		}
 
 
@@ -1323,19 +1424,19 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (PalaceTime > 6.3)
 			{
 				
-				MonsterCheck = 11;
+				MonsterCheck = 12;
 
 			}
 		}
-		if (MonsterCheck == 11 && CameraMoveCheck.x > GetPos().x)
+		if (MonsterCheck == 12 && CameraMoveCheck.x > GetPos().x)
 		{
 
 			CameraCheck = true;
 			PosCheck = CameraMoveCheck;
-			MonsterCheck = 12; 
+			MonsterCheck = 13; 
 		}
 
-		if (MonsterCheck == 11 && CameraMoveCheck.x < GetPos().x)
+		if (MonsterCheck == 12 && CameraMoveCheck.x < GetPos().x)
 		{
 			float4 b = float4::Right * 1000 * _DeltaTime;
 
@@ -1346,32 +1447,32 @@ void Player::CollisionCheck(float _DeltaTime)
 				CameraCheck = true; 
 				Player::MainPlayer->SetCameraCheck(true);
 				PosCheck = GetPos();
-				MonsterCheck = 12;
+				MonsterCheck = 13;
 			}
 		}
 		
-		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 12)
+		if (RGB(244, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(244, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 13)
 		{
 			//CameraCheck = true;
 
-			if (MonsterCheck == 12)
+			if (MonsterCheck == 13)
 			{
 				Wall* Actor = GetLevel()->CreateActor<Wall>();
 				Actor->SetMove({ 8400,770 });
 			}
-			if (MonsterCheck == 12)
+			if (MonsterCheck == 13)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->SetMove({ 8000,500 });
 				//Actor->ChangeState(RebelState::IDLE);
 			}
-			if (MonsterCheck == 12)
+			if (MonsterCheck == 13)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->SetMove({ 8200,500 });
 				Actor->ChangeState(RebelState::IDLE2);
 			}
-			if (MonsterCheck == 12)
+			if (MonsterCheck == 13)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->ChangeState(RebelState::ATTACK);
@@ -1379,25 +1480,25 @@ void Player::CollisionCheck(float _DeltaTime)
 			}
 
 
-			MonsterCheck = 13;
+			MonsterCheck = 14;
 		}
 		
 		
-		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 13)
-		{
-			if (MonsterCheck == 13)
-			{
-				RebelStart = true;
-			}
-			MonsterCheck = 14;		
-		}
-		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 14)
+		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 14)
 		{
 			if (MonsterCheck == 14)
 			{
+				RebelStart = true;
+			}
+			MonsterCheck = 15;		
+		}
+		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 15)
+		{
+			if (MonsterCheck == 15)
+			{
 				CameraCheck = false;
 			}
-			MonsterCheck = 15;
+			MonsterCheck = 16;
 		}
 
 

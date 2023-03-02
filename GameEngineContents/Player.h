@@ -4,6 +4,7 @@
 #include "Bomb.h"
 #include "HeavyGun.h"
 #include "MiddleBoss.h"
+#include "Monster.h"
 enum class PlayerState
 {
 	IDLE,
@@ -134,7 +135,7 @@ public:
 	}
 
 	float BombNumber = 10;
-	float HeavyMachineGun = 0;
+	float HeavyMachineGun = 200;
 
 
 protected:
@@ -338,8 +339,10 @@ private:
 	float RightHeavyBulletTime = 0;
 	float LeftHeavyBulletTime = 0;
 	float UpHeavyBulletTime = 0;
-
+	float MonsterTime = 0; 
 	float asda = 20;
+	Monster* monster = nullptr;
+	Monster* monster2 = nullptr;
 	Bomb* Actor = nullptr;
 	HeavyGun* HeavyBullet = nullptr; 
 	MiddleBoss* middleBoss = nullptr;
@@ -347,6 +350,7 @@ private:
 
 	float PalaceTime = 0; 
 
+	bool MonsterDeathCheck = false;
 	bool RightHeavyBulletCheck = false;
 	bool LeftHeavyBulletCheck = false;
 	bool UpHeavyBulletCheck = false;
@@ -362,6 +366,6 @@ private:
 	float RightHeavyBulletNumber = 0;
 	float LeftHeavyBulletNumber = 0;
 	float UPHeavyBulletNumber = 0;
-
+	float Number = 0; 
 };
 

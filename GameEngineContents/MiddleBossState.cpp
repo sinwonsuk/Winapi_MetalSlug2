@@ -144,7 +144,7 @@ void MiddleBoss::LeftAttackUpdate(float _Time)
 			{
 
 				Bullet = GetLevel()->CreateActor<PalaceBullet>();
-				Bullet->SetPos({ GetPos().x - 220, GetPos().y - 300 });
+				Bullet->SetPos({ GetPos().x - 220, GetPos().y - 320 });
 				MissileCheck = true;
 			}
 
@@ -170,11 +170,24 @@ void MiddleBoss::RightAttackUpdate(float _Time)
 {
 	if (RightHp > 0)
 	{
-		if (true == AnimationRightHumanAttackRender->IsAnimationEnd())
+		if (true == AnimationLeftHumanAttackRender->IsAnimationEnd())
 		{
+			if (MissileCheck == false)
+			{
+
+				Bullet = GetLevel()->CreateActor<PalaceBullet>();
+				Bullet->SetPos({ GetPos().x + 390, GetPos().y - 320 });
+				MissileCheck = true;
+			}
+
 			ChangeState(MiddleBossState::RIGHTSMOKE);
 			return;
+			
 		}
+
+		
+		
+		
 	}
 
 
@@ -189,6 +202,14 @@ void MiddleBoss::MiddleAttackUpdate(float _Time)
 	{
 		if (true == AnimationMiddleHumanAttackRender->IsAnimationEnd())
 		{
+			if (MissileCheck == false)
+			{
+
+				Bullet = GetLevel()->CreateActor<PalaceBullet>();
+				Bullet->SetPos({ GetPos().x+ 110, GetPos().y - 320 });
+				MissileCheck = true;
+			}
+
 			ChangeState(MiddleBossState::MIDDLESMOKE);
 			return;
 		}
@@ -203,25 +224,13 @@ void MiddleBoss::MiddleAttackUpdate(float _Time)
 
 void MiddleBoss::LeftSmokeUpdate(float _Time)
 {
-	AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
 
 	if (true == AnimationLeftSmokeRender->IsAnimationEnd())
 	{
-		int a = rand() % 2;
-
 		
-		if (a == 0)
-		{
-			//AnimationRightHumanAttackRender->SetFrame(14);
-			ChangeState(MiddleBossState::RIGHTATTACK);
-			return;
-		}
-		else if (a == 1)
-		{
-			//AnimationMiddleHumanAttackRender->SetFrame(14);
-			ChangeState(MiddleBossState::MIDDLEATTACK);
-			return;
-		}
+		
+		
 	}
 
 
@@ -234,21 +243,8 @@ void MiddleBoss::RightSmokeUpdate(float _Time)
 
 	if (true == AnimationRightSmokeRender->IsAnimationEnd())
 	{
-		int a = rand() % 2;
-
-		if (a == 0)
-		{
-			//AnimationLeftHumanAttackRender->SetFrame(13);
-			ChangeState(MiddleBossState::LEFTATTACK);
-			return;
-		}
 		
-		else if (a == 1)
-		{
-			//AnimationMiddleHumanAttackRender->SetFrame(13);
-			ChangeState(MiddleBossState::MIDDLEATTACK);
-			return;
-		}
+		
 	}
 
 
@@ -265,21 +261,7 @@ void MiddleBoss::MiddleSmokeUpdate(float _Time)
 
 	if (true == AnimationMiddleSmokeRender->IsAnimationEnd())
 	{
-		int a = rand() % 2;
-
-	
-		 if (a == 0)
-		{
-		//AnimationRightHumanAttackRender->SetFrame(13);
-			ChangeState(MiddleBossState::RIGHTATTACK);
-			return;
-		}
-		else if (a == 1)
-		{
-			//AnimationMiddleHumanAttackRender->SetFrame(13);
-			ChangeState(MiddleBossState::LEFTATTACK);
-			return;
-		}
+		
 	}
 
 }
@@ -293,6 +275,7 @@ void MiddleBoss::DeathStart()
 
 void MiddleBoss::DeathUpdate(float _Time)
 {
+
 	DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	DeathTime2 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	DeathTime3 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
@@ -309,9 +292,7 @@ void MiddleBoss::DeathUpdate(float _Time)
 	DeathTime14 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	DeathTime15 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	DeathTime16 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-	srand(static_cast<unsigned int>(time(nullptr)));
-
-
+	
 	if (DeathTime > 0.5)
 	{
 		if (DeathTime < 1.7)
@@ -523,6 +504,7 @@ void MiddleBoss::OpenUpdate(float _Time)
 {
 	if (true == AnimationLeftHumanRender->IsAnimationEnd())
 	{
+		AttackCheck = true; 
 		ChangeState(MiddleBossState::LEFTATTACK);
 		return; 
 	}

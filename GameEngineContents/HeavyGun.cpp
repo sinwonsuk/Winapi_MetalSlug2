@@ -24,49 +24,49 @@ HeavyGun::~HeavyGun()
 void HeavyGun::Start()
 {
 	{
-		RightHeavyBullet = CreateRender(10);
+		RightHeavyBullet = CreateRender(MetalSlugOrder::Bullet);
 		RightHeavyBullet->SetImage("RightHeavyBullet.Bmp");
 		RightHeavyBullet->SetScale({150,150 });
 		RightHeavyBullet->Off(); 
 	}
 
 	{
-		RightUpHeavyBullet = CreateRender(10);
+		RightUpHeavyBullet = CreateRender(MetalSlugOrder::Bullet);
 		RightUpHeavyBullet->SetImage("RightUpHeavyBullet1.Bmp");
 		RightUpHeavyBullet->SetScale({ 130,130 });
 		RightUpHeavyBullet->Off();
 	}
 
 	{
-		RightUpHeavyBullet1 = CreateRender(10);
+		RightUpHeavyBullet1 = CreateRender(MetalSlugOrder::Bullet);
 		RightUpHeavyBullet1->SetImage("RightUpHeavyBullet2.Bmp");
 		RightUpHeavyBullet1->SetScale({ 130,130 });
 		RightUpHeavyBullet1->Off();
 	}
 
 	{
-		RightUpHeavyBullet2 = CreateRender(10);
+		RightUpHeavyBullet2 = CreateRender(MetalSlugOrder::Bullet);
 		RightUpHeavyBullet2->SetImage("RightUpHeavyBullet3.Bmp");
 		RightUpHeavyBullet2->SetScale({ 130,130 });
 		RightUpHeavyBullet2->Off();
 	}
 
 	{
-		RightUpHeavyBullet3 = CreateRender(10);
+		RightUpHeavyBullet3 = CreateRender(MetalSlugOrder::Bullet);
 		RightUpHeavyBullet3->SetImage("RightUpHeavyBullet4.Bmp");
 		RightUpHeavyBullet3->SetScale({ 130,130 });
 		RightUpHeavyBullet3->Off();
 	}
 
 	{
-		RightUpHeavyBullet4 = CreateRender(10);
+		RightUpHeavyBullet4 = CreateRender(MetalSlugOrder::Bullet);
 		RightUpHeavyBullet4->SetImage("RightUpHeavyBullet5.Bmp");
 		RightUpHeavyBullet4->SetScale({ 130,130 });
 		RightUpHeavyBullet4->Off();
 	}
 	
 	{
-		UpHeavyBullet = CreateRender(10);
+		UpHeavyBullet = CreateRender(MetalSlugOrder::Bullet);
 		UpHeavyBullet->SetImage("UpHeavyBullet.Bmp");
 		UpHeavyBullet->SetScale({ 120,120 });
 		UpHeavyBullet->Off();
@@ -183,20 +183,19 @@ void HeavyGun::Update(float _DeltaTime)
 			break;
 		case Direction::LeftA:
 			LeftUpHeavyBullet->On();
-
+			DirTime = 0.75;
 			break;
 		case Direction::LeftB:
 			LeftUpHeavyBullet1->On();
-
+			DirTime = 0.95;
 			break;
 		case Direction::LeftC:
 			LeftUpHeavyBullet3->On();
-
+			DirTime = 0.9;
 			break;
 		case Direction::LeftD:
 			LeftUpHeavyBullet4->On();
-
-
+			DirTime = 0.9;
 			break;
 
 

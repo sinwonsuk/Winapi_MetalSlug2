@@ -20,17 +20,23 @@ public:
 
 
 	float4 RightMoveDir = float4::Zero;
+
 	bool sds = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void Render(); 
 private:
+	bool CollisionCheck = false;
+	float b = 0;
 	float a = 1;
+	float d = 0;
 	int Check = 0;
 	float LeftTime = 0;
 	float RightTime = 0;
 	float Time = 0;
+	float test = 0;
+	GameEngineRender* Exploision = nullptr;
 	GameEngineRender* BulletRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
 };

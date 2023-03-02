@@ -6,7 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
-
+#include "BulletEffect.h"
 
 
 NPC::NPC()
@@ -48,6 +48,7 @@ void NPC::Start()
 	{
 		NpcCollision = CreateCollision(MetalSlugOrder::NPC);
 		NpcCollision->SetScale({ 100, 100 });
+		NpcCollision->SetPosition({ 0,-50 });
 	}
 	
 	ChangeState(NpcState::IDLE);
@@ -178,6 +179,19 @@ void NPC::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> collision;
 		if (true == NpcCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+				//MonsterCollision->Death();
+
+
+				ColActor->Death();
+
+			}
+
 			
 			ChangeState(NpcState::MOVEPRE);
 
@@ -189,6 +203,18 @@ void NPC::Update(float _DeltaTime)
 		if (true == NpcCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
 
+			for (size_t i = 0; i < collision.size(); i++)
+			{
+				GameEngineActor* ColActor = collision[i]->GetActor();
+
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
+			//	MonsterCollision->Death();
+
+
+				ColActor->Death();
+
+			}
 			ChangeState(NpcState::BINDMOVEPRE);
 
 		}

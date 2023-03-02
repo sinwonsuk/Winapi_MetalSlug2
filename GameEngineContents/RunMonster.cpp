@@ -53,7 +53,7 @@ void RunMonster::Start()
 }
 void RunMonster::Movecalculation(float _DeltaTime)
 {
-	MoveDir += float4::Down * 3500.0f * _DeltaTime;
+	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 	
 	if (50.0f <= abs(MoveDir.x))
 	{
@@ -63,7 +63,7 @@ void RunMonster::Movecalculation(float _DeltaTime)
 		}
 		else
 		{
-			MoveDir.x = 200.0f;
+			MoveDir.x = 300.0f;
 		}
 	}
 
@@ -84,7 +84,7 @@ void RunMonster::Movecalculation(float _DeltaTime)
 	
 
 
-	if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) && CarriageMonster == false)
+	if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) && CarriageMonster == false )
 	{
 		if (StateValue == RunMonsterState::DEATH)
 		{
@@ -145,7 +145,10 @@ void RunMonster::Movecalculation(float _DeltaTime)
 			break;
 		}
 	}
-
+	if (CarriageMonster == true)
+	{
+		Idle = false;
+	}
 	SetMove(MoveDir * _DeltaTime);
 }
 void RunMonster::DirCheck(const std::string_view& _AnimationName)
@@ -158,7 +161,7 @@ void RunMonster::Update(float _DeltaTime)
 	{
 		
 		std::vector<GameEngineCollision*> collision;
-		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision) && Idle == false)
 		{
 			Hp--;
 			for (size_t i = 0; i < collision.size(); i++)
@@ -175,7 +178,7 @@ void RunMonster::Update(float _DeltaTime)
 			if (Hp <= 0)
 			{
 				MoveDir += float4::Right * 1000;
-				MoveDir += float4::Up * 650;
+				MoveDir += float4::Up * 350;
 			}
 		}
 	}
@@ -199,7 +202,7 @@ void RunMonster::Update(float _DeltaTime)
 			if (Hp <= 0)
 			{				
 				MoveDir += float4::Right * 1000;
-				MoveDir += float4::Up * 650;
+				MoveDir += float4::Up * 350;
 			}
 
 		}

@@ -380,13 +380,11 @@ void MiddleBoss::Start()
 		LeftMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
 		LeftMonsterCollision->SetScale({ 200, 200 });
 		LeftMonsterCollision->SetPosition({-190,-350});
-
 	}
 	{
 		RightMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
 		RightMonsterCollision->SetScale({ 200, 200 });
-		RightMonsterCollision->SetPosition({ 430, -350 });
-		
+		RightMonsterCollision->SetPosition({ 430, -350 });		
 	}
 	{
 		MiddleMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
@@ -576,22 +574,25 @@ void MiddleBoss::Update(float _DeltaTime)
 					ColActor->Death();
 				}
 
-				if (LeftHp == 0)
-				{
-					LeftMonsterCollision->Death();
-					AnimationLeftDoorRender->Off();
-					AnimationLeftHumanAttackRender->Off();
-					AnimationLeftHumanRender->Off();
-					AnimationLeftSmokeRender->Off();
-					AnimationLeftWindowRender->Off();
-
-					AnimationLeftSmokeRender->Off();
-					PalaceLeft->Off();
-					PalaceLeftDestory->On();
-
-				}
+			
 			}
 		}
+
+		if (LeftHp <= 0)
+		{
+			LeftMonsterCollision->Death();
+			AnimationLeftDoorRender->Off();
+			AnimationLeftHumanAttackRender->Off();
+			AnimationLeftHumanRender->Off();
+			AnimationLeftSmokeRender->Off();
+			AnimationLeftWindowRender->Off();
+
+			AnimationLeftSmokeRender->Off();
+			PalaceLeft->Off();
+			PalaceLeftDestory->On();
+
+		}
+
 		if (nullptr != RightMonsterCollision)
 		{
 			std::vector<GameEngineCollision*> collision;
@@ -611,21 +612,23 @@ void MiddleBoss::Update(float _DeltaTime)
 					ColActor->Death();
 				}
 
-				if (RightHp == 0)
-				{
-					RightMonsterCollision->Death();
-					AnimationRightDoorRender->Off();
-					AnimationRightHumanAttackRender->Off();
-					AnimationRightHumanRender->Off();
-					AnimationRightSmokeRender->Off();
-					AnimationRightWindowRender->Off();
-					PalaceRight->Off();
-					PalaceRightDestory->On();
-					ChangeState(MiddleBossState::DEATH);
-					//RightMonsterCollision->Death(); 
-				}
+			
 			}
 		}
+
+		if (RightHp <= 0)
+		{
+			RightMonsterCollision->Death();
+			AnimationRightDoorRender->Off();
+			AnimationRightHumanAttackRender->Off();
+			AnimationRightHumanRender->Off();
+			AnimationRightSmokeRender->Off();
+			AnimationRightWindowRender->Off();
+			PalaceRight->Off();
+			PalaceRightDestory->On();
+			RightMonsterCollision->Death();
+		}
+
 		if (nullptr != MiddleMonsterCollision)
 		{
 			std::vector<GameEngineCollision*> collision;
@@ -644,21 +647,25 @@ void MiddleBoss::Update(float _DeltaTime)
 					ColActor->Death();
 				}
 
-				if (MiddleHp == 0)
-				{
-					MiddleMonsterCollision->Death();
-					AnimationMiddleDoorRender->Off();
-					AnimationMiddleHumanAttackRender->Off();
-					AnimationMiddleHumanRender->Off();
-					AnimationMiddleSmokeRender->Off();
-					AnimationMiddleWindowRender->Off();
-					PalaceMiddle->Off();
-					PalaceMiddleDestory->On();
-
-				}
 			}
 		}
 
+		if (MiddleHp <= 0)
+		{
+			MiddleMonsterCollision->Death();
+			AnimationMiddleDoorRender->Off();
+			AnimationMiddleHumanAttackRender->Off();
+			AnimationMiddleHumanRender->Off();
+			AnimationMiddleSmokeRender->Off();
+			AnimationMiddleWindowRender->Off();
+			PalaceMiddle->Off();
+			PalaceMiddleDestory->On();
+		}
+
+		if (LeftHp <= 0 && MiddleHp <= 0 && RightHp <= 0)
+		{
+			ChangeState(MiddleBossState::DEATH);
+		}
 
 
 		MoveCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
@@ -700,7 +707,41 @@ void MiddleBoss::Update(float _DeltaTime)
 			PalaceRightDestory->SetMove(MoveDirRight * _DeltaTime);
 		}
 
+	/*	if (AttackCheck == true)
+		{
+			srand(static_cast<unsigned int>(time(nullptr)));
 
+			int Attack = 0;
+			Attack = rand() % 3;
+			AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+
+
+			if (AttackTime > 3)
+			{
+
+				
+				if (Attack == 0 && LeftHp > 0)
+				{
+					ChangeState(MiddleBossState::LEFTATTACK);
+					MissileCheck = false;
+					AttackTime = 0; 
+				}
+				else if (Attack == 1 && MiddleHp > 0)
+				{
+					ChangeState(MiddleBossState::MIDDLEATTACK);
+					MissileCheck = false;
+					AttackTime = 0;
+				}
+				else if (Attack == 2 && RightHp > 0)
+				{
+					ChangeState(MiddleBossState::RIGHTATTACK);
+					MissileCheck = false;
+					AttackTime = 0;
+				}
+
+			}
+
+		}*/
 
 
 		if (MoveCheck > 1.0 && StateValue == MiddleBossState::IDLESTART)
@@ -709,7 +750,7 @@ void MiddleBoss::Update(float _DeltaTime)
 			return;
 		}
 
-
+		
 		UpdateState(_DeltaTime);
 	}
 	
@@ -720,9 +761,9 @@ void MiddleBoss::Render(float _Time)
 
 
 
-	/*LeftMonsterCollision->DebugRender();
+	LeftMonsterCollision->DebugRender();
 	RightMonsterCollision->DebugRender(); 
-	MiddleMonsterCollision->DebugRender();*/
+	MiddleMonsterCollision->DebugRender();
 
 
 

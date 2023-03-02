@@ -5,6 +5,7 @@ enum class MiniMonsterState
 {
 
 	IDLE,
+	IDLE2,
 	LEFTMOVE,
 	RIGHTMOVE,
 	ATTACK,
@@ -33,7 +34,7 @@ public:
 	void UpdateState(float _Time);
 	void ChangeState(MiniMonsterState _State);
 
-	
+	void Idle2Update(float _Time);
 
 	void IdleStart();
 	void IdleUpdate(float _Time);
@@ -56,8 +57,8 @@ public:
 	}
 
 
-
-
+	bool compulsionAttackStart = false;
+	bool compulsionAttack = false;
 protected:
 
 	void Start() override;
@@ -79,8 +80,7 @@ private:
 	float MoveSpeed = 100;
 	float MoveCheck = 0;
 	float IdleCheck = 0;
-	float Hp = 3;
-
+	
 	bool AttackCheck = false;
 	
 

@@ -22,19 +22,19 @@ void Items::Start()
 	{
 		Boomb = CreateRender(MetalSlugOrder::Item);
 		Boomb->CreateAnimation({ .AnimationName = "Boomb",  .ImageName = "ItemBoomb.bmp", .Start = 0, .End = 5, .InterTime = 0.15f , .Loop = true });
-		Boomb->SetScale({ 800,800 });
+		Boomb->SetScale({ 600,600 });
 		Boomb->Off();
 	}
 	{
 		Effect = CreateRender(MetalSlugOrder::Item);
 		Effect->CreateAnimation({ .AnimationName = "Effect",  .ImageName = "ItemEffect.bmp", .Start = 0, .End = 5, .InterTime = 0.1f , .Loop = true });
-		Effect->SetScale({ 800,800 });
+		Effect->SetScale({ 600,600 });
 		Effect->Off();
 	}
 	{
 		HeavyMachineGun = CreateRender(MetalSlugOrder::Item);
 		HeavyMachineGun->SetImage("ItemHeavyGun.Bmp");
-		HeavyMachineGun->SetScale({ 70,70 });
+		HeavyMachineGun->SetScale({ 80,80 });
 		HeavyMachineGun->SetPosition({ 0,-30 });
 		HeavyMachineGun->Off();
 	}
@@ -62,50 +62,56 @@ void Items::Update(float _DeltaTime)
 		HeavyMachineGun->On();
 	}
 
-
-
-
-	if (nullptr != Collision && GunBoombChangeCheck == false)
+	ItemTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+	if (ItemTime > 0.4)
 	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+
+		if (nullptr != Collision && GunBoombChangeCheck == false)
 		{
-			
-			Effect->On(); 
-			Boomb->Off(); 
-			CollisionCheck = true; 
-		
+			std::vector<GameEngineCollision*> collision;
+			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+			{
+
+				Effect->On();
+				Boomb->Off();
+				CollisionCheck = true;
+				BoombNumber++;
+				Collision->Death(); 
+			}
 		}
+
+		if (nullptr != Collision && GunBoombChangeCheck == true)
+		{
+			std::vector<GameEngineCollision*> collision;
+			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+			{
+
+				Effect->On();
+				HeavyMachineGun->Off();
+				CollisionCheck = true;
+				HeavyMachineGuneNumber++;
+				Collision->Death();
+
+			}
+		}
+
+	}
+	if (BoombNumber == 1  && CollisionCheck ==true)
+	{
+		Player::MainPlayer->BombNumber += 10;
+		BoombNumber = false;
+	}
+	if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
+	{
+		Player::MainPlayer->HeavyMachineGun += 200;
+		HeavyMachineGuneNumber = false;
 	}
 
-	if (nullptr != Collision && GunBoombChangeCheck == true)
-	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
-		{
-
-			Effect->On();
-			HeavyMachineGun->Off();
-			CollisionCheck = true;
-		}
-	}
-	
-	
-	
 	
 	
 	if (Effect->IsAnimationEnd())
-	{
-		if (GunBoombChangeCheck == false)
-		{
-			Player::MainPlayer->BombNumber += 10;
-		}
-		if (GunBoombChangeCheck == true)
-		{
-			Player::MainPlayer->HeavyMachineGun += 20;
-		}
-		this->Death(); 
-		
+	{	
+		this->Death(); 	
 	}
 
 

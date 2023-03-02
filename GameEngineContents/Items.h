@@ -31,7 +31,10 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _Time) override;
 private:
+	float ItemTime = 0;
 	bool GunBoombChangeCheck = false;
+	float BoombNumber = 0;
+	float HeavyMachineGuneNumber = 0;
 	bool CollisionCheck = false;
 	float DeathCheck = 0; 
 	GameEngineRender* HeavyMachineGun = nullptr;

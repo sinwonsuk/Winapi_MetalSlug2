@@ -14,6 +14,7 @@ enum class MetalSlugOrder
 	PlayerReg, 
 	PlayerBody,
 	BulletCheck,
+	
 	NPC,
 	Carriage,
 	Wall,
@@ -24,6 +25,7 @@ enum class MetalSlugOrder
 	MonsterCamel,
 	MonsterCheck,
 	MonsterBullet,
+	PalaceBullet,
 	Bullet,
 	BulletEffect,
 	Boomb,

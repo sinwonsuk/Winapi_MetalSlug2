@@ -91,6 +91,11 @@ public:
 		return PlayerCollision;
 	}*/
 	GameEngineCollision* PlayerCollision = nullptr;
+	int GetNumber()
+	{
+		return Number;
+	}
+
 protected:
 
 	void Start() override;
@@ -108,9 +113,11 @@ private:
 	GameEngineRender* AnimationRender = nullptr;
 	//GameEngineRender* BulletRender = nullptr;
 	GameEngineCollision* MonsterCollision = nullptr;
-	int a = 0;
+	int Number = 0;
+	float a = 0;
 	bool RunCheck = true;
 	bool Test = false;
+	bool GroundCheck = false;
 	MonsterBullet* Actor = nullptr;
 	float BackJumpTime =0;
 	float AnimationCheck = 0;

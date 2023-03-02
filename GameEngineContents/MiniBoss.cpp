@@ -46,7 +46,7 @@ void MiniBoss::Start()
 }
 void MiniBoss::Movecalculation(float _DeltaTime)
 {
-	MoveDir += float4::Down * 3500.0f * _DeltaTime;
+	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
 	if (50.0f <= abs(MoveDir.x))
 	{

@@ -22,6 +22,7 @@ public:
 	float4 MoveDir = float4::Zero;
 	
 	bool BoobBulletCheck = false;
+	bool ExploisionCheck = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -30,6 +31,8 @@ private:
 	//GameEngineRender* Effect = nullptr;
 	//bool BoobBulletCheck = false;
 	bool EffectCheck = true;
+	
+	GameEngineRender* Exploision = nullptr;
 	GameEngineRender* Effect = nullptr;
 	GameEngineRender* BobmEffect = nullptr;
 	GameEngineRender* AnimationRender = nullptr;

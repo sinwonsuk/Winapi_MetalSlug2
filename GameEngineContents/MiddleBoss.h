@@ -223,6 +223,7 @@ private:
 	float RightScale = 0;
 
 	bool MiddleBossStart = false;
+	bool AttackCheck = false;
 
 	PalaceBullet* Bullet = nullptr;
 	GameEngineCollision* LeftMonsterCollision = nullptr;

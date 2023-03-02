@@ -5,7 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "Carriage.h"
-
+#include "Player.h"
 void MiniBoss::ChangeState(MiniMonsterState _State)
 {
 	{
@@ -18,6 +18,9 @@ void MiniBoss::ChangeState(MiniMonsterState _State)
 		{
 
 		case MiniMonsterState::IDLE:
+			IdleStart();
+			break;
+		case MiniMonsterState::IDLE2:
 			IdleStart();
 			break;
 		case MiniMonsterState::LEFTMOVE:
@@ -39,6 +42,10 @@ void MiniBoss::ChangeState(MiniMonsterState _State)
 
 	}
 
+}
+
+void MiniBoss::Idle2Update(float _Time)
+{
 }
 
 void MiniBoss::IdleStart()
@@ -67,16 +74,30 @@ void MiniBoss::SurrenderStart()
 void MiniBoss::IdleUpdate(float _Time)
 {
 	IdleCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-	MoveDir = { 0,0 };
-	if (IdleCheck > 2 && Idle == false)
+	MoveDir.x = 0;
+	if (compulsionAttack != true)
+	{
+
+		if (IdleCheck > 2 && Idle == false)
+		{
+			ChangeState(MiniMonsterState::ATTACK);
+			return;
+		}
+	}
+	
+	if (compulsionAttack != true)
+	{
+		if (Carriage::carriage->GetDeath() == true)
+		{
+			ChangeState(MiniMonsterState::RIGHTMOVE);
+		}
+	}
+
+
+	if (Player::MainPlayer->GetPos().x > 6500)
 	{
 		ChangeState(MiniMonsterState::ATTACK);
 		return;
-	}
-
-	if (Carriage::carriage->GetDeath() == true)
-	{
-		ChangeState(MiniMonsterState::RIGHTMOVE);
 	}
 
 }
@@ -111,10 +132,21 @@ void MiniBoss::AttackUpdate(float _Time)
 {
 	if (AnimationRender->IsAnimationEnd())
 	{
-		Idle = true;
-		AttackCheck = true;
-		ChangeState(MiniMonsterState::IDLE);
-		return;
+		if (compulsionAttack == false)
+		{
+			Idle = true;
+			AttackCheck = true;
+			ChangeState(MiniMonsterState::IDLE);
+			return;
+		}
+
+		if (compulsionAttack == true)
+		{
+			AttackCheck = true;
+			ChangeState(MiniMonsterState::RIGHTMOVE); 
+			return;
+		}
+
 
 	}
 
@@ -132,6 +164,9 @@ void MiniBoss::UpdateState(float _Time)
 	{
 	case MiniMonsterState::IDLE:
 		IdleUpdate(_Time);
+		break;
+	case MiniMonsterState::IDLE2:
+		Idle2Update(_Time);
 		break;
 	case MiniMonsterState::LEFTMOVE:
 		LeftMoveUpdate(_Time);

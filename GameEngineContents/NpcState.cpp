@@ -274,7 +274,7 @@ void NPC::CollisionUpdate(float _Time)
 			TimeCheck = 0;
 			Items* Actor = GetLevel()->CreateActor<Items>();
 			Actor->SetPos({ GetPos().x - 50,GetPos().y });
-			Actor->SetGunBoombChangeCheck(true);
+			Actor->SetGunBoombChangeCheck(false);
 			ChangeState(NpcState::COLLISIONAFTER);
 			return;
 		}

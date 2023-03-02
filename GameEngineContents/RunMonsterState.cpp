@@ -79,7 +79,7 @@ void RunMonster::DeathStart()
 void RunMonster::IdleUpdate(float _Time)
 {
 	
-	MoveDir = { 0,0 };
+	MoveDir.x = 0;
 
 
 
