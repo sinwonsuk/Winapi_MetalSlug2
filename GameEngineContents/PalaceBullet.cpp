@@ -66,7 +66,7 @@ void PalaceBullet::Update(float _DeltaTime)
 	{
 
 		std::vector<GameEngineCollision*> collision;
-		if (true == CollisionBullet->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (true == CollisionBullet->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision) && Time > 1)
 		{
 			for (size_t i = 0; i < collision.size(); i++)
 			{
