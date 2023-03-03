@@ -135,7 +135,7 @@ public:
 	}
 
 	float BombNumber = 10;
-	float HeavyMachineGun = 0;
+	float HeavyMachineGun = 200;
 
 
 protected:

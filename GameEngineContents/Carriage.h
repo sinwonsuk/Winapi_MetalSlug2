@@ -81,7 +81,7 @@ private:
 	bool MoveCamera = false;
 
 	bool NotMove = false;
-	float Hp = 25; 
+	float Hp = 35; 
 	float Time = 0; 
 	GameEngineCollision* MonsterCollision = nullptr;
 

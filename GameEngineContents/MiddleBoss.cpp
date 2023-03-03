@@ -659,7 +659,6 @@ void MiddleBoss::Update(float _DeltaTime)
 			RightBigExploision->On();
 			PalaceRight->Off();
 			PalaceRightDestory->On();
-			RightMonsterCollision->Death();
 			
 
 		}
