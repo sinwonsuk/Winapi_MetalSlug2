@@ -36,9 +36,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 5000,0 });
-	GetLevel()->SetCameraPos({ 4500,0 });
-	MonsterCheck = 8;
+	SetMove({ 100,0 });
+	//GetLevel()->SetCameraPos({ 4500,0 });
+	//MonsterCheck = 8;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -257,8 +257,8 @@ void Player::Movecalculation(float _DeltaTime)
 	if (Gravity == false)
 	{
 		test = true;
-		//MoveDir = float4::Down * 15000.0f * _DeltaTime;
-		MoveDir += float4::Down * 1500.0f * _DeltaTime;
+		MoveDir = float4::Down * 15000.0f * _DeltaTime;
+		//MoveDir += float4::Down * 1500.0f * _DeltaTime;
 	}
 	
 	if (true == GameEngineInput::IsDown("test"))
