@@ -98,7 +98,10 @@ public:
 	}
 
 
-	GameEngineCollision* PlayerCollision = nullptr;
+	int LeftHp = 20;
+	int RightHp = 20;
+	int MiddleHp = 20;
+
 protected:
 
 	void Start() override;
@@ -163,6 +166,9 @@ private:
 	GameEngineRender* BigExploision2 = nullptr;
 	GameEngineRender* BigExploision3 = nullptr;
 
+	GameEngineRender* LeftBigExploision = nullptr;
+	GameEngineRender* RightBigExploision = nullptr;
+	GameEngineRender* MiddleBigExploision = nullptr;
 
 	GameEngineRender* PalaceLeftDoorEffect = nullptr;
 	GameEngineRender* PalaceRightDoorEffect = nullptr;
@@ -190,9 +196,7 @@ private:
 	float MoveCheck = 0; 
 	float MoveSpeed = 1000;
 	float MissileDirCheck = 0;
-	int LeftHp = 10;
-	int RightHp = 10;
-	int MiddleHp = 10;
+	
 	float DeathCheck = 0;
 	bool  death = false;
 	bool ad = false;
@@ -224,7 +228,7 @@ private:
 
 	bool MiddleBossStart = false;
 	bool AttackCheck = false;
-
+	int attack = 0;
 	PalaceBullet* Bullet = nullptr;
 	GameEngineCollision* LeftMonsterCollision = nullptr;
 	GameEngineCollision* RightMonsterCollision = nullptr;

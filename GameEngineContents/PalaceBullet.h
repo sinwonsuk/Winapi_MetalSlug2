@@ -25,7 +25,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	void Render(); 
+	void Render(float _Time) override;
 private:
 	bool CollisionCheck = false;
 	float b = 0;
@@ -38,5 +38,5 @@ private:
 	float test = 0;
 	GameEngineRender* Exploision = nullptr;
 	GameEngineRender* BulletRender = nullptr;
-	GameEngineCollision* Collision = nullptr;
+	GameEngineCollision* CollisionBullet = nullptr;
 };

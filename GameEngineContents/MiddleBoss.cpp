@@ -9,6 +9,7 @@
 #include "ContentsEnums.h"
 #include "Player.h"
 #include "BulletEffect.h"
+#include "PalaceRebel.h"
 MiddleBoss* MiddleBoss::middleBoss;
 
 
@@ -287,7 +288,24 @@ void MiddleBoss::Start()
 		BigExploision3->SetScale({ 900,900 });
 		BigExploision3->SetPosition({ 112,-290 });
 		BigExploision3->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
-		
+
+		LeftBigExploision = CreateRender(MetalSlugOrder::Exploision);
+		LeftBigExploision->SetScale({ 900,900 });
+		LeftBigExploision->SetPosition({ -172,-330 });
+		LeftBigExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
+
+		RightBigExploision = CreateRender(MetalSlugOrder::Exploision);
+		RightBigExploision->SetScale({ 900,900 });
+		RightBigExploision->SetPosition({ 422,-330 });
+		RightBigExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
+
+
+		MiddleBigExploision = CreateRender(MetalSlugOrder::Exploision);
+		MiddleBigExploision->SetScale({ 900,900 });
+		MiddleBigExploision->SetPosition({ 132,-330 });
+		MiddleBigExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "BigExploision.bmp", .Start = 0, .End = 27, .InterTime = 0.05f,.Loop = false });
+
+
 	}
 	{
 		PalaceLeftDoorEffect = CreateRender(MetalSlugOrder::Exploision);
@@ -319,9 +337,9 @@ void MiddleBoss::Start()
 	BigExploision2->ChangeAnimation("Exploision");
 	BigExploision3->ChangeAnimation("Exploision");
 
-
-
-
+	LeftBigExploision->ChangeAnimation("Exploision");
+	RightBigExploision->ChangeAnimation("Exploision");
+	MiddleBigExploision->ChangeAnimation("Exploision");
 
 	AnimationMiddleDoorRender->ChangeAnimation("Door");
 	AnimationRightDoorRender->ChangeAnimation("Door");
@@ -375,6 +393,11 @@ void MiddleBoss::Start()
 	BigExploision ->Off();
 	BigExploision2->Off();
 	BigExploision3->Off();
+
+	LeftBigExploision->Off();
+	RightBigExploision->Off();
+	MiddleBigExploision->Off();
+
 
 	{
 		LeftMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
@@ -573,7 +596,11 @@ void MiddleBoss::Update(float _DeltaTime)
 
 					ColActor->Death();
 				}
-
+				if (LeftHp == 0)
+				{
+					PalaceRebel* Actor = GetLevel()->CreateActor<PalaceRebel>();
+					Actor->SetPos({ GetPos().x-190,  GetPos().y -230});
+				}
 			
 			}
 		}
@@ -586,11 +613,12 @@ void MiddleBoss::Update(float _DeltaTime)
 			AnimationLeftHumanRender->Off();
 			AnimationLeftSmokeRender->Off();
 			AnimationLeftWindowRender->Off();
-
+			LeftBigExploision->On(); 
 			AnimationLeftSmokeRender->Off();
 			PalaceLeft->Off();
 			PalaceLeftDestory->On();
-
+		
+			
 		}
 
 		if (nullptr != RightMonsterCollision)
@@ -611,7 +639,11 @@ void MiddleBoss::Update(float _DeltaTime)
 
 					ColActor->Death();
 				}
-
+				if (RightHp == 0)
+				{
+					PalaceRebel* Actor = GetLevel()->CreateActor<PalaceRebel>();
+					Actor->SetPos({ GetPos().x +422,  GetPos().y - 230 });
+				}
 			
 			}
 		}
@@ -624,9 +656,12 @@ void MiddleBoss::Update(float _DeltaTime)
 			AnimationRightHumanRender->Off();
 			AnimationRightSmokeRender->Off();
 			AnimationRightWindowRender->Off();
+			RightBigExploision->On();
 			PalaceRight->Off();
 			PalaceRightDestory->On();
 			RightMonsterCollision->Death();
+			
+
 		}
 
 		if (nullptr != MiddleMonsterCollision)
@@ -646,7 +681,11 @@ void MiddleBoss::Update(float _DeltaTime)
 
 					ColActor->Death();
 				}
-
+				if (MiddleHp == 0)
+				{
+					PalaceRebel* Actor = GetLevel()->CreateActor<PalaceRebel>();
+					Actor->SetPos({ GetPos().x + 132,  GetPos().y - 230 });
+				}
 			}
 		}
 
@@ -658,8 +697,10 @@ void MiddleBoss::Update(float _DeltaTime)
 			AnimationMiddleHumanRender->Off();
 			AnimationMiddleSmokeRender->Off();
 			AnimationMiddleWindowRender->Off();
+			MiddleBigExploision->On(); 
 			PalaceMiddle->Off();
 			PalaceMiddleDestory->On();
+			
 		}
 
 		if (LeftHp <= 0 && MiddleHp <= 0 && RightHp <= 0)
@@ -707,41 +748,62 @@ void MiddleBoss::Update(float _DeltaTime)
 			PalaceRightDestory->SetMove(MoveDirRight * _DeltaTime);
 		}
 
-	/*	if (AttackCheck == true)
+		if (AttackCheck == true)
 		{
 			srand(static_cast<unsigned int>(time(nullptr)));
 
-			int Attack = 0;
-			Attack = rand() % 3;
+			
+			attack = rand() % 3;
 			AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
 
 
-			if (AttackTime > 3)
+			if (AttackTime > 2)
 			{
 
 				
-				if (Attack == 0 && LeftHp > 0)
+				if (attack == 0 && LeftHp > 0)
 				{
 					ChangeState(MiddleBossState::LEFTATTACK);
 					MissileCheck = false;
 					AttackTime = 0; 
 				}
-				else if (Attack == 1 && MiddleHp > 0)
+
+				if (attack == 0 && LeftHp <= 0)
+				{
+					attack = rand() % 3;
+				}
+
+
+
+				 if (attack == 1 && MiddleHp > 0)
 				{
 					ChangeState(MiddleBossState::MIDDLEATTACK);
 					MissileCheck = false;
 					AttackTime = 0;
 				}
-				else if (Attack == 2 && RightHp > 0)
+
+				 if (attack == 1 && MiddleHp <= 0)
+				 {
+					 attack = rand() % 3;
+				 }
+
+
+				 if (attack == 2 && RightHp > 0)
 				{
 					ChangeState(MiddleBossState::RIGHTATTACK);
 					MissileCheck = false;
 					AttackTime = 0;
 				}
 
+
+				 if (attack == 2 && RightHp <= 0)
+				 {
+					 attack = rand() % 3;
+				 }
+
 			}
 
-		}*/
+		}
 
 
 		if (MoveCheck > 1.0 && StateValue == MiddleBossState::IDLESTART)
@@ -761,9 +823,9 @@ void MiddleBoss::Render(float _Time)
 
 
 
-	LeftMonsterCollision->DebugRender();
-	RightMonsterCollision->DebugRender(); 
-	MiddleMonsterCollision->DebugRender();
+	//LeftMonsterCollision->DebugRender();
+	//RightMonsterCollision->DebugRender(); 
+	//MiddleMonsterCollision->DebugRender();
 
 
 

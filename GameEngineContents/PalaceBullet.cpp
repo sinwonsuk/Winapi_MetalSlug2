@@ -47,8 +47,9 @@ void PalaceBullet::Start()
 
 	}
 	{
-		Collision = CreateCollision(MetalSlugOrder::PalaceBullet);
-		Collision->SetScale({ 100,100 });
+		CollisionBullet = CreateCollision(MetalSlugOrder::PalaceBullet);
+		CollisionBullet->SetPosition({ 0,0, });
+		CollisionBullet->SetScale({ 100,100 });
 	}
 	
 	
@@ -61,11 +62,11 @@ void PalaceBullet::Start()
 void PalaceBullet::Update(float _DeltaTime)
 {
 	 
-	if (nullptr != Collision )
+	if (nullptr != CollisionBullet)
 	{
 
 		std::vector<GameEngineCollision*> collision;
-		if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+		if (true == CollisionBullet->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
 			for (size_t i = 0; i < collision.size(); i++)
 			{
@@ -240,17 +241,23 @@ void PalaceBullet::Update(float _DeltaTime)
 
 		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
 
-		if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
+		if (MiddleBoss::middleBoss->LeftHp <= 0 && MiddleBoss::middleBoss->RightHp <= 0 && MiddleBoss::middleBoss->MiddleHp <= 0)
 		{
 			Exploision->On();
-			
+			BulletRender->Off();
+			SetMove(-MoveDir * _DeltaTime * 100);
 		}
 
 		if (Exploision->IsAnimationEnd())
 		{
 			this->Death(); 
 		}
-
+		if (Player::MainPlayer->GetPos().y < GetPos().y)
+		{
+			Exploision->On();
+			BulletRender->Off();
+			SetMove(-MoveDir * _DeltaTime * 100);
+		}
 
 		MoveDir.Normalize();
 		SetMove(MoveDir * _DeltaTime * 100);
@@ -261,7 +268,7 @@ void PalaceBullet::Update(float _DeltaTime)
 	
 }
 
-void PalaceBullet::Render()
+void PalaceBullet::Render(float _Time)
 {
-	Collision->DebugRender(); 
+	//CollisionBullet->DebugRender();
 }

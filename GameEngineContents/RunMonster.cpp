@@ -84,7 +84,7 @@ void RunMonster::Movecalculation(float _DeltaTime)
 	
 
 
-	if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) && CarriageMonster == false )
+	if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || (RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))) && CarriageMonster == false ))
 	{
 		if (StateValue == RunMonsterState::DEATH)
 		{
@@ -121,7 +121,7 @@ void RunMonster::Movecalculation(float _DeltaTime)
 		{
 			MoveDir.y -= 1;
 			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))) && CarriageMonster == false)
+			if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)) || (RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))) && CarriageMonster == false))
 			{
 				continue;
 			}
@@ -231,5 +231,5 @@ void RunMonster::Update(float _DeltaTime)
 
 void RunMonster::Render(float _Time)
 {
-	MonsterCollision->DebugRender();
+	//MonsterCollision->DebugRender();
 }

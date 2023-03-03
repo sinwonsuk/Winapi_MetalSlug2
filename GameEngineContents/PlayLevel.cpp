@@ -596,7 +596,10 @@ void PlayLevel::Loading()
 			Image->Cut(5, 1);
 		}
 
-
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("PalaceRebel.BMP"));
+			Image->Cut(5, 4);
+		}
 
 
 		// ±ÃÀü 

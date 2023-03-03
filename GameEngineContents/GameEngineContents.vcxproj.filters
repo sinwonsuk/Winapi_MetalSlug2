@@ -64,6 +64,7 @@
     <ClInclude Include="MiniBoss.h" />
     <ClInclude Include="BulletEffect.h" />
     <ClInclude Include="Items.h" />
+    <ClInclude Include="PalaceRebel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -146,6 +147,7 @@
     <ClCompile Include="MiniBossState.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
     <ClCompile Include="Items.cpp" />
+    <ClCompile Include="PalaceRebel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

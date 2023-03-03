@@ -42,6 +42,7 @@
     <ClInclude Include="MonsterCamelEffect.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="PalaceBullet.h" />
+    <ClInclude Include="PalaceRebel.h" />
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
@@ -97,6 +98,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="NpcState.cpp" />
     <ClCompile Include="PalaceBullet.cpp" />
+    <ClCompile Include="PalaceRebel.cpp" />
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
