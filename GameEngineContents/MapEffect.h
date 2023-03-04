@@ -47,12 +47,12 @@ private:
 	GameEngineRender* RightTent = nullptr;
 	GameEngineRender* RightJumpTent = nullptr;
 
-
-
+	GameEngineCollision* LeftEffect = nullptr;
+	GameEngineCollision* RightEffect = nullptr;
 
 	float4 MoveDir = float4::Zero;
 
-	
-
+	bool LeftCheck = false;
+	bool RightCheck = false;
 
 };

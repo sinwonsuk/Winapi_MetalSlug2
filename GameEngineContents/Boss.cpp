@@ -7,7 +7,8 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
 #include "BulletEffect.h"
-
+#include "BossSmallMonster.h"
+Boss* Boss::boss;
 Boss::Boss()
 {
 
@@ -22,7 +23,7 @@ Boss::~Boss()
 
 void Boss::Start()
 {
-
+	boss = this;
 	{
 		Mainbody = CreateRender(MetalSlugOrder::Boss);
 		Mainbody->SetScale({ 1200,1200 });
@@ -31,20 +32,7 @@ void Boss::Start()
 		//Mainbody->SetImage(); 
 	
 	}
-	/*{
-		LeftWing = CreateRender(MetalSlugOrder::Boss);
-		LeftWing->SetScale({ 800,800 });
-		LeftWing->CreateAnimation({ .AnimationName = "LeftWing",  .ImageName = "LeftWing.bmp", .Start = 0, .End = 3, .InterTime = 0.1f,.Loop = true });
-		LeftWing->ChangeAnimation("LeftWing");
-		LeftWing->SetPosition({ -520,-250 });
-	}
-	{
-		RightWing = CreateRender(MetalSlugOrder::Boss);
-		RightWing->SetScale({ 800,800 });
-		RightWing->CreateAnimation({ .AnimationName = "RightWing",  .ImageName = "RightWing.bmp", .Start = 0, .End = 3, .InterTime = 0.1f,.Loop = true });
-		RightWing->ChangeAnimation("RightWing");
-		RightWing->SetPosition({ 380,-250 });
-	}*/
+	
 
 	{
 		LeftGroundEffect = CreateRender(MetalSlugOrder::Boss);
@@ -126,7 +114,7 @@ void Boss::Start()
 	ChangeState(BossState::IDLE); 
 
 	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		MonsterCollision = CreateCollision(MetalSlugOrder::Boss);
 		MonsterCollision->SetScale({ 400, 300 });
 		MonsterCollision->SetPosition({ 0,-400 });
 
@@ -151,16 +139,45 @@ void Boss::Update(float _DeltaTime)
 				GameEngineActor* ColActor = collision[i]->GetActor();
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
-
+			
 
 				ColActor->Death();
 			}
 
-		
-
+			
 		}
 	}
 
+
+	     MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	
+		if (MonsterTime > 2)
+		{
+			if (LeftRightCheck == true)
+			{
+				SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+
+				SmallMonster->ChangeState(SmallMonsterState::RIGHTMOVE);
+				SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+				MonsterTime = 0;
+
+			}
+			else if (LeftRightCheck == false)
+			{
+				SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+
+				SmallMonster->ChangeState(SmallMonsterState::LEFTMOVE);
+				SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+				MonsterTime = 0;
+
+			}
+		
+
+
+
+		
+		}
+	
 	Movecalculation(_DeltaTime);
 	UpdateState(_DeltaTime);
 }
@@ -292,5 +309,5 @@ void Boss::AnimationCheck()
 
 void Boss::Render(float _Time)
 {
-	MonsterCollision->DebugRender(); 
+	//MonsterCollision->DebugRender(); 
 }

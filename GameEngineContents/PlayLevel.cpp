@@ -465,6 +465,39 @@ void PlayLevel::Loading()
 			Image->Cut(5, 3);
 		}
 
+
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightMonsterAttack.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightMonsterDeath.BMP"));
+			Image->Cut(5, 4);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightMonsterIdle.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightMonsterJump.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightMonsterMove.BMP"));
+			Image->Cut(5, 3);
+		}
+
+
+
+
+
+
+
+
+
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CamelMonsterStart.BMP"));
 			Image->Cut(5, 2);

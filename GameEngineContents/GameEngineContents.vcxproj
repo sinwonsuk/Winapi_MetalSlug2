@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossSmallMonster.h" />
     <ClInclude Include="BulletEffect.h" />
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="Carriage.h" />
@@ -72,6 +73,8 @@
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossSmallMonster.cpp" />
+    <ClCompile Include="BossSmallMonsterState.cpp" />
     <ClCompile Include="BossState.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
     <ClCompile Include="Bullets.cpp" />

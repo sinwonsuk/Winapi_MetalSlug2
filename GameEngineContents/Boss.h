@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include "BossSmallMonster.h"
 enum class BossState
 {
 
@@ -59,9 +59,8 @@ public:
 		return AttackCheck;
 	}
 
-
-	bool compulsionAttackStart = false;
-	bool compulsionAttack = false;
+	GameEngineCollision* MonsterCollision = nullptr;
+	float4 MoveDir = float4::Zero;
 protected:
 
 	void Start() override;
@@ -86,7 +85,7 @@ private:
 	GameEngineRender* RightEngine = nullptr;
 
 
-	float4 MoveDir = float4::Zero;
+	
 	float4 MoveDirGroundEffect = float4::Zero;
 	float MoveTime = 0;
 	float ads = 0;
@@ -95,12 +94,13 @@ private:
 	float AttackPreTime = 0; 
 	float Hp = 100; 
 	float Time = 0; 
+	float MonsterTime = 0; 
 	bool AttackCheck = false;
-
-
+	BossSmallMonster* SmallMonster = nullptr;
+	bool LeftRightCheck = false;
 	bool Idle = false;
 
-	GameEngineCollision* MonsterCollision = nullptr;
+	
 
 };
 

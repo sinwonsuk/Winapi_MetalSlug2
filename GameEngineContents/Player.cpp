@@ -36,9 +36,9 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 11900,0 });
-	GetLevel()->SetCameraPos({ 11900,0 });
-	MonsterCheck = 8;
+	SetMove({ 100,0 });
+	//GetLevel()->SetCameraPos({ 11900,0 });
+	//MonsterCheck = 8;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{

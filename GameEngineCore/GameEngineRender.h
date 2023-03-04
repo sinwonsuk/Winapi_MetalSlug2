@@ -16,6 +16,7 @@ class FrameAnimationParameter
 public:
 	std::string_view AnimationName = "";
 	std::string_view ImageName = "";
+	std::string_view FilterName = "";
 	int Start = 0;
 	int End = 0;
 	int CurrentIndex = 0;
@@ -85,11 +86,27 @@ public:
 		Alpha = _Alpha;
 	}
 
+	inline float GetAngle(float _Angle)
+	{
+		return Angle;
+	}
+
+	inline void SetAngleAdd(float _Angle)
+	{
+		Angle += _Angle;
+	}
+
+	inline void SetAngle(float _Angle)
+	{
+		Angle = _Angle;
+	}
+
 	inline void SetTextBoxScale(float4 _TextBoxScale)
 	{
 		TextBoxScale = _TextBoxScale;
 	}
 
+	void SetRotFilter(const std::string_view& _ImageName);
 
 	void SetImage(const std::string_view& _ImageName);
 
@@ -112,6 +129,8 @@ protected:
 
 private:
 	GameEngineImage* Image = nullptr;
+	GameEngineImage* RotationFilter = nullptr;
+
 	bool IsEffectCamera = true;
 
 	int TransColor = RGB(255, 0, 255);
@@ -131,6 +150,7 @@ private:
 		GameEngineRender* Parent = nullptr;
 		// 짤려있는 이미지여야 한다.
 		GameEngineImage* Image = nullptr;
+		GameEngineImage* FilterImage = nullptr;
 		std::vector<int> FrameIndex;
 		std::vector<float> FrameTime;
 		int CurrentIndex = 0;
@@ -161,6 +181,10 @@ private:
 	TextAlign Align = TextAlign::Left;
 	COLORREF TextColor = RGB(0, 0, 0);
 	float4 TextBoxScale;
+
+	// 회전하면서 반투명도 하고 싶어요 => 안됩니다.
+	float Angle = 0.0f;
+
 	// 그런걸 하면 HBRUSH 만드는데 사용하고 나면 Release
 	// GameEngineImage를 참조해라.
 };

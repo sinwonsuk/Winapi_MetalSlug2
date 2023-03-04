@@ -8,7 +8,8 @@
 
 struct FloorInfo 
 {
-    
+    int X;
+    int Y;
 };
 
 // Ό³Έν :

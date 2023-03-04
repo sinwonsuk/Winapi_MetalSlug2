@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineComponent.h"
 
 enum CollisionType
@@ -20,29 +21,6 @@ public:
 };
 
 // 
-class CollisionData 
-{
-public:
-	float4 Position;
-	float4 Scale; // x만 원의 반지름으로 보겠습니다.
-
-	float Left() const
-	{
-		return Position.x - Scale.hx();
-	}
-	float Right() const
-	{
-		return Position.x + Scale.hx();
-	}
-	float Top() const
-	{
-		return Position.y - Scale.hy();
-	}
-	float Bot() const
-	{
-		return Position.y + Scale.hy();
-	}
-};
 
 // 설명 :
 class CollisionFunctionInit;
