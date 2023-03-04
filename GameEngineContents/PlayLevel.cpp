@@ -18,6 +18,8 @@
 #include "Carriage.h"
 #include "RunMonster.h"
 #include "Wall.h"
+#include "MapEffect.h"
+#include "Boss.h"
 PlayLevel::PlayLevel() 
 {
 }
@@ -109,6 +111,28 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("StonEffect.BMP"));
 			Image->Cut(5, 2);
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("MapRightTentJump.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("MapBackGround.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("MapTent.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("MapTentJump.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(map.GetPlusFileName("MapRightTent.BMP"));
+			Image->Cut(5, 1);
+		}
+
+
 
 		
 		//캐릭터 모션 
@@ -673,7 +697,89 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("Blood.BMP"));
 			Image->Cut(5, 2);
 		}
-		
+		//boss
+
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("Boss.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("LeftBossIdleBoom.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightBossIdleBoom.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("GroundEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("LeftWing.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightWing.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("LeftEngine.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightEngine.BMP"));
+			Image->Cut(5, 2);
+		}
+		//
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BoosAttackPreBlueBoom.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BossAttackPreRedBoom.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BossAttackPreYellowBoom.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BossRedShakeBoom.BMP"));
+			Image->Cut(5, 5);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BossShakeBlueBoom.BMP"));
+			Image->Cut(5, 5);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BossShakeYellowBoom.BMP"));
+			Image->Cut(5, 5);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightBossSmoke.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("LeftBossSmoke.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("GroundSmokeEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("GroundBlueEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("GroundRedEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("GroundYellowEffect.BMP"));
+			Image->Cut(5, 2);
+		}
+
 
 		//NPC
 
@@ -815,7 +921,6 @@ void PlayLevel::Loading()
 		}
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(items.GetPlusFileName("ItemHeavyGun.BMP"));
-
 		}
 
 	}
@@ -835,7 +940,15 @@ void PlayLevel::Loading()
 	{
 		InterFace* Actor = CreateActor<InterFace>();
 	}
-	
+	{
+		MapEffect* Actor = CreateActor<MapEffect>();
+		Actor->SetPos({ 11850,700 });
+	}
+	{
+		Boss* Actor = CreateActor<Boss>();
+		Actor->SetPos({ 11800,700 });
+	}
+
 
 	/*{
 		MiddleBoss* Actor = CreateActor<MiddleBoss>();

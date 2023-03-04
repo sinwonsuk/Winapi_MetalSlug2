@@ -31,6 +31,7 @@
     <ClInclude Include="MachineMonster.h" />
     <ClInclude Include="MachineMonsterBullet.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapEffect.h" />
     <ClInclude Include="MiddleBoss.h" />
     <ClInclude Include="MiniBoss.h" />
     <ClInclude Include="Monster.h">
@@ -71,6 +72,7 @@
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossState.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="Carriage.cpp" />
@@ -83,6 +85,7 @@
     <ClCompile Include="MachineMonsterBullet.cpp" />
     <ClCompile Include="MachineMonsterState.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapEffect.cpp" />
     <ClCompile Include="MiddleBoss.cpp" />
     <ClCompile Include="MiddleBossState.cpp" />
     <ClCompile Include="MiniBoss.cpp" />

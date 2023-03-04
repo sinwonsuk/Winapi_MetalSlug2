@@ -66,6 +66,7 @@
     <ClInclude Include="Items.h" />
     <ClInclude Include="PalaceRebel.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="MapEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -150,6 +151,8 @@
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="PalaceRebel.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="MapEffect.cpp" />
+    <ClCompile Include="BossState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

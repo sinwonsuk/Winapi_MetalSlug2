@@ -26,6 +26,7 @@ enum class MetalSlugOrder
 	MonsterCheck,
 	MonsterBullet,
 	PalaceBullet,
+	Boss,
 	Bullet,
 	BulletEffect,
 	Boomb,
