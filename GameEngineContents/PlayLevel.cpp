@@ -362,6 +362,10 @@ void PlayLevel::Loading()
 			Image->Cut(5, 2);
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("PlayerWin.BMP"));
+			Image->Cut(5, 2);
+		}
 
 
 
@@ -417,7 +421,18 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("!.BMP"));
 		}
-		
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("C.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("E.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("P.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(InferFace.GetPlusFileName("L.BMP"));
+		}
 		
 
 
@@ -1016,10 +1031,10 @@ void PlayLevel::Loading()
 		MapEffect* Actor = CreateActor<MapEffect>();
 		Actor->SetPos({ 11850,700 });
 	}
-	{
+	/*{
 		Boss* Actor = CreateActor<Boss>();
 		Actor->SetPos({ 11800,300});
-	}
+	}*/
 
 
 	/*{

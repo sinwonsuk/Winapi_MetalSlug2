@@ -7,7 +7,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include "BulletEffect.h"
 #include "ContentsEnums.h"
-
+#include "Player.h"
 MachineMonster::MachineMonster()
 {
 }
@@ -162,9 +162,32 @@ void MachineMonster::Update(float _DeltaTime)
 	{
 		ChangeState(MachineState::DEATH);
 		MonsterCollision->Death();
-
 	}
 
+	if (Player::MainPlayer->GetCameraMoveCheck().x > Player::MainPlayer->GetPos().x && MoveCamera == false)
+	{
+		if (Hp <= 0)
+		{
+			Player::MainPlayer->SetCameraCheck(true);
+			Player::MainPlayer->SetPosCheck(Player::MainPlayer->GetCameraMoveCheck());
+			MoveCamera = true;
+		}
+	}
+
+	else if (Hp <= 0 && MoveCamera == false)
+	{
+
+		float4 b = float4::Right * 1000 * _DeltaTime;
+
+		GetLevel()->SetCameraMove(b);
+		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 350)
+		{
+			Player::MainPlayer->SetPosCheck({ Player::MainPlayer->GetPos().x - 350, Player::MainPlayer->GetPos().y });
+			Player::MainPlayer->SetCameraCheck(true);
+
+			MoveCamera = true;
+		}
+	}
 	Movecalculation(_DeltaTime);
 
 	UpdateState(_DeltaTime);

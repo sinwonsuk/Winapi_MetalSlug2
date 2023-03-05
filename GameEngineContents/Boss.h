@@ -59,7 +59,7 @@ public:
 		return AttackCheck;
 	}
 	float Hp = 100;
-	
+	bool BossStart = false;
 	float4 MoveDir = float4::Zero;
 protected:
 
@@ -133,6 +133,8 @@ private:
 	bool IdleStartCheck = false;
 	bool MoveStop = false;
 	bool sddfs = false;
+	
+	bool Finishletter = false;
 	float DeathTime = 0;
 	float MountTime = 0;
 	float ExploisionTime = 0; 

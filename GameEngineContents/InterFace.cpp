@@ -193,8 +193,7 @@ void InterFace::Update(float _DeltaTime)
 		TimeCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
 		if (TimeCheck > 0.2)
-		{
-			
+		{			
 			M->SetPosition({ 220,290 });
 		}
 		if (TimeCheck > 0.4)

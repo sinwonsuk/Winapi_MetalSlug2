@@ -70,6 +70,7 @@
     <ClInclude Include="BossSmallMonster.h" />
     <ClInclude Include="BazookaMonster.h" />
     <ClInclude Include="BazookaBullet.h" />
+    <ClInclude Include="FinishInterFace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -161,6 +162,7 @@
     <ClCompile Include="BazookaMonster.cpp" />
     <ClCompile Include="BazookaMonsterState.cpp" />
     <ClCompile Include="BazookaBullet.cpp" />
+    <ClCompile Include="FinishInterFace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

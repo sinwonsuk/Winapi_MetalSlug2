@@ -5,6 +5,7 @@
 #include "HeavyGun.h"
 #include "MiddleBoss.h"
 #include "Monster.h"
+#include "Boss.h"
 enum class PlayerState
 {
 	IDLE,
@@ -346,6 +347,7 @@ private:
 	Bomb* Actor = nullptr;
 	HeavyGun* HeavyBullet = nullptr; 
 	MiddleBoss* middleBoss = nullptr;
+	Boss* boss = nullptr;
 	float SpeedDown = 0; 
 
 	float PalaceTime = 0; 

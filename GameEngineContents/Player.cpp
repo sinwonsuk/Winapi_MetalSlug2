@@ -20,6 +20,7 @@
 #include "Rebel.h"
 #include "MiniBoss.h"
 #include "BulletEffect.h"
+#include "Boss.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -36,9 +37,10 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 11500,0 });
-	GetLevel()->SetCameraPos({ 11500,0 });
-	//MonsterCheck = 8;
+	SetMove({ 7600,0 });
+	GetLevel()->SetCameraPos({ 7600,0 });
+	CameraCheck = true;
+	MonsterCheck = 16;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -241,7 +243,9 @@ void Player::Start()
 
 void Player::Movecalculation(float _DeltaTime)
 {
-
+	
+	
+	
 	
 
 	if (Gravity == true)
@@ -1499,6 +1503,131 @@ void Player::CollisionCheck(float _DeltaTime)
 				CameraCheck = false;
 			}
 			MonsterCheck = 16;
+		}
+
+		if (RGB(241, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(241, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 16)
+		{
+			if (MonsterCheck == 16)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 9600,300 });
+			
+			}
+			if (MonsterCheck == 16)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 9600,500 });
+			
+			}
+			MonsterCheck = 17;
+		}
+
+		if (RGB(240, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(240, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 17)
+		{
+			if (MonsterCheck == 17)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 9900,300 });
+			
+			}
+			if (MonsterCheck == 17)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 9900,600 });
+			
+			}
+			MonsterCheck = 18;
+		}
+		if (RGB(239, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(239, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 18)
+		{
+			if (MonsterCheck == 18)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 10200,300 });
+				
+			}
+			if (MonsterCheck == 18)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 10200,600 });
+			
+			}
+			if (MonsterCheck == 18)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 10300,300 });
+				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+			}
+			if (MonsterCheck == 18)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 10350,600 });
+				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+			}
+
+			MonsterCheck = 19;
+		}
+		if (RGB(238, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(238, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 19)
+		{
+			if (MonsterCheck == 19)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 10500,600 });
+				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+			}
+			if (MonsterCheck == 19)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 10500,600 });
+				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+			}
+			MonsterCheck = 20;
+		}
+		if (RGB(237, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(237, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 20)
+		{
+			if (MonsterCheck == 20)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 11400,600 });
+				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+			}
+			if (MonsterCheck == 20)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 11500,600 });
+				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+			}
+			if (MonsterCheck == 20)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 11600,600 });
+				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+			}
+			if (MonsterCheck == 20)
+			{
+				Monster* Actor = GetLevel()->CreateActor<Monster>();
+				Actor->SetMove({ 11700,600 });
+				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+			}
+
+
+			MonsterCheck = 21;
+		}
+		if (RGB(236, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(236, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 21)
+		{
+			boss = GetLevel()->CreateActor<Boss>();
+			boss->SetPos({ 11800,100 });
+			MonsterCheck = 22;
+		}
+		if (GetLevel()->GetCameraPos().x > 11300)
+		{
+			CameraCheck = false;
+			boss->BossStart = true;
+		}
+
+		if (GetPos().x > 11800)
+		{
+			boss->BossStart = true;
 		}
 
 
@@ -2763,7 +2892,7 @@ void Player::Render(float _DeltaTime)
 	//GetLevel()->GetCameraPos().x > 6500
 
 	std::string CameraMouseText = "MousePositionCamera : \n";
-	CameraMouseText += GetLevel()->GetMousePosToCamera().ToString();
+	CameraMouseText += GetLevel()->GetCameraPos().ToString();
 	//CameraMouseText = SpinMoveDir.ToString();
 
 	//CameraMouseText += GetLevel()

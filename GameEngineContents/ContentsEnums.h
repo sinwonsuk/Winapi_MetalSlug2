@@ -34,6 +34,7 @@ enum class MetalSlugOrder
 	Boomb,
 	GroundEffect,
 	BossExPloision,
+	Finish,
 	Item
 };
 

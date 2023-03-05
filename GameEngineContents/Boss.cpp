@@ -9,6 +9,8 @@
 #include "BulletEffect.h"
 #include "BossSmallMonster.h"
 #include "BazookaMonster.h"
+#include "FinishInterFace.h"
+
 Boss* Boss::boss;
 Boss::Boss()
 {
@@ -286,276 +288,295 @@ void Boss::Start()
 
 void Boss::Update(float _DeltaTime)
 {
-	if (IdleStartCheck == false)
+	if (BossStart == true)
 	{
-		MoveDir = float4::Down * 50;
-		SetMove(MoveDir * _DeltaTime);
-	}
-	
-	
-	
-
-	if (GetPos().y > 700)
-	{
-		LeftGroundEffect->On();
-		RightGroundEffect->On();
-		IdleStartCheck = true;
-		Upbody->On();
-	}
-
-
-
-	if (IdleStartCheck == true)
-	{
-
-		if (nullptr != BullletCollision)
+		if (IdleStartCheck == false)
 		{
-			std::vector<GameEngineCollision*> collision;
-			if (true == BullletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+			MoveDir = float4::Down * 50;
+			SetMove(MoveDir * _DeltaTime);
+		}
+
+
+
+
+		if (GetPos().y > 700)
+		{
+			LeftGroundEffect->On();
+			RightGroundEffect->On();
+			IdleStartCheck = true;
+			Upbody->On();
+		}
+
+
+
+		if (IdleStartCheck == true)
+		{
+
+			if (nullptr != BullletCollision)
 			{
-				Hp--;
-
-				for (size_t i = 0; i < collision.size(); i++)
+				std::vector<GameEngineCollision*> collision;
+				if (true == BullletCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 				{
-					GameEngineActor* ColActor = collision[i]->GetActor();
-					BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
-					Effect->SetMove(ColActor->GetPos());
+					Hp--;
+
+					for (size_t i = 0; i < collision.size(); i++)
+					{
+						GameEngineActor* ColActor = collision[i]->GetActor();
+						BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+						Effect->SetMove(ColActor->GetPos());
 
 
-					ColActor->Death();
+						ColActor->Death();
+					}
+
+
+				}
+			}
+			/*if (sddfs == false)
+			{
+				BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
+				Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
+				Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+				sddfs = true;
+			}*/
+
+
+			MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+			if (MonsterTime > 1.5 && Hp > 75)
+			{
+				if (LeftRightCheck == true)
+				{
+					SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+
+					SmallMonster->ChangeState(SmallMonsterState::RIGHTMOVE);
+					SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+					LeftRightCheck = false;
+					MonsterTime = 0;
+
+				}
+				else if (LeftRightCheck == false)
+				{
+					SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+
+					SmallMonster->ChangeState(SmallMonsterState::LEFTMOVE);
+					SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+					LeftRightCheck = true;
+					MonsterTime = 0;
+
+				}
+
+			}
+
+			Movecalculation(_DeltaTime);
+		}
+
+		if (Hp <= 0)
+		{
+			MoveDir = { 0,0 };
+
+
+
+			ExploisionTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+			if (ExploisionTime < 0.5)
+			{
+				MiddleExploision->On();
+				MiddleExploision->SetPosition({ 0,-570 });
+			}
+			if (ExploisionTime > 0.5)
+			{
+				if (ExploisionTime < 1.0)
+				{
+					MiddleExploision2->On();
+					MiddleExploision2->SetPosition({ -50,-500 });
+				}
+			}
+			if (ExploisionTime > 1.0)
+			{
+				if (ExploisionTime < 1.5)
+				{
+					MiddleExploision3->On();
+					MiddleExploision3->SetPosition({ 70,-480 });
+				}
+			}
+			if (ExploisionTime > 1.5)
+			{
+				if (ExploisionTime < 2.0)
+				{
+					MiddleExploision4->On();
+					MiddleExploision4->SetPosition({ 100,-370 });
+				}
+			}
+			if (ExploisionTime > 2.0)
+			{
+				if (ExploisionTime < 2.5)
+				{
+					MiddleExploision5->On();
+					MiddleExploision5->SetPosition({ -80,-350 });
+				}
+			}
+			if (ExploisionTime > 2.5)
+			{
+				if (ExploisionTime < 3.0)
+				{
+					MiddleExploision6->On();
+					MiddleExploision6->SetPosition({ -150,-480 });
+				}
+			}
+			if (ExploisionTime > 3.0)
+			{
+				if (ExploisionTime < 3.5)
+				{
+					MiddleExploision7->On();
+					MiddleExploision7->SetPosition({ 250,-460 });
+				}
+			}
+			if (ExploisionTime > 3.5)
+			{
+				if (ExploisionTime < 4.0)
+				{
+					MiddleExploision8->On();
+					MiddleExploision8->SetPosition({ -300,-410 });
+				}
+			}
+			if (ExploisionTime > 4.0)
+			{
+				if (ExploisionTime < 4.5)
+				{
+					MiddleExploision9->On();
+					MiddleExploision9->SetPosition({ 200,-420 });
+				}
+			}
+			if (ExploisionTime > 4.5)
+			{
+				if (ExploisionTime < 5.0)
+				{
+					MiddleExploision10->On();
+					MiddleExploision10->SetPosition({ -360,-380 });
+				}
+			}
+
+
+			if (ExploisionTime > 5.0)
+			{
+				ExploisionTime = 0;
+			}
+
+
+
+
+
+
+			LeftGroundEffect->Off();
+			RightGroundEffect->Off();
+			LeftBoom->Off();
+			RightBoom->Off();
+			LeftEngine->Off();
+			RightEngine->Off();
+
+
+			GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
+
+			if (nullptr == ColImage)
+			{
+				MsgAssert("충돌용 맵 이미지가 없습니다.");
+			}
+
+			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
+			float4 NextPos1 = { NextPos.x,NextPos.y - 250 };
+			if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos1, RGB(0, 255, 0))))
+			{
+				if (MoveStop == false)
+				{
+					TwoPhaseBody->Off();
+					DeathBody->On();
+					MoveStop = true;
 				}
 
 
-			}
-		}
-		/*if (sddfs == false)
-		{
-			BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
-			Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
-			Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
-			sddfs = true;
-		}*/
-		
 
-		MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+				BigExploisionTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-		if (MonsterTime > 1.5  && Hp > 75)
-		{
-			if (LeftRightCheck == true)
-			{
-				SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
 
-				SmallMonster->ChangeState(SmallMonsterState::RIGHTMOVE);
-				SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
-				LeftRightCheck = false;
-				MonsterTime = 0;
+				if (BigExploisionTime > 1)
+				{
+					MiddleExploision->Off();
+					MiddleExploision2->Off();
+					MiddleExploision3->Off();
+					MiddleExploision4->Off();
+					MiddleExploision5->Off();
+					MiddleExploision6->Off();
+					MiddleExploision7->Off();
+					MiddleExploision8->Off();
+					MiddleExploision9->Off();
+					MiddleExploision10->Off();
 
-			}
-			else if (LeftRightCheck == false)
-			{
-				SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+					BigExploision->On();
+					BigExploision->SetPosition({ 0,-500 });
+					BigExploision2->On();
+					BigExploision2->SetPosition({ -300,-500 });
+					BigExploision3->On();
+					BigExploision3->SetPosition({ 300,-500 });
+					BigExploision4->On();
+					BigExploision4->SetPosition({ 250,-400 });
+					BigExploision5->On();
+					BigExploision5->SetPosition({ -250,-400 });
+					DeathBody->Off();
+					Upbody->Off();
+				}
 
-				SmallMonster->ChangeState(SmallMonsterState::LEFTMOVE);
-				SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
-				LeftRightCheck = true;
-				MonsterTime = 0;
-
+				SetMove(-MoveDir * _DeltaTime);
 			}
 
-		}
-
-		Movecalculation(_DeltaTime);
-	}
-
-	if (Hp <= 0)
-	{
-		MoveDir = { 0,0 };
-
-
-
-		ExploisionTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
-
-		if (ExploisionTime < 0.5)
-		{
-			MiddleExploision->On();
-			MiddleExploision->SetPosition({ 0,-570 });
-		}
-		if (ExploisionTime > 0.5)
-		{
-			if (ExploisionTime < 1.0)
-			{
-				MiddleExploision2->On();
-				MiddleExploision2->SetPosition({ -50,-500 });
-			}
-		}
-		if (ExploisionTime > 1.0)
-		{
-			if (ExploisionTime < 1.5)
-			{
-				MiddleExploision3->On();
-				MiddleExploision3->SetPosition({ 70,-480 });
-			}
-		}
-		if (ExploisionTime > 1.5)
-		{
-			if (ExploisionTime < 2.0)
-			{
-				MiddleExploision4->On();
-				MiddleExploision4->SetPosition({ 100,-370 });
-			}
-		}
-		if (ExploisionTime > 2.0)
-		{
-			if (ExploisionTime < 2.5)
-			{
-				MiddleExploision5->On();
-				MiddleExploision5->SetPosition({ -80,-350 });
-			}
-		}
-		if (ExploisionTime > 2.5)
-		{
-			if (ExploisionTime < 3.0)
-			{
-				MiddleExploision6->On();
-				MiddleExploision6->SetPosition({ -150,-480 });
-			}
-		}
-		if (ExploisionTime > 3.0)
-		{
-			if (ExploisionTime < 3.5)
-			{
-				MiddleExploision7->On();
-				MiddleExploision7->SetPosition({ 250,-460 });
-			}
-		}
-		if (ExploisionTime > 3.5)
-		{
-			if (ExploisionTime < 4.0)
-			{
-				MiddleExploision8->On();
-				MiddleExploision8->SetPosition({ -300,-410 });
-			}
-		}
-		if (ExploisionTime > 4.0)
-		{
-			if (ExploisionTime < 4.5)
-			{
-				MiddleExploision9->On();
-				MiddleExploision9->SetPosition({ 200,-420 });
-			}
-		}
-		if (ExploisionTime > 4.5)
-		{
-			if (ExploisionTime < 5.0)
-			{
-				MiddleExploision10->On();
-				MiddleExploision10->SetPosition({ -360,-380 });
-			}
-		}
-
-
-		if (ExploisionTime > 5.0)
-		{
-			ExploisionTime = 0;
-		}
-
-
-
-		
-		
-		
-		LeftGroundEffect->Off();
-		RightGroundEffect->Off();
-		LeftBoom->Off();
-		RightBoom->Off();
-		LeftEngine->Off();
-		RightEngine->Off();
-		
-
-		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
-
-		if (nullptr == ColImage)
-		{
-			MsgAssert("충돌용 맵 이미지가 없습니다.");
-		}
-
-		float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-		float4 NextPos1 = { NextPos.x,NextPos.y - 250 };
-		if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos1, RGB(0, 255, 0))))
-		{
 			if (MoveStop == false)
 			{
-				TwoPhaseBody->Off();
-				DeathBody->On();
-				MoveStop = true;
-			}
-			
-			
-
-			BigExploisionTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-			if (BigExploisionTime > 1)
-			{
-				BigExploision->On();
-				BigExploision->SetPosition({ 0,-500 });
-				BigExploision2->On();
-				BigExploision2->SetPosition({ -300,-500 });
-				BigExploision3->On();
-				BigExploision3->SetPosition({  300,-500 });
-				BigExploision4->On();
-				BigExploision4->SetPosition({ 250,-400 });
-				BigExploision5->On();
-				BigExploision5->SetPosition({ -250,-400 });
-				DeathBody->Off();
-				Upbody->Off(); 
-			}
-			if (BigExploisionTime > 2.0)
-			{
-				this->Death();
-			}
-			SetMove(-MoveDir * _DeltaTime);
-		}
-
-		if (MoveStop == false)
-		{
 
 
 
-			MoveDir += float4::Down * 300;
+				MoveDir += float4::Down * 300;
 
 
-			DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+				DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-			if (DeathTime < 0.05)
-			{
-				MoveDir += float4::Right * 100;
-			}
-			if (DeathTime > 0.05)
-			{
-				if (DeathTime < 0.1)
+				if (DeathTime < 0.05)
 				{
-					MoveDir += float4::Left * 100;
+					MoveDir += float4::Right * 100;
+				}
+				if (DeathTime > 0.05)
+				{
+					if (DeathTime < 0.1)
+					{
+						MoveDir += float4::Left * 100;
+					}
+				}
+				if (DeathTime > 0.1)
+				{
+					DeathTime = 0;
 				}
 			}
-			if (DeathTime > 0.1)
-			{
-				DeathTime = 0;
-			}
+
+
 		}
-		
+		if (BigExploision5->IsAnimationEnd())
+		{
+			if (Finishletter == false)
+			{
+
+
+				FinishInterFace* Actor = GetLevel()->CreateActor<FinishInterFace>();
+				Actor->SetPos({ GetPos().x - 400,GetPos().y - 1000 });
+				Finishletter = true;
+			}
+
+		}
+
+		if (Hp >= 0)
+		{
+			UpdateState(_DeltaTime);
+		}
 
 	}
-	if(BigExploision5->IsAnimationEnd())
-	{
-		this->Death();
-	}
-
-	if (Hp >= 0)
-	{
-		UpdateState(_DeltaTime);
-	}
-
-	
 }
 
 

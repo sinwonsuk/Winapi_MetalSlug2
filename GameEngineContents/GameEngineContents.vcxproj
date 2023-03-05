@@ -28,6 +28,7 @@
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="Carriage.h" />
     <ClInclude Include="CharacterSelect.h" />
+    <ClInclude Include="FinishInterFace.h" />
     <ClInclude Include="HeavyGun.h" />
     <ClInclude Include="InterFace.h" />
     <ClInclude Include="Items.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="Carriage.cpp" />
     <ClCompile Include="CarriageState.cpp" />
     <ClCompile Include="CharacterSelect.cpp" />
+    <ClCompile Include="FinishInterFace.cpp" />
     <ClCompile Include="HeavyGun.cpp" />
     <ClCompile Include="InterFace.cpp" />
     <ClCompile Include="Items.cpp" />
