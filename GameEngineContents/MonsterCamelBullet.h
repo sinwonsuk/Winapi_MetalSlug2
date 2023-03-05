@@ -22,5 +22,5 @@ protected:
 private:
 	GameEngineRender* BulletRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
-	
+	float Time = 0;
 };

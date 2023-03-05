@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BazookaBullet.h" />
+    <ClInclude Include="BazookaMonster.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossSmallMonster.h" />
@@ -71,6 +73,9 @@
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BazookaBullet.cpp" />
+    <ClCompile Include="BazookaMonster.cpp" />
+    <ClCompile Include="BazookaMonsterState.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossSmallMonster.cpp" />

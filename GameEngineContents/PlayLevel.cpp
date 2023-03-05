@@ -812,6 +812,38 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("GroundYellowEffect.BMP"));
 			Image->Cut(5, 2);
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("Bossmount.BMP"));
+			Image->Cut(5, 2);
+		}
+
+		// bazooka
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BazookaAttackEffect.BMP"));
+			Image->Cut(5, 4);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BazookaBullet.BMP"));
+			Image->Cut(5, 1);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("LeftBazookaAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("LeftBazookaMove.BMP"));
+			Image->Cut(5, 3);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightBazookaAttack.BMP"));
+			Image->Cut(5, 2);
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("RightBazookaMove.BMP"));
+			Image->Cut(5, 3);
+		}
+
+
 
 
 		//NPC
@@ -979,7 +1011,7 @@ void PlayLevel::Loading()
 	}
 	{
 		Boss* Actor = CreateActor<Boss>();
-		Actor->SetPos({ 11800,700 });
+		Actor->SetPos({ 11800,300});
 	}
 
 

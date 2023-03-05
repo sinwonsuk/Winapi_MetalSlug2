@@ -4,7 +4,8 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
-
+#include <GameEngineCore/GameEngineCollision.h>
+#include "BazookaMonster.h"
 
 void Boss::ChangeState(BossState _State)
 {
@@ -97,36 +98,49 @@ void Boss::AttackStart()
 
 void Boss::IdleUpdate(float _Time)
 {
-	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (Time < 0.7)
+	if (IdleStartCheck == true)
 	{
+		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-		MoveDir += float4::Up * 40;
-		MoveDirGroundEffect += float4::Down * 40;
-	}
-	if (Time > 0.7)
-	{
-		if (Time < 1.4)
+		if (Time < 0.7)
 		{
-			MoveDir += float4::Down * 40;
-			MoveDirGroundEffect += float4::Up * 40;
+
+			MoveDir += float4::Up * 40;
+			MoveDirGroundEffect += float4::Down * 40;
+		}
+		if (Time > 0.7)
+		{
+			if (Time < 1.4)
+			{
+				MoveDir += float4::Down * 40;
+				MoveDirGroundEffect += float4::Up * 40;
+			}
+		}
+		if (Time > 1.4)
+		{
+			Time = 0;
+		}
+
+		if (Hp <= 75)
+		{
+			/*MoveDir = { 0,0 };
+			MoveDirGroundEffect = { 0,0 };*/
+			if (sddfs == false)
+			{
+				BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
+				Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
+				Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+
+				BazookaMonster* Actor1 = GetLevel()->CreateActor<BazookaMonster>();
+				Actor1->ChangeState(BazookaMonsterState::LEFTMOVE);
+				Actor1->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+				sddfs = true;
+			}
+			Time = 0;
+			ChangeState(BossState::SMOKEPRE);
+			return;
 		}
 	}
-	if (Time > 1.4)
-	{	
-		Time = 0;
-	}
-
-	if (Hp <= 75)
-	{
-		MoveDir = { 0,0 };
-		MoveDirGroundEffect = { 0,0 };
-		Time = 0;
-		ChangeState(BossState::SMOKEPRE);
-		return;
-	}
-
 
 	
 }

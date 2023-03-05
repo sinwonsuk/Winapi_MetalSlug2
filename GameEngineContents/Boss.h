@@ -72,6 +72,8 @@ private:
 
 	GameEngineRender* Mainbody = nullptr;
 
+	GameEngineRender* Upbody = nullptr;
+
 	GameEngineRender* LeftWing = nullptr;
 	GameEngineRender* RightWing = nullptr;
 
@@ -98,8 +100,9 @@ private:
 	bool AttackCheck = false;
 	BossSmallMonster* SmallMonster = nullptr;
 	bool LeftRightCheck = false;
-	bool Idle = false;
-
+	bool IdleStartCheck = false;
+	bool sddfs = false;
+	
 	
 
 };

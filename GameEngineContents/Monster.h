@@ -57,17 +57,17 @@ public:
 	void MonsterBulletUpdate(float _Time);
 
 	void MonsterJumpStart();
-	void MonsterJumpUpdate();
+	void MonsterJumpUpdate(float _Time);
 
 	void MonsterBackJumpStart(); 
-	void MonsterBackJumpUpdate();
+	void MonsterBackJumpUpdate(float _Time);
 
 	void MonsterDeathOneStart(); 
-	void MonsterDeathOneUpdate();
+	void MonsterDeathOneUpdate(float _Time);
 
 	
 	void MonsterDeathTwoStart(); 
-	void MonsterDeathTwoUpdate();
+	void MonsterDeathTwoUpdate(float _Time);
 
 	
 	/*inline void SetMoveDir(const float4& _MovePos)

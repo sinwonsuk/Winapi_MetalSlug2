@@ -37,12 +37,12 @@ void MonsterBullet::Update(float _DeltaTime)
 	MoveDir += float4::Down * 1000.0f * _DeltaTime;
 
 	
-	if (MonsterBulletMove == true)
+	/*if (MonsterBulletMove == true)
 	{
 		
 		MoveDir += float4::Left * 20;
 		
-	}
+	}*/
 
 	if (300.0f <= abs(MoveDir.x))
 	{

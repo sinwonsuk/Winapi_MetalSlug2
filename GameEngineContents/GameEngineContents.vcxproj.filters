@@ -68,6 +68,8 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="MapEffect.h" />
     <ClInclude Include="BossSmallMonster.h" />
+    <ClInclude Include="BazookaMonster.h" />
+    <ClInclude Include="BazookaBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -156,6 +158,9 @@
     <ClCompile Include="BossState.cpp" />
     <ClCompile Include="BossSmallMonster.cpp" />
     <ClCompile Include="BossSmallMonsterState.cpp" />
+    <ClCompile Include="BazookaMonster.cpp" />
+    <ClCompile Include="BazookaMonsterState.cpp" />
+    <ClCompile Include="BazookaBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

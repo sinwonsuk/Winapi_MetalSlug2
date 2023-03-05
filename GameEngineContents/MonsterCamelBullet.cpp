@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnums.h"
+#include <GameEngineBase/GameEngineTime.h>
 MonsterCamelBullet::MonsterCamelBullet()
 {
 
@@ -36,5 +37,11 @@ void MonsterCamelBullet::Update(float _DeltaTime)
 {
 	MoveDir = float4::Left;
 	SetMove(MoveDir * _DeltaTime * 500);
+	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+
+	if (Time > 5)
+	{
+		this->Death(); 
+	}
 
 }

@@ -92,19 +92,15 @@ private:
 	float4 CurMoveDir = float4::Zero;
 	
 	 
-	bool Turn = true;
 	bool DownCheck = false;
-	float TimeCheck = 0;
-	float JumpSpeed = 650;
-	float MoveSpeed = 100;
-	float DeathCheck = 0;
 	bool EffectCheck = false;
-	bool death = false;
-	bool MoveCamera = false;
+	//bool death = false;
+	int AttackNumber = 0; 
 	float Time = 0;
 	float BulletRange = 0;
-	bool JumpCheck = false;
-	int AttackNumber = 0;
+
+
+	bool JumpCheck = false;	
 	bool CollisionCheck = false;
 	bool AttackCheck = false;
 	//MachineMonsterBullet* Actor = nullptr;

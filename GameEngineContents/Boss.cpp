@@ -8,6 +8,7 @@
 #include "ContentsEnums.h"
 #include "BulletEffect.h"
 #include "BossSmallMonster.h"
+#include "BazookaMonster.h"
 Boss* Boss::boss;
 Boss::Boss()
 {
@@ -24,6 +25,7 @@ Boss::~Boss()
 void Boss::Start()
 {
 	boss = this;
+
 	{
 		Mainbody = CreateRender(MetalSlugOrder::Boss);
 		Mainbody->SetScale({ 1200,1200 });
@@ -32,7 +34,15 @@ void Boss::Start()
 		//Mainbody->SetImage(); 
 	
 	}
-	
+	{
+		Upbody = CreateRender(MetalSlugOrder::Boss);
+		Upbody->SetScale({ 800,800 });
+		Upbody->CreateAnimation({ .AnimationName = "Bossmount",  .ImageName = "Bossmount.bmp", .Start = 0, .End = 6 , .InterTime = 0.1f,.Loop = false });
+		
+		Upbody->ChangeAnimation("Bossmount");
+		Upbody->SetPosition({ 7,-540 });
+		Upbody->Off();
+	}
 
 	{
 		LeftGroundEffect = CreateRender(MetalSlugOrder::Boss);
@@ -45,6 +55,7 @@ void Boss::Start()
 
 		LeftGroundEffect->ChangeAnimation("LeftGround");
 		LeftGroundEffect->SetPosition({ -295,0 });
+		LeftGroundEffect->Off(); 
 
 
 	}
@@ -59,6 +70,7 @@ void Boss::Start()
 
 		RightGroundEffect->ChangeAnimation("RightGround");
 		RightGroundEffect->SetPosition({ 308,0});
+		RightGroundEffect->Off(); 
 	}
 	{
 		LeftBoom = CreateRender(MetalSlugOrder::Boss);
@@ -120,37 +132,65 @@ void Boss::Start()
 
 	}
 
-	
 
 
 }
 
 void Boss::Update(float _DeltaTime)
 {
-	if (nullptr != MonsterCollision)
+	if (IdleStartCheck == false)
 	{
-		std::vector<GameEngineCollision*> collision;
-		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
-		{
-			Hp--;
+		MoveDir = float4::Down * 50;
+		SetMove(MoveDir * _DeltaTime);
+	}
+	
+	
+	
 
-			for (size_t i = 0; i < collision.size(); i++)
-			{
-				GameEngineActor* ColActor = collision[i]->GetActor();
-				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
-				Effect->SetMove(ColActor->GetPos());
-			
-
-				ColActor->Death();
-			}
-
-			
-		}
+	if (GetPos().y > 700)
+	{
+		RightGroundEffect->On();
+		RightGroundEffect->On();
+		IdleStartCheck = true;
+		Upbody->On();
 	}
 
 
-	     MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-	
+
+	if (IdleStartCheck == true)
+	{
+
+		if (nullptr != MonsterCollision)
+		{
+			std::vector<GameEngineCollision*> collision;
+			if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+			{
+				Hp--;
+
+				for (size_t i = 0; i < collision.size(); i++)
+				{
+					GameEngineActor* ColActor = collision[i]->GetActor();
+					BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+					Effect->SetMove(ColActor->GetPos());
+
+
+					ColActor->Death();
+				}
+
+
+			}
+		}
+		/*if (sddfs == false)
+		{
+			BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
+			Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
+			Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+			sddfs = true;
+		}*/
+		
+
+		MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
 		if (MonsterTime > 2)
 		{
 			if (LeftRightCheck == true)
@@ -173,14 +213,15 @@ void Boss::Update(float _DeltaTime)
 				MonsterTime = 0;
 
 			}
-		
 
 
 
-		
+
+
 		}
-	
-	Movecalculation(_DeltaTime);
+
+		Movecalculation(_DeltaTime);
+	}
 	UpdateState(_DeltaTime);
 }
 
@@ -253,10 +294,10 @@ void Boss::AnimationCheck()
 
 	if (StateValue == BossState::SMOKEPRE)
 	{
-		LeftBoom->SetScale({ 1200,800 });
+		LeftBoom->SetScale({ 1200,850 });
 		LeftBoom->SetPosition({ -295,-358 });
 
-		RightBoom->SetScale({ 1200,800 });
+		RightBoom->SetScale({ 1200,850 });
 		RightBoom->SetPosition({ 308,-358 });
 
 		LeftEngine->ChangeAnimation("LeftEngine");
@@ -289,10 +330,10 @@ void Boss::AnimationCheck()
 	{
 		
 
-		LeftBoom->SetScale({ 1200,800 });
+		LeftBoom->SetScale({ 1200,850 });
 		LeftBoom->SetPosition({ -295,-358 });
 
-		RightBoom->SetScale({ 1200,800 });
+		RightBoom->SetScale({ 1200,850 });
 		RightBoom->SetPosition({ 308,-358 });
 
 		LeftGroundEffect->SetPosition({ -295 ,40});

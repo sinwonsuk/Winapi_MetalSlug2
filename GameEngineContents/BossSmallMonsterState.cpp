@@ -4,8 +4,8 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
-
-
+#include "MonsterBullet.h"
+#include "Player.h"
 
 
 void BossSmallMonster::ChangeState(SmallMonsterState _State)
@@ -146,20 +146,66 @@ void BossSmallMonster::RightJumpUpdate(float _Time)
 
 void BossSmallMonster::LeftAttackUpdate(float _Time)
 {
+	if (AnimationRender->GetFrame() == 7)
+	{
+		if (AttackNumber == 0)
+		{
+			MonsterBullet *Actor = GetLevel()->CreateActor<MonsterBullet>();
+			Actor->SetPos(GetPos());
+			BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
+
+			Actor->MoveDir += float4::Left * (50 + BulletRange);
+			Actor->MoveDir += float4::Up * 600;
+			Actor->MonsterBulletMove = true;
+		}
+
+		AttackNumber++;
+		return;
+	}
+	if (true == AnimationRender->IsAnimationEnd())
+	{
+		AttackNumber = 0;
+		
+		return;
+	}
+
 }
 
 void BossSmallMonster::RightAttackUpdate(float _Time)
 {
+	if (AnimationRender->GetFrame() == 7)
+	{
+		if (AttackNumber == 0)
+		{
+			MonsterBullet* Actor = GetLevel()->CreateActor<MonsterBullet>();
+			Actor->SetPos(GetPos());
+			BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
+
+			Actor->MoveDir += float4::Right * (50 + abs(BulletRange));
+			Actor->MoveDir += float4::Up * 600;
+		//	Actor->MonsterBulletMove = true;
+		}
+
+		AttackNumber++;
+		return;
+	}
+	if (true == AnimationRender->IsAnimationEnd())
+	{
+		AttackNumber = 0;
+
+		return;
+	}
 }
 
 void BossSmallMonster::LeftDeathUpdate(float _Time)
 {
-	MoveDir = { 0,0 };
+	SetMove(-MoveDir * _Time);	
 }
 
 void BossSmallMonster::RightDeathUpdate(float _Time)
 {
-	MoveDir = { 0,0 };
+	SetMove(-MoveDir * _Time);
+	
 }
 
 

@@ -81,16 +81,16 @@ void Monster::UpdateState(float _Time)
 		MonsterBulletUpdate(_Time);
 		break;
 	case MonsterState::JUMP:
-		MonsterJumpUpdate();
+		MonsterJumpUpdate(_Time);
 		break;
 	case MonsterState::JUMPBACK:
-		MonsterBackJumpUpdate();
+		MonsterBackJumpUpdate(_Time);
 		break;
 	case MonsterState::DEATHONE:
-		MonsterDeathOneUpdate();
+		MonsterDeathOneUpdate(_Time);
 		break;
 	case MonsterState::DEATHTWO:
-		MonsterDeathTwoUpdate();
+		MonsterDeathTwoUpdate(_Time);
 		break;
 	default:
 		break;
@@ -239,7 +239,7 @@ void Monster::MonsterBulletUpdate(float _Time)
 }
 
 
-void Monster::MonsterJumpUpdate()
+void Monster::MonsterJumpUpdate(float _Time)
 {
 	//if (MoveDir.y > 0)
 	//{
@@ -248,7 +248,7 @@ void Monster::MonsterJumpUpdate()
 }
 
 
-void Monster::MonsterBackJumpUpdate()
+void Monster::MonsterBackJumpUpdate(float _Time)
 {
 	MoveDir.x = 0;
 
@@ -259,9 +259,9 @@ void Monster::MonsterBackJumpUpdate()
 	}
 }
 
-void Monster::MonsterDeathOneUpdate()
+void Monster::MonsterDeathOneUpdate(float _Time)
 {
-	MoveDir = { 0,0 }; 
+	SetMove(-MoveDir * _Time);
 
 	if (true == AnimationRender->IsAnimationEnd())
 	{
@@ -270,9 +270,9 @@ void Monster::MonsterDeathOneUpdate()
 }
 
 
-void Monster::MonsterDeathTwoUpdate()
+void Monster::MonsterDeathTwoUpdate(float _Time)
 {
-	MoveDir = { 0,0 };
+	SetMove(-MoveDir * _Time);
 
 	if (true == AnimationRender->IsAnimationEnd())
 	{
