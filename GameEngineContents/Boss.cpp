@@ -159,6 +159,7 @@ void Boss::Update(float _DeltaTime)
 
 				SmallMonster->ChangeState(SmallMonsterState::RIGHTMOVE);
 				SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+				LeftRightCheck = false;
 				MonsterTime = 0;
 
 			}
@@ -168,6 +169,7 @@ void Boss::Update(float _DeltaTime)
 
 				SmallMonster->ChangeState(SmallMonsterState::LEFTMOVE);
 				SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+				LeftRightCheck = true;
 				MonsterTime = 0;
 
 			}
