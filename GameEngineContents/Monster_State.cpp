@@ -220,8 +220,7 @@ void Monster::AttackUpdate(float _Time)
 			Actor->MonsterBulletMove = true;
 		}
 		
-		a++;
-		return; 
+		a++;		
 	}
 
 	if (true == AnimationRender->IsAnimationEnd())
@@ -234,7 +233,7 @@ void Monster::AttackUpdate(float _Time)
 
 void Monster::MonsterBulletUpdate(float _Time)
 {
-	// MoveDir1 += float4::Left * 5;
+	
 	
 }
 
@@ -261,22 +260,25 @@ void Monster::MonsterBackJumpUpdate(float _Time)
 
 void Monster::MonsterDeathOneUpdate(float _Time)
 {
-	SetMove(-MoveDir * _Time);
+	
+	MoveDir = { 0,0 };
 
 	if (true == AnimationRender->IsAnimationEnd())
 	{
-		this->Death(); 
+		DeathCheck = true;
+		
 	}
 }
 
 
 void Monster::MonsterDeathTwoUpdate(float _Time)
 {
-	SetMove(-MoveDir * _Time);
+	MoveDir = { 0,0 };
+	
 
 	if (true == AnimationRender->IsAnimationEnd())
 	{
-		this->Death();
+		DeathCheck = true;	
 	}
 }
 

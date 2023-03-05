@@ -71,6 +71,7 @@
     <ClInclude Include="BazookaMonster.h" />
     <ClInclude Include="BazookaBullet.h" />
     <ClInclude Include="FinishInterFace.h" />
+    <ClInclude Include="WinPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -163,6 +164,7 @@
     <ClCompile Include="BazookaMonsterState.cpp" />
     <ClCompile Include="BazookaBullet.cpp" />
     <ClCompile Include="FinishInterFace.cpp" />
+    <ClCompile Include="WinPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

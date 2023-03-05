@@ -53,6 +53,8 @@ void Items::Start()
 
 void Items::Update(float _DeltaTime)
 {
+	ItemTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
 	if (GunBoombChangeCheck == false && CollisionCheck == false)
 	{
 		Boomb->On();
@@ -62,8 +64,8 @@ void Items::Update(float _DeltaTime)
 		HeavyMachineGun->On();
 	}
 
-	ItemTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
-	if (ItemTime > 0.4)
+	
+	if (ItemTime > 0.2)
 	{
 
 		if (nullptr != Collision && GunBoombChangeCheck == false)
@@ -76,7 +78,7 @@ void Items::Update(float _DeltaTime)
 				Boomb->Off();
 				CollisionCheck = true;
 				BoombNumber++;
-				Collision->Death(); 
+				Collision->Death();
 			}
 		}
 
@@ -95,93 +97,93 @@ void Items::Update(float _DeltaTime)
 			}
 		}
 
-	}
-	if (BoombNumber == 1  && CollisionCheck ==true)
-	{
-		Player::MainPlayer->BombNumber += 10;
-		BoombNumber = false;
-	}
-	if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
-	{
-		Player::MainPlayer->HeavyMachineGun += 200;
-		HeavyMachineGuneNumber = false;
-	}
 
-	
-	
-	if (Effect->IsAnimationEnd())
-	{	
-		this->Death(); 	
-	}
-
-
-
-
-
-	MoveDir += float4::Down * 3500.0f * _DeltaTime;
-
-	if (50.0f <= abs(MoveDir.x))
-	{
-		if (0 > MoveDir.x)
+		if (BoombNumber == 1 && CollisionCheck == true)
 		{
-			MoveDir.x = -200.0f;
+			Player::MainPlayer->BombNumber += 10;
+			BoombNumber = false;
 		}
-		else
+		if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
 		{
-			MoveDir.x = 200.0f;
+			Player::MainPlayer->HeavyMachineGun += 200;
+			HeavyMachineGuneNumber = false;
 		}
-	}
-
-	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
-
-	if (nullptr == ColImage)
-	{
-		MsgAssert("충돌용 맵 이미지가 없습니다.");
-	}
-
-	bool Check = true;
-	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
 
 
 
-
-	if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) || ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))))
-	{
-
-		Check = false;
-	}
-
-
-
-	if (false == Check)
-	{
-		while (true)
+		if (Effect->IsAnimationEnd())
 		{
-			MoveDir.y -= 1;
-			float4 NextPos = GetPos() + MoveDir * _DeltaTime;
-			if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) || ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))))
+			this->Death();
+		}
+
+
+
+
+
+		MoveDir += float4::Down * 3500.0f * _DeltaTime;
+
+		if (50.0f <= abs(MoveDir.x))
+		{
+			if (0 > MoveDir.x)
 			{
-				continue;
+				MoveDir.x = -200.0f;
 			}
-
-			if (50.0f <= abs(MoveDir.y))
+			else
 			{
-				if (0 > MoveDir.y)
-				{
-					MoveDir.y = -100.0f;
-				}
-				else
-				{
-					MoveDir.y = 0.0f;
-				}
+				MoveDir.x = 200.0f;
 			}
-			Check = true;
-			break;
 		}
+
+		GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
+
+		if (nullptr == ColImage)
+		{
+			MsgAssert("충돌용 맵 이미지가 없습니다.");
+		}
+
+		bool Check = true;
+		float4 NextPos = GetPos() + MoveDir * _DeltaTime;
+
+
+
+
+		if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) || ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))))
+		{
+
+			Check = false;
+		}
+
+
+
+		if (false == Check)
+		{
+			while (true)
+			{
+				MoveDir.y -= 1;
+				float4 NextPos = GetPos() + MoveDir * _DeltaTime;
+				if (((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))) || ((RGB(0, 250, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 250, 0)))))
+				{
+					continue;
+				}
+
+				if (50.0f <= abs(MoveDir.y))
+				{
+					if (0 > MoveDir.y)
+					{
+						MoveDir.y = -100.0f;
+					}
+					else
+					{
+						MoveDir.y = 0.0f;
+					}
+				}
+				Check = true;
+				break;
+			}
+		}
+
+		SetMove(MoveDir * _DeltaTime);
 	}
-
-	SetMove(MoveDir * _DeltaTime);
-
 }
 void Items::Render(float _Time)
 {

@@ -69,7 +69,7 @@ void Wall::Start()
 
 	{
 		WallCollision = CreateCollision(MetalSlugOrder::Wall);
-		WallCollision->SetScale({ 100,500 });
+		WallCollision->SetScale({ 150,500 });
 	}
 
 }
@@ -242,5 +242,6 @@ void Wall::Update(float _DeltaTime)
 
 void Wall::Render(float _Time)
 {
+	//WallCollision->DebugRender(); 
 }
 

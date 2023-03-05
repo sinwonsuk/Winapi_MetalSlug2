@@ -37,10 +37,10 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 7600,0 });
-	GetLevel()->SetCameraPos({ 7600,0 });
-	CameraCheck = true;
-	MonsterCheck = 16;
+	SetMove({ 100,0 });
+	//GetLevel()->SetCameraPos({ 7000,0 });
+	//CameraCheck = true;
+	//MonsterCheck = 13;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -1132,7 +1132,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
-				Actor->SetMove({ 2140,300 });
+				Actor->SetMove({ 2140,400 });
 				Actor->SetDownCheck(false); 
 				Actor->SetItemCheck(true);
 			}
@@ -1217,7 +1217,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				Actor->SetMove({ 4200, 300 });
 
 				Actor->ChangeState(NpcState::BIND);
-				Actor->SetItemCheck(true);
+				Actor->SetItemCheck(false);
 				Actor->SetTurn(false); 
 			}
 
@@ -1375,6 +1375,10 @@ void Player::CollisionCheck(float _DeltaTime)
 				
 				middleBoss->SetPos({ 6520,500 });				
 			}
+		
+			
+
+
 			if (MonsterCheck == 8)
 			{
 				RunMonster*Atcor = GetLevel()->CreateActor<RunMonster>();
@@ -1507,6 +1511,15 @@ void Player::CollisionCheck(float _DeltaTime)
 
 		if (RGB(241, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(241, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 16)
 		{
+			if (MonsterCheck == 8)
+			{
+				NPC* Actor = GetLevel()->CreateActor<NPC>();
+				Actor->SetMove({ 9500, 300 });
+				Actor->SetItemCheck(true);
+				Actor->SetDownCheck(true);
+
+			}
+
 			if (MonsterCheck == 16)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
@@ -1629,7 +1642,11 @@ void Player::CollisionCheck(float _DeltaTime)
 		{
 			boss->BossStart = true;
 		}
-
+	/*	if (boss->Hp <= 0)
+		{
+			AnimationBodyRender->Off(); 
+			AnimationRegRender->Off();
+		}*/
 
 
 }

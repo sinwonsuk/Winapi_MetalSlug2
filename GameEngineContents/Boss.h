@@ -107,9 +107,7 @@ private:
 	GameEngineRender* MiddleExploision9 = nullptr;
 	GameEngineRender* MiddleExploision10 = nullptr;
 	
-	GameEngineRender* SmallExploision = nullptr;
-	GameEngineRender* SmallExploision2 = nullptr;
-	GameEngineRender* SmallExploision3 = nullptr;
+	
 
 	GameEngineRender* BigExploision = nullptr;
 	GameEngineRender* BigExploision2 = nullptr;

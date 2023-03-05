@@ -70,10 +70,7 @@ public:
 	void MonsterDeathTwoUpdate(float _Time);
 
 	
-	/*inline void SetMoveDir(const float4& _MovePos)
-	{
-		MoveDir = _MovePos;
-	}*/
+	
 
 	GameEngineCollision* GetPlayerCollision()
 	{
@@ -86,15 +83,12 @@ public:
 
 		return RunCheck; 
 	}
-	/*GameEngineCollision* SetPlayerCollision()
-	{
-		return PlayerCollision;
-	}*/
+
 	GameEngineCollision* PlayerCollision = nullptr;
-	int GetNumber()
+	/*int GetNumber()
 	{
 		return Number;
-	}
+	}*/
 
 protected:
 
@@ -111,10 +105,12 @@ private:
 	float JumpSpeed = 650; 
 	float MoveSpeed = 1000;
 	GameEngineRender* AnimationRender = nullptr;
-	//GameEngineRender* BulletRender = nullptr;
+	float DeathTime = 0;
+	bool DeathCheck = false;
 	GameEngineCollision* MonsterCollision = nullptr;
-	int Number = 0;
+	int Hp = 1;
 	float a = 0;
+	bool death = false;
 	bool RunCheck = true;
 	bool Test = false;
 	bool GroundCheck = false;

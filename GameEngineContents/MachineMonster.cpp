@@ -158,11 +158,12 @@ void MachineMonster::Update(float _DeltaTime)
 			Hp--;
 		}
 	}
-	if (Hp <= -30)
+	if (Hp <= 0)
 	{
 		ChangeState(MachineState::DEATH);
 		MonsterCollision->Death();
 	}
+
 
 	if (Player::MainPlayer->GetCameraMoveCheck().x > Player::MainPlayer->GetPos().x && MoveCamera == false)
 	{
@@ -188,6 +189,7 @@ void MachineMonster::Update(float _DeltaTime)
 			MoveCamera = true;
 		}
 	}
+
 	Movecalculation(_DeltaTime);
 
 	UpdateState(_DeltaTime);

@@ -125,7 +125,7 @@ void HeavyGun::Start()
 
 	{
 		Collision = CreateCollision(MetalSlugOrder::Bullet);
-		Collision->SetScale({ 100, 100 });
+		Collision->SetScale({ 140, 50 });
 	}
 
 
@@ -151,11 +151,12 @@ void HeavyGun::Update(float _DeltaTime)
 		case Direction::Left:
 			LeftHeavyBullet->On(); 
 			DirTime = 0.6;
+			TimeCheck = true;
 			break;
 		case Direction::Right:
 			RightHeavyBullet->On(); 
 			DirTime = 0.6;
-		
+			TimeCheck = true;
 			break;
 		case Direction::Down:
 			
@@ -164,46 +165,58 @@ void HeavyGun::Update(float _DeltaTime)
 		case Direction::Up:
 			UpHeavyBullet->On();
 			DirTime = 0.6;
+			TimeCheck = true;
 			break;
 		case Direction::A:
 			RightUpHeavyBullet->On(); 
-			DirTime = 0.75;
+			DirTime = 0.6;
+			TimeCheck = true;
 			break;
 		case Direction::B:
 			RightUpHeavyBullet1->On();
-			DirTime = 0.95;
+			DirTime = 0.85;
+			TimeCheck = true;
 			break;
 		case Direction::C:
 			RightUpHeavyBullet3->On();
-			DirTime = 0.9;
+			DirTime = 0.8;
+			TimeCheck = true;
 			break;
 		case Direction::D:
 			RightUpHeavyBullet4->On();
-			DirTime = 0.9;
+			DirTime = 0.8;
+			TimeCheck = true;
 			break;
 		case Direction::LeftA:
 			LeftUpHeavyBullet->On();
-			DirTime = 0.75;
+			DirTime = 0.6;
+			TimeCheck = true;
 			break;
 		case Direction::LeftB:
 			LeftUpHeavyBullet1->On();
-			DirTime = 0.95;
+			DirTime = 0.85;
+			TimeCheck = true;
 			break;
 		case Direction::LeftC:
 			LeftUpHeavyBullet3->On();
-			DirTime = 0.9;
+			DirTime = 0.8;
+			TimeCheck = true;
 			break;
 		case Direction::LeftD:
 			LeftUpHeavyBullet4->On();
-			DirTime = 0.9;
+			DirTime = 0.8;
+			TimeCheck = true;
 			break;
 
 
 		default:
 			break;
 		}
-		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
+		if (TimeCheck == true)
+		{
+			DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		}
+		
 		if (DeathCheck > DirTime)
 		{
 			this->Death();
@@ -214,5 +227,5 @@ void HeavyGun::Update(float _DeltaTime)
 void HeavyGun::Render(float _Time)
 {
 
-
+//	Collision->DebugRender();
 }

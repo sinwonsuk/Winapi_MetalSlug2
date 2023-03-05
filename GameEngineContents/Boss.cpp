@@ -10,7 +10,8 @@
 #include "BossSmallMonster.h"
 #include "BazookaMonster.h"
 #include "FinishInterFace.h"
-
+#include "WinPlayer.h"
+#include "Player.h"
 Boss* Boss::boss;
 Boss::Boss()
 {
@@ -144,22 +145,7 @@ void Boss::Start()
 
 
 	{
-		SmallExploision = CreateRender(MetalSlugOrder::BossExPloision);
-		SmallExploision->SetScale({ 700,700 });
-		SmallExploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = true });
-		SmallExploision->Off();
-
-		SmallExploision2 = CreateRender(MetalSlugOrder::BossExPloision);
-		SmallExploision2->SetScale({ 700,700 });
-	    SmallExploision2->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = true });
-		SmallExploision2->Off();
-
-		SmallExploision3 = CreateRender(MetalSlugOrder::BossExPloision);
-		SmallExploision3->SetScale({ 700,700 });
-		
-		SmallExploision3->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = true });
-		SmallExploision3->Off();
-
+	
 		MiddleExploision = CreateRender(MetalSlugOrder::BossExPloision);
 		MiddleExploision->SetScale({ 700,700 });
 	
@@ -247,10 +233,6 @@ void Boss::Start()
 
 	}
 
-	SmallExploision->ChangeAnimation("Exploision");
-	SmallExploision2->ChangeAnimation("Exploision");
-	SmallExploision3->ChangeAnimation("Exploision");
-
 	MiddleExploision->ChangeAnimation("Exploision");
 	MiddleExploision2->ChangeAnimation("Exploision");
 	MiddleExploision3->ChangeAnimation("Exploision");
@@ -299,7 +281,7 @@ void Boss::Update(float _DeltaTime)
 
 
 
-		if (GetPos().y > 700)
+		if (GetPos().y > 690)
 		{
 			LeftGroundEffect->On();
 			RightGroundEffect->On();
@@ -332,14 +314,6 @@ void Boss::Update(float _DeltaTime)
 
 				}
 			}
-			/*if (sddfs == false)
-			{
-				BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
-				Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
-				Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
-				sddfs = true;
-			}*/
-
 
 			MonsterTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
@@ -531,9 +505,6 @@ void Boss::Update(float _DeltaTime)
 
 			if (MoveStop == false)
 			{
-
-
-
 				MoveDir += float4::Down * 300;
 
 
@@ -562,7 +533,8 @@ void Boss::Update(float _DeltaTime)
 		{
 			if (Finishletter == false)
 			{
-
+				WinPlayer * player = GetLevel()->CreateActor<WinPlayer>();
+				player->SetPos(Player::MainPlayer->GetPos()); 
 
 				FinishInterFace* Actor = GetLevel()->CreateActor<FinishInterFace>();
 				Actor->SetPos({ GetPos().x - 400,GetPos().y - 1000 });

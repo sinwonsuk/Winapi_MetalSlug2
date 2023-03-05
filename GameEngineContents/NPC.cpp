@@ -36,7 +36,7 @@ void NPC::Start()
 		
 
 
-		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Collision",  .ImageName = "NpcCollision.bmp", .Start = 0, .End = 10, .InterTime = 0.1f, .Loop = false , .FrameIndex{0,1,2,3,4,5,6,7,8,9,10,9,8,7,6} });
+		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Collision",  .ImageName = "NpcCollision.bmp", .Start = 0, .End = 10, .InterTime = 0.1f, .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Npc_CollisionAfter",  .ImageName = "NpcCollisionAfter.bmp", .Start = 0, .End = 13, .InterTime = 0.1f, .Loop = false });
 	
 		AnimationRender->CreateAnimation({ .AnimationName = "Npc_Bind",  .ImageName = "NpcBind.bmp", .Start = 0, .End = 8, .InterTime = 0.2f, .Loop = true });
@@ -185,7 +185,7 @@ void NPC::Update(float _DeltaTime)
 
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
-				//MonsterCollision->Death();
+			
 
 
 				ColActor->Death();
@@ -209,7 +209,7 @@ void NPC::Update(float _DeltaTime)
 
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
-			//	MonsterCollision->Death();
+		
 
 
 				ColActor->Death();
@@ -249,7 +249,7 @@ void NPC::Render(float _Time)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-	//NpcCollision->DebugRender();
+//	NpcCollision->DebugRender();
 }
 
 

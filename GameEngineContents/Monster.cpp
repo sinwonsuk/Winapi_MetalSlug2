@@ -46,22 +46,17 @@ void Monster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Idle",  .ImageName = "MonsterIdle.bmp", .Start = 0, .End = 5, .InterTime = 0.1f });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_AttackPre",  .ImageName = "AttackPre.bmp", .Start = 0, .End = 3, .InterTime = 0.1f, .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_PlayerCheck",  .ImageName = "PlayerCheck.bmp", .Start = 0, .End = 3, .InterTime = 0.15f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathOne",  .ImageName = "DeathOne.bmp", .Start = 0, .End = 10, .InterTime = 0.1f });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathTwo",  .ImageName = "DeathTwo.bmp", .Start = 0, .End = 19, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathOne",  .ImageName = "DeathOne.bmp", .Start = 0, .End = 11, .InterTime = 0.1f , .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_DeathTwo",  .ImageName = "DeathTwo.bmp", .Start = 0, .End = 19, .InterTime = 0.1f , .Loop = false });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterJump",  .ImageName = "MonsterJump.bmp", .Start = 0, .End = 8, .InterTime = 0.1f ,.Loop = false });
-		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterBackJump",  .ImageName = "MonsterBackJump.bmp", .Start = 0, .End = 11, .InterTime = 0.05f , .Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterBackJump",  .ImageName = "MonsterBackJump.bmp", .Start = 0, .End = 12, .InterTime = 0.05f , .Loop = false });
 
-		//AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterNife",  .ImageName = "MonsterNife.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
+		AnimationRender->CreateAnimation({ .AnimationName = "Left_MonsterNife",  .ImageName = "MonsterNife.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
 
 	}
 
 
-	/*{
-		BulletRender = CreateRender(MetalSlugOrder::MonsterBullet);
-		BulletRender->SetScale({ 500,500 });
-		BulletRender->CreateAnimation({ .AnimationName = "Left_MonsterNife", .ImageName = "MonsterNife.bmp", .Start = 0, .End = 11, .InterTime = 0.1f });
-		BulletRender->ChangeAnimation("Left_MonsterNife");
-	}*/
+	
 
 
 
@@ -206,7 +201,7 @@ void Monster::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
-			int Choice = rand() % 2;
+			Hp--;
 			
 
 			for (size_t i = 0; i < collision.size(); i++)
@@ -215,32 +210,22 @@ void Monster::Update(float _DeltaTime)
 
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
-				MonsterCollision->Death(); 
-				
-
 				ColActor->Death();
 
 			}
 
-			if (Choice == 0 )
-			{
-				ChangeState(MonsterState::DEATHONE);
-			}
-			if (Choice == 1)
-			{
-				ChangeState(MonsterState::DEATHTWO);
-			}
-			Number = 1;
+			
+			
 		}
 
 	}
-	if (nullptr != MonsterCollision && StateValue != MonsterState::DEATHONE && StateValue != MonsterState::DEATHTWO)
+	else if (nullptr != MonsterCollision && StateValue != MonsterState::DEATHONE && StateValue != MonsterState::DEATHTWO)
 	{
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
-			int Choice = rand() % 2;
-
+			
+			Hp--;
 
 			for (size_t i = 0; i < collision.size(); i++)
 			{
@@ -249,25 +234,35 @@ void Monster::Update(float _DeltaTime)
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
 				Effect->BoobBulletCheck = true;
-				MonsterCollision->Death();
-
+			
 
 				ColActor->Death();
 			
 	
 			}
 
-			if (Choice == 0)
-			{
-				ChangeState(MonsterState::DEATHONE);
-			}
-			if (Choice == 1)
-			{
-				ChangeState(MonsterState::DEATHTWO);
-			}
+			
 		}
 
 	}
+	if (Hp <= 0 && death == false)
+	{
+
+		int Choice = rand() % 2;
+
+		if (Choice == 0)
+		{
+			ChangeState(MonsterState::DEATHONE);
+			death = true;
+		}
+		if (Choice == 1)
+		{
+			ChangeState(MonsterState::DEATHONE);
+			death = true;
+		}
+		
+	}
+
 
 	if (nullptr != PlayerCollision && (StateValue == MonsterState::MOVE || StateValue == MonsterState::IDLE))
 	{
@@ -280,7 +275,15 @@ void Monster::Update(float _DeltaTime)
 		}
 	}
 
-	
+	if (DeathCheck == true)
+	{
+		DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+		if (DeathTime > 0.3)
+		{
+			this->Death();
+		}
+	}
 	Movecalculation(_DeltaTime);
 
 	UpdateState(_DeltaTime);
@@ -290,28 +293,7 @@ void Monster::Update(float _DeltaTime)
 
 void Monster::DirCheck(const std::string_view& _AnimationName)
 {
-	//if (StateValue == MonsterState::MONSTERBULLET)
-	//{
-	//	std::string PrevDirString = DirString;
-
-	//	//BulletRender->ChangeAnimation(DirString + _AnimationName.data());
-
-	//	if (GameEngineInput::IsPress("LeftMove"))
-	//	{
-	//		DirString = "Left_";
-	//	}
-
-
-
-
-	//	if (PrevDirString != DirString)
-	//	{
-	//		//BulletRender->ChangeAnimation(DirString + _AnimationName.data());
-
-	//	}
-
-
-	//}
+	
 
 
 	std::string PrevDirString = DirString;
@@ -338,9 +320,8 @@ void Monster::Render(float _Time)
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
 	);
-
-	//MonsterCollision->DebugRender();
-	//PlayerCollision->DebugRender(); 
+	MonsterCollision->DebugRender();
+	
 }
 
 

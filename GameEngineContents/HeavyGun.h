@@ -20,7 +20,7 @@ public:
 	HeavyGun& operator=(const HeavyGun& _Other) = delete;
 	HeavyGun& operator=(HeavyGun&& _Other) noexcept = delete;
 	float4 MoveDir = float4::Zero;
-	bool test = false;
+	
 	float Speed = 2000;
 	
 	GameEngineCollision* Collision = nullptr;
@@ -31,7 +31,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _Time) override;
 private:
-	
+	bool TimeCheck = false;
 	float DeathCheck = 0;
 	double DirTime = 0;
 	GameEngineRender* RightHeavyBullet = nullptr;

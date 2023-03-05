@@ -72,6 +72,7 @@
     </ClInclude>
     <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="WinPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BazookaBullet.cpp" />
@@ -142,6 +143,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WinPlayer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
