@@ -123,22 +123,46 @@ void Boss::IdleUpdate(float _Time)
 
 		if (Hp <= 75)
 		{
-			/*MoveDir = { 0,0 };
-			MoveDirGroundEffect = { 0,0 };*/
-			if (sddfs == false)
-			{
-				BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
-				Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
-				Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+			MountTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+			
+			Mainbody->Off();
+			TwoPhaseBody->On(); 
 
-				BazookaMonster* Actor1 = GetLevel()->CreateActor<BazookaMonster>();
-				Actor1->ChangeState(BazookaMonsterState::LEFTMOVE);
-				Actor1->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
-				sddfs = true;
+			if (MountTime < 1)
+			{
+				Upbody->ChangeAnimation("BossmountFinish");
 			}
-			Time = 0;
+				
+			
+			if (MountTime > 2)
+			{
+				Upbody->ChangeAnimation("Bossmount");
+
+				if (Upbody->IsAnimationEnd())
+				{
+					if (sddfs == false)
+					{
+						BazookaMonster* Actor = GetLevel()->CreateActor<BazookaMonster>();
+						Actor->ChangeState(BazookaMonsterState::RIGHTMOVE);
+						Actor->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+
+						BazookaMonster* Actor1 = GetLevel()->CreateActor<BazookaMonster>();
+						Actor1->ChangeState(BazookaMonsterState::LEFTMOVE);
+						Actor1->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
+						sddfs = true;
+					}
+				}
+			}
+			if (MountTime > 3.5)
+			{
+				ChangeState(BossState::SMOKEPRE);
+				return; 
+			}
+
+
+			/*Time = 0;
 			ChangeState(BossState::SMOKEPRE);
-			return;
+			return;*/
 		}
 	}
 
@@ -325,36 +349,43 @@ void Boss::AttackUpdate(float _Time)
 	}
 	if (MoveTime < 0.8)
 	{
-		MoveDir += float4::Right * 200;
+		MoveDir += float4::Right * 400;
 	}
 	if (MoveTime > 0.8)
 	{
 		if (MoveTime < 1.6)
 		{
-			MoveDir += float4::Left * 200;
+			MoveDir += float4::Left * 400;
 		}
 	}
 	if (MoveTime > 1.6)
 	{
 		if (MoveTime < 2.4)
 		{
-			MoveDir += float4::Right * 200;
+			MoveDir += float4::Right * 400;
 		}
 	}
 	if (MoveTime >  2.4)
 	{
 		if (MoveTime <3.2)
 		{
-			MoveDir += float4::Left * 200;
+			MoveDir += float4::Left * 400;
 		}
 	}
 	if (MoveTime > 3.2)
 	{
-		MoveDir = {0,0};
+		
+		if (MoveCheck == 2)
+		{
+			MoveDir = { 0,0 };
+			MoveTime = 0;
+			ChangeState(BossState::SMOKEPRE);
+			MoveCheck = 0;
+			return;
+		}
+	
+		++MoveCheck;
 		MoveTime = 0;
-		ChangeState(BossState::SMOKEPRE);
-		return;
-
 	}
 
 }

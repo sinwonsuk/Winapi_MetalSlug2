@@ -817,6 +817,13 @@ void PlayLevel::Loading()
 			Image->Cut(5, 2);
 		}
 
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("TwoBoss.BMP"));
+		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("DeathBoss.BMP"));
+		}
+
 		// bazooka
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("BazookaAttackEffect.BMP"));

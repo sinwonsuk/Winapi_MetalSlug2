@@ -121,7 +121,7 @@ void BazookaMonster::Movecalculation(float _DeltaTime)
 	if (LeftMoveCheck == true)
 	{
 		
-		SetPos({ Boss::boss->GetPos().x-170 , Boss::boss->GetPos().y-500 });
+		SetPos({ Boss::boss->GetPos().x-210 , Boss::boss->GetPos().y-500 });
 	}
 	if (RightMoveCheck == true)
 	{
@@ -157,8 +157,13 @@ void BazookaMonster::Update(float _DeltaTime)
 
 		}
 	}
+	if (Boss::boss->Hp <= 0)
+	{
+		this->Death();
+	}
 
-	if (CurMoveDir.x - 170 > GetPos().x && StateValue == BazookaMonsterState::LEFTMOVE && StateValue != BazookaMonsterState::LEFTATTACKPRE)
+
+	if (CurMoveDir.x - 210 > GetPos().x && StateValue == BazookaMonsterState::LEFTMOVE && StateValue != BazookaMonsterState::LEFTATTACKPRE)
 	{
 		ChangeState(BazookaMonsterState::LEFTATTACKPRE);	
 	}

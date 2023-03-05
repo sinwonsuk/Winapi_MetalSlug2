@@ -32,6 +32,8 @@ enum class MetalSlugOrder
 	Bullet,
 	BulletEffect,
 	Boomb,
+	GroundEffect,
+	BossExPloision,
 	Item
 };
 

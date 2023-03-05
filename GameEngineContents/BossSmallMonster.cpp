@@ -285,7 +285,7 @@ void BossSmallMonster::Update(float _DeltaTime)
 			this->Death(); 
 		}
 	}
-
+	
 	
 	Movecalculation(_DeltaTime);
 	UpdateState(_DeltaTime);

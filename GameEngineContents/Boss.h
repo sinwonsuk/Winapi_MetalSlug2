@@ -58,8 +58,8 @@ public:
 	{
 		return AttackCheck;
 	}
-
-	GameEngineCollision* MonsterCollision = nullptr;
+	float Hp = 100;
+	
 	float4 MoveDir = float4::Zero;
 protected:
 
@@ -68,11 +68,20 @@ protected:
 	void Render(float _Time) override;
 
 private:
+
+	GameEngineCollision* MonsterCollision = nullptr;
+
+	GameEngineCollision* BullletCollision = nullptr;
+
 	BossState StateValue = BossState::IDLE;
 
 	GameEngineRender* Mainbody = nullptr;
 
 	GameEngineRender* Upbody = nullptr;
+
+	GameEngineRender* TwoPhaseBody = nullptr;
+
+	GameEngineRender* DeathBody = nullptr;
 
 	GameEngineRender* LeftWing = nullptr;
 	GameEngineRender* RightWing = nullptr;
@@ -87,6 +96,27 @@ private:
 	GameEngineRender* RightEngine = nullptr;
 
 
+	GameEngineRender* MiddleExploision = nullptr;
+	GameEngineRender* MiddleExploision2 = nullptr;
+	GameEngineRender* MiddleExploision3 = nullptr;
+	GameEngineRender* MiddleExploision4 = nullptr;
+	GameEngineRender* MiddleExploision5 = nullptr;
+	GameEngineRender* MiddleExploision6 = nullptr;
+	GameEngineRender* MiddleExploision7 = nullptr;
+	GameEngineRender* MiddleExploision8 = nullptr;
+	GameEngineRender* MiddleExploision9 = nullptr;
+	GameEngineRender* MiddleExploision10 = nullptr;
+	
+	GameEngineRender* SmallExploision = nullptr;
+	GameEngineRender* SmallExploision2 = nullptr;
+	GameEngineRender* SmallExploision3 = nullptr;
+
+	GameEngineRender* BigExploision = nullptr;
+	GameEngineRender* BigExploision2 = nullptr;
+	GameEngineRender* BigExploision3 = nullptr;
+	GameEngineRender* BigExploision4 = nullptr;
+	GameEngineRender* BigExploision5 = nullptr;
+	
 	
 	float4 MoveDirGroundEffect = float4::Zero;
 	float MoveTime = 0;
@@ -94,16 +124,19 @@ private:
 	float ChangeTime = 0; 
 	int a = 0;
 	float AttackPreTime = 0; 
-	float Hp = 100; 
+	float BigExploisionTime = 0;
 	float Time = 0; 
 	float MonsterTime = 0; 
 	bool AttackCheck = false;
 	BossSmallMonster* SmallMonster = nullptr;
 	bool LeftRightCheck = false;
 	bool IdleStartCheck = false;
+	bool MoveStop = false;
 	bool sddfs = false;
-	
-	
+	float DeathTime = 0;
+	float MountTime = 0;
+	float ExploisionTime = 0; 
+	int MoveCheck = 0;
 
 };
 
