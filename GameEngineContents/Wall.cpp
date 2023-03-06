@@ -75,7 +75,10 @@ void Wall::Start()
 }
 void Wall::Movecalculation(float _DeltaTime)
 {
-	//WallMoveDir += float4::Down * 1500.0f * _DeltaTime;
+	if (Hp <= -30)
+	{
+		return; 
+	}
 
 	if (50.0f <= abs(MoveDir.x))
 	{
@@ -89,17 +92,6 @@ void Wall::Movecalculation(float _DeltaTime)
 		}
 	}
 
-	//if (450.0f <= abs(MoveDir.x))
-	//{
-	//	if (0 > MoveDir.x)
-	//	{
-	//		MoveDir.x = -450.0f;
-	//	}
-	//	else
-	//	{
-	//		MoveDir.x = 450.0f;
-	//	}
-	//}
 
 
 
@@ -123,19 +115,7 @@ void Wall::Movecalculation(float _DeltaTime)
 
 
 
-	/*if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
-	{
-		Ston->On();
-	}
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos2, RGB(0, 255, 0))))
-	{
-		Ston2->On();
-	}
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos3, RGB(0, 255, 0))))
-	{
-		Ston3->On();
-	}*/
-
+	
 
 
 	
@@ -143,6 +123,8 @@ void Wall::Movecalculation(float _DeltaTime)
 
 void Wall::Update(float _DeltaTime)
 {
+
+
 	if(WallCollision == nullptr)
 	{
 		WallCollision = CreateCollision(MetalSlugOrder::Wall);
@@ -155,6 +137,8 @@ void Wall::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> collision;
 		if (true == WallCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
+			Hp--;
+
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
@@ -165,9 +149,9 @@ void Wall::Update(float _DeltaTime)
 				ColActor->Death();
 			}
 		
-			Hp--;
+			
 		}
-		if (Hp <= -50)
+		if (Hp <= 0)
 		{
 			AnimationRender->Off();
 			if (StonReset == false)
@@ -185,7 +169,7 @@ void Wall::Update(float _DeltaTime)
 		
 			
 		}
-		else if (Hp <= -30)
+		else if (Hp <= -20)
 		{
 			AnimationRender->ChangeAnimation("WallUp");
 
@@ -202,7 +186,7 @@ void Wall::Update(float _DeltaTime)
 
 		}
 
-		else if (Hp <= 0)
+		else if (Hp <= -30)
 		{
 			AnimationRender->ChangeAnimation("WallMiddle");
 

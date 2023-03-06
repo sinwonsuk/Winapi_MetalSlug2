@@ -86,6 +86,12 @@ void MonsterCamel::Start()
 
 void MonsterCamel::Movecalculation(float _DeltaTime)
 {
+	if (Hp <= 0)
+	{
+		return;
+	}
+
+
 	PlayerCollision->SetPosition({ -100,0 });
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 

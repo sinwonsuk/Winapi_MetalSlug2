@@ -78,7 +78,10 @@ void Monster::Start()
 }
 void Monster::Movecalculation(float _DeltaTime)
 {
-
+	if (Hp <= 0)
+	{
+		return;
+	}
 
 	
 
@@ -195,16 +198,10 @@ void Monster::Movecalculation(float _DeltaTime)
 }
 void Monster::Update(float _DeltaTime)
 {
-	if (MonsterCollision == nullptr)
-	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-		MonsterCollision->SetScale({ 75, 150 });
-	}
-
 
 	std::vector<GameEngineCollision*> collision;
 
-	if (nullptr != MonsterCollision && ( StateValue != MonsterState::DEATHONE && StateValue != MonsterState::DEATHTWO))
+	if (nullptr != MonsterCollision && Hp > 0)
 	{
 		
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
@@ -231,7 +228,7 @@ void Monster::Update(float _DeltaTime)
 	std::vector<GameEngineCollision*> collision1;
 
 
-	if (nullptr != MonsterCollision && (StateValue != MonsterState::DEATHONE && StateValue != MonsterState::DEATHTWO))
+	if (nullptr != MonsterCollision && Hp>0)
 	{
 		
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision1))
@@ -296,6 +293,7 @@ void Monster::Update(float _DeltaTime)
 		if (DeathTime > 0.4)
 		{
 			this->Death();
+			return;
 		}
 	}
 

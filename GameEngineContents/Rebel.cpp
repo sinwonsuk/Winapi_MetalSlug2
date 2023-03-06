@@ -54,7 +54,7 @@ void Rebel::Update(float _DeltaTime)
 		MonsterCollision->SetPosition({ 0,-80 });
 		MonsterCollision->SetScale({ 50,150 });
 	}
-	if (nullptr != MonsterCollision && StateValue != RebelState::DEATH)
+	if (nullptr != MonsterCollision && Hp>0)
 	{
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
@@ -83,6 +83,12 @@ void Rebel::Update(float _DeltaTime)
 
 void Rebel::Movecalculation(float _DeltaTime)
 {
+	if (Hp <= 0)
+	{
+		return;
+	}
+
+
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
 	if (50.0f <= abs(MoveDir.x))

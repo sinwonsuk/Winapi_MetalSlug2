@@ -134,7 +134,7 @@ public:
 	{
 		return GunChange;
 	}
-
+	float4 CameraMoveCheck = float4::Zero;
 	float BombNumber = 10;
 	float HeavyMachineGun = 200;
 
@@ -148,7 +148,7 @@ protected:
 private:
 
 	
-
+	bool MiddlebossBoom = false;
 	bool Gravity = false;
 	bool test = false;
 	float4 CamelCheck = float4::Zero;
@@ -174,7 +174,7 @@ private:
 	
 	
 	float4 CurPos = float4::Zero;
-	float4 CameraMoveCheck = float4::Zero;
+	
 
 	float4 SpinMoveDir = float4::Zero;
 	float4 CameraDir = float4::Zero;

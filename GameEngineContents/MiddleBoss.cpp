@@ -540,8 +540,7 @@ void MiddleBoss::MiddleAttackCheck(const std::string_view& _AnimationName)
 
 void MiddleBoss::LeftSmokeCheck(const std::string_view& _AnimationName)
 {
-	/*AnimationRightSmokeRender->Off();
-	AnimationMiddleSmokeRender->Off();*/
+	
 	AnimationLeftSmokeRender->On();
 
 	AnimationLeftSmokeRender->ChangeAnimation(_AnimationName.data(),true);
@@ -549,9 +548,7 @@ void MiddleBoss::LeftSmokeCheck(const std::string_view& _AnimationName)
 
 void MiddleBoss::RightSmokeCheck(const std::string_view& _AnimationName)
 {
-	/*AnimationLeftSmokeRender->Off();
 	
-	AnimationMiddleSmokeRender->Off();*/
 	AnimationRightSmokeRender->On();
 	AnimationRightSmokeRender->ChangeAnimation(_AnimationName.data(),true);
 }
@@ -575,30 +572,18 @@ void MiddleBoss::DoorUpdate(float _Time)
 
 void MiddleBoss::Update(float _DeltaTime)
 {
-	if (LeftMonsterCollision == nullptr)
+	if (Player::MainPlayer->GetPos().x > GetPos().x)
 	{
-		LeftMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-		LeftMonsterCollision->SetScale({ 200, 200 });
-		LeftMonsterCollision->SetPosition({ -190,-350 });
-	}
-	if (RightMonsterCollision == nullptr)
-	{
-		RightMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-		RightMonsterCollision->SetScale({ 200, 200 });
-		RightMonsterCollision->SetPosition({ 430, -350 });	
-	}
-	if (MiddleMonsterCollision == nullptr)
-	{
-		MiddleMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
-		MiddleMonsterCollision->SetScale({ 200, 200 });
-		MiddleMonsterCollision->SetPosition({ 120,-350 });
+		SetMiddleBossStart(true);
+		Player::MainPlayer->CameraMoveCheck = Player::MainPlayer->GetPos();
+		Player::MainPlayer->SetCameraCheck(false);
 	}
 
 
 	if (MiddleBossStart == true)
 	{
 
-		if (nullptr != LeftMonsterCollision)
+		if (nullptr != LeftMonsterCollision && LeftHp>0)
 		{
 			std::vector<GameEngineCollision*> collision;
 			if (true == LeftMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
@@ -641,7 +626,7 @@ void MiddleBoss::Update(float _DeltaTime)
 			
 		}
 
-		if (nullptr != RightMonsterCollision)
+		if (nullptr != RightMonsterCollision && RightHp > 0)
 		{
 			std::vector<GameEngineCollision*> collision;
 			if (true == RightMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
@@ -683,7 +668,7 @@ void MiddleBoss::Update(float _DeltaTime)
 
 		}
 
-		if (nullptr != MiddleMonsterCollision)
+		if (nullptr != MiddleMonsterCollision  && MiddleHp > 0)
 		{
 			std::vector<GameEngineCollision*> collision;
 			if (true == MiddleMonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))

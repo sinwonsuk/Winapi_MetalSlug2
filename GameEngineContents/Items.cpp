@@ -53,12 +53,14 @@ void Items::Start()
 
 void Items::Update(float _DeltaTime)
 {
-
-	if (Collision == nullptr)
+	if (Effect->IsAnimationEnd())
 	{
-		Collision = CreateCollision(MetalSlugOrder::Monster);
-		Collision->SetScale({ 50, 50 });
+		this->Death();
+		return;
 	}
+
+
+	
 
 	ItemTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
@@ -118,11 +120,7 @@ void Items::Update(float _DeltaTime)
 
 
 
-		if (Effect->IsAnimationEnd())
-		{
-			this->Death();
-		}
-
+		
 
 
 

@@ -135,7 +135,11 @@ void HeavyGun::Start()
 
 void HeavyGun::Update(float _DeltaTime)
 {
-	
+	if (DeathCheck > DirTime)
+	{
+		this->Death();
+		return;
+	}
 
 	
 
@@ -217,10 +221,7 @@ void HeavyGun::Update(float _DeltaTime)
 			DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 		}
 		
-		if (DeathCheck > DirTime)
-		{
-			this->Death();
-		}
+		
 		SetMove(MoveDir * _DeltaTime * Speed);
 }
 

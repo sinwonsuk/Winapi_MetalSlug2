@@ -479,8 +479,8 @@ void MiddleBoss::DeathUpdate(float _Time)
 	if (DeathTime15 > 6.4)
 	{
 		GetLevel()->SetCameraPos({ CurPos.x,CurPos.y+60});
-	//	GameEngineWindow::SettingWindowSize({ 960.0f, 770.0f });
 		this->Death(); 
+
 	}
 
 

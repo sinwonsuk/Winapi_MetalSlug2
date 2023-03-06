@@ -28,7 +28,7 @@ void BulletEffect::Start()
 	}
 	{
 		Exploision = CreateRender(10);
-		Exploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 26, .InterTime = 0.1f,.Loop = false });
+		Exploision->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "SmallExploision.bmp", .Start = 0, .End = 24, .InterTime = 0.1f,.Loop = false });
 
 
 		Exploision->SetScale({ 800,800 });

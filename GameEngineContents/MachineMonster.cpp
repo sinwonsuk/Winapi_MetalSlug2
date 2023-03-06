@@ -52,6 +52,13 @@ void MachineMonster::Start()
 
 void MachineMonster::Movecalculation(float _DeltaTime)
 {
+	if (Hp <= 0)
+	{
+		return;
+	}
+
+
+
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
 	if (50.0f <= abs(MoveDir.x))
@@ -66,18 +73,7 @@ void MachineMonster::Movecalculation(float _DeltaTime)
 		}
 	}
 
-	//if (450.0f <= abs(MoveDir.x))
-	//{
-	//	if (0 > MoveDir.x)
-	//	{
-	//		MoveDir.x = -450.0f;
-	//	}
-	//	else
-	//	{
-	//		MoveDir.x = 450.0f;
-	//	}
-	//}
-
+	
 
 
 

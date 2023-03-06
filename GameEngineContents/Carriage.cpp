@@ -62,6 +62,11 @@ void Carriage::Start()
 
 void Carriage::Movecalculation(float _DeltaTime)
 {
+	if (Hp <= 0)
+	{
+		return;
+	}
+
 
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
