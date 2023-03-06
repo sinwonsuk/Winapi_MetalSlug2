@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineResources.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include "MonsterCamel.h"
 
 MonsterCamelEffect::MonsterCamelEffect()
@@ -64,7 +65,14 @@ void MonsterCamelEffect::Start()
 
 void MonsterCamelEffect::Update(float _DeltaTime)
 {
-	
+	TimeCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+
+	if (TimeCheck > 4)
+	{
+		this->Death();
+		return;
+	}
 	if (test == true)
 	{
 		MoveDir += float4::Down * 2000 * _DeltaTime;
@@ -74,7 +82,7 @@ void MonsterCamelEffect::Update(float _DeltaTime)
 		MoveDir4 += float4::Down * 2000 * _DeltaTime;
 		MoveDir5 += float4::Down * 2000 * _DeltaTime;
 	}
-//	float4 NextPos = GetPos() + MoveDir * _DeltaTime;
+
 
 	GameEngineImage* ColImage = GameEngineResources::GetInst().ImageFind("Map11.BMP");
 
@@ -150,29 +158,7 @@ void MonsterCamelEffect::Update(float _DeltaTime)
 	
 
 
-	/*if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
-	{
-		CamelEffect->Off();
-	}
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
-	{
-		CamelEffect2->Off();
-	}
-
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
-	{
-		CamelEffect3->Off();
-	}
-
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
-	{
-		CamelEffect4->Off();
-	}
-	if ((RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0))))
-	{
-		CamelEffect5->Off();
-	}*/
-
+	
 
 
 

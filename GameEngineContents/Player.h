@@ -137,7 +137,7 @@ public:
 	float4 CameraMoveCheck = float4::Zero;
 	float BombNumber = 10;
 	float HeavyMachineGun = 200;
-
+	bool MiddlebossBoom = false;
 
 protected:
 	void Start() override;
@@ -148,7 +148,7 @@ protected:
 private:
 
 	
-	bool MiddlebossBoom = false;
+	
 	bool Gravity = false;
 	bool test = false;
 	float4 CamelCheck = float4::Zero;
