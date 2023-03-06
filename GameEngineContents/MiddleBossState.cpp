@@ -143,7 +143,7 @@ void MiddleBoss::LeftAttackUpdate(float _Time)
 			if (MissileCheck == false)
 			{
 
-				Bullet = GetLevel()->CreateActor<PalaceBullet>();
+				PalaceBullet *Bullet = GetLevel()->CreateActor<PalaceBullet>();
 				Bullet->SetPos({ GetPos().x - 220, GetPos().y - 320 });
 				MissileCheck = true;
 			}
@@ -175,7 +175,7 @@ void MiddleBoss::RightAttackUpdate(float _Time)
 			if (MissileCheck == false)
 			{
 
-				Bullet = GetLevel()->CreateActor<PalaceBullet>();
+				PalaceBullet * Bullet = GetLevel()->CreateActor<PalaceBullet>();
 				Bullet->SetPos({ GetPos().x + 390, GetPos().y - 320 });
 				MissileCheck = true;
 			}
@@ -205,7 +205,7 @@ void MiddleBoss::MiddleAttackUpdate(float _Time)
 			if (MissileCheck == false)
 			{
 
-				Bullet = GetLevel()->CreateActor<PalaceBullet>();
+				PalaceBullet * Bullet = GetLevel()->CreateActor<PalaceBullet>();
 				Bullet->SetPos({ GetPos().x+ 110, GetPos().y - 320 });
 				MissileCheck = true;
 			}

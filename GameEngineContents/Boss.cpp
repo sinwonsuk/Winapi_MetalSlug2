@@ -12,6 +12,7 @@
 #include "FinishInterFace.h"
 #include "WinPlayer.h"
 #include "Player.h"
+#include "BossSmallMonster.h"
 Boss* Boss::boss;
 Boss::Boss()
 {
@@ -329,7 +330,7 @@ void Boss::Update(float _DeltaTime)
 			{
 				if (LeftRightCheck == true)
 				{
-					SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+					BossSmallMonster * SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
 
 					SmallMonster->ChangeState(SmallMonsterState::RIGHTMOVE);
 					SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });
@@ -339,7 +340,7 @@ void Boss::Update(float _DeltaTime)
 				}
 				else if (LeftRightCheck == false)
 				{
-					SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
+					BossSmallMonster* SmallMonster = GetLevel()->CreateActor<BossSmallMonster>();
 
 					SmallMonster->ChangeState(SmallMonsterState::LEFTMOVE);
 					SmallMonster->SetPos({ GetPos().x,MonsterCollision->GetCollisionData().Top() });

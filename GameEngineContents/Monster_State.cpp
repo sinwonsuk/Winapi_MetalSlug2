@@ -210,7 +210,7 @@ void Monster::AttackUpdate(float _Time)
 	{
 		if (a == 0)
 		{
-			Actor = GetLevel()->CreateActor<MonsterBullet>();
+			MonsterBullet *Actor = GetLevel()->CreateActor<MonsterBullet>();
 			Actor->SetPos(GetPos());
 			BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
 				

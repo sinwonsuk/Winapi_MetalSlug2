@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "BossSmallMonster.h"
+
 enum class BossState
 {
 
@@ -126,7 +126,7 @@ private:
 	float Time = 0; 
 	float MonsterTime = 0; 
 	bool AttackCheck = false;
-	BossSmallMonster* SmallMonster = nullptr;
+	//BossSmallMonster* SmallMonster = nullptr;
 	bool LeftRightCheck = false;
 	bool IdleStartCheck = false;
 	bool MoveStop = false;

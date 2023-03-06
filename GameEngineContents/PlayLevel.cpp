@@ -1,15 +1,21 @@
 
+
+#include "STLevel.h"
+
+
 #include <GameEngineBase/GameEngineDirectory.h>
-#include <GameEngineCore/GameEngineResources.h>
+#include <GameEngineBase/GameEngineFile.h>
 #include <GameEnginePlatform/GameEngineInput.h>
-#include "ContentsEnums.h"
+#include <GameEngineCore/GameEngineResources.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+
 
 #include "PlayLevel.h"
 #include "Player.h"
 #include "Map.h"
 #include "InterFace.h"
 #include "MapEffect.h"
-#
+
 PlayLevel::PlayLevel() 
 {
 }
@@ -20,6 +26,8 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Loading() 
 {
+	SoundLoad();
+
 	// 상대경로 탐색
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentsResources");
@@ -1083,6 +1091,7 @@ void PlayLevel::Update(float _DeltaTime)
 
 	
 
+
 	//if (GameEngineInput::IsPress("CameraLeftMove"))
 	//{
 	//	SetCameraMove(float4::Left * _DeltaTime * CameraMoveSpeed);
@@ -1099,5 +1108,19 @@ void PlayLevel::Update(float _DeltaTime)
 	//{
 	//	SetCameraMove(float4::Up * _DeltaTime * CameraMoveSpeed);
 	//}
+}
+
+void PlayLevel::SoundLoad()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Sound");
+	std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+	for (size_t i = 0; i < Files.size(); i++)
+	{
+		GameEngineResources::GetInst().SoundLoad(Files[i].GetFullPath());
+	}
 }
 

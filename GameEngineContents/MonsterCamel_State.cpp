@@ -140,8 +140,7 @@ void MonsterCamel::IdleUpdate(float _Time)
 		//Effect = GetLevel()->CreateActor<MonsterCamelEffect>(); 
 		if (EffectCheck == false)
 		{
-			Effect = GetLevel()->CreateActor<MonsterCamelEffect>();
-		//	Effect->test = true;
+			MonsterCamelEffect *Effect = GetLevel()->CreateActor<MonsterCamelEffect>();
 			EffectCheck = true;
 
 		}

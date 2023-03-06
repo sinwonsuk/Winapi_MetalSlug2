@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "STLevel.h"
+#include <GameEngineCore/GameEngineResources.h>
 
-// Ό³Έν :
-class PlayLevel : public GameEngineLevel
+class PlayLevel : public STLevel
 {
 public:
 	// constrcuter destructer
@@ -22,8 +22,8 @@ protected:
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override {}
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override {}
 
-
+	
 private:
-
+	void SoundLoad();
 };
 

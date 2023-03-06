@@ -168,7 +168,7 @@ void MachineMonster::Update(float _DeltaTime)
 	}
 
 
-	if (Player::MainPlayer->GetCameraMoveCheck().x > Player::MainPlayer->GetPos().x && MoveCamera == false)
+	if (Hp <= 0 && Player::MainPlayer->GetCameraMoveCheck().x > Player::MainPlayer->GetPos().x && MoveCamera == false)
 	{
 		if (Hp <= 0)
 		{
@@ -178,12 +178,13 @@ void MachineMonster::Update(float _DeltaTime)
 		}
 	}
 
-	else if (Hp <= 0 && MoveCamera == false)
+    if (Hp <= 0 && MoveCamera == false && Player::MainPlayer->GetCameraMoveCheck().x < Player::MainPlayer->GetPos().x)
 	{
 
 		float4 b = float4::Right * 1000 * _DeltaTime;
 
 		GetLevel()->SetCameraMove(b);
+
 		if (GetLevel()->GetCameraPos().x > Player::MainPlayer->GetPos().x - 350)
 		{
 			Player::MainPlayer->SetPosCheck({ Player::MainPlayer->GetPos().x - 350, Player::MainPlayer->GetPos().y });

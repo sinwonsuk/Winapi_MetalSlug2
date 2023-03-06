@@ -25,7 +25,7 @@ void MetalSlugCore::Start()
 	CreateLevel<TitleLevel>("TitleLevel");
 	CreateLevel<SelectLevel>("SelectLevel");
 	CreateLevel<PlayLevel>("PlayLevel");
-	ChangeLevel("PlayLevel");
+	ChangeLevel("SelectLevel");
 	//ChangeLevel("PlayLevel");
 	
 }

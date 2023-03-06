@@ -4,7 +4,7 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
-
+#include "MachineMonsterBullet.h"
 void MachineMonster::ChangeState(MachineState _State)
 {
 	{
@@ -124,7 +124,7 @@ void MachineMonster::AttackUpdate(float _Time)
 	AttackCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	if (AttackCheck > 0.3)
 	{
-		Actor = GetLevel()->CreateActor<MachineMonsterBullet>();
+		MachineMonsterBullet * Actor = GetLevel()->CreateActor<MachineMonsterBullet>();
 		Actor->SetPos({ GetPos().x - 100 ,GetPos().y - 100 });
 
 		Actor->MoveDir = float4::Left * 1000;

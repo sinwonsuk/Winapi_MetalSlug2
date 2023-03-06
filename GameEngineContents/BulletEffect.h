@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "ContentsEnums.h"
+
 class BulletEffect : public GameEngineActor
 {
 

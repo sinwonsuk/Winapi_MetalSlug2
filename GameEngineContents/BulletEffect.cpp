@@ -3,7 +3,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineCore/GameEngineCollision.h>
-
+#include "ContentsEnums.h"
 BulletEffect::BulletEffect()
 {
 }

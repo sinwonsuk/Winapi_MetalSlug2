@@ -21,6 +21,9 @@
 #include "MiniBoss.h"
 #include "BulletEffect.h"
 #include "Boss.h"
+#include "Bomb.h"
+#include "HeavyGun.h"
+#include "MiddleBoss.h"
 Player* Player::MainPlayer;
 
 Player::Player() 
@@ -243,7 +246,16 @@ void Player::Start()
 
 void Player::Movecalculation(float _DeltaTime)
 {
-	
+	if (BackGroundSound == false)
+	{
+		
+
+		MissionStart = GameEngineResources::GetInst().SoundPlayToControl("MissionStart.mp3");
+		MissionStart.LoopCount(1);
+
+		bgm = GameEngineResources::GetInst().SoundPlayToControl("BackgroundSound.mp3");
+		BackGroundSound = true;
+	}
 	
 	
 	
@@ -261,8 +273,8 @@ void Player::Movecalculation(float _DeltaTime)
 	if (Gravity == false)
 	{
 		test = true;
-		//MoveDir = float4::Down * 20000.0f * _DeltaTime;
-		MoveDir += float4::Down * 1500.0f * _DeltaTime;
+		MoveDir = float4::Down * 20000.0f * _DeltaTime;
+		//MoveDir += float4::Down * 1500.0f * _DeltaTime;
 	}
 	
 	if (true == GameEngineInput::IsDown("test"))
@@ -464,7 +476,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightHeavyBulletTime > 0 && RightHeavyBulletNumber == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 75 });
 				HeavyBullet->Dir = Direction::Right;
@@ -473,7 +485,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if (RightHeavyBulletTime > 0.1 && RightHeavyBulletNumber == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 55 });
 				HeavyBullet->Dir = Direction::Right;
@@ -483,7 +495,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightHeavyBulletTime > 0.2 && RightHeavyBulletNumber == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 75 });
 				HeavyBullet->Dir = Direction::Right;
@@ -493,7 +505,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightHeavyBulletTime > 0.3 && RightHeavyBulletNumber == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 100,GetPos().y - 55});
 				HeavyBullet->Dir = Direction::Right;
@@ -523,7 +535,7 @@ void Player::Update(float _DeltaTime)
 
 			if (LeftHeavyBulletTime > 0 && LeftHeavyBulletNumber == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-100 , GetPos().y - 75 });
 				HeavyBullet->Dir = Direction::Left;
@@ -532,7 +544,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if (LeftHeavyBulletTime > 0.1 && LeftHeavyBulletNumber == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
 				HeavyBullet->Dir = Direction::Left;
@@ -542,7 +554,7 @@ void Player::Update(float _DeltaTime)
 
 			if (LeftHeavyBulletTime > 0.2 && LeftHeavyBulletNumber == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 70 });
 				HeavyBullet->Dir = Direction::Left;
@@ -552,7 +564,7 @@ void Player::Update(float _DeltaTime)
 
 			if (LeftHeavyBulletTime > 0.3 && LeftHeavyBulletNumber == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x - 100 , GetPos().y - 55 });
 				HeavyBullet->Dir = Direction::Left;
@@ -581,7 +593,7 @@ void Player::Update(float _DeltaTime)
 			
 			if ( RightAttackChangeUp == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-10);
@@ -592,7 +604,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if ( RightAttackChangeUp == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-30);
@@ -604,7 +616,7 @@ void Player::Update(float _DeltaTime)
 
 			if ( RightAttackChangeUp == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-50);
@@ -616,7 +628,7 @@ void Player::Update(float _DeltaTime)
 
 			if ( RightAttackChangeUp == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x + 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-70);
@@ -643,7 +655,7 @@ void Player::Update(float _DeltaTime)
 		{
 			if (LeftAttackChangeUp == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y -75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-170);
@@ -655,7 +667,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if (LeftAttackChangeUp == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x - 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-150);
@@ -667,7 +679,7 @@ void Player::Update(float _DeltaTime)
 
 			if (LeftAttackChangeUp == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x - 20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-130);
@@ -679,7 +691,7 @@ void Player::Update(float _DeltaTime)
 
 			if (LeftAttackChangeUp == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x - 20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-110);
@@ -703,7 +715,7 @@ void Player::Update(float _DeltaTime)
 		{
 			if (RightUpChangeAttack == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-80);
@@ -714,7 +726,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if (RightUpChangeAttack == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-50);
@@ -726,7 +738,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightUpChangeAttack == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 75 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-30);
@@ -738,7 +750,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightUpChangeAttack == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+20 , GetPos().y - 55 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-10);
@@ -763,7 +775,7 @@ void Player::Update(float _DeltaTime)
 		{
 			if (RightUpChangeAttack == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y - 50 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-110);
@@ -774,7 +786,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if (RightUpChangeAttack == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x -20, GetPos().y - 25 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-130);
@@ -786,7 +798,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightUpChangeAttack == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y - 50 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-150);
@@ -798,7 +810,7 @@ void Player::Update(float _DeltaTime)
 
 			if (RightUpChangeAttack == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-20 , GetPos().y - 25 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-170);
@@ -827,7 +839,7 @@ void Player::Update(float _DeltaTime)
 			RightUpChangeAttack = 0;
 			if (UpHeavyBulletTime > 0 && UPHeavyBulletNumber == 0)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+10 , GetPos().y - 170 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-88);
@@ -836,7 +848,7 @@ void Player::Update(float _DeltaTime)
 			}
 			if (UpHeavyBulletTime > 0.1 && UPHeavyBulletNumber == 1)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-10 , GetPos().y - 170 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-90);
@@ -846,7 +858,7 @@ void Player::Update(float _DeltaTime)
 
 			if (UpHeavyBulletTime > 0.2 && UPHeavyBulletNumber == 2)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x+10 , GetPos().y - 170 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-92);
@@ -856,7 +868,7 @@ void Player::Update(float _DeltaTime)
 
 			if (UpHeavyBulletTime > 0.3 && UPHeavyBulletNumber == 3)
 			{
-				HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
+				HeavyGun* HeavyBullet = GetLevel()->CreateActor<HeavyGun>();
 				HeavyMachineGun -= 1;
 				HeavyBullet->SetPos({ GetPos().x-10 , GetPos().y -170 });
 				HeavyBullet->MoveDir = float4::AngleToDirection2DToDeg(-89);
@@ -1278,15 +1290,15 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			if (MonsterCheck == 7)
 			{
-				monster = GetLevel()->CreateActor<Monster>();
+				Monster*monster = GetLevel()->CreateActor<Monster>();
 				monster->SetPos({ 5300, 100 });
 			
 			}
 
 			if (MonsterCheck == 7)
 			{
-				monster2 = GetLevel()->CreateActor<Monster>();
-				monster2->SetPos({ 5300, 300 });
+				Monster* monster = GetLevel()->CreateActor<Monster>();
+				monster->SetPos({ 5300, 300 });
 			
 
 			}
@@ -1477,7 +1489,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			MonsterCheck = 13;
 		}
 
-		if (MonsterCheck == 12 && MiddlebossBoom == true && CameraMoveCheck.x < GetPos().x)
+		if (MonsterCheck == 12 && MiddlebossBoom == true )
 		{
 			float4 b = float4::Right * 1000 * _DeltaTime;
 
@@ -1500,19 +1512,19 @@ void Player::CollisionCheck(float _DeltaTime)
 			}
 			MonsterCheck = 14;		
 		}
-		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 13)
+		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 14)
 		{
 			
 
-			if (MonsterCheck == 13)
+			if (MonsterCheck == 14)
 			{
 				PosCheck = CameraMoveCheck;
 				CameraCheck = false;
 			}
-			MonsterCheck = 14;
+			MonsterCheck = 15;
 		}
 
-		if (RGB(241, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(241, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 14)
+		if (RGB(241, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(241, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 15)
 		{
 			if (MonsterCheck == 8)
 			{
@@ -1523,38 +1535,38 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			}
 
-			if (MonsterCheck == 14)
+			if (MonsterCheck == 15)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetPos({ 9600,300 });
 			
 			}
-			if (MonsterCheck == 14)
+			if (MonsterCheck == 15)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetPos({ 9600,500 });
 			
 			}
-			MonsterCheck = 15;
+			MonsterCheck = 16;
 		}
 
-		if (RGB(240, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(240, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 15)
+		if (RGB(240, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(240, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 16)
 		{
-			if (MonsterCheck == 15)
+			if (MonsterCheck == 16)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetPos({ 9900,300 });
 			
 			}
-			if (MonsterCheck == 15)
+			if (MonsterCheck == 16)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
 				Actor->SetPos({ 9900,600 });
 			
 			}
-			MonsterCheck = 16;
+			MonsterCheck = 17;
 		}
-		if (RGB(239, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(239, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 16)
+		if (RGB(239, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(239, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 17)
 		{
 			if (MonsterCheck == 17)
 			{
@@ -1631,18 +1643,13 @@ void Player::CollisionCheck(float _DeltaTime)
 		}
 		if (RGB(236, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(236, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 21)
 		{
-			boss = GetLevel()->CreateActor<Boss>();
+			Boss * boss = GetLevel()->CreateActor<Boss>();
 			boss->SetPos({ 11800,100 });
 			MonsterCheck = 22;
 		}
-		if (GetLevel()->GetCameraPos().x >= 11367)
+		/*if (GetLevel()->GetCameraPos().x >= 11367)
 		{
 			CameraCheck = false;
-			boss->BossStart = true;
-		}
-
-		if (GetPos().x > 11800)
-		{
 			boss->BossStart = true;
 		}
 		if (boss != nullptr)
@@ -1652,7 +1659,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				AnimationBodyRender->Off();
 				AnimationRegRender->Off();
 			}
-		}
+		}*/
 
 }
 
@@ -2156,7 +2163,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				if (BombNumber > 0)
 				{
 					
-						Actor = GetLevel()->CreateActor<Bomb>();
+						Bomb*Actor = GetLevel()->CreateActor<Bomb>();
 						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 						Actor->MoveDir += float4::Up * 550;
 						Actor->SetDirCheck(Left);
@@ -2174,7 +2181,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				if (BombNumber > 0)
 				{
 					
-						Actor = GetLevel()->CreateActor<Bomb>();
+					Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 						Actor->MoveDir += float4::Up * 550;
 						Actor->SetDirCheck(Right);
@@ -2207,7 +2214,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				if (BombNumber > 0)
 				{
 					
-						Actor = GetLevel()->CreateActor<Bomb>();
+						Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 						Actor->MoveDir += float4::Up * 550;
 						Actor->SetDirCheck(Left);
@@ -2226,7 +2233,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				if (BombNumber > 0)
 				{
 					
-						Actor = GetLevel()->CreateActor<Bomb>();
+					Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 						Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 						Actor->MoveDir += float4::Up * 550;
 						Actor->SetDirCheck(Right);
@@ -2256,7 +2263,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 				if (BombNumber > 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
+					Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 					Actor->SetPos({ GetPos().x - 50,GetPos().y - 100 });
 					Actor->MoveDir += float4::Up * 550;
 					Actor->SetDirCheck(Left);
@@ -2272,7 +2279,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 				if (BombNumber > 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
+					Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 					Actor->MoveDir += float4::Up * 550;
 					Actor->SetDirCheck(Right);
@@ -2303,7 +2310,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 				if (BombNumber >= 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
+					Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });
 					Actor->MoveDir += float4::Up * 550;
 					Actor->SetDirCheck(Left);
@@ -2320,7 +2327,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 
 				if (BombNumber > 0)
 				{
-					Actor = GetLevel()->CreateActor<Bomb>();
+					Bomb* Actor = GetLevel()->CreateActor<Bomb>();
 
 
 					Actor->SetPos({ GetPos().x + 50,GetPos().y - 100 });

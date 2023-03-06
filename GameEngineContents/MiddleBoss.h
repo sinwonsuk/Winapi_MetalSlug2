@@ -1,6 +1,5 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "PalaceBullet.h"
 enum class MiddleBossState
 {
 	
@@ -229,7 +228,7 @@ private:
 	bool MiddleBossStart = false;
 	bool AttackCheck = false;
 	int attack = 0;
-	PalaceBullet* Bullet = nullptr;
+	//PalaceBullet* Bullet = nullptr;
 	GameEngineCollision* LeftMonsterCollision = nullptr;
 	GameEngineCollision* RightMonsterCollision = nullptr;
 	GameEngineCollision* MiddleMonsterCollision = nullptr;

@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "RebelBullet.h"
+
 
 enum class RebelState
 {
@@ -91,6 +91,6 @@ private:
 	float BulletRange = 0;
 
 	GameEngineCollision* MonsterCollision = nullptr;
-	RebelBullet *Actor = nullptr;
+	//RebelBullet *Actor = nullptr;
 };
 

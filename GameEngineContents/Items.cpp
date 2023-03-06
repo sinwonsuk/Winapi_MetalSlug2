@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "Player.h"
+#include "ContentsEnums.h"
 
 
 Items::Items()
@@ -53,6 +54,9 @@ void Items::Start()
 
 void Items::Update(float _DeltaTime)
 {
+	
+
+
 	if (Effect->IsAnimationEnd())
 	{
 		this->Death();

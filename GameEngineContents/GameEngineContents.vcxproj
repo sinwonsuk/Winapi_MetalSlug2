@@ -62,6 +62,7 @@
     <ClInclude Include="RunMonster.h" />
     <ClInclude Include="SelectLevel.h" />
     <ClInclude Include="MetalSlugCore.h" />
+    <ClInclude Include="STLevel.h" />
     <ClInclude Include="TitleBack.h">
       <SubType>
       </SubType>
@@ -134,6 +135,7 @@
     <ClCompile Include="RunMonster.cpp" />
     <ClCompile Include="RunMonsterState.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
+    <ClCompile Include="STLevel.cpp" />
     <ClCompile Include="TitleBack.cpp">
       <SubType>
       </SubType>

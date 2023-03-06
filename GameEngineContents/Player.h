@@ -1,11 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "Bullets.h"
-#include "Bomb.h"
-#include "HeavyGun.h"
-#include "MiddleBoss.h"
-#include "Monster.h"
-#include "Boss.h"
+#include <GameEngineCore/GameEngineResources.h>
+
 enum class PlayerState
 {
 	IDLE,
@@ -136,9 +132,9 @@ public:
 	}
 	float4 CameraMoveCheck = float4::Zero;
 	float BombNumber = 10;
-	float HeavyMachineGun = 200;
+	float HeavyMachineGun = 0;
 	bool MiddlebossBoom = false;
-
+	bool BossStart = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -342,15 +338,14 @@ private:
 	float UpHeavyBulletTime = 0;
 	float MonsterTime = 0; 
 	float asda = 20;
-	Monster* monster = nullptr;
-	Monster* monster2 = nullptr;
-	Bomb* Actor = nullptr;
-	HeavyGun* HeavyBullet = nullptr; 
-	MiddleBoss* middleBoss = nullptr;
-	Boss* boss = nullptr;
+
+	
+	
+	//Boss* boss = nullptr;
 	float SpeedDown = 0; 
 
 	float PalaceTime = 0; 
+	bool BackGroundSound = false;
 
 	bool MonsterDeathCheck = false;
 	bool RightHeavyBulletCheck = false;
@@ -369,5 +364,10 @@ private:
 	float LeftHeavyBulletNumber = 0;
 	float UPHeavyBulletNumber = 0;
 	float Number = 0; 
+
+	GameEngineSoundPlayer MissionStart;
+	GameEngineSoundPlayer bgm;
+
+
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "ContentsEnums.h"
+
 class Items : public GameEngineActor
 {
 
@@ -13,7 +13,7 @@ public:
 	// constrcuter destructer
 	Items();
 	~Items();
-	Direction Dir = Direction::IDLE;
+
 	// delete Function
 	Items(const Items& _Other) = delete;
 	Items(Items&& _Other) noexcept = delete;

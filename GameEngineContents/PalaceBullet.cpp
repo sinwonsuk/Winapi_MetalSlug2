@@ -2,10 +2,10 @@
 #include <GameEngineCore/GameEngineRender.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include "ContentsEnums.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineCore/GameEngineResources.h>
+#include "ContentsEnums.h"
 #include "MiddleBoss.h"
 #include "Player.h"
 #include "BulletEffect.h"

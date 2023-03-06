@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "MonsterBullet.h"
+
 
 enum class MonsterState
 {
@@ -20,7 +20,7 @@ enum class MonsterState
 class Monster : public GameEngineActor
 {
 public:
-	static Monster* MonsterA;
+	
 
 	// constrcuter destructer
 	Monster();
@@ -114,7 +114,6 @@ private:
 	bool RunCheck = true;
 	bool Test = false;
 	bool GroundCheck = false;
-	MonsterBullet* Actor = nullptr;
 	float BackJumpTime =0;
 	float AnimationCheck = 0;
 	bool BackJumpCheck = false;

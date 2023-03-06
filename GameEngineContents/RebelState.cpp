@@ -164,7 +164,7 @@ void Rebel::AttackUpdate(float _Time)
 		{
 			if (a == 0)
 			{
-				Actor = GetLevel()->CreateActor<RebelBullet>();
+				RebelBullet * Actor = GetLevel()->CreateActor<RebelBullet>();
 				Actor->SetPos(GetPos());
 				BulletRange = GetPos().x - Player::MainPlayer->GetPos().x;
 

@@ -72,7 +72,7 @@ private:
 
 	bool MoveCamera = false;
 	bool StonReset = false;
-	float Hp = 10;
+	float Hp = 30;
 	GameEngineCollision* WallCollision = nullptr;
 
 };

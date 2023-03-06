@@ -224,7 +224,7 @@ void Carriage::Update(float _DeltaTime)
 
 	if (Hp <= 0)
 	{
-		MonsterCollision->Death();
+		//MonsterCollision->Death();
 		Exploision->On();
 		ChangeState(CarriageState::DEATH);
 	}

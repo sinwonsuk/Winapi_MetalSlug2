@@ -14,7 +14,7 @@
 #include "Bomb.h"
 
 
-Monster* Monster::MonsterA;
+
 
 Monster::Monster() 
 {
@@ -32,7 +32,7 @@ void Monster::Start()
 	
 	
 
-	MonsterA = this;
+
 
 	srand(static_cast<unsigned int>(time(nullptr)));
  	
@@ -62,7 +62,7 @@ void Monster::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);		
-		MonsterCollision->SetScale({ 75, 150 });
+		MonsterCollision->SetScale({ 75, 200 });
 	}
 	
 

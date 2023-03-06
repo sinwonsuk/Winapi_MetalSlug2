@@ -75,7 +75,7 @@ void Wall::Start()
 }
 void Wall::Movecalculation(float _DeltaTime)
 {
-	if (Hp <= -30)
+	if (Hp <= 0)
 	{
 		return; 
 	}
@@ -116,7 +116,9 @@ void Wall::Movecalculation(float _DeltaTime)
 
 
 	
-
+	Ston->SetMove(MoveDir * _DeltaTime); 
+	Ston2->SetMove(MoveDir * _DeltaTime);
+	Ston3->SetMove(MoveDir * _DeltaTime);
 
 	
 }
@@ -125,12 +127,7 @@ void Wall::Update(float _DeltaTime)
 {
 
 
-	if(WallCollision == nullptr)
-	{
-		WallCollision = CreateCollision(MetalSlugOrder::Wall);
-		WallCollision->SetScale({ 150,500 });
-	}
-
+	
 
 	if (nullptr != WallCollision )
 	{
@@ -151,7 +148,8 @@ void Wall::Update(float _DeltaTime)
 		
 			
 		}
-		if (Hp <= 0)
+
+		if (Hp <= -50)
 		{
 			AnimationRender->Off();
 			if (StonReset == false)
@@ -165,11 +163,11 @@ void Wall::Update(float _DeltaTime)
 
 			MoveDir += float4::Down * 1500 * _DeltaTime;
 			MoveDir += float4::Left * 80;
-			
-		
-			
+
+
+
 		}
-		else if (Hp <= -20)
+		else if (Hp <= -30)
 		{
 			AnimationRender->ChangeAnimation("WallUp");
 
@@ -186,7 +184,7 @@ void Wall::Update(float _DeltaTime)
 
 		}
 
-		else if (Hp <= -30)
+		else if (Hp <= 0)
 		{
 			AnimationRender->ChangeAnimation("WallMiddle");
 
@@ -200,7 +198,7 @@ void Wall::Update(float _DeltaTime)
 		}
 
 	}
-	
+
 
 	if (Hp <= -50)
 	{
@@ -210,20 +208,18 @@ void Wall::Update(float _DeltaTime)
 		if (MonsterCheck == false)
 		{
 			MachineMonster* Monster = GetLevel()->CreateActor<MachineMonster>();
-			Monster->SetPos({ 8400,720 });
-			MonsterCheck = true; 
-		
+			Monster->SetMove({ 8400,720 });
+			MonsterCheck = true;
+
 		}
 		if (Exploision->IsAnimationEnd())
 		{
-			this->Death(); 
+			this->Death();
 		}
 
 	}
 
-	Ston->SetMove(MoveDir * _DeltaTime); 
-	Ston2->SetMove(MoveDir * _DeltaTime);
-	Ston3->SetMove(MoveDir * _DeltaTime);
+	
 	Movecalculation(_DeltaTime); 
 }
 

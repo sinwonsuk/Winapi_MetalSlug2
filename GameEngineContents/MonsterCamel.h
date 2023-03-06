@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "MonsterCamelEffect.h"
+
 enum class MonsterCamelState
 {
 	IDLESTART,
@@ -80,7 +80,7 @@ private:
 	GameEngineRender* AnimationBodyRender = nullptr;
 	GameEngineRender* AnimationRegRender = nullptr;
 	GameEngineRender* EffectRender = nullptr;
-	MonsterCamelEffect* Effect = nullptr;
+	//MonsterCamelEffect* Effect = nullptr;
 	float4 MoveDir = float4::Zero;
 	float4 MoveDir1 = float4::Zero;
 	float4 CollisionPos = float4::Zero;

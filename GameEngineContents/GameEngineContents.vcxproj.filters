@@ -72,6 +72,7 @@
     <ClInclude Include="BazookaBullet.h" />
     <ClInclude Include="FinishInterFace.h" />
     <ClInclude Include="WinPlayer.h" />
+    <ClInclude Include="STLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -165,6 +166,7 @@
     <ClCompile Include="BazookaBullet.cpp" />
     <ClCompile Include="FinishInterFace.cpp" />
     <ClCompile Include="WinPlayer.cpp" />
+    <ClCompile Include="STLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Title">

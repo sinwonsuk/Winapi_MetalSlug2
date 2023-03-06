@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-#include "MachineMonsterBullet.h"
+
 enum class MachineState
 {
 	IDLE,
@@ -88,7 +88,7 @@ private:
 	int a = 0;
 	float BulletRange = 0;
 	int AttackNumber = 0;
-	MachineMonsterBullet* Actor = nullptr;
+	//MachineMonsterBullet* Actor = nullptr;
 	GameEngineCollision* MonsterCollision = nullptr;
 
 };

@@ -327,7 +327,6 @@ void NPC::MoveDownUpdate(float _Time)
 
 	if (AnimationRender->IsAnimationEnd())
 	{
-		//MoveDir = { 0,0 };
 		ChangeState(NpcState::DOWN);
 		return; 
 	}
