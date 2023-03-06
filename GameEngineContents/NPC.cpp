@@ -159,6 +159,15 @@ void NPC::DirCheck(const std::string_view& _AnimationName)
 
 void NPC::Update(float _DeltaTime)
 {
+	if (NpcCollision == nullptr)
+	{
+		NpcCollision = CreateCollision(MetalSlugOrder::NPC);
+		NpcCollision->SetScale({ 100, 100 });
+		NpcCollision->SetPosition({ 0,-50 });
+	}
+
+
+
 	if (death == true)
 	{
 		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();

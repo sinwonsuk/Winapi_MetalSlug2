@@ -48,6 +48,7 @@ void BossSmallMonster::Start()
 
 void BossSmallMonster::Movecalculation(float _DeltaTime)
 {
+
 	MoveDir += float4::Down * 1000.0f * _DeltaTime;
 
 	if (50.0f <= abs(MoveDir.x))
@@ -149,6 +150,14 @@ void BossSmallMonster::AnimationCheck(const std::string_view& _AnimationName)
 }
 void BossSmallMonster::Update(float _DeltaTime)
 {
+	if (MonsterCollision == nullptr)
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::BossMonster);
+		MonsterCollision->SetScale({ 50, 100 });
+		MonsterCollision->SetPosition({ 0,-70 });
+	}
+
+
 	if (nullptr != MonsterCollision && StateValue != SmallMonsterState::LEFTJUMP  && StateValue != SmallMonsterState::RIGHTJUMP)
 	{
 		std::vector<GameEngineCollision*> collision;

@@ -38,9 +38,9 @@ void Player::Start()
 {
 	MainPlayer = this;
 	SetMove({ 100,0 });
-	//GetLevel()->SetCameraPos({ 7000,0 });
+	//GetLevel()->SetCameraPos({ 7600,0 });
 	//CameraCheck = true;
-	//MonsterCheck = 13;
+	//MonsterCheck = 16;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -1071,7 +1071,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 0)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ GetPos().x + 900,500 });
+				Actor->SetPos({ GetPos().x + 900,500 });
 				Actor->GetPlayerCollision()->SetScale({ 500,500 });
 			
 
@@ -1090,14 +1090,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({  1700,600 });
+				Actor->SetPos({  1700,600 });
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 			}
 			if (MonsterCheck == 1)
 			{
 				
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({  1750,600 });
+				Actor->SetPos({  1750,600 });
 				Actor->GetPlayerCollision();
 			}
 			
@@ -1116,7 +1116,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				bool check = false; 
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 1900,500 });
+				Actor->SetPos({ 1900,500 });
 				Actor->GetPlayerCollision()->SetScale({ float4(static_cast<float>(rand() % 550) + 400,500) });
 				Actor->SetRunCheck(check);
 			
@@ -1125,14 +1125,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
-				Actor->SetMove({ 2000,700 });		
+				Actor->SetPos({ 2000,700 });
 				Actor->SetItemCheck(false);
 			}
 			if (MonsterCheck == 2)
 			{
 
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
-				Actor->SetMove({ 2140,400 });
+				Actor->SetPos({ 2140,400 });
 				Actor->SetDownCheck(false); 
 				Actor->SetItemCheck(true);
 			}
@@ -1149,14 +1149,14 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 2350,300 });
+				Actor->SetPos({ 2350,300 });
 						
 			}
 
 			if (MonsterCheck == 3)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 2650,600 });
+				Actor->SetPos({ 2650,600 });
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 			
 			}
@@ -1170,14 +1170,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 4)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 3200,600 });
+				Actor->SetPos({ 3200,600 });
 
 			}
 
 			if (MonsterCheck == 4)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 3400,600 });
+				Actor->SetPos({ 3400,600 });
 				Actor->GetPlayerCollision()->SetPosition({ -200,0 });
 
 			}
@@ -1214,7 +1214,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 5)
 			{
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
-				Actor->SetMove({ 4200, 300 });
+				Actor->SetPos({ 4200, 300 });
 
 				Actor->ChangeState(NpcState::BIND);
 				Actor->SetItemCheck(false);
@@ -1224,7 +1224,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 5)
 			{
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
-				Actor->SetMove({ 4500, 300 });
+				Actor->SetPos({ 4500, 300 });
 				Actor->SetItemCheck(true);
 				Actor->SetDownCheck(true); 
 			}
@@ -1233,7 +1233,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				
 				MonsterCamel* Actor = GetLevel()->CreateActor<MonsterCamel>();
-				Actor->SetMove({ 4000,700 });
+				Actor->SetPos({ 4000,700 });
 				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
 
 			}
@@ -1248,15 +1248,15 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 6)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 4350,220 });
-				Actor->GetPlayerCollision()->SetPosition({100,0 });
+				Actor->SetPos({ 4350,220 });
+			//	Actor->GetPlayerCollision()->SetPosition({100,0 });
 			}
 
 			if (MonsterCheck == 6)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 4350,410 });
-				Actor->GetPlayerCollision()->SetPosition({ 50,0 });
+				Actor->SetPos({ 4350,410 });
+			//	Actor->GetPlayerCollision()->SetPosition({ 50,0 });
 			
 			}
 
@@ -1264,8 +1264,8 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				bool Check = false;
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 4500,350 });
-				Actor->GetPlayerCollision()->SetPosition({ -150,0 });
+				Actor->SetPos({ 4500,350 });
+			//	Actor->GetPlayerCollision()->SetPosition({ -150,0 });
 				Actor->SetRunCheck(Check);
 
 			}
@@ -1280,14 +1280,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 7)
 			{
 				monster = GetLevel()->CreateActor<Monster>();
-				monster->SetMove({ 5300, 100 });			
+				monster->SetPos({ 5300, 100 });
 				monster->GetPlayerCollision()->SetPosition({ 100,0 });
 			}
 
 			if (MonsterCheck == 7)
 			{
 				monster2 = GetLevel()->CreateActor<Monster>();
-				monster2->SetMove({ 5300, 300 });
+				monster2->SetPos({ 5300, 300 });
 				monster->GetPlayerCollision()->SetPosition({ 100,0 });
 
 			}
@@ -1308,7 +1308,7 @@ void Player::CollisionCheck(float _DeltaTime)
 				if (MonsterCheck == 7)
 				{
 					Carriage* Actor = GetLevel()->CreateActor<Carriage>();
-					Actor->SetMove({ 5500,700 });
+					Actor->SetPos({ 5500,700 });
 
 				}
 
@@ -1316,13 +1316,13 @@ void Player::CollisionCheck(float _DeltaTime)
 				{
 
 					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-					Actor->SetMove({ 5600,700 });
+					Actor->SetPos({ 5600,700 });
 				}
 				if (MonsterCheck == 7)
 				{
 
 					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-					Actor->SetMove({ 5680,700 });
+					Actor->SetPos({ 5680,700 });
 
 				}
 
@@ -1330,27 +1330,27 @@ void Player::CollisionCheck(float _DeltaTime)
 				{
 
 					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-					Actor->SetMove({ 5760,700 });
+					Actor->SetPos({ 5760,700 });
 
 				}
 				if (MonsterCheck == 7)
 				{
 
 					RunMonster* Actor = GetLevel()->CreateActor<RunMonster>();
-					Actor->SetMove({ 5840,700 });
+					Actor->SetPos({ 5840,700 });
 
 				}
 
 				if (MonsterCheck == 7)
 				{
 					MiniBoss* Actor = GetLevel()->CreateActor<MiniBoss>();
-					Actor->SetMove({ 5920,700 });
+					Actor->SetPos({ 5920,700 });
 				}
 				if (MonsterCheck == 7)
 				{
 					NPC* Actor = GetLevel()->CreateActor<NPC>();
 					Actor->ChangeState(NpcState::BIND);
-					Actor->SetMove({ 5500,300 });
+					Actor->SetPos({ 5500,300 });
 				}
 
 
@@ -1466,25 +1466,25 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 13)
 			{
 				Wall* Actor = GetLevel()->CreateActor<Wall>();
-				Actor->SetMove({ 8400,770 });
+				Actor->SetPos({ 8400,770 });
 			}
 			if (MonsterCheck == 13)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
-				Actor->SetMove({ 8000,500 });
+				Actor->SetPos({ 8000,500 });
 				//Actor->ChangeState(RebelState::IDLE);
 			}
 			if (MonsterCheck == 13)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
-				Actor->SetMove({ 8200,500 });
+				Actor->SetPos({ 8200,500 });
 				Actor->ChangeState(RebelState::IDLE2);
 			}
 			if (MonsterCheck == 13)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->ChangeState(RebelState::ATTACK);
-				Actor->SetMove({ 8350,0 });
+				Actor->SetPos({ 8350,0 });
 			}
 
 
@@ -1494,6 +1494,8 @@ void Player::CollisionCheck(float _DeltaTime)
 		
 		if (RGB(243, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(243, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 14)
 		{
+			
+
 			if (MonsterCheck == 14)
 			{
 				RebelStart = true;
@@ -1502,8 +1504,11 @@ void Player::CollisionCheck(float _DeltaTime)
 		}
 		if (RGB(242, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(242, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 15)
 		{
+			
+
 			if (MonsterCheck == 15)
 			{
+				PosCheck = CameraMoveCheck;
 				CameraCheck = false;
 			}
 			MonsterCheck = 16;
@@ -1514,7 +1519,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 8)
 			{
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
-				Actor->SetMove({ 9500, 300 });
+				Actor->SetPos({ 9500, 300 });
 				Actor->SetItemCheck(true);
 				Actor->SetDownCheck(true);
 
@@ -1523,13 +1528,13 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 16)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 9600,300 });
+				Actor->SetPos({ 9600,300 });
 			
 			}
 			if (MonsterCheck == 16)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 9600,500 });
+				Actor->SetPos({ 9600,500 });
 			
 			}
 			MonsterCheck = 17;
@@ -1540,13 +1545,13 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 17)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 9900,300 });
+				Actor->SetPos({ 9900,300 });
 			
 			}
 			if (MonsterCheck == 17)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 9900,600 });
+				Actor->SetPos({ 9900,600 });
 			
 			}
 			MonsterCheck = 18;
@@ -1556,26 +1561,26 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 18)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 10200,300 });
+				Actor->SetPos({ 10200,300 });
 				
 			}
 			if (MonsterCheck == 18)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 10200,600 });
+				Actor->SetPos({ 10200,600 });
 			
 			}
 			if (MonsterCheck == 18)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 10300,300 });
-				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+				Actor->SetPos({ 10300,300 });
+			
 			}
 			if (MonsterCheck == 18)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 10350,600 });
-				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+				Actor->SetPos({ 10350,600 });
+			
 			}
 
 			MonsterCheck = 19;
@@ -1585,14 +1590,14 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 19)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 10500,600 });
-				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+				Actor->SetPos({ 10500,600 });
+			
 			}
 			if (MonsterCheck == 19)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 10500,600 });
-				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+				Actor->SetPos({ 10500,600 });
+				
 			}
 			MonsterCheck = 20;
 		}
@@ -1601,26 +1606,26 @@ void Player::CollisionCheck(float _DeltaTime)
 			if (MonsterCheck == 20)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 11400,600 });
-				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+				Actor->SetPos({ 11400,600 });
+				
 			}
 			if (MonsterCheck == 20)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 11500,600 });
-				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+				Actor->SetPos({ 11500,600 });
+			
 			}
 			if (MonsterCheck == 20)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 11600,600 });
-				Actor->GetPlayerCollision()->SetPosition({ -100,0 });
+				Actor->SetPos({ 11600,600 });
+			
 			}
 			if (MonsterCheck == 20)
 			{
 				Monster* Actor = GetLevel()->CreateActor<Monster>();
-				Actor->SetMove({ 11700,600 });
-				Actor->GetPlayerCollision()->SetPosition({ 0,0 });
+				Actor->SetPos({ 11700,600 });
+			
 			}
 
 
@@ -1632,7 +1637,7 @@ void Player::CollisionCheck(float _DeltaTime)
 			boss->SetPos({ 11800,100 });
 			MonsterCheck = 22;
 		}
-		if (GetLevel()->GetCameraPos().x > 11300)
+		if (GetLevel()->GetCameraPos().x >= 11367)
 		{
 			CameraCheck = false;
 			boss->BossStart = true;
@@ -1642,12 +1647,14 @@ void Player::CollisionCheck(float _DeltaTime)
 		{
 			boss->BossStart = true;
 		}
-	/*	if (boss->Hp <= 0)
+		if (boss != nullptr)
 		{
-			AnimationBodyRender->Off(); 
-			AnimationRegRender->Off();
-		}*/
-
+			if (boss->Hp <= 0)
+			{
+				AnimationBodyRender->Off();
+				AnimationRegRender->Off();
+			}
+		}
 
 }
 

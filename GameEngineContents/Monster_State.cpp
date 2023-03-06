@@ -261,7 +261,7 @@ void Monster::MonsterBackJumpUpdate(float _Time)
 void Monster::MonsterDeathOneUpdate(float _Time)
 {
 	
-	MoveDir = { 0,0 };
+	SetMove(-MoveDir * _Time);
 
 	if (true == AnimationRender->IsAnimationEnd())
 	{
@@ -273,7 +273,7 @@ void Monster::MonsterDeathOneUpdate(float _Time)
 
 void Monster::MonsterDeathTwoUpdate(float _Time)
 {
-	MoveDir = { 0,0 };
+	SetMove(-MoveDir * _Time);
 	
 
 	if (true == AnimationRender->IsAnimationEnd())

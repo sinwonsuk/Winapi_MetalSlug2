@@ -53,6 +53,13 @@ void Items::Start()
 
 void Items::Update(float _DeltaTime)
 {
+
+	if (Collision == nullptr)
+	{
+		Collision = CreateCollision(MetalSlugOrder::Monster);
+		Collision->SetScale({ 50, 50 });
+	}
+
 	ItemTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
 	if (GunBoombChangeCheck == false && CollisionCheck == false)
@@ -70,8 +77,8 @@ void Items::Update(float _DeltaTime)
 
 		if (nullptr != Collision && GunBoombChangeCheck == false)
 		{
-			std::vector<GameEngineCollision*> collision;
-			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+			
+			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }))
 			{
 
 				Effect->On();
@@ -84,8 +91,8 @@ void Items::Update(float _DeltaTime)
 
 		if (nullptr != Collision && GunBoombChangeCheck == true)
 		{
-			std::vector<GameEngineCollision*> collision;
-			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
+			
+			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }))
 			{
 
 				Effect->On();

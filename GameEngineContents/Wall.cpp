@@ -143,8 +143,11 @@ void Wall::Movecalculation(float _DeltaTime)
 
 void Wall::Update(float _DeltaTime)
 {
-	
-	
+	if(WallCollision == nullptr)
+	{
+		WallCollision = CreateCollision(MetalSlugOrder::Wall);
+		WallCollision->SetScale({ 150,500 });
+	}
 
 
 	if (nullptr != WallCollision )
@@ -156,7 +159,7 @@ void Wall::Update(float _DeltaTime)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
-				Effect->SetMove(ColActor->GetPos());
+				Effect->SetPos(ColActor->GetPos());
 
 
 				ColActor->Death();
@@ -223,7 +226,7 @@ void Wall::Update(float _DeltaTime)
 		if (MonsterCheck == false)
 		{
 			MachineMonster* Monster = GetLevel()->CreateActor<MachineMonster>();
-			Monster->SetMove({ 8400,720 });
+			Monster->SetPos({ 8400,720 });
 			MonsterCheck = true; 
 		
 		}

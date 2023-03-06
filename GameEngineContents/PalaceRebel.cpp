@@ -32,6 +32,8 @@ void PalaceRebel::Start()
 
 void PalaceRebel::Update(float _DeltaTime)
 {
+
+
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 
 	if (50.0f <= abs(MoveDir.x))

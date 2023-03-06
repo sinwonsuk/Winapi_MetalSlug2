@@ -159,6 +159,14 @@ void Carriage::DirCheck(const std::string_view& _AnimationName)
 void Carriage::Update(float _DeltaTime)
 {
 
+	if (MonsterCollision == nullptr)
+	{
+		
+		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
+		MonsterCollision->SetScale({ 400,600 });
+		
+	}
+
 	if (nullptr != MonsterCollision && StateValue == CarriageState::STOP)
 	{
 		std::vector<GameEngineCollision*> collision;

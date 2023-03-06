@@ -73,7 +73,8 @@ private:
 
 	float4 MoveDir = float4::Zero;
 	
-	float DeathTime = 0; 
+	float DeathTime = 0;
+	float DeathTime1 = 0;
 	float TimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 100;
@@ -86,6 +87,7 @@ private:
 	bool death = false;
 	bool Idle = true;
 	bool CarriageMonsterSee = false;
+
 	GameEngineCollision* MonsterCollision = nullptr;
 
 };

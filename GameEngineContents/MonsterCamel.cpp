@@ -68,7 +68,6 @@ void MonsterCamel::Start()
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);		
 		MonsterCollision->SetScale({ 100, 400 });
-
 	}
 
 
@@ -243,6 +242,13 @@ void MonsterCamel::DirBodyCheck(const std::string_view& _AnimationName , const s
 
 void MonsterCamel::Update(float _DeltaTime)
 {
+
+	if (MonsterCollision == nullptr)
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		MonsterCollision->SetScale({ 100, 400 });
+	}
+
 	if (nullptr != PlayerCollision && StateValue == MonsterCamelState::IDLESTART)
 	{
 		std::vector<GameEngineCollision*> collision;

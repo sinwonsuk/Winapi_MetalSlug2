@@ -8,18 +8,8 @@
 #include "Player.h"
 #include "Map.h"
 #include "InterFace.h"
-#include "Bullets.h"
-#include "Monster.h"
-#include "MonsterBullet.h"
-#include "MonsterCamel.h"
-#include "NPC.h"
-#include "MiddleBoss.h"
-#include "PalaceBullet.h"
-#include "Carriage.h"
-#include "RunMonster.h"
-#include "Wall.h"
 #include "MapEffect.h"
-#include "Boss.h"
+#
 PlayLevel::PlayLevel() 
 {
 }

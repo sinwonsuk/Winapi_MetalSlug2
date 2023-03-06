@@ -38,7 +38,7 @@ void Bullets::Start()
 
 void Bullets::Update(float _DeltaTime)
 {	
-	SetMove(MoveDir * _DeltaTime* 1500);
+	
 
 	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
@@ -47,7 +47,7 @@ void Bullets::Update(float _DeltaTime)
 		this->Death();
 	}
 
-
+	SetMove(MoveDir * _DeltaTime * 1500);
 }
 
 void Bullets::Render(float _Time)

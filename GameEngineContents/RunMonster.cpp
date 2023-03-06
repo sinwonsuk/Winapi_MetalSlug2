@@ -34,12 +34,7 @@ void RunMonster::Start()
 		AnimationBloodRender->CreateAnimation({ .AnimationName = "Blood",  .ImageName = "Blood.bmp", .Start = 0, .End = 8, .InterTime = 0.1f,.Loop = false });
 		AnimationBloodRender->SetPosition({ -50,-50 });
 	}
-	//{
-	//	AnimationRegRender = CreateRender(MetalSlugOrder::Monster);
-	//	AnimationRegRender->SetScale({ 800,800 });
-	//	AnimationRender->CreateAnimation({ .AnimationName = "Reg_Attack",  .ImageName = "RunMonsterRegAttack.bmp", .Start = 0, .End = 5, .InterTime = 0.1f,.Loop = true });
-	//	
-	//}
+	
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
 		MonsterCollision->SetPosition({ 0,-80 });
@@ -105,6 +100,15 @@ void RunMonster::Movecalculation(float _DeltaTime)
 		AnimationRender->On();
 		CarriageMonsterSee = true;
 	}
+	DeathTime1 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	
+	 if (DeathTime1 > 15)
+	 {
+		 this->Death();
+	 }
+	
+
+
 
 	if (StateValue == RunMonsterState::DEATH)
 	{
@@ -169,7 +173,7 @@ void RunMonster::Update(float _DeltaTime)
 				GameEngineActor* ColActor = collision[i]->GetActor();
 
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
-				Effect->SetMove(ColActor->GetPos());
+				Effect->SetPos(ColActor->GetPos());
 				
 
 				ColActor->Death();

@@ -140,11 +140,19 @@ void MachineMonster::DirCheck(const std::string_view& _AnimationName)
 void MachineMonster::Update(float _DeltaTime)
 {
 
+	if (MonsterCollision == nullptr)
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		MonsterCollision->SetScale({ 200,300 });
+	}
+
+
 	if (nullptr != MonsterCollision)
 	{
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
 		{
+			Hp--;
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
@@ -155,13 +163,12 @@ void MachineMonster::Update(float _DeltaTime)
 
 				ColActor->Death();
 			}
-			Hp--;
+			
 		}
 	}
 	if (Hp <= 0)
 	{
 		ChangeState(MachineState::DEATH);
-		MonsterCollision->Death();
 	}
 
 

@@ -575,6 +575,26 @@ void MiddleBoss::DoorUpdate(float _Time)
 
 void MiddleBoss::Update(float _DeltaTime)
 {
+	if (LeftMonsterCollision == nullptr)
+	{
+		LeftMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		LeftMonsterCollision->SetScale({ 200, 200 });
+		LeftMonsterCollision->SetPosition({ -190,-350 });
+	}
+	if (RightMonsterCollision == nullptr)
+	{
+		RightMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		RightMonsterCollision->SetScale({ 200, 200 });
+		RightMonsterCollision->SetPosition({ 430, -350 });	
+	}
+	if (MiddleMonsterCollision == nullptr)
+	{
+		MiddleMonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		MiddleMonsterCollision->SetScale({ 200, 200 });
+		MiddleMonsterCollision->SetPosition({ 120,-350 });
+	}
+
+
 	if (MiddleBossStart == true)
 	{
 
@@ -590,7 +610,7 @@ void MiddleBoss::Update(float _DeltaTime)
 				{
 					GameEngineActor* ColActor = collision[i]->GetActor();
 					BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
-					Effect->SetMove(ColActor->GetPos());
+					Effect->SetPos(ColActor->GetPos());
 					
 
 
@@ -607,7 +627,7 @@ void MiddleBoss::Update(float _DeltaTime)
 
 		if (LeftHp <= 0)
 		{
-			LeftMonsterCollision->Death();
+		//	LeftMonsterCollision->Death();
 			AnimationLeftDoorRender->Off();
 			AnimationLeftHumanAttackRender->Off();
 			AnimationLeftHumanRender->Off();
@@ -650,7 +670,7 @@ void MiddleBoss::Update(float _DeltaTime)
 
 		if (RightHp <= 0)
 		{
-			RightMonsterCollision->Death();
+			//RightMonsterCollision->Death();
 			AnimationRightDoorRender->Off();
 			AnimationRightHumanAttackRender->Off();
 			AnimationRightHumanRender->Off();
@@ -690,7 +710,7 @@ void MiddleBoss::Update(float _DeltaTime)
 
 		if (MiddleHp <= 0)
 		{
-			MiddleMonsterCollision->Death();
+			//MiddleMonsterCollision->Death();
 			AnimationMiddleDoorRender->Off();
 			AnimationMiddleHumanAttackRender->Off();
 			AnimationMiddleHumanRender->Off();
@@ -823,6 +843,8 @@ void MiddleBoss::Render(float _Time)
 
 
 	//LeftMonsterCollision->DebugRender();
+	LeftMonsterCollision->On();
+
 	//RightMonsterCollision->DebugRender(); 
 	//MiddleMonsterCollision->DebugRender();
 

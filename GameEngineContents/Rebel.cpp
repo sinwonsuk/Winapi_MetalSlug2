@@ -48,7 +48,13 @@ void Rebel::Start()
 
 void Rebel::Update(float _DeltaTime)
 {
-	if (nullptr != MonsterCollision)
+	if (nullptr == MonsterCollision)
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
+		MonsterCollision->SetPosition({ 0,-80 });
+		MonsterCollision->SetScale({ 50,150 });
+	}
+	if (nullptr != MonsterCollision && StateValue != RebelState::DEATH)
 	{
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))

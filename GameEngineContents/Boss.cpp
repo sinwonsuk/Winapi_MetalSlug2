@@ -270,6 +270,14 @@ void Boss::Start()
 
 void Boss::Update(float _DeltaTime)
 {
+	if (MonsterCollision == nullptr)
+	{
+		MonsterCollision = CreateCollision(MetalSlugOrder::Boss);
+		MonsterCollision->SetScale({ 400, 300 });
+		MonsterCollision->SetPosition({ 0,-400 });
+	}
+
+
 	if (BossStart == true)
 	{
 		if (IdleStartCheck == false)
