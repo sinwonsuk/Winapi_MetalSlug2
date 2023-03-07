@@ -41,10 +41,10 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 10000,0 });
-	GetLevel()->SetCameraPos({ 10000,0 });
-    CameraCheck = true;
-	MonsterCheck = 20;
+	SetMove({ 150,0 });
+	//GetLevel()->SetCameraPos({ 10000,0 });
+  //  CameraCheck = true;
+	//MonsterCheck = 20;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -2912,7 +2912,7 @@ void Player::JumpDirCheck(const std::string_view& _AnimationName, const std::str
 
 void Player::Render(float _DeltaTime)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 
 	Rectangle(DoubleDC,
@@ -2920,22 +2920,22 @@ void Player::Render(float _DeltaTime)
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-	);
+	);*/
 	
 
 	//std::string MouseText = "MousePosition : \n";
 	//MouseText += GetLevel()->GetCameraPos().ToString();
 	//GetLevel()->GetCameraPos().x > 6500
 
-	std::string CameraMouseText = "MousePositionCamera : \n";
-	CameraMouseText += GetLevel()->GetCameraPos().ToString();
+	/*std::string CameraMouseText = "MousePositionCamera : \n";
+	CameraMouseText += GetLevel()->GetCameraPos().ToString();*/
 	//CameraMouseText = SpinMoveDir.ToString();
 
 	//CameraMouseText += GetLevel()
 
 	//CameraMouseText = MoveDir
 	//GameEngineLevel::DebugTextPush(MouseText);
-	GameEngineLevel::DebugTextPush(CameraMouseText);
+	//GameEngineLevel::DebugTextPush(CameraMouseText);
 	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 

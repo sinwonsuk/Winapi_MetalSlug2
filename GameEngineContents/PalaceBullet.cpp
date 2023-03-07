@@ -75,6 +75,7 @@ void PalaceBullet::Update(float _DeltaTime)
 		std::vector<GameEngineCollision*> collision;
 		if (true == CollisionBullet->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision) && Time > 1)
 		{
+
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();			
@@ -264,7 +265,7 @@ void PalaceBullet::Update(float _DeltaTime)
 		{
 			this->Death(); 
 		}
-		if (Player::MainPlayer->GetPos().y < GetPos().y)
+		if (680 < GetPos().y)
 		{
 			Exploision->On();
 			BulletRender->Off();

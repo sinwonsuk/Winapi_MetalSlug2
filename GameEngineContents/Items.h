@@ -33,8 +33,8 @@ protected:
 private:
 	float ItemTime = 0;
 	bool GunBoombChangeCheck = false;
-	float BoombNumber = 0;
-	float HeavyMachineGuneNumber = 0;
+	bool BoombNumber = false;
+	bool HeavyMachineGuneNumber = false;
 	bool CollisionCheck = false;
 	float DeathCheck = 0; 
 	GameEngineRender* HeavyMachineGun = nullptr;

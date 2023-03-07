@@ -6,6 +6,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include "Carriage.h"
 #include "Player.h"
+#include "Boss.h"
 void MiniBoss::ChangeState(MiniMonsterState _State)
 {
 	{
@@ -130,26 +131,40 @@ void MiniBoss::RightMoveUpdate(float _Time)
 }
 void MiniBoss::AttackUpdate(float _Time)
 {
-	if (AnimationRender->IsAnimationEnd())
+	if (FinishCheck == true)
 	{
-		if (compulsionAttack == false)
+		if (Boss::boss->Hp <= 0)
 		{
-			Idle = true;
-			AttackCheck = true;
-			ChangeState(MiniMonsterState::IDLE);
-			return;
+			
+			ChangeState(MiniMonsterState::SURRENDER);
+			
 		}
-
-		if (compulsionAttack == true)
-		{
-			AttackCheck = true;
-			ChangeState(MiniMonsterState::RIGHTMOVE); 
-			return;
-		}
-
-
 	}
 
+
+
+	if (FinishCheck == false)
+	{
+		if (AnimationRender->IsAnimationEnd())
+		{
+			if (compulsionAttack == false)
+			{
+				Idle = true;
+				AttackCheck = true;
+				ChangeState(MiniMonsterState::IDLE);
+				return;
+			}
+
+			if (compulsionAttack == true)
+			{
+				AttackCheck = true;
+				ChangeState(MiniMonsterState::RIGHTMOVE);
+				return;
+			}
+
+
+		}
+	}
 }
 void MiniBoss::SurrenderUpdate(float _Time)
 {

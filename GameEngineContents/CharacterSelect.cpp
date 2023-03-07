@@ -118,7 +118,7 @@ void CharacterSelect::Start()
 	
 	{
 		AnimationRender = CreateRender(MetalSlugSelect::YellowRedP1);
-		AnimationRender->SetPosition({  -300,200 });
+		AnimationRender->SetPosition({  -300,190 });
 
 		AnimationRender->SetScale({ 81,54 });
 
@@ -160,7 +160,7 @@ void CharacterSelect::Update(float _DeltaTime)
 	{
 		if (Door1->GetPosition().y < 25)
 		{
-			AnimationRender->SetPosition({ 155,200 });
+			AnimationRender->SetPosition({ 155,190 });
 			P1Check = true;
 			P1Time = 0;
 		}
@@ -177,7 +177,7 @@ void CharacterSelect::Update(float _DeltaTime)
 			if (Fio->GetPosition().y != 0)
 			{
 				
-				AnimationRender->SetPosition({ 583,200 });
+				AnimationRender->SetPosition({ 583,190 });
 				Fio->SetPosition({ 0,0 });
 				Tarma->SetPosition({ 594,450 });
 			}
@@ -188,7 +188,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		{
 			if (Tarma->GetPosition().y != 0)
 			{
-				AnimationRender->SetPosition({ 367,200 });
+				AnimationRender->SetPosition({ 367,190 });
 				Tarma->SetPosition({ 0,0 });
 				Eri->SetPosition({ 379,450 });
 			}
@@ -198,7 +198,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		{
 			if (Eri->GetPosition().y != 0)
 			{
-				AnimationRender->SetPosition({ 155,200 });
+				AnimationRender->SetPosition({ 155,190 });
 				Eri->SetPosition({ 0,0 });
 				Marco->SetPosition({ 162,450 });
 
@@ -215,7 +215,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		{
 			if (Marco->GetPosition().y != 0)
 			{
-				AnimationRender->SetPosition({ 367,200 });
+				AnimationRender->SetPosition({ 367,190 });
 				Marco->SetPosition({ 0,0 });
 				Eri->SetPosition({ 379,450 });
 				
@@ -226,7 +226,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		{
 			if (Eri->GetPosition().y != 0)
 			{
-				AnimationRender->SetPosition({ 583,200 });
+				AnimationRender->SetPosition({ 583,190 });
 				Eri->SetPosition({ 0,0 });
 				Tarma->SetPosition({ 594,450 });
 			}
@@ -236,7 +236,7 @@ void CharacterSelect::Update(float _DeltaTime)
 		{
 			if (Tarma->GetPosition().y != 0)
 			{
-				AnimationRender->SetPosition({ 798,200 });
+				AnimationRender->SetPosition({ 798,190 });
 				Tarma->SetPosition({ 0,0 });
 				Fio->SetPosition({ 815,470 });
 			

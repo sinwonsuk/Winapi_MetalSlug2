@@ -141,6 +141,8 @@ private:
 	bool SmokeSoundCheck = false;
 	bool SoundCheck = false;
 
+	bool MinibossStart = false;
+
 	float FinishTime = 0;
 	bool FinishCheck = false;
 	bool DeathSoundCheck = false;

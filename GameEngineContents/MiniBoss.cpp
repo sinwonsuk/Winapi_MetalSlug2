@@ -26,19 +26,19 @@ void MiniBoss::Start()
 	miniboss = this;
 
 	{
-		AnimationRender = CreateRender(MetalSlugOrder::Monster);
+		AnimationRender = CreateRender(MetalSlugOrder::MiniBoss);
 		AnimationRender->SetScale({ 800,800 });
 
 		AnimationRender->CreateAnimation({ .AnimationName = "Idle",  .ImageName = "MiniBossIdle.bmp", .Start = 0, .End = 3, .InterTime = 0.1f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Right_Move",  .ImageName = "MiniBossRightMove.bmp", .Start = 0, .End = 5, .InterTime = 0.1f ,.Loop = true });
-		AnimationRender->CreateAnimation({ .AnimationName = "Attack",  .ImageName = "MiniBossAttack.bmp", .Start = 0, .End = 6, .InterTime = 0.15f,.Loop = true });
+		AnimationRender->CreateAnimation({ .AnimationName = "Attack",  .ImageName = "MiniBossAttack.bmp", .Start = 0, .End = 5, .InterTime = 0.15f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Left_Move",  .ImageName = "MiniBossLeftMove.bmp", .Start = 0, .End = 5, .InterTime = 0.1f ,.Loop = true });
-		AnimationRender->CreateAnimation({ .AnimationName = "Surrender",  .ImageName = "MiniBossSurrender.bmp", .Start = 0, .End = 10, .InterTime = 0.1f,.Loop = false });
+		AnimationRender->CreateAnimation({ .AnimationName = "Surrender",  .ImageName = "MiniBossSurrender.bmp", .Start = 0, .End = 10, .InterTime = 0.1f,.Loop = true });
 	}
 
 
 	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);
+		MonsterCollision = CreateCollision(MetalSlugOrder::MiniBoss);
 		MonsterCollision->SetScale({ 300,100 });
 	}
 

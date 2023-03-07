@@ -137,21 +137,22 @@ void MiddleBoss::LeftAttackUpdate(float _Time)
 
 	if (LeftHp > 0)
 	{
-		
 		if (true == AnimationLeftHumanAttackRender->IsAnimationEnd())
 		{
+		
 			if (MissileCheck == false)
 			{
 
 				PalaceBullet *Bullet = GetLevel()->CreateActor<PalaceBullet>();
 				Bullet->SetPos({ GetPos().x - 220, GetPos().y - 320 });
 				MissileCheck = true;
+				
 			}
 
 			
-			ChangeState(MiddleBossState::LEFTSMOKE);
-			return;
-		}
+			   ChangeState(MiddleBossState::LEFTSMOKE);
+			   return;
+		  }
 	}
 
 
@@ -179,7 +180,7 @@ void MiddleBoss::RightAttackUpdate(float _Time)
 				Bullet->SetPos({ GetPos().x + 390, GetPos().y - 320 });
 				MissileCheck = true;
 			}
-
+		
 			ChangeState(MiddleBossState::RIGHTSMOKE);
 			return;
 			
@@ -209,7 +210,7 @@ void MiddleBoss::MiddleAttackUpdate(float _Time)
 				Bullet->SetPos({ GetPos().x+ 110, GetPos().y - 320 });
 				MissileCheck = true;
 			}
-
+			
 			ChangeState(MiddleBossState::MIDDLESMOKE);
 			return;
 		}
@@ -225,7 +226,31 @@ void MiddleBoss::MiddleAttackUpdate(float _Time)
 void MiddleBoss::LeftSmokeUpdate(float _Time)
 {
 
+	
+
 	MissileCheck = false;
+	
+	LeftAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+	if (LeftAttackTime > 0.3)
+	{
+		srand(static_cast<unsigned int>(time(nullptr)));
+		int a = rand() % 2;
+
+		if (a == 0)
+		{
+			ChangeState(MiddleBossState::RIGHTATTACK);
+			LeftAttackTime = 0;
+		}
+		if (a == 1)
+		{
+			ChangeState(MiddleBossState::MIDDLEATTACK);
+			LeftAttackTime = 0;
+		}
+
+
+	}
+
 	
 
 }
@@ -236,6 +261,26 @@ void MiddleBoss::RightSmokeUpdate(float _Time)
 
 	MissileCheck = false;
 
+	LeftAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+	if (LeftAttackTime > 0.3)
+	{
+		srand(static_cast<unsigned int>(time(nullptr)));
+		int a = rand() % 2;
+
+		if (a == 0)
+		{
+			ChangeState(MiddleBossState::LEFTATTACK);
+			LeftAttackTime = 0;
+		}
+		if (a == 1)
+		{
+			ChangeState(MiddleBossState::MIDDLEATTACK);
+			LeftAttackTime = 0;
+		}
+
+
+	}
 
 
 	
@@ -247,6 +292,28 @@ void MiddleBoss::RightSmokeUpdate(float _Time)
 void MiddleBoss::MiddleSmokeUpdate(float _Time)
 {
 	MissileCheck = false;
+
+	LeftAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+	if (LeftAttackTime > 0.3)
+	{
+		srand(static_cast<unsigned int>(time(nullptr)));
+		int a = rand() % 2;
+
+		if (a == 0)
+		{
+			ChangeState(MiddleBossState::LEFTATTACK);
+			LeftAttackTime = 0;
+		}
+		if (a == 1)
+		{
+			ChangeState(MiddleBossState::RIGHTATTACK);
+			LeftAttackTime = 0;
+		}
+
+
+	}
+
 
 }
 

@@ -11,8 +11,6 @@ enum class MetalSlugOrder
 	Door,
 	Smoke,
 	Exploision,
-	PlayerReg, 
-	PlayerBody,
 	BulletCheck,
 	
 	NPC,
@@ -29,11 +27,14 @@ enum class MetalSlugOrder
 	BossMonster,
 	Tent,
 	Boss,
+	PlayerReg,
+	PlayerBody,
 	Bullet,
 	BulletEffect,
 	Boomb,
 	GroundEffect,
 	BossExPloision,
+	MiniBoss,
 	Finish,
 	Item
 };

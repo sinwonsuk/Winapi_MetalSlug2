@@ -34,10 +34,7 @@ void TitleLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("BackGround.BMP"));
 		}
 
-		{
-			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Dir.GetPlusFileName("BackGroundWrite.BMP"));
-			Image->Cut(1, 2);
-		}
+		
 
 	}
 
@@ -46,9 +43,7 @@ void TitleLevel::Loading()
 
 	if (false == GameEngineInput::IsKey("LevelChange"))
 	{
-		GameEngineInput::IsAnyKey();
-		
-		
+		GameEngineInput::IsAnyKey();		
 	}
 
 	CreateActor<TitleBack>();
@@ -56,10 +51,10 @@ void TitleLevel::Loading()
 }
 void TitleLevel::Update(float _DeltaTime)
 {
-	// if (true == GameEngineInput::IsDown("LevelChange"))
+	
 	if (true == GameEngineInput::IsAnyKey())
 	{
 		GameEngineCore::GetInst()->ChangeLevel("SelectLevel");
 	}
-	int a = 0;
+
 }

@@ -27,12 +27,12 @@ void Map::Start()
 
 	}*/
 
-	{
-		GameEngineRender* AnimationRender = CreateRender();
-		AnimationRender->SetImage("Map11.Bmp");
-		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half()});
-		AnimationRender->SetScale({12784,800});		
-	}
+	//{
+	//	GameEngineRender* AnimationRender = CreateRender();
+	//	AnimationRender->SetImage("Map11.Bmp");
+	//	AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half()});
+	//	AnimationRender->SetScale({12784,800});		
+	//}
 
 	/*{
 		GameEngineRender* AnimationRender = CreateRender();
@@ -41,12 +41,12 @@ void Map::Start()
 		AnimationRender->SetScale({ 12784,800 });
 	}*/
 
-	/*{
+	{
 		GameEngineRender* AnimationRender = CreateRender();
 		AnimationRender->SetImage("Map12.Bmp");
 		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half() });
 		AnimationRender->SetScale({ 12784,1000 });
-	}*/
+	}
 	{
 		DestoryBase = CreateRender(0);
 		DestoryBase->SetImage("DestoryBase.Bmp");

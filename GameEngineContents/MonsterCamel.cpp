@@ -314,8 +314,8 @@ void MonsterCamel::Update(float _DeltaTime)
 			if (Hp <= 0)
 			{
 				ChangeState(MonsterCamelState::DEATH);
-				MonsterCollision->Death();
-				PlayerCollision->Death(); 
+				MonsterCollision->Off();
+				PlayerCollision->Off();
 				death = true;
 			}
 
@@ -363,15 +363,15 @@ void MonsterCamel::Update(float _DeltaTime)
 
 void MonsterCamel::Render(float _Time)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
-	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
+	//HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	//float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 
-	Rectangle(DoubleDC,
-		ActorPos.ix() - 5,
-		ActorPos.iy() - 5,
-		ActorPos.ix() + 5,
-		ActorPos.iy() + 5
-	);
+	//Rectangle(DoubleDC,
+	//	ActorPos.ix() - 5,
+	//	ActorPos.iy() - 5,
+	//	ActorPos.ix() + 5,
+	//	ActorPos.iy() + 5
+	//);
 	//MonsterCollision->DebugRender();
 }
 	

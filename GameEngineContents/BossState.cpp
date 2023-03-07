@@ -98,7 +98,7 @@ void Boss::AttackStart()
 
 void Boss::IdleUpdate(float _Time)
 {
-	if (IdleStartCheck == true)
+	if (IdleStartCheck == true && Hp> 0 )
 	{
 		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
@@ -171,50 +171,53 @@ void Boss::IdleUpdate(float _Time)
 
 void Boss::SmokePreUpdate(float _Time)
 {
-	if (BoomSoundCheck == true)
+	if (Hp > 0)
 	{
-		BoomSound.Stop();
-	}
-	
-
-	if (SmokeSoundCheck == false)
-	{
-		
-		SmokeSound = GameEngineResources::GetInst().SoundPlayToControl("BossSmoke.mp3");
-		
-		SmokeSoundCheck = true;
-
-		BoomSoundCheck = false;
-	}
-
-
-	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (Time < 0.7)
-	{
-
-		MoveDir += float4::Up * 40;
-		MoveDirGroundEffect += float4::Down * 40;
-	}
-	if (Time > 0.7)
-	{
-		if (Time < 1.4)
+		if (BoomSoundCheck == true)
 		{
-			MoveDir += float4::Down * 40;
-			MoveDirGroundEffect += float4::Up * 40;
+			BoomSound.Stop();
 		}
-	}
-	if (Time > 1.4)
-	{	
-		Time = 0;
-	}
+
+
+		if (SmokeSoundCheck == false)
+		{
+
+			SmokeSound = GameEngineResources::GetInst().SoundPlayToControl("BossSmoke.mp3");
+
+			SmokeSoundCheck = true;
+
+			BoomSoundCheck = false;
+		}
+
+
+		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+		if (Time < 0.7)
+		{
+
+			MoveDir += float4::Up * 40;
+			MoveDirGroundEffect += float4::Down * 40;
+		}
+		if (Time > 0.7)
+		{
+			if (Time < 1.4)
+			{
+				MoveDir += float4::Down * 40;
+				MoveDirGroundEffect += float4::Up * 40;
+			}
+		}
+		if (Time > 1.4)
+		{
+			Time = 0;
+		}
 
 
 
-	if (LeftBoom->IsAnimationEnd())
-	{
-		ChangeState(BossState::SMOKE);
-		return;
+		if (LeftBoom->IsAnimationEnd())
+		{
+			ChangeState(BossState::SMOKE);
+			return;
+		}
 	}
 }
 
@@ -222,38 +225,40 @@ void Boss::SmokePreUpdate(float _Time)
 
 void Boss::SmokeUpdate(float _Time)
 {
-	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (Time < 0.7)
+	if (Hp > 0)
 	{
+		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-		MoveDir += float4::Up * 40;
-		MoveDirGroundEffect += float4::Down * 40;
-	}
-	if (Time > 0.7)
-	{
-		if (Time < 1.4)
+		if (Time < 0.7)
 		{
-			MoveDir += float4::Down * 40;
-			MoveDirGroundEffect += float4::Up * 40;
+
+			MoveDir += float4::Up * 40;
+			MoveDirGroundEffect += float4::Down * 40;
+		}
+		if (Time > 0.7)
+		{
+			if (Time < 1.4)
+			{
+				MoveDir += float4::Down * 40;
+				MoveDirGroundEffect += float4::Up * 40;
+			}
+		}
+		if (Time > 1.4)
+		{
+			Time = 0;
+		}
+
+
+
+		AttackPreTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+		if (AttackPreTime > 2)
+		{
+			ChangeState(BossState::ATTACKPRE);
+			AttackPreTime = 0;
+			return;
 		}
 	}
-	if (Time > 1.4)
-	{
-		Time = 0;
-	}
-
-
-
-	AttackPreTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
-
-	if (AttackPreTime > 2)
-	{
-		ChangeState(BossState::ATTACKPRE);
-		AttackPreTime = 0;
-		return; 
-	}
-
 
 
 }
@@ -262,46 +267,48 @@ void Boss::SmokeUpdate(float _Time)
 
 void Boss::AttackPreUpdate(float _Time)
 {
-	
-	if (SmokeSoundCheck == true)
+	if (Hp > 0)
 	{
-		SmokeSound.Stop();
-	}
-
-	if (BoomSoundCheck == false)
-	{			
-		BoomSound = GameEngineResources::GetInst().SoundPlayToControl("BossBoom.mp3");
-		BoomSoundCheck = true;
-
-
-		SmokeSoundCheck = false;
-	}
-	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (Time < 0.7)
-	{
-
-		MoveDir += float4::Up * 40;
-		MoveDirGroundEffect += float4::Down * 40;
-	}
-	if (Time > 0.7)
-	{
-		if (Time < 1.4)
+		if (SmokeSoundCheck == true)
 		{
-			MoveDir += float4::Down * 40;
-			MoveDirGroundEffect += float4::Up * 40;
+			SmokeSound.Stop();
 		}
-	}
-	if (Time > 1.4)
-	{
-		Time = 0;
-	}
+
+		if (BoomSoundCheck == false)
+		{
+			BoomSound = GameEngineResources::GetInst().SoundPlayToControl("BossBoom.mp3");
+			BoomSoundCheck = true;
 
 
-	if (LeftBoom->IsAnimationEnd())
-	{
-		ChangeState(BossState::ATTACK);
-		return; 
+			SmokeSoundCheck = false;
+		}
+		Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+		if (Time < 0.7)
+		{
+
+			MoveDir += float4::Up * 40;
+			MoveDirGroundEffect += float4::Down * 40;
+		}
+		if (Time > 0.7)
+		{
+			if (Time < 1.4)
+			{
+				MoveDir += float4::Down * 40;
+				MoveDirGroundEffect += float4::Up * 40;
+			}
+		}
+		if (Time > 1.4)
+		{
+			Time = 0;
+		}
+
+
+		if (LeftBoom->IsAnimationEnd())
+		{
+			ChangeState(BossState::ATTACK);
+			return;
+		}
 	}
 }
 
@@ -309,115 +316,117 @@ void Boss::AttackPreUpdate(float _Time)
 
 void Boss::AttackUpdate(float _Time)
 {
-	ChangeTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-	MoveTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-	if (ChangeTime < 0.2)
+	if (Hp > 0)
 	{
-		RightBoom->ChangeAnimation("RightAttackBlueBoom");
-		RightGroundEffect->ChangeAnimation("RightBlueGround");
-		LeftBoom->ChangeAnimation("LeftAttackBlueBoom");
-		LeftGroundEffect->ChangeAnimation("LeftBlueGround");
-		
-
-		//a = RightIdleBoom->GetFrame();
-	}
-	if (ChangeTime > 0.2)
-	{
-		if (ChangeTime < 0.4)
+		ChangeTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		MoveTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		if (ChangeTime < 0.2)
 		{
-			//RightIdleBoom->SetFrame(a);
-			RightBoom->ChangeAnimation("RightAttackRedBoom");
-			RightGroundEffect->ChangeAnimation("RightRedGround");
-			LeftBoom->ChangeAnimation("LeftAttackRedBoom");
-			LeftGroundEffect->ChangeAnimation("LeftRedGround");
-			a = RightBoom->GetFrame();
+			RightBoom->ChangeAnimation("RightAttackBlueBoom");
+			RightGroundEffect->ChangeAnimation("RightBlueGround");
+			LeftBoom->ChangeAnimation("LeftAttackBlueBoom");
+			LeftGroundEffect->ChangeAnimation("LeftBlueGround");
+
+
+			//a = RightIdleBoom->GetFrame();
 		}
-		
-	}
-	if (ChangeTime > 0.4)
-	{
-		if (ChangeTime < 0.6)
+		if (ChangeTime > 0.2)
 		{
-		//	RightIdleBoom->SetFrame(a);
-			RightBoom->ChangeAnimation("RightAttackYellowBoom");
-			RightGroundEffect->ChangeAnimation("RightYellowGround");
-			LeftBoom->ChangeAnimation("LeftAttackYellowBoom");
-			LeftGroundEffect->ChangeAnimation("LeftYellowGround");
-			a = RightBoom->GetFrame();
+			if (ChangeTime < 0.4)
+			{
+				//RightIdleBoom->SetFrame(a);
+				RightBoom->ChangeAnimation("RightAttackRedBoom");
+				RightGroundEffect->ChangeAnimation("RightRedGround");
+				LeftBoom->ChangeAnimation("LeftAttackRedBoom");
+				LeftGroundEffect->ChangeAnimation("LeftRedGround");
+				a = RightBoom->GetFrame();
+			}
+
 		}
-		
-	}
-
-
-	ads += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (ads < 0.4)
-	{
-
-		MoveDir += float4::Up * 40;
-		MoveDirGroundEffect += float4::Down * 40;
-	}
-	if (ads > 0.4)
-	{
-		if (ads < 0.8)
+		if (ChangeTime > 0.4)
 		{
-			MoveDir += float4::Down * 40;
-			MoveDirGroundEffect += float4::Up * 40;
+			if (ChangeTime < 0.6)
+			{
+				//	RightIdleBoom->SetFrame(a);
+				RightBoom->ChangeAnimation("RightAttackYellowBoom");
+				RightGroundEffect->ChangeAnimation("RightYellowGround");
+				LeftBoom->ChangeAnimation("LeftAttackYellowBoom");
+				LeftGroundEffect->ChangeAnimation("LeftYellowGround");
+				a = RightBoom->GetFrame();
+			}
+
 		}
-	}
-	if (ads > 0.8)
-	{
-		ads = 0;
-		
-	}
 
 
+		ads += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-
-	if (ChangeTime > 0.5)
-	{
-		ChangeTime = 0;
-	}
-	if (MoveTime < 0.8)
-	{
-		MoveDir += float4::Right * 400;
-	}
-	if (MoveTime > 0.8)
-	{
-		if (MoveTime < 1.6)
+		if (ads < 0.4)
 		{
-			MoveDir += float4::Left * 400;
+
+			MoveDir += float4::Up * 40;
+			MoveDirGroundEffect += float4::Down * 40;
 		}
-	}
-	if (MoveTime > 1.6)
-	{
-		if (MoveTime < 2.4)
+		if (ads > 0.4)
+		{
+			if (ads < 0.8)
+			{
+				MoveDir += float4::Down * 40;
+				MoveDirGroundEffect += float4::Up * 40;
+			}
+		}
+		if (ads > 0.8)
+		{
+			ads = 0;
+
+		}
+
+
+
+
+		if (ChangeTime > 0.5)
+		{
+			ChangeTime = 0;
+		}
+		if (MoveTime < 0.8)
 		{
 			MoveDir += float4::Right * 400;
 		}
-	}
-	if (MoveTime >  2.4)
-	{
-		if (MoveTime <3.2)
+		if (MoveTime > 0.8)
 		{
-			MoveDir += float4::Left * 400;
+			if (MoveTime < 1.6)
+			{
+				MoveDir += float4::Left * 400;
+			}
 		}
-	}
-	if (MoveTime > 3.2)
-	{
-		
-		if (MoveCheck == 2)
+		if (MoveTime > 1.6)
 		{
-			MoveDir = { 0,0 };
-			MoveTime = 0;
-			ChangeState(BossState::SMOKEPRE);
-			MoveCheck = 0;
-			return;
+			if (MoveTime < 2.4)
+			{
+				MoveDir += float4::Right * 400;
+			}
 		}
-	
-		++MoveCheck;
-		MoveTime = 0;
-	}
+		if (MoveTime > 2.4)
+		{
+			if (MoveTime < 3.2)
+			{
+				MoveDir += float4::Left * 400;
+			}
+		}
+		if (MoveTime > 3.2)
+		{
 
+			if (MoveCheck == 2)
+			{
+				MoveDir = { 0,0 };
+				MoveTime = 0;
+				ChangeState(BossState::SMOKEPRE);
+				MoveCheck = 0;
+				return;
+			}
+
+			++MoveCheck;
+			MoveTime = 0;
+		}
+	}
 }
 

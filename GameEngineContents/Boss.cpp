@@ -10,6 +10,7 @@
 #include "BossSmallMonster.h"
 #include "BazookaMonster.h"
 #include "FinishInterFace.h"
+#include "MiniBoss.h"
 #include "WinPlayer.h"
 #include "Player.h"
 #include "BossSmallMonster.h"
@@ -271,16 +272,22 @@ void Boss::Start()
 
 void Boss::Update(float _DeltaTime)
 {
-	if (GetLevel()->GetCameraPos().x >= 11367)
+	if (GetLevel()->GetCameraPos().x >= 11367 )
 	{
 		Player::MainPlayer->SetCameraCheck(false);
+
 		BossStart = true;
 
 		 
-
-
 	}
-
+	if (MinibossStart == false)
+	{
+		MiniBoss* Actor = GetLevel()->CreateActor <MiniBoss>();
+		Actor->ChangeState(MiniMonsterState::ATTACK);
+		Actor->SetPos({ 12250,500 });
+		Actor->FinishCheck = true;
+		MinibossStart = true;
+	}
 	if (BossStart == true)
 	{
 		if (SoundCheck == false)
@@ -360,7 +367,7 @@ void Boss::Update(float _DeltaTime)
 
 			}
 
-			Movecalculation(_DeltaTime);
+			
 		}
 
 		if (Hp <= 0)
@@ -591,7 +598,7 @@ void Boss::Update(float _DeltaTime)
 					player->SetPos(Player::MainPlayer->GetPos());
 
 					FinishInterFace* Actor = GetLevel()->CreateActor<FinishInterFace>();
-					Actor->SetPos({ GetPos().x - 380,GetPos().y - 1000 });
+					Actor->SetPos({ 11413,0 });
 					Finishletter = true;
 				}
 			}
@@ -601,10 +608,9 @@ void Boss::Update(float _DeltaTime)
 
 
 
-		if (Hp >= 0)
-		{
-			UpdateState(_DeltaTime);
-		}
+		Movecalculation(_DeltaTime);
+		UpdateState(_DeltaTime);
+		
 
 	}
 }
@@ -733,7 +739,7 @@ void Boss::AnimationCheck()
 
 void Boss::Render(float _Time)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();;
 
 	Rectangle(DoubleDC,
@@ -741,7 +747,7 @@ void Boss::Render(float _Time)
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-	);
+	);*/
 
 	//BullletCollision->DebugRender();
 	

@@ -333,7 +333,7 @@ void Monster::DirCheck(const std::string_view& _AnimationName)
 
 void Monster::Render(float _Time)
 {
-	HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
+	/*HDC DoubleDC = GameEngineWindow::GetDoubleBufferImage()->GetImageDC();
 	float4 ActorPos = GetPos() - GetLevel()->GetCameraPos();
 
 	Rectangle(DoubleDC,
@@ -341,7 +341,7 @@ void Monster::Render(float _Time)
 		ActorPos.iy() - 5,
 		ActorPos.ix() + 5,
 		ActorPos.iy() + 5
-	);
+	);*/
 	
 	//MonsterCollision->DebugRender();
 }

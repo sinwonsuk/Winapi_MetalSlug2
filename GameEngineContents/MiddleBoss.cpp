@@ -772,44 +772,36 @@ void MiddleBoss::Update(float _DeltaTime)
 
 		
 
-		if (AttackCheck == true)
-		{		
-			srand(static_cast<unsigned int>(time(nullptr)));
-			attack = rand() % 3;
-			AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+		//if (AttackCheck == true)
+		//{			
+		//	
+		//	
+		//	
+		//	RightAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-			if (attack != BulletManager)
-			{
+		//	MiddleAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-				if (AttackTime > 0.2)
-				{
 
-					if (attack == 0 && LeftHp > 0)
-					{
-						ChangeState(MiddleBossState::LEFTATTACK);
-						BulletManager = attack;
-						AttackTime = 0;
-					}
+		//	if (LeftAttackTime > 0.5)
+		//	{
+		//		ChangeState(MiddleBossState::LEFTATTACK);
+		//		LeftAttackTime = 0; 				
+		//	}
+		//	if (RightAttackTime > 0.7)
+		//	{
+		//		ChangeState(MiddleBossState::RIGHTATTACK);
+		//		RightAttackTime = 0;			
+		//	}
 
-				
-					if (attack == 1 && MiddleHp > 0)
-					{
-						ChangeState(MiddleBossState::MIDDLEATTACK);
-						BulletManager = attack;
-						AttackTime = 0;
-					}
+		//	if (MiddleAttackTime > 1.1)
+		//	{
+		//		ChangeState(MiddleBossState::MIDDLEATTACK);
+		//		MiddleAttackTime = 0;
 
-					
-					if (attack == 2 && RightHp > 0)
-					{
-						ChangeState(MiddleBossState::RIGHTATTACK);
-						BulletManager = attack;
-						AttackTime = 0;
-					}
+		//	}
 
-				}
-			}
-		}
+
+		//}
 
 
 		if (MoveCheck > 1.0 && StateValue == MiddleBossState::IDLESTART)

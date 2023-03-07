@@ -191,7 +191,17 @@ private:
 	float4 MoveDir = float4::Zero;
 	float4 MoveDir1 = float4::Zero;
 	float4 CurPos = float4::Zero;
-	float AttackTime = 0; 
+
+	float LeftAttackTime = 0; 
+	float RightAttackTime = 0;
+	float MiddleAttackTime = 0;
+
+	bool LeftMissileCheck = false;
+	bool RightMissileCheck = false;
+	bool MiddleMissileCheck = false;
+
+	bool MissileCheck = false;
+
 	float LeftRightTimeCheck = 0;
 	float MoveCheck = 0; 
 	float MoveSpeed = 1000;
@@ -221,7 +231,8 @@ private:
 	
 	float shakeTime = 0; 
 	bool UpDownShake = false; 
-	bool MissileCheck = false;
+
+	
 	bool AnimationEnd = false;
 	float LeftScale = 0;
 	float RightScale = 0;

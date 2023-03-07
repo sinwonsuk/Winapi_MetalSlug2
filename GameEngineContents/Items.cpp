@@ -86,44 +86,44 @@ void Items::Update(float _DeltaTime)
 			
 			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }))
 			{
-
+				Collision->Off();
 				Effect->On();
 				Boomb->Off();
 				CollisionCheck = true;
-				BoombNumber++;
-				Collision->Death();
+				BoombNumber = true;
+				
 			}
 		}
 
-		else if (nullptr != Collision && GunBoombChangeCheck == true)
+	     if (nullptr != Collision && GunBoombChangeCheck == true)
 		{
 			
 			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }))
 			{
-
+				Collision->Off();
 				Effect->On();
 				HeavyMachineGun->Off();
 				CollisionCheck = true;
-				HeavyMachineGuneNumber++;
+				HeavyMachineGuneNumber = true;
 
 				
 
-				Collision->Death();
+				
 
 			}
 		}
 
 
-		if (BoombNumber == 1 && CollisionCheck == true)
+		if (BoombNumber == true && CollisionCheck == true)
 		{
 			Ok = GameEngineResources::GetInst().SoundPlayToControl("Ok.mp3");
 			Ok.LoopCount(1);
 
 			Player::MainPlayer->BombNumber += 10;
-			BoombNumber = false;
+		    BoombNumber = false;
 		}
 
-		else if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
+		else if (HeavyMachineGuneNumber == true && CollisionCheck == true)
 		{
 			Heavymachinegun = GameEngineResources::GetInst().SoundPlayToControl("HeavyMachine.mp3");
 			Heavymachinegun.LoopCount(1);

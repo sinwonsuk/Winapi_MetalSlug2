@@ -24,15 +24,7 @@ void TitleBack::Start()
 	Render->SetPosition(GameEngineWindow::GetScreenSize().half());	
 	Render->SetScale(GameEngineWindow::GetScreenSize());
 
-	
-	{
-		AnimationRender = CreateRender(1);
-		AnimationRender->SetScale({ 416, 32 });
-		AnimationRender->SetPosition(float4(480, 690));		
-		AnimationRender->CreateAnimation({ .AnimationName = "BackGroungWrite",  .ImageName = "BackGroundWrite.bmp", .Start = 0, .End = 1, .InterTime = 1.0f });		
-	}
 
-	AnimationRender->ChangeAnimation("BackGroungWrite");
 }
 
 void TitleBack::Update(float _DeltaTime)

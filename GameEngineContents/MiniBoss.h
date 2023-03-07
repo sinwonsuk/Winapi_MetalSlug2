@@ -57,6 +57,9 @@ public:
 	}
 
 
+	bool FinishCheck = false;
+	bool Surrender = false;
+
 	bool compulsionAttackStart = false;
 	bool compulsionAttack = false;
 protected:
@@ -82,8 +85,6 @@ private:
 	float IdleCheck = 0;
 	
 	bool AttackCheck = false;
-	
-
 	bool Idle = false;
 	
 	GameEngineCollision* MonsterCollision = nullptr;
