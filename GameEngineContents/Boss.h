@@ -58,7 +58,7 @@ public:
 	{
 		return AttackCheck;
 	}
-	float Hp = 100;
+	float Hp = 150;
 	bool BossStart = false;
 	float4 MoveDir = float4::Zero;
 protected:

@@ -122,7 +122,8 @@ void Items::Update(float _DeltaTime)
 			Player::MainPlayer->BombNumber += 10;
 			BoombNumber = false;
 		}
-		if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
+
+		else if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
 		{
 			Heavymachinegun = GameEngineResources::GetInst().SoundPlayToControl("HeavyMachine.mp3");
 			Heavymachinegun.LoopCount(1);

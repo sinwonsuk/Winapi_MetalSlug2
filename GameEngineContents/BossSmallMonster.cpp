@@ -316,5 +316,5 @@ void BossSmallMonster::Update(float _DeltaTime)
 
 void BossSmallMonster::Render(float _Time)
 {
-	MonsterCollision->DebugRender(); 
+    //	MonsterCollision->DebugRender(); 
 }
