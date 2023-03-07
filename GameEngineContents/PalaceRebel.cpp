@@ -32,7 +32,12 @@ void PalaceRebel::Start()
 
 void PalaceRebel::Update(float _DeltaTime)
 {
-
+	if (SoundCheck == false)
+	{
+		RebelDeath = GameEngineResources::GetInst().SoundPlayToControl("RebelDeath.mp3");
+		RebelDeath.LoopCount(1);
+		SoundCheck = true;
+	}
 
 	MoveDir += float4::Down * 1500.0f * _DeltaTime;
 

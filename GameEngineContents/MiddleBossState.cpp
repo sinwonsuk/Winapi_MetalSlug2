@@ -225,15 +225,8 @@ void MiddleBoss::MiddleAttackUpdate(float _Time)
 void MiddleBoss::LeftSmokeUpdate(float _Time)
 {
 
-
-	if (true == AnimationLeftSmokeRender->IsAnimationEnd())
-	{
-		
-		
-		
-	}
-
-
+	MissileCheck = false;
+	
 
 }
 
@@ -241,12 +234,7 @@ void MiddleBoss::LeftSmokeUpdate(float _Time)
 void MiddleBoss::RightSmokeUpdate(float _Time)
 {
 
-	if (true == AnimationRightSmokeRender->IsAnimationEnd())
-	{
-		
-		
-	}
-
+	MissileCheck = false;
 
 
 
@@ -258,11 +246,7 @@ void MiddleBoss::RightSmokeUpdate(float _Time)
 
 void MiddleBoss::MiddleSmokeUpdate(float _Time)
 {
-
-	if (true == AnimationMiddleSmokeRender->IsAnimationEnd())
-	{
-		
-	}
+	MissileCheck = false;
 
 }
 
@@ -275,6 +259,18 @@ void MiddleBoss::DeathStart()
 
 void MiddleBoss::DeathUpdate(float _Time)
 {
+	if (DeathSoundCheck == false)
+	{
+		PalaceDeath = GameEngineResources::GetInst().SoundPlayToControl("PalaceDeath.mp3");
+		PalaceDeath.LoopCount(1);
+		PalaceDeath.Volume(2.0f);
+
+		PalaceExploision = GameEngineResources::GetInst().SoundPlayToControl("PalaceExl.mp3");
+		PalaceExploision.Volume(1.5f);
+		PalaceExploision.LoopCount(3);
+		DeathSoundCheck = true;
+	}
+
 
 	DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 	DeathTime2 += GameEngineTime::GlobalTime.GetFloatDeltaTime();
@@ -301,6 +297,7 @@ void MiddleBoss::DeathUpdate(float _Time)
 			MiddleExploision->On();
 			MiddleExploision->SetPosition({ -100,0 });
 			MiddleExploision->ChangeAnimation("Exploision", true);
+
 			DeathTime = 0;
 		}
 	}
@@ -504,6 +501,16 @@ void MiddleBoss::DeathUpdate(float _Time)
 
 void MiddleBoss::OpenUpdate(float _Time)
 {
+	if (PalaceFinishSoundCheck == false)
+	{
+		PalaceFinish = GameEngineResources::GetInst().SoundPlayToControl("PalaiceFinish.mp3");
+		PalaceFinish.LoopCount(1);
+
+		PalaceFinishSoundCheck = true;
+	}
+
+
+
 	if (true == AnimationLeftHumanRender->IsAnimationEnd())
 	{
 		AttackCheck = true; 

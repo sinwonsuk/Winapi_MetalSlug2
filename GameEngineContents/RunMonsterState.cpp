@@ -94,7 +94,13 @@ void RunMonster::IdleUpdate(float _Time)
 
 void RunMonster::DeathUpdate(float _Time)
 {
-	//MoveDir = { 0,0 };
+    if (SoundCheck == false)
+	{
+		DeathSound = GameEngineResources::GetInst().SoundPlayToControl("RunMonsterSound.mp3");
+		DeathSound.LoopCount(1);
+		SoundCheck = true; 
+	}
+	
 }
 
 
@@ -102,6 +108,7 @@ void RunMonster::DeathUpdate(float _Time)
 void RunMonster::DeathTwoUpdate(float _Time)
 {
 	MoveDir = { 0,0 };
+	
 }
 
 void RunMonster::UpdateState(float _Time)

@@ -7,6 +7,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
+
 #include <stdlib.h>
 #include <math.h>
 #include "Bullets.h"
@@ -40,10 +41,10 @@ Player::~Player()
 void Player::Start()
 {
 	MainPlayer = this;
-	SetMove({ 100,0 });
-	//GetLevel()->SetCameraPos({ 7600,0 });
-	//CameraCheck = true;
-	//MonsterCheck = 16;
+	SetMove({ 10000,0 });
+	GetLevel()->SetCameraPos({ 10000,0 });
+    CameraCheck = true;
+	MonsterCheck = 20;
 
 	if (false == GameEngineInput::IsKey("LeftMove"))
 	{
@@ -441,17 +442,19 @@ bool FreeMode = false;
 
 void Player::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsDown("Attack") && HeavyMachineGun <= 0)
+	if (true == GameEngineInput::IsDown("Attack") && HeavyMachineGun <= 0 )
 	{
 		Basegun = GameEngineResources::GetInst().SoundPlayToControl("baseBullet.mp3");
-		Basegun.LoopCount(1);	
+		Basegun.LoopCount(1);
+		Basegun.Volume(0.7f);
+	
 	}
 	if (true == GameEngineInput::IsDown("Attack") && HeavyMachineGun > 0)
 	{
 		HeavyMachine = GameEngineResources::GetInst().SoundPlayToControl("HeavyMachineGunEffect.mp3");
 		HeavyMachine.LoopCount(1);
 	}
-
+	
 	if (GameEngineInput::IsDown("LeftMove"))
 	{
 
@@ -1472,7 +1475,6 @@ void Player::CollisionCheck(float _DeltaTime)
 			{
 				Rebel* Actor = GetLevel()->CreateActor<Rebel>();
 				Actor->SetPos({ 8000,500 });
-				//Actor->ChangeState(RebelState::IDLE);
 			}
 			if (MonsterCheck == 11)
 			{
@@ -1534,7 +1536,7 @@ void Player::CollisionCheck(float _DeltaTime)
 
 		if (RGB(241, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(241, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 15)
 		{
-			if (MonsterCheck == 8)
+			if (MonsterCheck == 15)
 			{
 				NPC* Actor = GetLevel()->CreateActor<NPC>();
 				Actor->SetPos({ 9500, 300 });
@@ -1655,15 +1657,12 @@ void Player::CollisionCheck(float _DeltaTime)
 			boss->SetPos({ 11800,100 });
 			MonsterCheck = 21;
 		}
-		
-		/*if (boss != nullptr)
+		if (GetLevel()->GetCameraPos().x >= 11367)
 		{
-			if (boss->Hp <= 0)
-			{
-				AnimationBodyRender->Off();
-				AnimationRegRender->Off();
-			}
-		}*/
+			bgm.PauseOn(); 
+		}
+		
+	
 
 }
 

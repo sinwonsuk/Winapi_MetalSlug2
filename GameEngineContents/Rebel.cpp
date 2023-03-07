@@ -4,8 +4,11 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include "Player.h"
 #include "ContentsEnums.h"
+#include "BulletEffect.h"
 #include "Wall.h"
 Rebel::Rebel()
 {
@@ -48,12 +51,20 @@ void Rebel::Start()
 
 void Rebel::Update(float _DeltaTime)
 {
-	if (nullptr == MonsterCollision)
+	if (GetLevel()->GetCameraPos().x > 7380 && (StateValue == RebelState::IDLE || StateValue == RebelState::IDLE2))
 	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::NPC);
-		MonsterCollision->SetPosition({ 0,-80 });
-		MonsterCollision->SetScale({ 50,150 });
+	
+
+		
+		ChangeState(RebelState::MOVEPRE);
+	
 	}
+
+	if (GetLevel()->GetCameraPos().x > 7380 && StateValue == RebelState::ATTACK)
+	{
+		RebelAttack = true;
+	}
+
 	if (nullptr != MonsterCollision && Hp>0)
 	{
 		std::vector<GameEngineCollision*> collision;
@@ -62,6 +73,8 @@ void Rebel::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
+				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
+				Effect->SetMove(ColActor->GetPos());
 				ColActor->Death();
 			}
 			Hp--;

@@ -171,6 +171,23 @@ void Boss::IdleUpdate(float _Time)
 
 void Boss::SmokePreUpdate(float _Time)
 {
+	if (BoomSoundCheck == true)
+	{
+		BoomSound.Stop();
+	}
+	
+
+	if (SmokeSoundCheck == false)
+	{
+		
+		SmokeSound = GameEngineResources::GetInst().SoundPlayToControl("BossSmoke.mp3");
+		
+		SmokeSoundCheck = true;
+
+		BoomSoundCheck = false;
+	}
+
+
 	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
 	if (Time < 0.7)
@@ -245,6 +262,20 @@ void Boss::SmokeUpdate(float _Time)
 
 void Boss::AttackPreUpdate(float _Time)
 {
+	
+	if (SmokeSoundCheck == true)
+	{
+		SmokeSound.Stop();
+	}
+
+	if (BoomSoundCheck == false)
+	{			
+		BoomSound = GameEngineResources::GetInst().SoundPlayToControl("BossBoom.mp3");
+		BoomSoundCheck = true;
+
+
+		SmokeSoundCheck = false;
+	}
 	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
 	if (Time < 0.7)

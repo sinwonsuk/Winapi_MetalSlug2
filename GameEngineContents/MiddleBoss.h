@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineResources.h>
 enum class MiddleBossState
 {
 	
@@ -225,6 +226,7 @@ private:
 	float LeftScale = 0;
 	float RightScale = 0;
 
+	int BulletManager = 0; 
 	bool MiddleBossStart = false;
 	bool AttackCheck = false;
 	int attack = 0;
@@ -233,5 +235,12 @@ private:
 	GameEngineCollision* RightMonsterCollision = nullptr;
 	GameEngineCollision* MiddleMonsterCollision = nullptr;
 	
+	bool SildeSounCheck = false;
+	bool PalaceFinishSoundCheck = false;
+	bool DeathSoundCheck = false;
+	GameEngineSoundPlayer PalaceSlide;
+	GameEngineSoundPlayer PalaceFinish;
+	GameEngineSoundPlayer PalaceDeath;
+	GameEngineSoundPlayer PalaceExploision;
 
 };

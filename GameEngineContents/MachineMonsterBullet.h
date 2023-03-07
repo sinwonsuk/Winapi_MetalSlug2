@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 class MachineMonsterBullet : public GameEngineActor
 {
 public:
@@ -24,4 +24,9 @@ protected:
 private:
 	GameEngineRender* BulletRender = nullptr;
 	GameEngineRender* Effect = nullptr;
+
+	bool SoundCheck = false;
+	bool ExploisionSoundCheck = false;
+	GameEngineSoundPlayer BulletSound;
+	GameEngineSoundPlayer BulletExploision;
 };

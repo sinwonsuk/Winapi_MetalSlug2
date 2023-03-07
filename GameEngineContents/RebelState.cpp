@@ -139,6 +139,14 @@ void Rebel::Idle2Update(float _Time)
 }
 void Rebel::MovePreUpdate(float _Time)
 {
+	if (RunSoundCheck == false)
+	{
+		RunSound = GameEngineResources::GetInst().SoundPlayToControl("RunSound.mp3");
+		RunSound.LoopCount(1);
+		RunSoundCheck = true;
+	}
+
+
 	if (AnimationRender->IsAnimationEnd())
 	{
 		ChangeState(RebelState::MOVE);
@@ -157,7 +165,7 @@ void Rebel::MoveFinsihUpdate(float _Time)
 }
 void Rebel::AttackUpdate(float _Time)
 {
-	if (Player::MainPlayer->GetRebelStart() == true)
+	if (RebelAttack == true)
 	{
 
 		if (AnimationRender->GetFrame() == 10)
@@ -191,6 +199,14 @@ void Rebel::AttackUpdate(float _Time)
 }
 void Rebel::DeathUpdate(float _Time)
 {
+	if (SoundCheck == false)
+	{
+		DeathSound = GameEngineResources::GetInst().SoundPlayToControl("RebelDeath.mp3");
+		DeathSound.LoopCount(1);
+
+		SoundCheck = true;
+	}
+
 	MoveDir.x = 0;
 
 	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();

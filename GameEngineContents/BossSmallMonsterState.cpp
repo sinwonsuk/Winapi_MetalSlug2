@@ -199,11 +199,14 @@ void BossSmallMonster::RightAttackUpdate(float _Time)
 
 void BossSmallMonster::LeftDeathUpdate(float _Time)
 {
+	
+
 	SetMove(-MoveDir * _Time);	
 }
 
 void BossSmallMonster::RightDeathUpdate(float _Time)
 {
+
 	SetMove(-MoveDir * _Time);
 	
 }

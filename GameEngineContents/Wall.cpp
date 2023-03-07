@@ -70,6 +70,7 @@ void Wall::Start()
 	{
 		WallCollision = CreateCollision(MetalSlugOrder::Wall);
 		WallCollision->SetScale({ 150,500 });
+		WallCollision->SetPosition({ -50,0 });
 	}
 
 }
@@ -116,9 +117,9 @@ void Wall::Movecalculation(float _DeltaTime)
 
 
 	
-	Ston->SetMove(MoveDir * _DeltaTime); 
+	/*Ston->SetMove(MoveDir * _DeltaTime); 
 	Ston2->SetMove(MoveDir * _DeltaTime);
-	Ston3->SetMove(MoveDir * _DeltaTime);
+	Ston3->SetMove(MoveDir * _DeltaTime);*/
 
 	
 }
@@ -126,7 +127,7 @@ void Wall::Movecalculation(float _DeltaTime)
 void Wall::Update(float _DeltaTime)
 {
 
-
+	MoveDir += float4::Down * 1500 * _DeltaTime;
 	
 
 	if (nullptr != WallCollision )
@@ -140,7 +141,7 @@ void Wall::Update(float _DeltaTime)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
-				Effect->SetPos(ColActor->GetPos());
+				Effect->SetPos({ ColActor->GetPos().x , ColActor->GetPos().y });
 
 
 				ColActor->Death();
@@ -152,23 +153,32 @@ void Wall::Update(float _DeltaTime)
 		if (Hp <= -50)
 		{
 			AnimationRender->Off();
+
+			
+
 			if (StonReset == false)
 			{
 				MoveDir = { 0,0 };
 				Ston->SetPosition({ -20,-300 });
 				Ston2->SetPosition({ -10,-100 });
 				Ston3->SetPosition({ 10,-200 });
+			
+			
+
 				StonReset = true;
 			}
-
-			MoveDir += float4::Down * 1500 * _DeltaTime;
-			MoveDir += float4::Left * 80;
-
-
+	
 
 		}
 		else if (Hp <= -30)
 		{
+			if (ExpilisionSoundCheck3 == false)
+			{
+				ExploisionSound3 = GameEngineResources::GetInst().SoundPlayToControl("PalaceBulletDeathSound.mp3");
+				ExploisionSound3.LoopCount(1);
+				ExpilisionSoundCheck3 = true;
+			}
+
 			AnimationRender->ChangeAnimation("WallUp");
 
 			if (StonReset == true)
@@ -177,24 +187,43 @@ void Wall::Update(float _DeltaTime)
 				Ston->SetPosition({ -20,-300 });
 				Ston2->SetPosition({ -10,-100 });
 				Ston3->SetPosition({ 10,-200 });
+		
+				MoveDir += float4::Left * 240;
+
 				StonReset = false;
 			}
-			MoveDir += float4::Down * 1500 * _DeltaTime;
-			MoveDir += float4::Left * 150;
+			
 
 		}
 
 		else if (Hp <= 0)
 		{
+			if (ExpilisionSoundCheck2 == false)
+			{
+				ExploisionSound2 = GameEngineResources::GetInst().SoundPlayToControl("PalaceBulletDeathSound.mp3");
+				ExploisionSound2.LoopCount(1);
+				ExpilisionSoundCheck2 = true;
+			}
+
 			AnimationRender->ChangeAnimation("WallMiddle");
 
-			Ston->On();
-			Ston2->On();
-			Ston3->On();
-			StonReset = true;
-			MoveDir += float4::Down * 1500 * _DeltaTime;
-			MoveDir += float4::Left * 100;
+			if (StonReset == false)
+			{
+				MoveDir = { 0,0 };
+				
+				Ston->SetPosition({ -20,-300 });
+				Ston2->SetPosition({ -10,-100 });
+				Ston3->SetPosition({ 10,-200 });
 
+				Ston->On();
+				Ston2->On();
+				Ston3->On();
+
+				MoveDir += float4::Left * 240;
+
+				StonReset = true;
+			
+			}
 		}
 
 	}
@@ -202,6 +231,13 @@ void Wall::Update(float _DeltaTime)
 
 	if (Hp <= -50)
 	{
+		if (ExpilisionSoundCheck == false)
+		{
+			ExploisionSound  = GameEngineResources::GetInst().SoundPlayToControl("PalaceBulletDeathSound.mp3");
+			ExploisionSound.LoopCount(1);
+			ExpilisionSoundCheck = true;
+		}
+
 		Exploision->On();
 		WallCollision->Death();
 
@@ -218,6 +254,9 @@ void Wall::Update(float _DeltaTime)
 		}
 
 	}
+	Ston->SetMove(MoveDir * _DeltaTime);
+	Ston2->SetMove(MoveDir * _DeltaTime);
+	Ston3->SetMove(MoveDir * _DeltaTime);
 
 	
 	Movecalculation(_DeltaTime); 

@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 
 class RebelBullet : public GameEngineActor
 {
@@ -24,4 +24,7 @@ protected:
 
 private:
 	GameEngineRender* BulletRender = nullptr;
+	bool SoundCheck = false;
+	GameEngineSoundPlayer BulletexPloision;
+
 };

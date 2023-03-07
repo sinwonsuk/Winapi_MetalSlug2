@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 	enum class CarriageState
 	{
 		IDLE,
@@ -71,7 +71,7 @@ private:
 
 	float4 MoveDir = float4::Zero;
 	
-	
+	bool SoundCheck = false;
 	float TimeCheck = 0;
 	float JumpSpeed = 650;
 	float MoveSpeed = 100;
@@ -84,6 +84,9 @@ private:
 	float Hp = 35; 
 	float Time = 0; 
 	GameEngineCollision* MonsterCollision = nullptr;
+
+	GameEngineSoundPlayer ExploisionSound;
+
 
 };
 

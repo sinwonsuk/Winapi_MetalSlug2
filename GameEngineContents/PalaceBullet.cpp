@@ -61,6 +61,13 @@ void PalaceBullet::Start()
 
 void PalaceBullet::Update(float _DeltaTime)
 {
+
+	if (SoundCheck == false)
+	{
+		BulletSound = GameEngineResources::GetInst().SoundPlayToControl("PalaceMissile.mp3");
+		BulletSound.LoopCount(1);
+		SoundCheck = true;
+	}
 	 
 	if (nullptr != CollisionBullet)
 	{
@@ -74,6 +81,11 @@ void PalaceBullet::Update(float _DeltaTime)
 				ColActor->Death();	
 			}
 
+			if (SoundDeathCheck == false)
+			{
+				BulletDeathSound = GameEngineResources::GetInst().SoundPlayToControl("PalaceBulletDeathSound.mp3");
+				BulletDeathSound.LoopCount(1);
+			}
 
 			BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 			Effect->SetMove(GetPos());

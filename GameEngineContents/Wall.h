@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 enum class WallState
 {
 	IDLE,
@@ -34,7 +34,7 @@ public:
 	
 
 
-
+	//PalaceBulletDeathSound
 
 protected:
 
@@ -75,5 +75,13 @@ private:
 	float Hp = 30;
 	GameEngineCollision* WallCollision = nullptr;
 
+	bool ExpilisionSoundCheck = false;
+	bool ExpilisionSoundCheck2 = false;
+	bool ExpilisionSoundCheck3 = false;
+
+
+	GameEngineSoundPlayer ExploisionSound;
+	GameEngineSoundPlayer ExploisionSound2;
+	GameEngineSoundPlayer ExploisionSound3;
 };
 

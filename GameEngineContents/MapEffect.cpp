@@ -115,6 +115,6 @@ void MapEffect::Update(float _DeltaTime)
 
 void MapEffect::Render(float _Time)
 {
-	RightEffect->DebugRender(); 
-	LeftEffect->DebugRender(); 
+	//RightEffect->DebugRender(); 
+	//LeftEffect->DebugRender(); 
 }

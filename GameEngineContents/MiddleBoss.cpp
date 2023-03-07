@@ -274,6 +274,10 @@ void MiddleBoss::Start()
 		MiddleExploision6->CreateAnimation({ .AnimationName = "Exploision",  .ImageName = "MiddleExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f,.Loop = false });
 
 
+
+
+
+
 		BigExploision = CreateRender(MetalSlugOrder::Exploision);
 		BigExploision->SetScale({ 900,900 });
 		BigExploision->SetPosition({ 112,-290 });
@@ -582,6 +586,14 @@ void MiddleBoss::Update(float _DeltaTime)
 
 	if (MiddleBossStart == true)
 	{
+		if (SildeSounCheck == false)
+		{
+			PalaceSlide = GameEngineResources::GetInst().SoundPlayToControl("PalaceSlide.mp3");
+			PalaceSlide.LoopCount(1);
+			SildeSounCheck = true;
+		}
+
+
 
 		if (nullptr != LeftMonsterCollision && LeftHp>0)
 		{
@@ -709,11 +721,17 @@ void MiddleBoss::Update(float _DeltaTime)
 
 		if (LeftHp <= 0 && MiddleHp <= 0 && RightHp <= 0)
 		{
+			
+
 			ChangeState(MiddleBossState::DEATH);
 		}
 
 
 		MoveCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+
+
+
 		if (MoveCheck < 0.7)
 		{
 			MoveDirMiddle = float4::Up * 100;
@@ -752,61 +770,45 @@ void MiddleBoss::Update(float _DeltaTime)
 			PalaceRightDestory->SetMove(MoveDirRight * _DeltaTime);
 		}
 
+		
+
 		if (AttackCheck == true)
-		{
+		{		
 			srand(static_cast<unsigned int>(time(nullptr)));
-
-			
 			attack = rand() % 3;
-			AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
+			AttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 
-
-			if (AttackTime > 2)
+			if (attack != BulletManager)
 			{
 
+				if (AttackTime > 0.2)
+				{
+
+					if (attack == 0 && LeftHp > 0)
+					{
+						ChangeState(MiddleBossState::LEFTATTACK);
+						BulletManager = attack;
+						AttackTime = 0;
+					}
+
 				
-				if (attack == 0 && LeftHp > 0)
-				{
-					ChangeState(MiddleBossState::LEFTATTACK);
-					MissileCheck = false;
-					AttackTime = 0; 
+					if (attack == 1 && MiddleHp > 0)
+					{
+						ChangeState(MiddleBossState::MIDDLEATTACK);
+						BulletManager = attack;
+						AttackTime = 0;
+					}
+
+					
+					if (attack == 2 && RightHp > 0)
+					{
+						ChangeState(MiddleBossState::RIGHTATTACK);
+						BulletManager = attack;
+						AttackTime = 0;
+					}
+
 				}
-
-				if (attack == 0 && LeftHp <= 0)
-				{
-					attack = rand() % 3;
-				}
-
-
-
-				 if (attack == 1 && MiddleHp > 0)
-				{
-					ChangeState(MiddleBossState::MIDDLEATTACK);
-					MissileCheck = false;
-					AttackTime = 0;
-				}
-
-				 if (attack == 1 && MiddleHp <= 0)
-				 {
-					 attack = rand() % 3;
-				 }
-
-
-				 if (attack == 2 && RightHp > 0)
-				{
-					ChangeState(MiddleBossState::RIGHTATTACK);
-					MissileCheck = false;
-					AttackTime = 0;
-				}
-
-
-				 if (attack == 2 && RightHp <= 0)
-				 {
-					 attack = rand() % 3;
-				 }
-
 			}
-
 		}
 
 

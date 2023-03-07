@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 
 enum class RebelState
 {
@@ -89,8 +89,12 @@ private:
 	float Time = 0;
 	int a = 0;
 	float BulletRange = 0;
-
+	bool RebelAttack = false;
 	GameEngineCollision* MonsterCollision = nullptr;
-	//RebelBullet *Actor = nullptr;
+	
+	bool SoundCheck = false;
+	bool RunSoundCheck = false;
+	GameEngineSoundPlayer DeathSound;
+	GameEngineSoundPlayer RunSound;
 };
 

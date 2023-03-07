@@ -95,7 +95,7 @@ void Items::Update(float _DeltaTime)
 			}
 		}
 
-		if (nullptr != Collision && GunBoombChangeCheck == true)
+		else if (nullptr != Collision && GunBoombChangeCheck == true)
 		{
 			
 			if (true == Collision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::PlayerReg), .TargetColType = CT_Rect, .ThisColType = CT_Rect }))

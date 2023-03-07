@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 enum class SmallMonsterState
 {
 	LEFTIDLE,
@@ -106,4 +106,7 @@ private:
 	//MachineMonsterBullet* Actor = nullptr;
 	GameEngineCollision* MonsterCollision = nullptr;
 
+	bool SoundCheck = false;
+
+	GameEngineSoundPlayer DeathSound;
 };

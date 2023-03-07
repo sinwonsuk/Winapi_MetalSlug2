@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineResources.h>
+
 class PalaceBullet : public GameEngineActor
 {
 public:
@@ -36,7 +38,14 @@ private:
 	float RightTime = 0;
 	float Time = 0;
 	float test = 0;
+	
 	GameEngineRender* Exploision = nullptr;
 	GameEngineRender* BulletRender = nullptr;
 	GameEngineCollision* CollisionBullet = nullptr;
+
+	bool SoundCheck = false;
+	bool SoundDeathCheck = false;
+
+	GameEngineSoundPlayer BulletSound;
+	GameEngineSoundPlayer BulletDeathSound;
 };

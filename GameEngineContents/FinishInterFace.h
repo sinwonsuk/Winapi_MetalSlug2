@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineResources.h>
 
 class FinishInterFace : public GameEngineActor
 {
@@ -41,6 +42,12 @@ private:
 	GameEngineRender* E = nullptr;
 	GameEngineRender* T = nullptr;
 	GameEngineRender* E1 = nullptr;
-	
+
+	bool SoundCheck = false;
+	//bool MissionSoundCheck = false;
+
+
+	GameEngineSoundPlayer MissionComplete;
+	GameEngineSoundPlayer BackGround;
 
 };

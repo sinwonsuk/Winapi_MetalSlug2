@@ -113,6 +113,7 @@ void RunMonster::Movecalculation(float _DeltaTime)
 	if (StateValue == RunMonsterState::DEATH)
 	{
 		DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
 		if (DeathTime > 2)
 		{
 			this->Death(); 

@@ -147,6 +147,16 @@ void MachineMonster::AttackUpdate(float _Time)
 
 void MachineMonster::DeathUpdate(float _Time)
 {
+
+	if (SoundCheck == false)
+	{
+		DeathSound = GameEngineResources::GetInst().SoundPlayToControl("MonsterExploision.mp3");
+		DeathSound.LoopCount(1);
+		SoundCheck = true;
+	}
+
+
+
 	Effect->On(); 
 	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 

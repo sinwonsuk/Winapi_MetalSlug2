@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 enum class RunMonsterState
 {
 
@@ -87,6 +87,8 @@ private:
 	bool death = false;
 	bool Idle = true;
 	bool CarriageMonsterSee = false;
+	bool SoundCheck = false;
+	GameEngineSoundPlayer DeathSound;
 
 	GameEngineCollision* MonsterCollision = nullptr;
 

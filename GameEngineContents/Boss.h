@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 enum class BossState
 {
 
@@ -137,6 +137,22 @@ private:
 	float MountTime = 0;
 	float ExploisionTime = 0; 
 	int MoveCheck = 0;
+	bool BoomSoundCheck = false;
+	bool SmokeSoundCheck = false;
+	bool SoundCheck = false;
+
+	float FinishTime = 0;
+	bool FinishCheck = false;
+	bool DeathSoundCheck = false;
+	bool FinishSoundCheck = false;
+
+	GameEngineSoundPlayer Bgm;
+	GameEngineSoundPlayer SmokeSound;
+	GameEngineSoundPlayer BoomSound;
+	GameEngineSoundPlayer BossDeathSound;
+	GameEngineSoundPlayer BossFinish;
+
+
 
 };
 

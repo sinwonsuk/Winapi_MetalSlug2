@@ -224,7 +224,13 @@ void Carriage::Update(float _DeltaTime)
 
 	if (Hp <= 0)
 	{
-		//MonsterCollision->Death();
+		if (SoundCheck == false)
+		{
+			ExploisionSound = GameEngineResources::GetInst().SoundPlayToControl("MonsterExploision.mp3");
+			ExploisionSound.LoopCount(1);
+			SoundCheck = true;
+		}
+
 		Exploision->On();
 		ChangeState(CarriageState::DEATH);
 	}

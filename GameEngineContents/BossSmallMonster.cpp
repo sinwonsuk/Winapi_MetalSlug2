@@ -25,12 +25,12 @@ void BossSmallMonster::Start()
 	AnimationRender->CreateAnimation({ .AnimationName = "RightMonsterAttack",  .ImageName = "RightMonsterAttack.bmp", .Start = 0, .End = 18, .InterTime = 0.1f,.Loop = true });
 	AnimationRender->CreateAnimation({ .AnimationName = "RightMonsterDeath",  .ImageName = "RightMonsterDeath.bmp", .Start = 0, .End = 19, .InterTime = 0.1f,.Loop = true });
 	AnimationRender->CreateAnimation({ .AnimationName = "RightMonsterIdle",  .ImageName = "RightMonsterIdle.bmp", .Start = 0, .End = 5, .InterTime = 0.1f,.Loop = true });
-	AnimationRender->CreateAnimation({ .AnimationName = "RightMonsterJump",  .ImageName = "RightMonsterJump.bmp", .Start = 0, .End = 9, .InterTime = 0.1f,.Loop = false });
+	AnimationRender->CreateAnimation({ .AnimationName = "RightMonsterJump",  .ImageName = "RightMonsterJump.bmp", .Start = 0, .End = 8, .InterTime = 0.1f,.Loop = false });
 	AnimationRender->CreateAnimation({ .AnimationName = "RightMonsterMove",  .ImageName = "RightMonsterMove.bmp", .Start = 0, .End = 11, .InterTime = 0.1f,.Loop = true });
 
 	AnimationRender->CreateAnimation({ .AnimationName = "MonsterAttack",  .ImageName = "MonsterAttack.bmp", .Start = 0, .End = 18, .InterTime = 0.1f,.Loop = true });
 	AnimationRender->CreateAnimation({ .AnimationName = "MonsterDeath",  .ImageName = "DeathOne.bmp", .Start = 0, .End = 11, .InterTime = 0.1f,.Loop = true });
-	AnimationRender->CreateAnimation({ .AnimationName = "MonsterJump",  .ImageName = "MonsterJump.bmp", .Start = 0, .End = 9, .InterTime = 0.1f,.Loop = false });
+	AnimationRender->CreateAnimation({ .AnimationName = "MonsterJump",  .ImageName = "MonsterJump.bmp", .Start = 0, .End = 8, .InterTime = 0.1f,.Loop = false });
 	AnimationRender->CreateAnimation({ .AnimationName = "MonsterIdle",  .ImageName = "MonsterIdle.bmp", .Start = 0, .End = 5, .InterTime = 0.1f,.Loop = true });
 	AnimationRender->CreateAnimation({ .AnimationName = "MonsterMove",  .ImageName = "MonsterMove.bmp", .Start = 0, .End = 11, .InterTime = 0.1f,.Loop = true });
 
@@ -150,12 +150,8 @@ void BossSmallMonster::AnimationCheck(const std::string_view& _AnimationName)
 }
 void BossSmallMonster::Update(float _DeltaTime)
 {
-	if (MonsterCollision == nullptr)
-	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::BossMonster);
-		MonsterCollision->SetScale({ 50, 100 });
-		MonsterCollision->SetPosition({ 0,-70 });
-	}
+	
+
 
 
 	if (nullptr != MonsterCollision && StateValue != SmallMonsterState::LEFTJUMP  && StateValue != SmallMonsterState::RIGHTJUMP)
@@ -177,8 +173,9 @@ void BossSmallMonster::Update(float _DeltaTime)
 			for (size_t i = 0; i < collision.size(); i++)
 			{
 				GameEngineActor* ColActor = collision[i]->GetActor();
-				
+			
 			}
+
 
 		}
 	}
@@ -254,6 +251,15 @@ void BossSmallMonster::Update(float _DeltaTime)
 				ColActor->Death();
 			}
 
+
+			if (SoundCheck == false)
+			{
+				DeathSound = GameEngineResources::GetInst().SoundPlayToControl("RebelDeath.mp3");
+				DeathSound.LoopCount(1);
+				SoundCheck = true;
+			}
+
+
 			ChangeState(SmallMonsterState::LEFTDEATH);
 
 		}
@@ -271,6 +277,14 @@ void BossSmallMonster::Update(float _DeltaTime)
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
 				ColActor->Death();
+			}
+
+
+			if (SoundCheck == false)
+			{
+				DeathSound = GameEngineResources::GetInst().SoundPlayToControl("RebelDeath.mp3");
+				DeathSound.LoopCount(1);
+				SoundCheck = true;
 			}
 
 			ChangeState(SmallMonsterState::RIGHTDEATH);

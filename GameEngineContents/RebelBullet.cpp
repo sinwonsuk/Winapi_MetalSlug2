@@ -65,11 +65,19 @@ void RebelBullet::Update(float _DeltaTime)
 
 	if (RGB(0, 255, 0) == ColImage->GetPixelColor(NextPos, RGB(0, 255, 0)))
 	{
+		if (DeathCheck == false)
+		{
+			BulletRender->ChangeAnimation("Stop");
+			DeathCheck = true;
 
-		BulletRender->ChangeAnimation("Stop");
-		DeathCheck = true; 
+			if (SoundCheck == false)
+			{
+				BulletexPloision = GameEngineResources::GetInst().SoundPlayToControl("PalaceBulletDeathSound.mp3");
+				BulletexPloision.LoopCount(1);
+				SoundCheck = true;
+			}
+		}
 		
-
 		Check = false;
 		MoveDir = { 0,0 };
 

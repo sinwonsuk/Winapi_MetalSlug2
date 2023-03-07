@@ -275,10 +275,21 @@ void Boss::Update(float _DeltaTime)
 	{
 		Player::MainPlayer->SetCameraCheck(false);
 		BossStart = true;
+
+		 
+
+
 	}
 
 	if (BossStart == true)
 	{
+		if (SoundCheck == false)
+		{
+			Bgm = GameEngineResources::GetInst().SoundPlayToControl("BossBackGround.mp3");
+			SoundCheck = true;
+		}
+
+
 		if (IdleStartCheck == false)
 		{
 			MoveDir = float4::Down * 50;
@@ -354,6 +365,17 @@ void Boss::Update(float _DeltaTime)
 
 		if (Hp <= 0)
 		{
+			if (DeathSoundCheck == false)
+			{
+				BossDeathSound = GameEngineResources::GetInst().SoundPlayToControl("BossDeathSound.mp3");
+				BossDeathSound.LoopCount(1);
+				BossDeathSound.Volume(1.5f);
+				DeathSoundCheck = true;
+			}
+
+			SmokeSound.PauseOn();
+			BoomSound.PauseOn();
+
 			MoveDir = { 0,0 };
 
 
@@ -482,6 +504,14 @@ void Boss::Update(float _DeltaTime)
 
 				if (BigExploisionTime > 1)
 				{
+					if (FinishSoundCheck == false)
+					{
+						BossFinish = GameEngineResources::GetInst().SoundPlayToControl("BossFinish.mp3");
+						BossFinish.LoopCount(1);
+
+						FinishSoundCheck = true;
+					}
+
 					MiddleExploision->Off();
 					MiddleExploision2->Off();
 					MiddleExploision3->Off();
@@ -538,21 +568,38 @@ void Boss::Update(float _DeltaTime)
 		}
 		if (BigExploision5->IsAnimationEnd())
 		{
-			if (Finishletter == false)
-			{
 
-				Player::MainPlayer->AnimationBodyRender->Off(); 
-				Player::MainPlayer->AnimationRegRender->Off();
-
-				WinPlayer * player = GetLevel()->CreateActor<WinPlayer>();
-				player->SetPos(Player::MainPlayer->GetPos()); 
-
-				FinishInterFace* Actor = GetLevel()->CreateActor<FinishInterFace>();
-				Actor->SetPos({ GetPos().x - 400,GetPos().y - 1000 });
-				Finishletter = true;
-			}
-
+			FinishCheck = true;
+	
 		}
+		if (FinishCheck == true)
+		{
+
+			FinishTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+
+			if (FinishTime > 2.0)
+			{
+				if (Finishletter == false)
+				{
+
+					Bgm.Stop();
+
+					Player::MainPlayer->AnimationBodyRender->Off();
+					Player::MainPlayer->AnimationRegRender->Off();
+
+					WinPlayer* player = GetLevel()->CreateActor<WinPlayer>();
+					player->SetPos(Player::MainPlayer->GetPos());
+
+					FinishInterFace* Actor = GetLevel()->CreateActor<FinishInterFace>();
+					Actor->SetPos({ GetPos().x - 380,GetPos().y - 1000 });
+					Finishletter = true;
+				}
+			}
+		}
+		
+
+
+
 
 		if (Hp >= 0)
 		{

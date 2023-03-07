@@ -147,7 +147,7 @@ protected:
 
 private:
 
-	
+
 	
 	bool Gravity = false;
 	bool test = false;

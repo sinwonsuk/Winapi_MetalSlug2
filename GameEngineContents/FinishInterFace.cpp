@@ -126,6 +126,19 @@ void FinishInterFace::Start()
 
 void FinishInterFace::Update(float _DeltaTime)
 {
+	if (SoundCheck == false)
+	{
+		MissionComplete =GameEngineResources::GetInst().SoundPlayToControl("MissionComplete.mp3");
+		MissionComplete.LoopCount(1);
+
+		BackGround = GameEngineResources::GetInst().SoundPlayToControl("StageFinish.mp3");
+		BackGround.LoopCount(1);
+
+		SoundCheck = true;
+	}
+
+
+
 	if (Time == false)
 	{
 		TimeCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();

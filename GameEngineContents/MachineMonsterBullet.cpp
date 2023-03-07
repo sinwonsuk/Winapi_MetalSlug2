@@ -5,6 +5,9 @@
 #include <GameEngineCore/GameEngineResources.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include "ContentsEnums.h"
+
+
+
 MachineMonsterBullet::MachineMonsterBullet()
 {
 }
@@ -19,7 +22,7 @@ void MachineMonsterBullet::Start()
 		BulletRender = CreateRender(MetalSlugOrder::MonsterBullet);
 		BulletRender->SetScale({ 800,800 });
 		BulletRender->CreateAnimation({ .AnimationName = "Missile", .ImageName = "MachineMonsterBullet.bmp", .Start = 6, .End = 11, .InterTime = 0.1f , .Loop = true });
-		BulletRender->CreateAnimation({ .AnimationName = "Exploision", .ImageName = "SmallExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.05f, .Loop = false });
+		BulletRender->CreateAnimation({ .AnimationName = "Exploision", .ImageName = "SmallExploision.bmp", .Start = 0, .End = 25, .InterTime = 0.04f, .Loop = false });
 		BulletRender->ChangeAnimation("Missile");
 	}
 	{
@@ -38,14 +41,15 @@ void MachineMonsterBullet::Update(float _DeltaTime)
 {
 	MoveDir += float4::Down * 1000.0f * _DeltaTime;
 
-
-	/*if (BulletMove == true)
+	if (SoundCheck == false)
 	{
+		BulletSound = GameEngineResources::GetInst().SoundPlayToControl("MachineBull.mp3");
+		BulletSound.LoopCount(1);
+		SoundCheck = true;
+	}
+		
 
-		MoveDir += float4::Left * 2000;
-
-	}*/
-
+		
 	if (300.0f <= abs(MoveDir.x))
 	{
 		if (0 > MoveDir.x)
@@ -76,7 +80,13 @@ void MachineMonsterBullet::Update(float _DeltaTime)
 		BulletRender->ChangeAnimation("Exploision");
 		DeathCheck = true;
 
-
+		if (ExploisionSoundCheck == false)
+		{
+			BulletExploision = GameEngineResources::GetInst().SoundPlayToControl("PalaceBulletDeathSound.mp3");
+			BulletExploision.LoopCount(1);
+			ExploisionSoundCheck = true;
+		}
+		
 		Check = false;
 		MoveDir = { 0,0 };
 
