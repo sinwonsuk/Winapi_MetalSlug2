@@ -29,7 +29,15 @@ void Bullets::Start()
 
 
 	}
-	
+	{
+		UpBullet = CreateRender(MetalSlugOrder::Bullet);
+		UpBullet->SetImage("BulletUp.Bmp");
+		//AnimationRender->SetPosition({500,500 });
+		UpBullet->SetScale({ 48,48 });
+		UpBullet->Off();
+
+
+	}
 	{
 		Collision = CreateCollision(MetalSlugOrder::Bullet);
 		Collision->SetScale({ 30, 30 });
@@ -38,7 +46,13 @@ void Bullets::Start()
 
 void Bullets::Update(float _DeltaTime)
 {	
-	
+	if (MoveDir.y < 0)
+	{
+		AnimationRender->Off();
+		UpBullet->On();
+	}
+
+
 
 	DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
 

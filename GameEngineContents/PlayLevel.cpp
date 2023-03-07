@@ -541,6 +541,11 @@ void PlayLevel::Loading()
 		}
 
 		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("CamelBullet.BMP"));
+		}
+
+
+		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Monster.GetPlusFileName("MonsterCamelEffect.BMP"));
 		}
 
@@ -995,6 +1000,10 @@ void PlayLevel::Loading()
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("BulletEffect.BMP"));
 			Image->Cut(5, 2);
 		}
+		{
+			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(Weapon.GetPlusFileName("BulletUp.BMP"));
+		}
+
 		// items
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(items.GetPlusFileName("ItemBoomb.BMP"));
@@ -1007,6 +1016,7 @@ void PlayLevel::Loading()
 		{
 			GameEngineImage* Image = GameEngineResources::GetInst().ImageLoad(items.GetPlusFileName("ItemHeavyGun.BMP"));
 		}
+		
 
 	}
 	

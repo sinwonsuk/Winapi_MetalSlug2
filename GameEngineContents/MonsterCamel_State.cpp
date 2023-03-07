@@ -211,17 +211,22 @@ void MonsterCamel::MoveUpdate(float _Time)
 
 void MonsterCamel::AttackUpdate(float _Time)
 {
-	if (AnimationRegRender->GetFrame() == 5)
+	if (AnimationRegRender->GetFrame() == 5 && AttackCheck == false)
 	{
 		MonsterCamelBullet* Bullet = GetLevel()->CreateActor<MonsterCamelBullet>();
 		Bullet->SetMove({ GetPos().x-100, GetPos().y-85 });
+		AttackCheck = true;
 	}
-
+	if (AnimationRegRender->GetFrame() > 5)
+	{
+		AttackCheck = false;
+	}
 
 
 	if (AnimationRegRender->IsAnimationEnd())
 	{
 		ChangeState(MonsterCamelState::UP);
+		
 		return; 
 	}
 }
@@ -254,7 +259,14 @@ void MonsterCamel::UpUpdate(float _Time)
 
 void MonsterCamel::DeathUpdate(float _Time)
 {
-	MoveDir = { 0,0 };
+	
+	if (DeathSound == false)
+	{
+		DeathOne = GameEngineResources::GetInst().SoundPlayToControl("DeathTwo.mp3");
+		DeathOne.LoopCount(1);
+		DeathSound = true;
+	}
+
 	float4 a = float4::Left * 800 * _Time; 
 
 	if (true == AnimationBodyRender->IsAnimationEnd())

@@ -271,13 +271,11 @@ void Boss::Start()
 
 void Boss::Update(float _DeltaTime)
 {
-	if (MonsterCollision == nullptr)
+	if (GetLevel()->GetCameraPos().x >= 11367)
 	{
-		MonsterCollision = CreateCollision(MetalSlugOrder::Boss);
-		MonsterCollision->SetScale({ 400, 300 });
-		MonsterCollision->SetPosition({ 0,-400 });
+		Player::MainPlayer->SetCameraCheck(false);
+		BossStart = true;
 	}
-
 
 	if (BossStart == true)
 	{
@@ -542,6 +540,10 @@ void Boss::Update(float _DeltaTime)
 		{
 			if (Finishletter == false)
 			{
+
+				Player::MainPlayer->AnimationBodyRender->Off(); 
+				Player::MainPlayer->AnimationRegRender->Off();
+
 				WinPlayer * player = GetLevel()->CreateActor<WinPlayer>();
 				player->SetPos(Player::MainPlayer->GetPos()); 
 

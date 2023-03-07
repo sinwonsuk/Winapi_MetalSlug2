@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 
 enum class MonsterState
 {
@@ -117,6 +117,11 @@ private:
 	float BackJumpTime =0;
 	float AnimationCheck = 0;
 	bool BackJumpCheck = false;
+
+	GameEngineSoundPlayer DeathOne;
+	GameEngineSoundPlayer DeathTwo;
+
+
 };
 
 

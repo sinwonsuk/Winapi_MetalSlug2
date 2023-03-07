@@ -103,7 +103,15 @@ void Bomb::Update(float _DeltaTime)
 		BoomDeath = true;
 		BoombRender->SetScale({ 750,750 });
 		BoombRender->ChangeAnimation("BoombExploision");
+		if (SoundCheck == false)
+		{
+			BoomSound = GameEngineResources::GetInst().SoundPlayToControl("BoombSound.mp3");
+			BoomSound.LoopCount(1);
+
+			SoundCheck = true;
+		}
 		
+
 		if (true == BoombRender->IsAnimationEnd())
 		{
 			this->Death(); 

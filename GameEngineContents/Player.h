@@ -135,6 +135,10 @@ public:
 	float HeavyMachineGun = 0;
 	bool MiddlebossBoom = false;
 	bool BossStart = false;
+
+	GameEngineRender* AnimationBodyRender = nullptr;
+	GameEngineRender* AnimationRegRender = nullptr;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -183,8 +187,7 @@ private:
 	bool GunChange = false;
 	bool SpinDown = false;
 
-	GameEngineRender* AnimationBodyRender = nullptr;
-	GameEngineRender* AnimationRegRender = nullptr;
+	
 
 	GameEngineRender* parachuteRender = nullptr;
 
@@ -364,10 +367,10 @@ private:
 	float LeftHeavyBulletNumber = 0;
 	float UPHeavyBulletNumber = 0;
 	float Number = 0; 
-
+	GameEngineSoundPlayer Basegun;
 	GameEngineSoundPlayer MissionStart;
 	GameEngineSoundPlayer bgm;
-
+	GameEngineSoundPlayer HeavyMachine;
 
 };
 

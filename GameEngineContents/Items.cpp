@@ -105,6 +105,9 @@ void Items::Update(float _DeltaTime)
 				HeavyMachineGun->Off();
 				CollisionCheck = true;
 				HeavyMachineGuneNumber++;
+
+				
+
 				Collision->Death();
 
 			}
@@ -113,11 +116,17 @@ void Items::Update(float _DeltaTime)
 
 		if (BoombNumber == 1 && CollisionCheck == true)
 		{
+			Ok = GameEngineResources::GetInst().SoundPlayToControl("Ok.mp3");
+			Ok.LoopCount(1);
+
 			Player::MainPlayer->BombNumber += 10;
 			BoombNumber = false;
 		}
 		if (HeavyMachineGuneNumber == 1 && CollisionCheck == true)
 		{
+			Heavymachinegun = GameEngineResources::GetInst().SoundPlayToControl("HeavyMachine.mp3");
+			Heavymachinegun.LoopCount(1);
+
 			Player::MainPlayer->HeavyMachineGun += 200;
 			HeavyMachineGuneNumber = false;
 		}

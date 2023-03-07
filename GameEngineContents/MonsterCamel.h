@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 enum class MonsterCamelState
 {
 	IDLESTART,
@@ -92,9 +92,10 @@ private:
 	bool MoveCamera = false;
 	bool  death = false;
 	bool EffectCheck = false;
-	
-	
+	bool AttackCheck = false;
+	bool DeathSound = false;
 
+	GameEngineSoundPlayer DeathOne;
 	
 	GameEngineCollision* MonsterCollision = nullptr;
 	

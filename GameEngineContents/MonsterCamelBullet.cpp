@@ -17,9 +17,9 @@ void MonsterCamelBullet::Start()
 {
 	{
 		BulletRender = CreateRender(10);
-		BulletRender->SetImage("HeavyBullet.Bmp");
+		BulletRender->SetImage("CamelBullet.Bmp");
 		//AnimationRender->SetPosition({ 500,500 });
-		BulletRender->SetScale({ 132,60 });
+		BulletRender->SetScale({ 30,30 });
 		BulletRender->On();
 		//	AnimationRender->
 
@@ -35,6 +35,14 @@ void MonsterCamelBullet::Start()
 
 void MonsterCamelBullet::Update(float _DeltaTime)
 {
+	if (CamelSound == false)
+	{
+		CamelBullet = GameEngineResources::GetInst().SoundPlayToControl("CamelBullet.mp3");
+		CamelBullet.LoopCount(1);
+		CamelSound = true;
+	}
+
+
 	MoveDir = float4::Left;
 	SetMove(MoveDir * _DeltaTime * 500);
 	Time += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 

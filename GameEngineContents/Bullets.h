@@ -21,6 +21,7 @@ public:
 	Bullets& operator=(Bullets&& _Other) noexcept = delete;
 	float4 MoveDir = float4::Zero;
 	GameEngineRender* AnimationRender = nullptr;
+	GameEngineRender* UpBullet = nullptr;
 	GameEngineCollision* Collision = nullptr;
 
 protected:

@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 class Items : public GameEngineActor
 {
 
@@ -42,6 +42,7 @@ private:
 	GameEngineRender* Boomb = nullptr;
 	GameEngineCollision* Collision = nullptr;
 
-
+	GameEngineSoundPlayer Ok;
+	GameEngineSoundPlayer Heavymachinegun;
 
 };

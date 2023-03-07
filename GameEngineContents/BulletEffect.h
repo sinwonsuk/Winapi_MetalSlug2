@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 class BulletEffect : public GameEngineActor
 {
 
@@ -31,11 +31,15 @@ private:
 	//GameEngineRender* Effect = nullptr;
 	//bool BoobBulletCheck = false;
 	bool EffectCheck = true;
-	
+	bool boomSound = false;
+	bool GunSound = false;
 	GameEngineRender* Exploision = nullptr;
 	GameEngineRender* Effect = nullptr;
 	GameEngineRender* BobmEffect = nullptr;
 	GameEngineRender* AnimationRender = nullptr;
 	GameEngineCollision* Collision = nullptr;
+	GameEngineSoundPlayer GunHit;
+	GameEngineSoundPlayer BoomSound;
+
 
 };

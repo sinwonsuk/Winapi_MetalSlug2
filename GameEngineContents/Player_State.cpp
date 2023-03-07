@@ -653,6 +653,8 @@ void Player::IdleUpdate(float _Time)
 	}
 	else if (GameEngineInput::IsDown("Attack"))
 	{
+		
+
 		ChangeState(PlayerState::IDLEATTACK);
 		return;
 	}
@@ -726,7 +728,10 @@ void Player::AttackIdleUpdate(float _Time)
 
 	if (true == GameEngineInput::IsDown("Attack"))
 	{	
+		
 		ChangeState(PlayerState::IDLEATTACK);
+		Basegun = GameEngineResources::GetInst().SoundPlayToControl("baseBullet.mp3");
+		Basegun.LoopCount(1);
 		return;
 	}
 

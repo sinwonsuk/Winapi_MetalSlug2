@@ -441,8 +441,16 @@ bool FreeMode = false;
 
 void Player::Update(float _DeltaTime)
 {
-	
-
+	if (true == GameEngineInput::IsDown("Attack") && HeavyMachineGun <= 0)
+	{
+		Basegun = GameEngineResources::GetInst().SoundPlayToControl("baseBullet.mp3");
+		Basegun.LoopCount(1);	
+	}
+	if (true == GameEngineInput::IsDown("Attack") && HeavyMachineGun > 0)
+	{
+		HeavyMachine = GameEngineResources::GetInst().SoundPlayToControl("HeavyMachineGunEffect.mp3");
+		HeavyMachine.LoopCount(1);
+	}
 
 	if (GameEngineInput::IsDown("LeftMove"))
 	{
@@ -1641,18 +1649,14 @@ void Player::CollisionCheck(float _DeltaTime)
 
 			MonsterCheck = 20;
 		}
-		if (RGB(236, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(236, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 21)
+		if (RGB(236, 0, 0) == ColImage->GetPixelColor(NextPos, RGB(236, 0, 0)) && PosCheck.x < GetPos().ix() && MonsterCheck == 20)
 		{
 			Boss * boss = GetLevel()->CreateActor<Boss>();
 			boss->SetPos({ 11800,100 });
-			MonsterCheck = 22;
+			MonsterCheck = 21;
 		}
-		/*if (GetLevel()->GetCameraPos().x >= 11367)
-		{
-			CameraCheck = false;
-			boss->BossStart = true;
-		}
-		if (boss != nullptr)
+		
+		/*if (boss != nullptr)
 		{
 			if (boss->Hp <= 0)
 			{
@@ -1967,6 +1971,9 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	{
 		AnimationBodyRender->SetScale({ 200,200 });
 
+		Basegun = GameEngineResources::GetInst().SoundPlayToControl("baseBullet.mp3");
+		Basegun.LoopCount(1);
+
 		if (DirString == "Left_")
 		{
 			LeftSetBody({ 0,0 });
@@ -1996,8 +2003,8 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 	{
 		if (StateValue == PlayerState::IDLEATTACK || StateValue == PlayerState::MOVEATTACK)
 		{
-
-
+			
+		
 
 			AnimationBodyRender->SetScale({ 200,200 });
 			if (DirString == "Left_")
@@ -2024,6 +2031,7 @@ void Player::DirCheck(const std::string_view& _AnimationName, const std::string_
 				Bullets* Actor = GetLevel()->CreateActor<Bullets>();
 				Actor->SetPos({ GetPos().x+100,GetPos().y - 95 });
 				Actor->MoveDir = float4::Right;
+				
 
 			/*	BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetPos({ GetPos().x + 100,GetPos().y - 95 });

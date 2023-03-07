@@ -1,7 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include "ContentsEnums.h"
-
+#include <GameEngineCore/GameEngineResources.h>
 class Bomb : public GameEngineActor
 {
 
@@ -42,9 +42,10 @@ private:
 	bool DirCheck = true;
 	int GroundCheck = 0;
 	bool MoveCheck = false;
-
+	bool SoundCheck = false;
 	bool BoomDeath = false;
 	GameEngineCollision* Collision = nullptr;
+	GameEngineSoundPlayer BoomSound;
 
 };
 

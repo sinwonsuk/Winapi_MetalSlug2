@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
-
+#include <GameEngineCore/GameEngineResources.h>
 enum class NpcState
 {
 	
@@ -122,10 +122,10 @@ private:
 
 	bool ItemCheck = false;
 
-	GameEngineCollision* MonsterCollision = nullptr;
+	GameEngineSoundPlayer Thankyou;
 
 	
-
+	GameEngineSoundPlayer NpcHit;
 	
 
 };

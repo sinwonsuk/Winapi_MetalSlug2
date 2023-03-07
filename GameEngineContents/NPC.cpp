@@ -194,11 +194,11 @@ void NPC::Update(float _DeltaTime)
 
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
-			
-
-
 				ColActor->Death();
 
+				NpcHit = GameEngineResources::GetInst().SoundPlayToControl("NpcHit.mp3");
+				NpcHit.LoopCount(1);
+				NpcHit.Volume(1.5f);
 			}
 
 			
@@ -218,10 +218,11 @@ void NPC::Update(float _DeltaTime)
 
 				BulletEffect* Effect = GetLevel()->CreateActor<BulletEffect>();
 				Effect->SetMove(ColActor->GetPos());
-		
-
-
 				ColActor->Death();
+
+				NpcHit = GameEngineResources::GetInst().SoundPlayToControl("NpcHit.mp3");
+				NpcHit.LoopCount(1);
+				NpcHit.Volume(1.5f);
 
 			}
 			ChangeState(NpcState::BINDMOVEPRE);
@@ -237,6 +238,12 @@ void NPC::Update(float _DeltaTime)
 
 			ChangeState(NpcState::COLLISION);
 			SetPos({ GetPos().x + 50, GetPos().y});
+
+			Thankyou = GameEngineResources::GetInst().SoundPlayToControl("Thankyou.mp3");
+			Thankyou.LoopCount(1);
+			Thankyou.Volume(1.5f);
+
+
 		}
 	}
 

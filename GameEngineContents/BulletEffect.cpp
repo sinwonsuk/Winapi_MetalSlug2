@@ -55,15 +55,33 @@ void BulletEffect::Update(float _DeltaTime)
 	if (ExploisionCheck == true)
 	{
 		Exploision->On();
+
+	
+
+
 	}
 	if (BoobBulletCheck == false)
 	{
 		AnimationRender->On();
+
+		if (GunSound == false)
+		{
+			GunHit = GameEngineResources::GetInst().SoundPlayToControl("GunHit.mp3");
+			GunHit.LoopCount(1);
+			GunSound = true;
+		}
 	}
 
 	if (BoobBulletCheck == true)
 	{
 		BobmEffect->On(); 
+		if (boomSound == false)
+		{
+			BoomSound = GameEngineResources::GetInst().SoundPlayToControl("BoombSound.mp3");
+			BoomSound.LoopCount(1);
+			boomSound = true;
+		}
+	
 	}
 
 	if (AnimationRender->IsAnimationEnd())

@@ -62,7 +62,8 @@ void Monster::Start()
 
 	{
 		MonsterCollision = CreateCollision(MetalSlugOrder::Monster);		
-		MonsterCollision->SetScale({ 75, 200 });
+		MonsterCollision->SetScale({ 75, 100 });
+		MonsterCollision->SetPosition({ 0, -50 });
 	}
 	
 
@@ -271,16 +272,22 @@ void Monster::Update(float _DeltaTime)
 	if (Hp <= 0 && death == false)
 	{
 
+		srand(static_cast<unsigned int>(time(nullptr)));
+
 		int Choice = rand() % 2;
 
 		if (Choice == 0)
 		{
 			ChangeState(MonsterState::DEATHONE);
+			DeathOne = GameEngineResources::GetInst().SoundPlayToControl("DeathOne.mp3");
+			DeathOne.LoopCount(1);
 			death = true;
 		}
 		if (Choice == 1)
 		{
 			ChangeState(MonsterState::DEATHONE);
+			DeathTwo = GameEngineResources::GetInst().SoundPlayToControl("DeathTwo.mp3");
+			DeathTwo.LoopCount(1);
 			death = true;
 		}
 
@@ -336,7 +343,7 @@ void Monster::Render(float _Time)
 		ActorPos.iy() + 5
 	);
 	
-	
+	//MonsterCollision->DebugRender();
 }
 
 
