@@ -135,6 +135,32 @@ void MiddleBoss::IdleUpdate(float _Time)
 void MiddleBoss::LeftAttackUpdate(float _Time)
 {
 
+	if (LeftHp <= 0)
+	{
+		AnimationLeftHumanAttackRender->Off();
+
+		if (RightHp > 0)
+		{
+			if (MiddleHp <= 0)
+			{
+				AnimationMiddleHumanAttackRender->Off();
+			}
+
+			ChangeState(MiddleBossState::RIGHTATTACK);
+			return;
+		}
+		else if (MiddleHp > 0)
+		{
+			if (RightHp <= 0)
+			{
+				AnimationRightHumanAttackRender->Off();
+			}
+
+			ChangeState(MiddleBossState::MIDDLEATTACK);
+			return;
+		}
+	}
+
 	if (LeftHp > 0)
 	{
 		if (true == AnimationLeftHumanAttackRender->IsAnimationEnd())
@@ -169,26 +195,49 @@ void MiddleBoss::LeftAttackUpdate(float _Time)
 
 void MiddleBoss::RightAttackUpdate(float _Time)
 {
+
+	if (RightHp <= 0)
+	{
+		AnimationRightHumanAttackRender->Off();
+		if (LeftHp > 0)
+		{
+			if (MiddleHp <= 0)
+			{
+				AnimationMiddleHumanAttackRender->Off();
+			}
+
+			ChangeState(MiddleBossState::LEFTATTACK);
+			return; 
+		}
+		else if (MiddleHp > 0)
+		{
+			if (LeftHp <= 0)
+			{
+				AnimationLeftHumanAttackRender->Off();
+			}
+
+			ChangeState(MiddleBossState::MIDDLEATTACK);
+			return;
+		}		
+	}
+
+
 	if (RightHp > 0)
 	{
-		if (true == AnimationLeftHumanAttackRender->IsAnimationEnd())
+		if (true == AnimationRightHumanAttackRender->IsAnimationEnd())
 		{
 			if (MissileCheck == false)
 			{
 
-				PalaceBullet * Bullet = GetLevel()->CreateActor<PalaceBullet>();
+				PalaceBullet* Bullet = GetLevel()->CreateActor<PalaceBullet>();
 				Bullet->SetPos({ GetPos().x + 390, GetPos().y - 320 });
 				MissileCheck = true;
 			}
-		
+
 			ChangeState(MiddleBossState::RIGHTSMOKE);
 			return;
-			
-		}
 
-		
-		
-		
+		}
 	}
 
 
@@ -198,6 +247,30 @@ void MiddleBoss::RightAttackUpdate(float _Time)
 
 void MiddleBoss::MiddleAttackUpdate(float _Time)
 {
+
+	if (MiddleHp <= 0)
+	{
+		AnimationMiddleHumanAttackRender->Off();
+		if (RightHp > 0)
+		{
+			if (LeftHp <= 0)
+			{
+				AnimationLeftHumanAttackRender->Off();
+			}
+			ChangeState(MiddleBossState::RIGHTATTACK);
+			return;
+		}
+		else if (LeftHp > 0)
+		{
+			if (RightHp <= 0)
+			{
+				AnimationRightHumanAttackRender->Off();
+			}
+
+			ChangeState(MiddleBossState::LEFTATTACK);
+			return;
+		}
+	}
 
 	if (MiddleHp > 0)
 	{
@@ -231,26 +304,36 @@ void MiddleBoss::LeftSmokeUpdate(float _Time)
 	MissileCheck = false;
 	
 	LeftAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (LeftAttackTime > 0.3)
+	if (RightHp > 0 || MiddleHp > 0)
 	{
-		srand(static_cast<unsigned int>(time(nullptr)));
-		int a = rand() % 2;
-
-		if (a == 0)
+		if (LeftAttackTime > 0.3)
 		{
-			ChangeState(MiddleBossState::RIGHTATTACK);
-			LeftAttackTime = 0;
-		}
-		if (a == 1)
-		{
-			ChangeState(MiddleBossState::MIDDLEATTACK);
-			LeftAttackTime = 0;
-		}
+			srand(static_cast<unsigned int>(time(nullptr)));
+			int a = rand() % 2;
 
-
+			if (a == 0)
+			{
+				ChangeState(MiddleBossState::RIGHTATTACK);
+				LeftAttackTime = 0;
+				return; 
+			}
+			if (a == 1)
+			{
+				ChangeState(MiddleBossState::MIDDLEATTACK);
+				LeftAttackTime = 0;
+				return;
+			}
+		}
 	}
-
+	if (RightHp <= 0 && MiddleHp <= 0)
+	{
+		if (LeftAttackTime > 0.3)
+		{
+			ChangeState(MiddleBossState::LEFTATTACK);
+			LeftAttackTime = 0;
+			return;
+		}
+	}
 	
 
 }
@@ -262,26 +345,38 @@ void MiddleBoss::RightSmokeUpdate(float _Time)
 	MissileCheck = false;
 
 	LeftAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (LeftAttackTime > 0.3)
+	if (LeftHp > 0 || MiddleHp > 0)
 	{
-		srand(static_cast<unsigned int>(time(nullptr)));
-		int a = rand() % 2;
-
-		if (a == 0)
+		if (LeftAttackTime > 0.3)
 		{
-			ChangeState(MiddleBossState::LEFTATTACK);
-			LeftAttackTime = 0;
-		}
-		if (a == 1)
-		{
-			ChangeState(MiddleBossState::MIDDLEATTACK);
-			LeftAttackTime = 0;
-		}
+			srand(static_cast<unsigned int>(time(nullptr)));
+			int a = rand() % 2;
+
+			if (a == 0)
+			{
+				ChangeState(MiddleBossState::LEFTATTACK);
+				LeftAttackTime = 0;
+				return;
+			}
+			if (a == 1)
+			{
+				ChangeState(MiddleBossState::MIDDLEATTACK);
+				LeftAttackTime = 0;
+				return;
+			}
 
 
+		}
 	}
-
+	if (LeftHp <= 0 && MiddleHp <= 0)
+	{
+		if (LeftAttackTime > 0.3)
+		{
+			ChangeState(MiddleBossState::RIGHTATTACK);
+			LeftAttackTime = 0;
+			return;
+		}
+	}
 
 	
 
@@ -294,24 +389,36 @@ void MiddleBoss::MiddleSmokeUpdate(float _Time)
 	MissileCheck = false;
 
 	LeftAttackTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();
-
-	if (LeftAttackTime > 0.3)
+	if (RightHp > 0 || LeftHp > 0)
 	{
-		srand(static_cast<unsigned int>(time(nullptr)));
-		int a = rand() % 2;
 
-		if (a == 0)
+		if (LeftAttackTime > 0.3)
 		{
-			ChangeState(MiddleBossState::LEFTATTACK);
-			LeftAttackTime = 0;
+			srand(static_cast<unsigned int>(time(nullptr)));
+			int a = rand() % 2;
+
+			if (a == 0)
+			{
+				ChangeState(MiddleBossState::LEFTATTACK);
+				LeftAttackTime = 0;
+				return;
+			}
+			if (a == 1)
+			{
+				ChangeState(MiddleBossState::RIGHTATTACK);
+				LeftAttackTime = 0;
+				return;
+			}
 		}
-		if (a == 1)
+	}
+	if (LeftHp <= 0 && RightHp <= 0)
+	{
+		if (LeftAttackTime > 0.3)
 		{
-			ChangeState(MiddleBossState::RIGHTATTACK);
+			ChangeState(MiddleBossState::MIDDLEATTACK);
 			LeftAttackTime = 0;
+			return;
 		}
-
-
 	}
 
 
@@ -326,17 +433,7 @@ void MiddleBoss::DeathStart()
 
 void MiddleBoss::DeathUpdate(float _Time)
 {
-	if (DeathSoundCheck == false)
-	{
-		PalaceDeath = GameEngineResources::GetInst().SoundPlayToControl("PalaceDeath.mp3");
-		PalaceDeath.LoopCount(1);
-		PalaceDeath.Volume(2.0f);
 
-		PalaceExploision = GameEngineResources::GetInst().SoundPlayToControl("PalaceExl.mp3");
-		PalaceExploision.Volume(1.5f);
-		PalaceExploision.LoopCount(3);
-		DeathSoundCheck = true;
-	}
 
 
 	DeathTime += GameEngineTime::GlobalTime.GetFloatDeltaTime();

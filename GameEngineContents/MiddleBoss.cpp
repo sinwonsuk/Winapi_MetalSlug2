@@ -510,34 +510,39 @@ void MiddleBoss::OpenCheck(const std::string_view& _AnimationName)
 
 void MiddleBoss::LeftAttackCheck(const std::string_view& _AnimationName)
 {
-	
+	if (LeftHp > 0)
+	{
 
-	AnimationLeftHumanAttackRender->On();
-	
-
-	AnimationLeftHumanAttackRender->ChangeAnimation(_AnimationName.data(),true);
+		AnimationLeftHumanAttackRender->On();
 
 
+		AnimationLeftHumanAttackRender->ChangeAnimation(_AnimationName.data(), true);
+
+	}
 
 }
 
 void MiddleBoss::RightAttackCheck(const std::string_view& _AnimationName)
 {
-	AnimationRightHumanAttackRender->On();
+	if (RightHp > 0)
+	{
+		AnimationRightHumanAttackRender->On();
 
 
 
 
-	AnimationRightHumanAttackRender->ChangeAnimation(_AnimationName.data(),true);
+		AnimationRightHumanAttackRender->ChangeAnimation(_AnimationName.data(), true);
+	}
 }
 
 void MiddleBoss::MiddleAttackCheck(const std::string_view& _AnimationName)
 {
-	
-	AnimationMiddleHumanAttackRender->On();
+	if (MiddleHp > 0)
+	{
+		AnimationMiddleHumanAttackRender->On();
 
-	AnimationMiddleHumanAttackRender->ChangeAnimation(_AnimationName.data(),true);
-
+		AnimationMiddleHumanAttackRender->ChangeAnimation(_AnimationName.data(), true);
+	}
 
 
 }
@@ -576,6 +581,21 @@ void MiddleBoss::DoorUpdate(float _Time)
 
 void MiddleBoss::Update(float _DeltaTime)
 {
+	if (LeftHp <= 0 && RightHp <= 0 && MiddleHp <= 0)
+	{
+		if (DeathSoundCheck == false)
+		{
+			PalaceDeath = GameEngineResources::GetInst().SoundPlayToControl("PalaceDeath.mp3");
+			PalaceDeath.LoopCount(1);
+			PalaceDeath.Volume(2.0f);
+
+			PalaceExploision = GameEngineResources::GetInst().SoundPlayToControl("PalaceExl.mp3");
+			PalaceExploision.Volume(1.5f);
+			PalaceExploision.LoopCount(3);
+			DeathSoundCheck = true;
+		}
+	}
+
 	if (Player::MainPlayer->GetPos().x > GetPos().x)
 	{
 		SetMiddleBossStart(true);

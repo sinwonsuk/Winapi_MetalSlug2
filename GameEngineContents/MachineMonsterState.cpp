@@ -29,6 +29,9 @@ void MachineMonster::ChangeState(MachineState _State)
 		case MachineState::ATTACKPRE2:
 			AttackPre2Start();
 			break;
+		case MachineState::MOVEPRE:
+			MovePreStart();
+			break;
 		case MachineState::ATTACK:
 			AttackStart();
 			break;
@@ -65,6 +68,10 @@ void MachineMonster::AttackStart()
 void MachineMonster::DeathStart()
 {
 	DirCheck("Death");
+}
+void MachineMonster::MovePreStart()
+{
+	DirCheck("MovePre");
 }
 
 void MachineMonster::IdleUpdate(float _Time)
@@ -108,11 +115,33 @@ void MachineMonster::AttackPre2Update(float _Time)
 
 void MachineMonster::MoveUpdate(float _Time)
 {
-	MoveDir += float4::Left * MoveSpeed;
-	if (GetPos().x < 8200)
+	
+	if (MoveCheck == false)
 	{
-		ChangeState(MachineState::ATTACKPRE);
-		return; 
+		MoveDir += float4::Left * MoveSpeed;
+
+		if (GetPos().x < 8200)
+		{
+			
+			MoveCheck = true;
+			ChangeState(MachineState::ATTACKPRE);
+			return;
+		}
+
+		
+	}
+
+	else if (MoveCheck == true)
+	{
+		MoveDir += float4::Right * MoveSpeed;
+
+		if (GetPos().x > 8300)
+		{
+			MoveCheck = false;
+			
+			ChangeState(MachineState::ATTACKPRE);
+			return;
+		}
 	}
 
 
@@ -135,7 +164,7 @@ void MachineMonster::AttackUpdate(float _Time)
 	if (AttackNumber > 3)
 	{
 		AttackNumber = 0;
-		ChangeState(MachineState::ATTACKPRE2);
+		ChangeState(MachineState::MOVEPRE);
 		return;
 	}
 
@@ -168,6 +197,15 @@ void MachineMonster::DeathUpdate(float _Time)
 }
 
 
+void MachineMonster::MovePreUpdate(float _Time)
+{
+	if (AnimationRender->IsAnimationEnd())
+	{
+		ChangeState(MachineState::MOVE);
+	}
+}
+
+
 
 void MachineMonster::UpdateState(float _Time)
 {
@@ -186,6 +224,9 @@ void MachineMonster::UpdateState(float _Time)
 		break;
 	case MachineState::ATTACKPRE2:
 		AttackPre2Update(_Time);
+		break;
+	case MachineState::MOVEPRE:
+		MovePreUpdate(_Time);
 		break;
 	case MachineState::ATTACK:
 		AttackUpdate(_Time);

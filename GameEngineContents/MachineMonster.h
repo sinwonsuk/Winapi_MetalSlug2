@@ -10,6 +10,7 @@ enum class MachineState
 	MOVE,
 	MOVEFINISH,
 	ATTACK,
+	MOVEPRE,
 	DEATH,
 };
 
@@ -55,8 +56,8 @@ public:
 	void DeathStart();
 	void DeathUpdate(float _Time);
 
-
-
+	void MovePreStart();
+	void MovePreUpdate(float _Time); 
 
 
 
@@ -90,6 +91,8 @@ private:
 	int AttackNumber = 0;
 	//MachineMonsterBullet* Actor = nullptr;
 	GameEngineCollision* MonsterCollision = nullptr;
+
+	bool MoveCheck = false;
 
 	bool SoundCheck = false;
 	GameEngineSoundPlayer DeathSound;

@@ -27,6 +27,7 @@ void MachineMonster::Start()
 		AnimationRender->CreateAnimation({ .AnimationName = "Move",  .ImageName = "MachineMonsterMove.bmp", .Start = 0, .End = 1, .InterTime = 0.1f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "AttackPre",  .ImageName = "MachineMonsterAttackPre.bmp", .Start = 0, .End = 5, .InterTime = 0.1f ,.Loop = true , .FrameIndex{5,4,3,2,1,0} });
 		AnimationRender->CreateAnimation({ .AnimationName = "AttackPre2",  .ImageName = "MachineMonsterAttack.bmp", .Start = 0, .End = 3, .InterTime = 0.1f ,.Loop = true , .FrameIndex{5,4,3,2,1,0} });
+		AnimationRender->CreateAnimation({ .AnimationName = "MovePre",  .ImageName = "MachineMonsterAttackPre.bmp", .Start = 0, .End = 5, .InterTime = 0.1f ,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Attack",  .ImageName = "MachineMonsterAttack.bmp", .Start = 0, .End = 6, .InterTime = 0.1f,.Loop = true });
 		AnimationRender->CreateAnimation({ .AnimationName = "Death",  .ImageName = "MachineMonsterDeath.bmp", .Start = 0, .End = 19, .InterTime = 0.1f,.Loop = false });
 	}
