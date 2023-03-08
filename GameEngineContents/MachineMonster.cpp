@@ -165,6 +165,7 @@ void MachineMonster::Update(float _DeltaTime)
 	}
 	if (Hp <= 0)
 	{
+		Player::MainPlayer->SetCameraCheck(true);
 		ChangeState(MachineState::DEATH);
 	}
 
