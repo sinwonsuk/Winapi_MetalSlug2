@@ -1,8 +1,8 @@
 #include "Map.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineRender.h>
-#include "Player.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 Map::Map()
 {
 }
@@ -27,12 +27,13 @@ void Map::Start()
 
 	}*/
 
-	//{
-	//	GameEngineRender* AnimationRender = CreateRender();
-	//	AnimationRender->SetImage("Map11.Bmp");
-	//	AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half()});
-	//	AnimationRender->SetScale({12784,800});		
-	//}
+	{
+		DebugActor = CreateRender();
+		DebugActor->SetImage("Map11.Bmp");
+		DebugActor->SetPosition({ DebugActor->GetImage()->GetImageScale().half()});
+		DebugActor->SetScale({12784,800});		
+		DebugActor->Off();
+	}
 
 	/*{
 		GameEngineRender* AnimationRender = CreateRender();
@@ -42,11 +43,12 @@ void Map::Start()
 	}*/
 
 	{
-		GameEngineRender* AnimationRender = CreateRender();
-		AnimationRender->SetImage("Map12.Bmp");
-		AnimationRender->SetPosition({ AnimationRender->GetImage()->GetImageScale().half() });
-		AnimationRender->SetScale({ 12784,1000 });
+		Actor = CreateRender();
+		Actor->SetImage("Map12.Bmp");
+		Actor->SetPosition({ Actor->GetImage()->GetImageScale().half() });
+		Actor->SetScale({ 12784,1000 });
 	}
+
 	{
 		DestoryBase = CreateRender(0);
 		DestoryBase->SetImage("DestoryBase.Bmp");
@@ -54,18 +56,40 @@ void Map::Start()
 		DestoryBase->SetScale({1200,430});		
 	}
 
+	if (false == GameEngineInput::IsKey("DegBug"))
+	{
 
-		/*{
-		GameEngineRender* AnimationRender = CreateRender(0);
-
-		AnimationRender->SetPosition({ 1200,430 });
-		AnimationRender->SetScale({ 2400,859 });
-		AnimationRender->SetImage("Stage02.Bmp");
-	     }*/
+	
+		GameEngineInput::CreateKey("DegBug", '3');
+		
+		
+	}
+		
 
 }
 
 void Map::Update(float _DeltaTime)
 {
-	
+	if (Debug == false)
+	{
+		if (GameEngineInput::IsDown("DegBug"))
+		{
+			DebugActor->On();
+			Actor->Off();
+		}
+		Debug = true;
+	}
+	else if (Debug == true)
+	{
+		if (GameEngineInput::IsDown("DegBug"))
+		{
+			DebugActor->Off();
+			Actor->On();
+		}
+		Debug = false;
+	}
+
+
+
+
 }

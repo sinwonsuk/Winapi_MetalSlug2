@@ -20,6 +20,9 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	bool Debug = false;
+	GameEngineRender* DebugActor = nullptr;
+	GameEngineRender* Actor = nullptr;
 	GameEngineRender* DestoryBase = nullptr;
 };
 

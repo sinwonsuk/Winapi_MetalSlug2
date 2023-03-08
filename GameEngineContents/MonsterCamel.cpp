@@ -87,8 +87,7 @@ void MonsterCamel::Start()
 void MonsterCamel::Movecalculation(float _DeltaTime)
 {
 	if (Hp <= 0)
-	{
-		
+	{	
 		return;
 	}
 
@@ -249,7 +248,14 @@ void MonsterCamel::DirBodyCheck(const std::string_view& _AnimationName , const s
 
 void MonsterCamel::Update(float _DeltaTime)
 {
-
+	if (death == true)
+	{
+		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime();
+	}
+	if (DeathCheck > 3.0)
+	{
+		this->Death();
+	}
 	
 
 	if (nullptr != PlayerCollision && StateValue == MonsterCamelState::IDLESTART)
@@ -282,16 +288,20 @@ void MonsterCamel::Update(float _DeltaTime)
 				ColActor->Death();
 			}
 
-			if (Hp <= 0 && death == false)
-			{
-				ChangeState(MonsterCamelState::DEATH);
-				MonsterCollision->Death();
-				PlayerCollision->Death();
-				death = true; 
-			}
+			
 	
 		}
 	}
+
+	if (Hp <= 0 && death == false)
+	{
+		ChangeState(MonsterCamelState::DEATH);
+		MonsterCollision->Off();
+		PlayerCollision->Off();
+		death = true;
+	}
+
+
 	if (nullptr != MonsterCollision)
 	{
 		std::vector<GameEngineCollision*> collision;
@@ -311,7 +321,7 @@ void MonsterCamel::Update(float _DeltaTime)
 				ColActor->Death();
 			}
 
-			if (Hp <= 0)
+			if (Hp <= 0  && death == false)
 			{
 				ChangeState(MonsterCamelState::DEATH);
 				MonsterCollision->Off();
@@ -346,14 +356,7 @@ void MonsterCamel::Update(float _DeltaTime)
 		}
 	}
 	
-	if (death == true)
-	{
-		DeathCheck += GameEngineTime::GlobalTime.GetFloatDeltaTime(); 
-	}
-	if (DeathCheck > 3.0)
-	{
-		this->Death(); 
-	}
+	
 
 
 	Movecalculation(_DeltaTime);

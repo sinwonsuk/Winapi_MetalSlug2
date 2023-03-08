@@ -83,7 +83,7 @@ void Rebel::Update(float _DeltaTime)
 
 	if (Hp <= 0)
 	{
-		MonsterCollision->Death();
+		MonsterCollision->Off();
 		ChangeState(RebelState::DEATH);
 	}
 

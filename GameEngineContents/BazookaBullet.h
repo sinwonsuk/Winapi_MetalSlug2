@@ -23,6 +23,6 @@ protected:
 private:
 	bool DeathCheck = false;
 	GameEngineRender* BulletRender = nullptr;
-	GameEngineCollision* Collision = nullptr;
+	
 
 };

@@ -25,10 +25,7 @@ void BazookaBullet::Start()
 
 	}
 
-	{
-		Collision = CreateCollision(MetalSlugOrder::MonsterBullet);
-		Collision->SetScale({ 100, 100 });
-	}
+	
 }
 
 void BazookaBullet::Update(float _DeltaTime)
