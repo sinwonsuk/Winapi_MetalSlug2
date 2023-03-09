@@ -128,7 +128,7 @@ void Items::Update(float _DeltaTime)
 			Heavymachinegun = GameEngineResources::GetInst().SoundPlayToControl("HeavyMachine.mp3");
 			Heavymachinegun.LoopCount(1);
 
-			Player::MainPlayer->HeavyMachineGun += 200;
+			Player::MainPlayer->HeavyMachineGun += 300;
 			HeavyMachineGuneNumber = false;
 		}
 

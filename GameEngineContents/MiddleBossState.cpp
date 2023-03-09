@@ -641,10 +641,9 @@ void MiddleBoss::DeathUpdate(float _Time)
 	{
 		GetLevel()->SetCameraPos({ CurPos.x,CurPos.y+60});
 		Player::MainPlayer->MiddlebossBoom = true;
-		this->Death(); 
-		return;
-
+		this->Off();
 	}
+
 
 
 	/*if (MiddleExploision->IsAnimationEnd())
