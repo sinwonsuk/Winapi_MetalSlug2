@@ -270,7 +270,7 @@ void MonsterCamel::Update(float _DeltaTime)
 		}
 	}
 
-	if (nullptr != MonsterCollision  )
+	if (nullptr != MonsterCollision  && Hp > 0 )
 	{
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Bullet), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
@@ -302,7 +302,7 @@ void MonsterCamel::Update(float _DeltaTime)
 	}
 
 
-	if (nullptr != MonsterCollision)
+	if (nullptr != MonsterCollision && Hp > 0 )
 	{
 		std::vector<GameEngineCollision*> collision;
 		if (true == MonsterCollision->Collision({ .TargetGroup = static_cast<int>(MetalSlugOrder::Boomb), .TargetColType = CT_Rect, .ThisColType = CT_Rect }, collision))
