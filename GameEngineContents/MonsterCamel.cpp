@@ -258,6 +258,17 @@ void MonsterCamel::Update(float _DeltaTime)
 	}
 	
 
+	if (Hp <= 0 && death == false)
+	{
+		ChangeState(MonsterCamelState::DEATH);
+		MonsterCollision->Off();
+		PlayerCollision->Off();
+		death = true;
+	}
+
+
+
+
 	if (nullptr != PlayerCollision && StateValue == MonsterCamelState::IDLESTART)
 	{
 		std::vector<GameEngineCollision*> collision;
@@ -293,13 +304,7 @@ void MonsterCamel::Update(float _DeltaTime)
 		}
 	}
 
-	if (Hp <= 0 && death == false)
-	{
-		ChangeState(MonsterCamelState::DEATH);
-		MonsterCollision->Off();
-		PlayerCollision->Off();
-		death = true;
-	}
+	
 
 
 	if (nullptr != MonsterCollision && Hp > 0 )
