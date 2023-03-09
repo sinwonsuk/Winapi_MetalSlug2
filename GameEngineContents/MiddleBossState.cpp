@@ -627,7 +627,7 @@ void MiddleBoss::DeathUpdate(float _Time)
 	}
 	if (DeathTime16 > 6.1)
 	{
-		CurPos = GetLevel()->GetCameraPos();
+		//CurPos = GetLevel()->GetCameraPos();
 		DeathTime16 = 0;
 	}
 
@@ -641,7 +641,7 @@ void MiddleBoss::DeathUpdate(float _Time)
 	{
 		GetLevel()->SetCameraPos({ CurPos.x,CurPos.y+60});
 		Player::MainPlayer->MiddlebossBoom = true;
-		this->Off();
+		this->Death();
 	}
 
 

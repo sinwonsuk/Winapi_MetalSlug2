@@ -245,7 +245,7 @@ private:
 	GameEngineCollision* LeftMonsterCollision = nullptr;
 	GameEngineCollision* RightMonsterCollision = nullptr;
 	GameEngineCollision* MiddleMonsterCollision = nullptr;
-	
+	bool CurPosCheck = false;
 	bool SildeSounCheck = false;
 	bool PalaceFinishSoundCheck = false;
 	bool DeathSoundCheck = false;

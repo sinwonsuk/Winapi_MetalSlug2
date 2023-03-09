@@ -306,7 +306,7 @@ void Boss::Update(float _DeltaTime)
 
 
 
-		if (GetPos().y > 690)
+		if (GetPos().y > 700)
 		{
 			LeftGroundEffect->On();
 			RightGroundEffect->On();

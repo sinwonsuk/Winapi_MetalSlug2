@@ -581,11 +581,7 @@ void MiddleBoss::DoorUpdate(float _Time)
 
 void MiddleBoss::Update(float _DeltaTime)
 {
-	if (DeathTime15 > 6.6)
-	{	
- 		this->Death();
-	}
-
+	
 
 	if (LeftHp <= 0 && RightHp <= 0 && MiddleHp <= 0)
 	{
@@ -607,6 +603,15 @@ void MiddleBoss::Update(float _DeltaTime)
 		SetMiddleBossStart(true);
 		Player::MainPlayer->CameraMoveCheck = Player::MainPlayer->GetPos();
 		Player::MainPlayer->SetCameraCheck(false);
+
+		if (CurPosCheck == false)
+		{
+			CurPos = GetLevel()->GetCameraPos();
+			CurPosCheck = true;
+
+		}
+
+
 	}
 
 
