@@ -583,7 +583,7 @@ void MiddleBoss::Update(float _DeltaTime)
 {
 	if (DeathTime15 > 6.6)
 	{	
-		this->Death();
+ 		this->Death();
 	}
 
 
